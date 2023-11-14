@@ -1,14 +1,25 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Navbar from "./components/navbar/Navbar";
+import Home from "./components/pages/Home";
+import Modal from "./components/modals/Modal";
+import RegisterModal from "./components/modals/RegisterModal";
+import ToasterProvider from "./providers/ToasterProvider";
 
+export default function App() {
 
-function App() {
-  
   return (
-    <div className="App">
-      <div className="text-blue-400 text-xl">
-          Hello World
-      </div>
-    </div>
-  );
+   <>
+
+   <Navbar />
+   <RegisterModal/>
+   <ToasterProvider />
+      <Routes>
+        <Route path="/" element={<Home />}/>
+      </Routes>
+   </>
+   
+   
+  )
 }
 
-export default App;
+
