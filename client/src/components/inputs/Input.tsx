@@ -1,6 +1,6 @@
 'use client';
 
-import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
+import { FieldErrors, FieldValues, UseFormRegister, get } from "react-hook-form";
 import { BiDollar } from "react-icons/bi";
 
 
@@ -25,12 +25,14 @@ const Input: React.FC<InputProps> = ({
     register,
     errors
 }) => {
+    const error = get(errors, id); // Use get function to handle nested fields
+
     return (
         <div className="w-full relative">
             {formatPrice && (
                 <BiDollar
                     size={24}
-                    className="text-neutral-700 absolute top-5 left 2"
+                    className="text-neutral-700 absolute top-5 left-2"
                 />
             )}
             <input
@@ -53,8 +55,8 @@ const Input: React.FC<InputProps> = ({
                     disabled:opacity-70
                     disabled:cursor-not-allowed
                     ${formatPrice ? 'pl-9' : 'pl-4'}
-                    ${errors[id] ? 'border-rose-500' : 'border-neutral-300'}
-                    ${errors[id] ? 'focus:border-rose-500' : 'focus:border-black'}
+                    ${error ? 'border-rose-500' : 'border-neutral-300'}
+                    ${error ? 'focus:border-rose-500' : 'focus:border-black'}
                 `}
             />
             <label className={`
@@ -71,8 +73,7 @@ const Input: React.FC<InputProps> = ({
                 peer-placeholder-shown-translate-y-0
                 peer-focus:scale-75
                 peer-focus:-translate-y-4
-                ${errors[id] ? 'text-rose-500' : 'text-zinc-400'}
-
+                ${error ? 'text-rose-500' : 'text-zinc-400'}
             `}>
                 {label}
             </label>

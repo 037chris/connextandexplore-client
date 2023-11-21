@@ -4,19 +4,26 @@ import Home from "./components/pages/Home";
 import Modal from "./components/modals/Modal";
 import ToasterProvider from "./providers/ToasterProvider";
 import SignUp from "./components/pages/SignUp";
+import { getUserIDFromJWT } from "./backend/boardapi";
+import { useState } from "react";
+import { UserIDContext } from "./UserIDContext";
 
 export default function App() {
-
+  const [userID, setUserID] = useState(getUserIDFromJWT());
+  console.log("Initial user ID:", userID);
+  
   return (
    <>
+    
+    <UserIDContext.Provider value={{ userID, setUserID }} >
+      <Navbar />
+      <ToasterProvider />
+        <Routes>
+          <Route path="/" element={<Home />}/>
+          <Route path="/signup" element={<SignUp />}/>
+        </Routes>
+    </UserIDContext.Provider>
 
-   <Navbar />
-
-   <ToasterProvider />
-      <Routes>
-        <Route path="/" element={<Home />}/>
-        <Route path="/signup" element={<SignUp />}/>
-      </Routes>
    </>
    
    

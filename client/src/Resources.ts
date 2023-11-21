@@ -1,19 +1,5 @@
-export type Address = {
-  street: string;
-  houseNumber: string;
-  postalCode: string;
-  city: string;
-  country: string;
-  stateOrRegion?: string;
-  apartmentNumber?: string;
-}
 
-export type SocialMediaUrls = {
-  facebook?: string;
-  instagram?: string;
-}
-
-export type UserRegistration  = {
+export type  UserRegistration = {
   email: string;
   name: {
     first: string;
@@ -21,11 +7,22 @@ export type UserRegistration  = {
   };
   password: string;
   isAdministrator?: boolean;
-  address: Address;
+  address: {
+    street: string;
+    houseNumber: string;
+    postalCode: string;
+    city: string;
+    country: string;
+    stateOrRegion?: string;
+    apartmentNumber?: string;
+  };
   profilePicture?: string;
   birthDate: string;
   gender: string;
-  socialMediaUrls?: SocialMediaUrls;
+  socialMediaUrls?: {
+    facebook?: string;
+    instagram?: string;
+  };
 }
 
 
