@@ -1,6 +1,5 @@
 "use client";
 
-import  image  from "../images/placeholder.jpg"
 const Avatar = () => {
   return (
     <img 

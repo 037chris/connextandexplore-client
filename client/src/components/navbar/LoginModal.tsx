@@ -10,6 +10,10 @@ import toast from 'react-hot-toast';
 import { getUserIDFromJWT, login } from '../../backend/boardapi';
 import Modal from '../modals/Modal';
 import Heading from '../Heading';
+import { useUserIDContext } from '../../UserIDContext';
+
+// add functionality for "enter" for loggin
+
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -18,13 +22,14 @@ interface LoginModalProps {
 
 const LoginModal: FC<LoginModalProps> = ({ isOpen, onClose }) => {
   const [loading, setLoading] = useState(false);
-
+  const { userID, setUserID } = useUserIDContext();
   const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm<FieldValues>({
     defaultValues: {
       email: '',
@@ -35,11 +40,26 @@ const LoginModal: FC<LoginModalProps> = ({ isOpen, onClose }) => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setLoading(true);
     try {
-      const result = await login(data.email, data.password);
-      console.log(result);
-      toast.success('Successfully toasted!');
-      onClose();
-      navigate('/');
+      const loginResult = await login(data.email, data.password);
+  
+      console.log("Result from login:", loginResult);
+  
+      if (loginResult) {
+        const user = getUserIDFromJWT();
+        console.log("User ID from JWT:", user);
+  
+        localStorage.setItem("user-info", JSON.stringify(loginResult));
+        setUserID(user);
+  
+        console.log("User ID set in context:", user);
+  
+        toast.success('Successfully logged in!');
+        onClose();
+        navigate('/');
+        reset();
+      } else {
+        toast.error('Login failed. Please check your credentials.');
+      }
     } catch (error) {
       console.error(error);
       toast.error('Something went wrong...');
@@ -47,6 +67,8 @@ const LoginModal: FC<LoginModalProps> = ({ isOpen, onClose }) => {
       setLoading(false);
     }
   };
+  
+  
   
   const goToSignupAndCloseModal = () => {
     onClose(); // Close the modal first
@@ -59,8 +81,7 @@ const LoginModal: FC<LoginModalProps> = ({ isOpen, onClose }) => {
       <Button outline label='Continue with Google' icon={FcGoogle} onClick={() => {}} />
       <Button outline label='Continue with GitHub' icon={AiFillGithub} onClick={() => {}} />
       <div
-        className='text-neutral-500 text-center mt-4 font-light'
-      >
+        className='text-neutral-500 text-center mt-4 font-light'>
         <div className='justify-center flex flex-row items-center gap-2'>
           <div>
             First time using Connect & Explore?
