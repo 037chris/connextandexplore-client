@@ -8,6 +8,7 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { signup } from '../../backend/boardapi';
 import LoginModal from '../navbar/LoginModal';
+import Select from '../inputs/Select';
 
 export default function SignUp() {
   const [error, setError] = useState(null);
@@ -16,6 +17,9 @@ export default function SignUp() {
   
   const [isOpen, setIsOpen] = useState(false);
   const [authenticationModalIsOpen, setAuthenticationModalIsOpen] = useState(false); // State to control the AuthenticationModal
+
+  const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
+
 
   const openAuthenticationModal = () => {
     setAuthenticationModalIsOpen(true)
@@ -75,7 +79,7 @@ const onSubmit: SubmitHandler<FieldValues> = async (data) => {
           stateOrRegion: data.address.stateOrRegion || "",
           apartmentNumber: data.address.apartmentNumber || "", 
         },
-        profilePicture: data.profilePicture || "", 
+        profilePicture: data.profilePicture instanceof File ? data.profilePicture : undefined,
         birthDate: data.birthDate,
         gender: data.gender,
         socialMediaUrls: {
@@ -84,8 +88,8 @@ const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         }
       } as UserRegistration;
 
-        const result = await signup(userData); 
-        console.log(result);
+        const user = await signup(userData); 
+        console.log(user);
         toast.success('Successfully Created!')
         reset();
       } catch (error) {
@@ -116,6 +120,7 @@ const onSubmit: SubmitHandler<FieldValues> = async (data) => {
           disabled={loading} 
           register={register}
           errors={errors}
+          pattern={/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/}
           required
         />
 
@@ -141,6 +146,7 @@ const onSubmit: SubmitHandler<FieldValues> = async (data) => {
               errors={errors}
               required
               disabled={loading}
+              pattern={/^[A-Za-z'-\s]+$/}
             />
           </div>
             <Input
@@ -151,6 +157,7 @@ const onSubmit: SubmitHandler<FieldValues> = async (data) => {
               errors={errors}
               required
               disabled={loading}
+              pattern={/^[A-Za-z'-\s]+$/}
             />
           </div>
           {/* Address */}
@@ -163,6 +170,7 @@ const onSubmit: SubmitHandler<FieldValues> = async (data) => {
               errors={errors}
               required
               disabled={loading}
+              pattern={/^[A-Za-z0-9\s\-.]+$/}
             />
        <div className='mt-4 md:mt-0'>
             <Input
@@ -173,6 +181,7 @@ const onSubmit: SubmitHandler<FieldValues> = async (data) => {
               errors={errors}
               required
               disabled={loading}
+              pattern={/^[A-Za-z0-9\s\-/]+$/}
             />
          </div>
         </div>
@@ -186,6 +195,7 @@ const onSubmit: SubmitHandler<FieldValues> = async (data) => {
                 errors={errors}
                 required
                 disabled={loading}
+                pattern={/^[A-Za-z\s-]+$/}
               />
             </div>
             <div className='mt-4 md:mt-0'>
@@ -197,6 +207,7 @@ const onSubmit: SubmitHandler<FieldValues> = async (data) => {
                 errors={errors}
                 required
                 disabled={loading}
+                pattern={/^[A-Za-z\s-]+$/}
               />
             </div>
             <div className='mt-4 md:mt-0'>
@@ -227,14 +238,15 @@ const onSubmit: SubmitHandler<FieldValues> = async (data) => {
           errors={errors}
           disabled={loading}
         />
-        <Input
-          type='text'
-          label='Profile Picture'
-          id='profilePicture'
-          register={register}
-          errors={errors}
-          disabled={loading}
-        />
+<Input
+        type='file'
+        label='Profile Picture'
+        id='profilePicture'
+        register={register}
+        errors={errors}
+        disabled={loading}
+        onChange={(file) => setUploadedFileName(file ? file.name : null)} // Set uploaded file name
+      />
         <Input
           type='date'
           label='Birthdate *'
@@ -243,9 +255,19 @@ const onSubmit: SubmitHandler<FieldValues> = async (data) => {
           errors={errors}
           required
           disabled={loading}
+          pattern={/\d{4}-\d{2}-\d{2}/} 
         />
-        <Input
+        {/* <Input
           type='text'
+          label='Gender *'
+          id='gender'
+          register={register}
+          errors={errors}
+          required
+          disabled={loading}
+        /> */}
+         <Select
+          options={["Female", "Male", "Other"]}
           label='Gender *'
           id='gender'
           register={register}
