@@ -14,13 +14,15 @@ const UserSettings: React.FC<UserSettingsProps> = ({ activeTab }) => {
                 <h1 className='text-3xl text-center font-semibold mt-20 '>Settings</h1>
                 <Heading title='Profil bearbeiten' subtitle="Diese Informationen erscheinen in deinem öffentlichen Profil" />
             </div>
-            <div>
-                <SettingsNav />
-            </div>
-            <div>
-                {activeTab === 'profile' && <div>Profil Seite hier rendern</div>}
-                {activeTab === 'info' && <div>Info Seite hier rendern</div>}
-                {activeTab === 'account' && <div>Account Seite hier rendern</div>}
+            <div className='grid lg:grid-cols-3 gap-6'>
+                <div className="cols-span-1">
+                    <SettingsNav />
+                </div>
+                <div className="cols-span-2">
+                    {activeTab === 'profile' && <div>Profil Seite hier rendern</div>}
+                    {activeTab === 'info' && <div>Info Seite hier rendern</div>}
+                    {activeTab === 'account' && <div>Account Seite hier rendern</div>}
+                </div>
             </div>
         </>
     )

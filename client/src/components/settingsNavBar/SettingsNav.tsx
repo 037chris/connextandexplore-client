@@ -12,21 +12,21 @@ export const SettingsNav: React.FC<SettingProps> = () => {
     };
 
     return (
-        <div>
+        <div className='border-solid rounded-md border-neutral-300'>
             <Container>
                 <ul>
                     <li>
-                        <a href="#" onClick={() => handleTabClick('profile')}>
+                        <a href="#" className={activeTab === 'profile' ? 'active': ''} onClick={() => handleTabClick('profile')}>
                             C&E Profil
                         </a>
                     </li>
                     <li>
-                        <a href="#" onClick={() => handleTabClick('info')}>
+                        <a href="#" className={activeTab === 'info' ? 'active': ''} onClick={() => handleTabClick('info')}>
                             Personal Info
                         </a>
                     </li>
                     <li>
-                        <a href="#" onClick={() => handleTabClick('account')}>
+                        <a href="#" className={activeTab === 'account' ? 'active': ''} onClick={() => handleTabClick('account')}>
                             Account
                         </a>
                     </li>

@@ -1,0 +1,32 @@
+// Definiere benannte Breakpoints
+$breakpoints: (
+  small: 1px,
+  medium: 768px,
+  large: 992px,
+);
+
+// Mixin, um Media Queries mit benannten Breakpoints zu erstellen
+@mixin breakpoint($name) {
+  $size: map-get($breakpoints, $name);
+  $next: null;
+
+  @if $name ==small {
+    $next: medium;
+  }
+
+  @else if $name ==medium {
+    $next: large;
+  }
+
+  @if $next !=null {
+    @media(min-width: $size) and (max-width: map-get($breakpoints, $next) - 1px) {
+      @content;
+    }
+  }
+
+  @else {
+    @media(min-width: $size) {
+      @content;
+    }
+  }
+}

@@ -9,6 +9,9 @@ import { getUserIDFromJWT } from "./backend/boardapi";
 import { useState } from "react";
 import { UserIDContext } from "./UserIDContext";
 
+// STYLES
+import './sass/App.scss'
+
 export default function App() {
   const [userID, setUserID] = useState(getUserIDFromJWT());
   console.log("Initial user ID:", userID);

@@ -23,6 +23,7 @@
     "react-icons": "^4.11.0",
     "react-router-dom": "^6.18.0",
     "react-scripts": "^5.0.1",
+    "sass": "^1.69.5",
     "typescript": "^3.4.5",
     "web-vitals": "^3.1.0",
     "zustand": "^4.4.6"
