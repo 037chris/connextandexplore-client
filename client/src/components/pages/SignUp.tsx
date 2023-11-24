@@ -39,25 +39,6 @@ export default function SignUp() {
 
 
 
-
-//  const  onSubmit:  SubmitHandler<FieldValues> = (data) => {
-
-//   setLoading(true);
-//   axios.post('http://localhost:3000/api/users/register', data)
-//       .then(() => {
-//         console.log(data)
-//         toast.success('Successfully created!');
-//         reset(); // Reset the form
-//       })
-//       .catch((error) => {
-//           toast.error('Something went wrong...');
-//           console.log(error);
-//       })
-//       .finally(() => {
-//           setLoading(false);
-//       })
-// }
-
 const onSubmit: SubmitHandler<FieldValues> = async (data) => {
   setLoading(true);
 
@@ -101,8 +82,8 @@ const onSubmit: SubmitHandler<FieldValues> = async (data) => {
   };
 
   return (
-    <div className='p-3 max-w-lg mx-auto '>
-      <h1 className='text-3xl text-center font-semibold mt-20 '>Register</h1>
+    <div className='p-3 max-w-lg mx-auto pt-24 '>
+      {/* <h1 className='text-3xl text-center font-titan mt-20 '>Register</h1> */}
       <Heading title='Welcome to Connect & Explore' subtitle="Create an account!" />
       
       <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4'>
@@ -238,15 +219,15 @@ const onSubmit: SubmitHandler<FieldValues> = async (data) => {
           errors={errors}
           disabled={loading}
         />
-<Input
-        type='file'
-        label='Profile Picture'
-        id='profilePicture'
-        register={register}
-        errors={errors}
-        disabled={loading}
-        onChange={(file) => setUploadedFileName(file ? file.name : null)} // Set uploaded file name
-      />
+        <Input
+          type='file'
+          label='Profile Picture'
+          id='profilePicture'
+          register={register}
+          errors={errors}
+          disabled={loading}
+          onChange={(file) => setUploadedFileName(file ? file.name : null)} // Set uploaded file name
+        />
         <Input
           type='date'
           label='Birthdate *'
@@ -297,7 +278,6 @@ const onSubmit: SubmitHandler<FieldValues> = async (data) => {
             disabled={loading}
             label={loading ? 'Loading...' : 'Continue'}
             onClick={() => {}}
-
         />
         </div>
         {/* <Button 

@@ -1,11 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&display=swap');
+/* spezielle Headlines regular 400*/
+@import url('https://fonts.googleapis.com/css2?family=Titan+One&display=swap');
+
+/* Headlines(h1-h6) regular 400*/
+@import url('https://fonts.googleapis.com/css2?family=Sue+Ellen+Francisco&display=swap');
+
+/* Body Text */
+@import url('https://fonts.cdnfonts.com/css/helvetica-neue-55');
+
+/* @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&display=swap'); */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-html,
-body,
-:root {
-  height: 100%;
-  font-family: 'Nunito', sans-serif;}
+
+
+
+.font-francisco {
+  font-family: "Sue Ellen Francisco", cursive;
+}
+
+.font-sans {
+  font-family: "Helvetica Neue", sans-serif;
+}
+
+.font-titan {
+  font-family: 'Titan One', sans-serif;
+}
