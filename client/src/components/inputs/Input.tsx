@@ -102,7 +102,7 @@ const Input: React.FC<InputProps> = ({
               </label>
               <p className="pl-1">{uploadedFileName ? uploadedFileName : "or drag and drop"}</p>
             </div>
-            <p className="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
+            <p className="text-xs leading-5 text-gray-600">PNG, JPG up to 10MB</p>
           </div>
         </div>
       ) : (
@@ -118,6 +118,7 @@ const Input: React.FC<InputProps> = ({
             p-4
             pt-6
             font-light
+            font-sans
             bg-white
             border-2
             rounded-md
@@ -137,6 +138,7 @@ const Input: React.FC<InputProps> = ({
         className={`
           absolute
           text-md 
+          font-sans
           duration-150
           transform
           -translate-y-3
@@ -168,28 +170,17 @@ export default Input;
 function getCustomErrorText(id: string, error: any): string {
     switch (id) {
       case "email":
-        return error.message || "Invalid email address";
+        return error.message || "Please enter a valid email address";
       case "password":
-        return (
-            error.message || 
-            <div>
-                Password must have at least 8 characters including:
-                <ul>
-                    <li>At least one uppercase letter</li>
-                    <li>At least one lowercase letter</li>
-                    <li>At least one digit</li>
-                    <li>At least one special character</li>
-                </ul>
-            </div> 
-        );
+        return error.message || "Please enter a valid password";
       case "name.first":
-        return error.message || "Please enter a valid first name. It should consist of alphabetical characters, spaces, apostrophes, or hyphens.";
+        return error.message || "Please enter a valid first name";
       case "name.last":
-        return error.message || "Please enter a valid first name. It should consist of alphabetical characters, spaces, apostrophes, or hyphens.";
+        return error.message || "Please enter a valid last name";
       case "address.street":
-        return "Please enter a valid street name. It should consist of letters, numbers, spaces, hyphens, or periods.";
+        return "Please enter a valid street name";
       case "address.houseNumber":
-        return error.message || "Please enter a valid street number. It should consist of letters, numbers, spaces, hyphens, or slashes.";
+        return error.message || "Please enter a valid street number";
       case "address.city":
         return error.message || "Please enter a valid city name.";
       case "address.country":
