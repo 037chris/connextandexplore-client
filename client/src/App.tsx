@@ -5,6 +5,7 @@ import UserSettings from "./components/pages/UserSettings";
 import Modal from "./components/modals/Modal";
 import ToasterProvider from "./providers/ToasterProvider";
 import SignUp from "./components/pages/SignUp";
+import NotFound from "./components/pages/NotFound";
 import { getUserIDFromJWT } from "./backend/boardapi";
 import { useState } from "react";
 import { UserIDContext } from "./UserIDContext";
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="/" element={<Home />}/>
           <Route path="/signup" element={<SignUp />}/>
           <Route path="/settings" element={<UserSettings activeTab={"profile"} />}/>
+          <Route path='*' element={<NotFound />}/>
         </Routes>
     </UserIDContext.Provider>
 
