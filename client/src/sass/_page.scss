@@ -47,9 +47,13 @@ form {
         margin-top: rem(15);
 
         &[type="submit"]{
-            @extend .border-slim;
-            padding: rem(6) rem(15);
-            width: auto;
+           @extend .settings-btn;
         }
     }
+}
+
+.settings-btn {
+    @extend .border-slim;
+    padding: rem(6) rem(15);
+    width: auto;
 }
