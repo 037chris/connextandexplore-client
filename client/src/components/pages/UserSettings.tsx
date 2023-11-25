@@ -26,12 +26,13 @@ const UserSettings: React.FC<UserSettingsProps> = ({ activeTab }) => {
 
                     <div>
                         <form>
+                            {/* hier fehlt das ausgelesene Profilbild */}
                             <input type="submit" value="Neuer upload" />
                             <input type="submit" value="Foto löschen" />
                         </form>
                         <form>
                             <label id="vorname"></label>
-                            <input id="vorname" className="border-slim" type="text" placeholder="Name"></input>
+                            <input id="vorname" className="border-slim" type="text" placeholder="Vorname"></input>
                             <label id="name"></label>
                             <input id="name" className="border-slim" type="text" placeholder="Name"></input>
                             <span>Social Media Links</span>
