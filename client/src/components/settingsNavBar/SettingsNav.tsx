@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import Container from "../Container";
 
-interface SettingProps {}
+interface SettingsNavProps {
+    activeTab: 'profile' | 'info' | 'account';
+}
 
-export const SettingsNav: React.FC<SettingProps> = () => {
+export const SettingsNav: React.FC<SettingsNavProps> = () => {
     const [activeTab, setActiveTab] = useState<'profile' | 'info' | 'account'>('profile');
 
     // to handle active setting tab
@@ -16,17 +18,17 @@ export const SettingsNav: React.FC<SettingProps> = () => {
             <Container>
                 <ul>
                     <li>
-                        <a href="#" className={activeTab === 'profile' ? 'active': ''} onClick={() => handleTabClick('profile')}>
+                        <a href="#" className={activeTab === 'profile' ? 'active' : ''} onClick={() => handleTabClick('profile')}>
                             C&E Profil
                         </a>
                     </li>
                     <li>
-                        <a href="#" className={activeTab === 'info' ? 'active': ''} onClick={() => handleTabClick('info')}>
+                        <a href="#" className={activeTab === 'info' ? 'active' : ''} onClick={() => handleTabClick('info')}>
                             Personal Info
                         </a>
                     </li>
                     <li>
-                        <a href="#" className={activeTab === 'account' ? 'active': ''} onClick={() => handleTabClick('account')}>
+                        <a href="#" className={activeTab === 'account' ? 'active' : ''} onClick={() => handleTabClick('account')}>
                             Account
                         </a>
                     </li>
