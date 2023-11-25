@@ -37,4 +37,19 @@ $primary: #2079ff;
     }
 }
 
+form {
+    label {
+        display: block;
+    }
 
+    input {
+        width: 100%;
+        margin-top: rem(15);
+
+        &[type="submit"]{
+            @extend .border-slim;
+            padding: rem(6) rem(15);
+            width: auto;
+        }
+    }
+}
