@@ -19,6 +19,7 @@ const UserSettings: React.FC<UserSettingsProps> = ({ activeTab }) => {
                     <SettingsNav />
                 </div>
                 <div className="cols-span-2">
+                    {activeTab}
                     {activeTab === 'profile' && <div>Profil Seite hier rendern</div>}
                     {activeTab === 'info' && <div>Info Seite hier rendern</div>}
                     {activeTab === 'account' && <div>Account Seite hier rendern</div>}
@@ -29,3 +30,22 @@ const UserSettings: React.FC<UserSettingsProps> = ({ activeTab }) => {
 }
 
 export default UserSettings
+
+// <div>
+                        //     <form>
+                        //         <input type="submit" value="Neuer upload" />
+                        //         <input type="submit" value="Foto löschen" />
+                        //     </form>
+                        //     <form>
+                        //         <label id="vorname"></label>
+                        //         <input id="vorname" className="border-slim" type="text" placeholder="Name"></input>
+                        //         <label id="name"></label>
+                        //         <input id="name" className="border-slim" type="text" placeholder="Name"></input>
+                        //         <span>Social Media Links</span>
+                        //         <label id="instagram"></label>
+                        //         <input id="instagram" className="border-slim" type="text" placeholder="Instagram Profil URL"></input>
+                        //         <label id="facebook"></label>
+                        //         <input id="facebook" className="border-slim" type="text" placeholder="Facbook Profil URL"></input>
+                        //         <input type="submit" value="speichern" />
+                        //     </form>
+                        // </div>

@@ -1,1 +1,40 @@
 // individual styles
+$border: #E0E6EF;
+$primary: #2079ff;
+
+// px to rem - value in px
+@function rem($value) {
+    $remValue: ($value / 16) + rem; 
+    @return $remValue;
+}
+
+.border-slim {
+    border: 1px solid $border;
+    border-radius: rem(6);
+}
+
+.border-box {
+    @extend .border-slim;
+
+    ul {
+        li {
+            a {
+                &.active {
+                    color: $primary;
+                }
+
+                &:hover {
+                    color: $primary;
+                }
+            }
+        }
+    }
+
+    .help-link {
+        &:hover {
+            color: $primary;
+        }
+    }
+}
+
+
