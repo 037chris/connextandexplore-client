@@ -1,6 +1,7 @@
 import { jwtDecode } from "jwt-decode";
-import { UserRegistration } from "../Resources";
+import { UserRegistration, userResource, usersResource } from "../Resources";
 import Cookies from "js-cookie";
+import { fetchWithErrorHandling } from "./validation";
 
 
 
@@ -128,3 +129,81 @@ export function logout() {
   Cookies.remove("access_token");
 }
 
+function headers() {
+  const headers:any = {
+    "Content-Type":"application/json"
+  }
+  const jwt = Cookies.get("access_token");
+  if (jwt) {
+    headers.Authorization = `Bearer ${jwt}`;
+  }
+  return headers;
+}
+
+/**
+ * 
+ * @returns users as usersResource
+ */
+export async function getAllUsers():Promise<usersResource> {
+  const url = `${HOST}/api/users`;
+  try {
+    const response = await fetchWithErrorHandling(url, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    return response as usersResource;
+  } catch (err) {
+    throw err;
+  }
+}
+
+export async function getUser(userid:string):Promise<userResource> {
+  if (!userid) {
+    throw new Error("Userid is invalid.")
+  }
+  const url = `${HOST}/api/users/${userid}`;
+  try {
+    const response = await fetchWithErrorHandling(url, {
+      method:"GET", 
+      headers: headers(),
+      });
+    return response as userResource;
+  } catch(err) {
+    throw err;
+  }
+}
+
+export async function updateUser(user:userResource):Promise<userResource> {
+  if (!user.id) {
+    throw new Error("Userid is invalid.")
+  }
+  const url = `${HOST}/api/users/${user.id}`;
+  try {
+    const response = await fetchWithErrorHandling(url, {
+      method:"PUT", 
+      headers: headers(),
+      });
+    return response as userResource;
+  } catch(err) {
+    throw err;
+  }
+}
+
+export async function deleteUser(userid:string):Promise<Boolean> {
+  if (!userid) {
+    throw new Error("Userid is invalid.")
+  }
+  const url = `${HOST}/api/users/${userid}`;
+  try {
+    const response = await fetchWithErrorHandling(url, {
+      method:"DELETE", 
+      headers: headers(),
+      });
+    return response as Boolean;
+  } catch(err) {
+    throw err;
+  }
+}
