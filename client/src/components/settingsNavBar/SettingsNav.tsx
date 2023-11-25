@@ -12,7 +12,7 @@ export const SettingsNav: React.FC<SettingProps> = () => {
     };
 
     return (
-        <div className='border-solid rounded-md border-neutral-300'>
+        <div className='border-box'>
             <Container>
                 <ul>
                     <li>
@@ -31,7 +31,8 @@ export const SettingsNav: React.FC<SettingProps> = () => {
                         </a>
                     </li>
                 </ul>
-                <a href="#">Help</a>
+                <a href="#" className="help-link">Help</a>
+                <p>{activeTab}</p>
             </Container>
         </div>
     );
