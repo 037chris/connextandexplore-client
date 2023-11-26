@@ -12,6 +12,7 @@ import { UserIDContext } from "./UserIDContext";
 
 // STYLES
 import './sass/App.scss'
+import UserProfile from "./components/pages/UserProfile";
 
 export default function App() {
   const [userID, setUserID] = useState(getUserIDFromJWT());
@@ -27,7 +28,11 @@ export default function App() {
           <Route path="/" element={<Home />}/>
           <Route path="/signup" element={<SignUp />}/>
           <Route path="/settings" element={<UserSettings activeTab={"profile"} />}/>
+<<<<<<< HEAD
           <Route path='*' element={<NotFound />}/>
+=======
+          <Route path="/about" element={<UserProfile />}/>
+>>>>>>> 6fbd056 (profile page wurde erstellt)
         </Routes>
     </UserIDContext.Provider>
 

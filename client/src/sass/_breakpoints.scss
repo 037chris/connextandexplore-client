@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Definiere benannte Breakpoints
 // TAILWIND
 // sm	640px	@media (min-width: 640px) { ... }
@@ -12,12 +13,21 @@ $breakpoints: (
   xl: 1025px,
   2xl: 1281px,
 );
+=======
+// // Definiere benannte Breakpoints
+// $breakpoints: (
+//   small: 1px,
+//   medium: 768px,
+//   large: 992px,
+// );
+>>>>>>> 6fbd056 (profile page wurde erstellt)
 
-// Mixin, um Media Queries mit benannten Breakpoints zu erstellen
-@mixin breakpoint($name) {
-  $size: map-get($breakpoints, $name);
-  $next: null;
+// // Mixin, um Media Queries mit benannten Breakpoints zu erstellen
+// @mixin breakpoint($name) {
+//   $size: map-get($breakpoints, $name);
+//   $next: null;
 
+<<<<<<< HEAD
   @if $name == sm {
     $next: md;
   }
@@ -39,10 +49,25 @@ $breakpoints: (
       @content;
     }
   }
+=======
+//   @if $name ==small {
+//     $next: medium;
+//   }
 
-  @else {
-    @media(min-width: $size) {
-      @content;
-    }
-  }
-}
+//   @else if $name ==medium {
+//     $next: large;
+//   }
+
+//   @if $next !=null {
+//     @media(min-width: $size) and (max-width: map-get($breakpoints, $next) - 1px) {
+//       @content;
+//     }
+//   }
+>>>>>>> 6fbd056 (profile page wurde erstellt)
+
+//   @else {
+//     @media(min-width: $size) {
+//       @content;
+//     }
+//   }
+// }

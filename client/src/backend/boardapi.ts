@@ -1,5 +1,5 @@
 import { jwtDecode } from "jwt-decode";
-import { UserRegistration } from "../Resources";
+import { UserRegistration, UserResource } from "../Resources";
 import Cookies from "js-cookie";
 
 
@@ -88,24 +88,43 @@ export async function login(email: string, password: string): Promise<Boolean> {
 }
 
 
-// export function getUserIDFromJWT() {
-//   try {
-//     const cookie = Cookies.get("access_token");
-//     if (cookie) {
-//       const jwt: any = jwtDecode(cookie);
-//       console.log("Decoded JWT:", jwt);
-//       const userId = jwt?.sub;
-//       if (userId) {
-//         return userId;
-//       } else {
-//         console.error("JWT does not contain 'sub' property");
-//       }
-//     }
-//   } catch (error) {
-//     console.error("Error decoding JWT:", error);
-//   }
-//   return undefined;
-// }
+export async function getUser(userId: string) {
+  const url = `${HOST}/api/users/${userId}`;
+
+  try {
+    const token = Cookies.get('access_token');
+
+    if (!token) {
+      console.error('No access token available.');
+      // Handle the absence of the token as needed
+      return null;
+    }
+
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    console.log('getUser response:', response);
+
+    if (!response.ok) {
+      console.error('Error fetching user profile:', response);
+      throw new Error('Error fetching user profile');
+    }
+
+    const userProfile = await response.json();
+    return userProfile;
+  } catch (error) {
+    console.error('Error in getUser function:', error);
+    throw error;
+  }
+}
+
+
 
 export function getUserIDFromJWT() {
   try {
