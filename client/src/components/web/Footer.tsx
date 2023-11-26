@@ -24,15 +24,17 @@ const Footer = () => {
                                 <li><Link to="#">Abmelden</Link></li>
                             </ul>
                         </div>
-                        <p>Connect & <span>Explore</span></p>
-                        <ul>
-                            <li><Link to="#">Event suchen</Link></li>
-                            <li><Link to="#">Kalender</Link></li>
-                            <li><Link to="#">Allgemeine Geschäftsbedingungen</Link></li>
-                            <li><Link to="#">Datenschutzrichtlinie</Link></li>
-                            <li><Link to="#">Impressum</Link></li>
-                            <li><Link to="#">Hilfe/FAQ</Link></li>
-                        </ul>
+                        <div className="footer-navi">
+                            <p>Connect & <span>Explore</span></p>
+                            <ul>
+                                <li><Link to="#">Event suchen</Link></li>
+                                <li><Link to="#">Kalender</Link></li>
+                                <li><Link to="#">Allgemeine Geschäftsbedingungen</Link></li>
+                                <li><Link to="#">Datenschutzrichtlinie</Link></li>
+                                <li><Link to="#">Impressum</Link></li>
+                                <li><Link to="#">Hilfe/FAQ</Link></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

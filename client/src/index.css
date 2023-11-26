@@ -1,11 +1,11 @@
-/* spezielle Headlines regular 400*/
+/* spezielle Headlines regular 400
 @import url('https://fonts.googleapis.com/css2?family=Titan+One&display=swap');
 
 /* Headlines(h1-h6) regular 400*/
-@import url('https://fonts.googleapis.com/css2?family=Sue+Ellen+Francisco&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Sue+Ellen+Francisco&display=swap'); */
 
 /* Body Text */
-@import url('https://fonts.cdnfonts.com/css/helvetica-neue-55');
+/* @import url('https://fonts.cdnfonts.com/css/helvetica-neue-55'); */ 
 
 /* @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&display=swap'); */
 
@@ -26,4 +26,8 @@
 
 .font-titan {
   font-family: 'Titan One', sans-serif;
+}
+
+a, p, label, input{
+  font-weight: 200;
 }
