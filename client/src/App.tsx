@@ -21,7 +21,7 @@ export default function App() {
    <>
     
     <UserIDContext.Provider value={{ userID, setUserID }} >
-      <Navbar />
+      {/* <Navbar /> */}
       <ToasterProvider />
         <Routes>
           <Route path="/" element={<Home />}/>
