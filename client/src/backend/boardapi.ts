@@ -182,9 +182,11 @@ export async function updateUser(user:userResource):Promise<userResource> {
   }
   const url = `${HOST}/api/users/${user.id}`;
   try {
+    console.log("userinfo:",user)
     const response = await fetchWithErrorHandling(url, {
       method:"PUT", 
       headers: headers(),
+      body:JSON.stringify(user)
       });
     return response as userResource;
   } catch(err) {

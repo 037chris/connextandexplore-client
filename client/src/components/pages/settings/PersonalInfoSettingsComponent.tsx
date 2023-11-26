@@ -2,7 +2,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Input from "../../inputs/Input";
 import { useEffect, useState } from "react";
 import Button from "../../Button";
-import { getUser, getUserIDFromJWT } from "../../../backend/boardapi";
+import { getUser, getUserIDFromJWT, updateUser } from "../../../backend/boardapi";
 import { addressResource, userResource } from "../../../Resources";
 
 const PersonalInfoSettingsComponent = () => {
@@ -14,8 +14,9 @@ const PersonalInfoSettingsComponent = () => {
 
     const load = async () => {
         try {
-            const id = getUserIDFromJWT();
+            const id = await getUserIDFromJWT();
             const u:userResource = await getUser(id);
+            console.log(u);
             setUser(u);
         } catch (err) {
             setUser(null);
@@ -38,19 +39,24 @@ const PersonalInfoSettingsComponent = () => {
         try {
             const userData = user;
             const address:addressResource =  {
-                street: data.address.street || userData?.address.street,
-                houseNumber: data.address.houseNumber || userData?.address.houseNumber,
-                postalCode: data.address.postalCode || userData?.address.postalCode,
-                city: data.address.city || userData?.address.city,
-                country: data.address.country || userData?.address.country,
+                street: data.address.street ? data.address.street : userData?.address.street,
+                houseNumber: data.address.houseNumber ? data.address.houseNumber : userData?.address.houseNumber,
+                postalCode: data.address.postalCode ? data.address.postalCode : userData?.address.postalCode,
+                city: data.address.city ? data.address.city : userData?.address.city,
+                country: data.address.country ? data.address.country : userData?.address.country,
                 stateOrRegion: (data.address.stateOrRegion || userData?.address.stateOrRegion) || "",
                 apartmentNumber: (data.address.apartmentNumber || userData?.address.apartmentNumber) || "", 
             }
             userData!.address = address;
+            console.log(userData?.address);
             userData!.gender=data.gender;
+            console.log("fetch");
+            const res = await updateUser(userData!);
+            console.log("res:",res);
             reset();
         } catch (error) {
             console.error(error);
+            //todo: map backend validation error to inputfield
             //toast.error('Something went wrong...');
         } finally {
             setLoading(false);
@@ -161,7 +167,7 @@ const PersonalInfoSettingsComponent = () => {
                 <Button 
                     disabled={loading}
                     label={loading ? 'Loading...' : 'Continue'}
-                    onClick={() => {}}
+                    onClick={() => {handleSubmit(onSubmit)}}
                 />
                 {/*<input type="submit" className="save" value="speichern" />*/}
             </form>
