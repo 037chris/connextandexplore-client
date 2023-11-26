@@ -1,8 +1,16 @@
 // Definiere benannte Breakpoints
+// TAILWIND
+// sm	640px	@media (min-width: 640px) { ... }
+// md	768px	@media (min-width: 768px) { ... }
+// lg	1024px	@media (min-width: 1024px) { ... }
+// xl	1280px	@media (min-width: 1280px) { ... }
+// 2xl	1536px	@media (min-width: 1536px) { ... }
 $breakpoints: (
-  small: 1px,
-  medium: 768px,
-  large: 992px,
+  sm: 1px,
+  md: 641px,
+  lg: 769px,
+  xl: 1025px,
+  2xl: 1281px,
 );
 
 // Mixin, um Media Queries mit benannten Breakpoints zu erstellen
@@ -10,16 +18,24 @@ $breakpoints: (
   $size: map-get($breakpoints, $name);
   $next: null;
 
-  @if $name ==small {
-    $next: medium;
+  @if $name == sm {
+    $next: md;
   }
 
-  @else if $name ==medium {
-    $next: large;
+  @else if $name == md {
+    $next: lg;
+  }
+
+  @else if $name == lg {
+    $next: xl;
+  }
+
+  @else if $name == xl {
+    $next: 2xl;
   }
 
   @if $next !=null {
-    @media(min-width: $size) and (max-width: map-get($breakpoints, $next) - 1px) {
+    @media(min-width: $size) {
       @content;
     }
   }

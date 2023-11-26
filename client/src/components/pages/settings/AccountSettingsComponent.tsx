@@ -25,20 +25,20 @@ const AccountSettingsComponent = () => {
             </form>
 
             <div>
-                <p>Passwort ändern</p>
+                <p className="strong mb-5 mt-7">Passwort ändern</p>
                 <p>Wenn du dein Passwort änderst, wirst du automatisch ausgeloggt.</p>
-                <button className="settings-btn">Passwort ändern</button>
+                <button className="settings-btn btn-primary">Passwort ändern</button>
             </div>
             <div>
-                <p>Account deaktivieren</p>
+                <p className="strong mb-5 mt-7">Account deaktivieren</p>
                 <p>Du kannst deinen Account vorübergehend deaktivieren. Meld dich einfach erneut an für eine Reaktivierung. </p>
-                <button className="settings-btn">Account deaktivieren</button>
+                <button className="settings-btn btn-primary">Account deaktivieren</button>
             </div>
             <hr />
             <div>
-                <p>Account löschen</p>
+                <p className="strong mb-5 mt-7">Account löschen</p>
                 <p>Wenn du Connect and Explore erneut verwenden möchtest, musst du einen neuen Account erstellen.</p>
-                <button className="settings-btn">Account löschen</button>
+                <button className="settings-btn btn-alert">Account löschen</button>
             </div>
         </div>
     );
