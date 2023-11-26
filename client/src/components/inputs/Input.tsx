@@ -13,7 +13,7 @@ interface InputProps {
   errors: FieldErrors;
   pattern?: RegExp;
   onChange?: (file: File | null) => void; // Add a callback for file input change
-
+  defaultValue?: string; //set a default value for changing userSettings e.g. only the last name changes and the user does not want to set all values again.
 }
 
 const Input: React.FC<InputProps> = ({
@@ -26,7 +26,8 @@ const Input: React.FC<InputProps> = ({
   register,
   errors,
   pattern,
-  onChange
+  onChange,
+  defaultValue
 }) => {
   const error = get(errors, id);
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
@@ -112,6 +113,7 @@ const Input: React.FC<InputProps> = ({
           {...register(id, { required, pattern })}
           placeholder=" "
           type={type}
+          defaultValue={defaultValue}
           className={`
             peer
             w-full

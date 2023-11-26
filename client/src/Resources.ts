@@ -52,13 +52,13 @@ export type usersResource = {
 
 export type addressResource = {
   id?: string;
-  street: String;
-  houseNumber: String;
-  apartmentNumber?: String;
-  postalCode: String;
-  city: String;
-  stateOrRegion?: String;
-  country: String;
+  street: string;
+  houseNumber: string;
+  apartmentNumber?: string;
+  postalCode: string;
+  city: string;
+  stateOrRegion?: string;
+  country: string;
 };
 
 export type ValidationMessages<Type> = {
