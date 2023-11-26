@@ -10,7 +10,8 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+    },
     fontFamily: {
       'sans': ['"Helvetica Neue"', 'sans-serif'],
       'francisco': ['"Sue Ellen Francisco"', 'cursive'],

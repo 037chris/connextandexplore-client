@@ -1,11 +1,15 @@
-// individual styles
-$border: #E0E6EF;
-$primary: #2079ff;
 
-// px to rem - value in px
-@function rem($value) {
-    $remValue: ($value / 16) + rem; 
-    @return $remValue;
+
+div.max-grid {
+    max-width: rem(1360);
+    width: 100%;
+    margin: 0 auto;
+    color: $text;
+}
+
+.strong {
+    font-weight: 600;
+    font-size: rem(16);
 }
 
 .border-slim {
@@ -16,8 +20,12 @@ $primary: #2079ff;
 .border-box {
     @extend .border-slim;
 
+    max-width: rem(318);
+
     ul {
+        padding: rem(28) rem(36) rem(28); 
         li {
+            padding: rem(7) 0;
             a {
                 &.active {
                     color: $primary;
@@ -31,8 +39,24 @@ $primary: #2079ff;
     }
 
     .help-link {
+        display: block;
+        position: relative;
+        padding: rem(18) rem(36) rem(18); 
+
         &:hover {
             color: $primary;
+        }
+
+        &::before {
+            content: '';
+            display: block;
+            max-width:rem(318);
+            width:100%;
+            height: rem(1);
+            background-color: $border;
+            position:absolute;
+            left:0;
+            top: 0;
         }
     }
 }
@@ -45,9 +69,16 @@ form {
     input {
         width: 100%;
         margin-top: rem(15);
+        border: 1px solid $text;
+        padding: rem(5) 0;
+        border-radius: rem(6);
 
         &[type="submit"]{
            @extend .settings-btn;
+
+           &.save {
+                @extend .btn-secondary;
+           }
         }
     }
 }
@@ -57,3 +88,55 @@ form {
     padding: rem(6) rem(15);
     width: auto;
 }
+
+.btn-primary {
+    background-color: $primary;
+    border: 1px solid $primary;
+    color: $white;
+    transition: 350ms ease-in-out all;
+    width: 100%;
+    max-width: rem(200);
+    height: rem(45);
+
+    &:hover {
+        background-color: $white;
+        color: $primary;
+        cursor: pointer;
+    }
+}
+
+.btn-secondary {
+    @extend .btn-primary;
+    background-color: $secondary;
+    border: rem(1) solid $secondary;
+
+    &:hover {
+        color: $secondary;
+    }
+}
+
+.btn-alert {
+    @extend .btn-primary;
+    background-color: $alert;
+    border: rem(1) solid $alert;
+
+    &:hover {
+        background-color: $alert;
+        color: $white;
+        border: rem(1) solid $alert;
+    }
+}
+
+footer {
+    background-color: $text;
+    
+    .max-grid {
+        color: $white;
+
+        @include breakpoint(lg) {
+            max-width: rem(1230) !important;
+        }
+    }
+}
+
+
