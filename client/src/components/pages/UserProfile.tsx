@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Heading from '../Heading';
-import Footer from '../Footer';
 import Button from '../Button';
 import HorizontalCard from '../ProfileCard';
 import { useUserIDContext } from '../../UserIDContext';
 import { getUser } from '../../backend/boardapi';
+import Footer from '../web/Footer';
 
 const user = {
   name: 'John Doe',
@@ -21,7 +21,9 @@ const UserProfile: React.FC = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
-  const [location, setLocation] = useState("");
+  const [cityName, setCityName] = useState("");
+  const [countryName, setCountryName] = useState("");
+
   const [socialInsta, setSocialInsta] = useState("");
   const [socialFacebook, setSocialFacebook] = useState("");
   // const [image, setImage] = useState("");
@@ -36,12 +38,14 @@ const UserProfile: React.FC = () => {
         setFirstName(currentUser.name.first); 
         setLastName(currentUser.name.last); 
 
-        setLocation(currentUser.address.city); 
+        setCityName(currentUser.address.city); 
+        setCountryName(currentUser.address.country); 
+
         setSocialInsta(currentUser.socialMediaUrls.instagram || "");
         setSocialFacebook(currentUser.socialMediaUrls.facebook || "");
 
         // setImage(currentUser.profilePicture); // Assuming profilePicture is the image URL
-        // Save user data to localStorage
+
         localStorage.setItem('userProfile', JSON.stringify(currentUser));
         console.log('User profile:', currentUser.name);
       } catch (error) {
@@ -62,7 +66,7 @@ const UserProfile: React.FC = () => {
       >
         <HorizontalCard
           title={`${firstName} ${lastName}`} 
-          subtitle={location}
+          subtitle={`${cityName} ${countryName}`}
           imageSrc={user.imageSrc}
           socials={{ instagram: socialInsta, facebook: socialFacebook }}
           userFirstName={firstName}

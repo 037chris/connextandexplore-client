@@ -1,198 +1,198 @@
-div.max-grid {
-    max-width: rem(1360);
-    width: 100%;
-    margin: 0 auto;
-    color: $text;
-}
+// div.max-grid {
+//     max-width: rem(1360);
+//     width: 100%;
+//     margin: 0 auto;
+//     color: $text;
+// }
 
-.strong {
-    font-weight: 600;
-    font-size: rem(16);
-}
+// .strong {
+//     font-weight: 600;
+//     font-size: rem(16);
+// }
 
-.border-slim {
-    border: 1px solid $border;
-    border-radius: rem(6);
-    background-color: $white;
-}
+// .border-slim {
+//     border: 1px solid $border;
+//     border-radius: rem(6);
+//     background-color: $white;
+// }
 
-.box-shadow {
-    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.05);
-}
+// .box-shadow {
+//     box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.05);
+// }
 
-.border-box {
-    @extend .border-slim;
+// .border-box {
+//     @extend .border-slim;
 
-    &.setting-box {
-        max-width: 95%;
-        margin: 0 auto;
+//     &.setting-box {
+//         max-width: 95%;
+//         margin: 0 auto;
 
-        @include breakpoint(md) {
-            text-align: center;
-        }
+//         @include breakpoint(md) {
+//             text-align: center;
+//         }
 
-        @include breakpoint(lg) {
-            text-align: left;
-            margin: 0 0;
-            max-width: rem(318);
-        }
-    }
+//         @include breakpoint(lg) {
+//             text-align: left;
+//             margin: 0 0;
+//             max-width: rem(318);
+//         }
+//     }
 
 
-    ul {
-        padding: rem(28) rem(36) rem(28);
+//     ul {
+//         padding: rem(28) rem(36) rem(28);
 
-        li {
-            padding: rem(7) 0;
+//         li {
+//             padding: rem(7) 0;
 
-            a {
-                &.active {
-                    color: $primary;
-                }
+//             a {
+//                 &.active {
+//                     color: $primary;
+//                 }
 
-                &:hover {
-                    color: $primary;
-                }
-            }
-        }
-    }
+//                 &:hover {
+//                     color: $primary;
+//                 }
+//             }
+//         }
+//     }
 
-    .help-link {
-        display: block;
-        position: relative;
-        padding: rem(18) rem(36) rem(18);
+//     .help-link {
+//         display: block;
+//         position: relative;
+//         padding: rem(18) rem(36) rem(18);
 
-        &:hover {
-            color: $primary;
-        }
+//         &:hover {
+//             color: $primary;
+//         }
 
-        &::before {
-            content: '';
-            display: block;
-            width: 100%;
-            height: rem(1);
-            background-color: $border;
-            position: absolute;
-            left: 0;
-            top: 0;
-        }
-    }
-}
+//         &::before {
+//             content: '';
+//             display: block;
+//             width: 100%;
+//             height: rem(1);
+//             background-color: $border;
+//             position: absolute;
+//             left: 0;
+//             top: 0;
+//         }
+//     }
+// }
 
-form {
-    label {
-        display: block;
-    }
+// form {
+//     label {
+//         display: block;
+//     }
 
-    input {
-        width: 100%;
-        margin-top: rem(15);
-        border: 1px solid $text;
-        padding: rem(5) 0;
-        border-radius: rem(6);
+//     input {
+//         width: 100%;
+//         margin-top: rem(15);
+//         border: 1px solid $text;
+//         padding: rem(5) 0;
+//         border-radius: rem(6);
 
-        &[type="submit"] {
-            @extend .settings-btn;
+//         &[type="submit"] {
+//             @extend .settings-btn;
 
-            &.save {
-                @extend .btn-secondary;
-            }
-        }
-    }
-}
+//             &.save {
+//                 @extend .btn-secondary;
+//             }
+//         }
+//     }
+// }
 
-.settings-btn {
-    @extend .border-slim;
-    padding: rem(6) rem(15);
-    width: auto;
-}
+// .settings-btn {
+//     @extend .border-slim;
+//     padding: rem(6) rem(15);
+//     width: auto;
+// }
 
-.btn-primary {
-    background-color: $primary;
-    border: 1px solid $primary;
-    color: $white;
-    transition: 350ms ease-in-out all;
-    width: 100%;
-    max-width: rem(200);
-    height: rem(45);
+// .btn-primary {
+//     background-color: $primary;
+//     border: 1px solid $primary;
+//     color: $white;
+//     transition: 350ms ease-in-out all;
+//     width: 100%;
+//     max-width: rem(200);
+//     height: rem(45);
 
-    &:hover {
-        background-color: $white;
-        color: $primary;
-        cursor: pointer;
-    }
-}
+//     &:hover {
+//         background-color: $white;
+//         color: $primary;
+//         cursor: pointer;
+//     }
+// }
 
-.btn-secondary {
-    @extend .btn-primary;
-    background-color: $secondary;
-    border: rem(1) solid $secondary;
+// .btn-secondary {
+//     @extend .btn-primary;
+//     background-color: $secondary;
+//     border: rem(1) solid $secondary;
 
-    &:hover {
-        color: $secondary;
-    }
-}
+//     &:hover {
+//         color: $secondary;
+//     }
+// }
 
-.btn-alert {
-    @extend .btn-primary;
-    background-color: $alert;
-    border: rem(1) solid $alert;
+// .btn-alert {
+//     @extend .btn-primary;
+//     background-color: $alert;
+//     border: rem(1) solid $alert;
 
-    &:hover {
-        background-color: $alert;
-        color: $white;
-        border: rem(1) solid $alert;
-    }
-}
+//     &:hover {
+//         background-color: $alert;
+//         color: $white;
+//         border: rem(1) solid $alert;
+//     }
+// }
 
-footer {
-    background-color: $text;
-    padding: rem(15) 0;
-    margin-top: rem(25);
+// footer {
+//     background-color: $text;
+//     padding: rem(15) 0;
+//     margin-top: rem(25);
 
-    @include breakpoint(md) {
-        padding: rem(45) 0;
-        margin-top: rem(55);
-    }
+//     @include breakpoint(md) {
+//         padding: rem(45) 0;
+//         margin-top: rem(55);
+//     }
 
-    .max-grid {
-        color: $white;
+//     .max-grid {
+//         color: $white;
 
-        @include breakpoint(lg) {
-            max-width: rem(1230) !important;
-        }
-    }
+//         @include breakpoint(lg) {
+//             max-width: rem(1230) !important;
+//         }
+//     }
 
-    .footer-logo {
-        max-width: rem(250);
-        width: 100%;
-        margin: 0 auto;
+//     .footer-logo {
+//         max-width: rem(250);
+//         width: 100%;
+//         margin: 0 auto;
 
-        @include breakpoint(lg) {
-            max-width: rem(290);
-            float:right
-        }
-    }
+//         @include breakpoint(lg) {
+//             max-width: rem(290);
+//             float:right
+//         }
+//     }
 
-    .konto {
-        display: block;
-        margin-bottom: rem(15);
-    }
+//     .konto {
+//         display: block;
+//         margin-bottom: rem(15);
+//     }
 
-    p {
-        font-family: 'font-titan';
-        font-size: rem(14);
-        text-align: right;
-        float: right;
+//     p {
+//         font-family: 'font-titan';
+//         font-size: rem(14);
+//         text-align: right;
+//         float: right;
 
-        span {
-            display: block;
-        }
-    }
+//         span {
+//             display: block;
+//         }
+//     }
 
-    ul {
-        li {
-            float: right;
-        }
-    }
-}
+//     ul {
+//         li {
+//             float: right;
+//         }
+//     }
+// }

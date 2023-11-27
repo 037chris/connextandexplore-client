@@ -150,7 +150,7 @@ const UserMenu: FC = () => {
               <MenuItem onClick={() => {}} label="Dashboard" />
               <MenuItem onClick={() => {}} label="Deine Events" />
               <MenuItem onClick={() => {}} label="Nachrichten" />
-              <MenuItem onClick={() => {}} label="Einstellung" />
+              <MenuItem onClick={() => navigate('/about')} label="Einstellung" />
               <MenuItem onClick={() => {}} label="Hilfe / FAQ" />
               <hr/>
               <MenuItem onClick={onLogOut} label="Log out" />

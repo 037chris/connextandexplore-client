@@ -27,12 +27,9 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />}/>
           <Route path="/signup" element={<SignUp />}/>
+          <Route path="/about" element={<UserProfile/>}/>
           <Route path="/settings" element={<UserSettings activeTab={"profile"} />}/>
-<<<<<<< HEAD
           <Route path='*' element={<NotFound />}/>
-=======
-          <Route path="/about" element={<UserProfile />}/>
->>>>>>> 6fbd056 (profile page wurde erstellt)
         </Routes>
     </UserIDContext.Provider>
 
