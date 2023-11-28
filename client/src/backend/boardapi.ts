@@ -209,3 +209,23 @@ export async function deleteUser(userid:string):Promise<Boolean> {
     throw err;
   }
 }
+
+export async function getAllEvents() {
+  const url = `${HOST}/api/events/`
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  });
+
+  /*if(response.status===204){
+    return -1
+  }*/
+  var result=await response.json()
+  return result
+
+}
+

@@ -7,7 +7,7 @@ interface EventProps {
     date:any,
     name:string,
     description:string,
-    imageUrl?:string,
+    thumbnail?:string,
     hashtags?:string[]
     category?: string[]
     
@@ -17,7 +17,7 @@ const LocalEvents: React.FC<EventProps> = ({
     date,
     name,
     description,
-    imageUrl,
+    thumbnail,
     hashtags,
     category
   
@@ -28,7 +28,7 @@ const LocalEvents: React.FC<EventProps> = ({
                 <div>
                 <img
                   //src={process.env.PUBLIC_URL + imageUrl!}
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp4zpIuafwUwAALiZhyewnZPBfWlm8OvxZIEawUIuHKw&s"
+                  src={thumbnail}
                   alt="test"
                   className="w-full"
                 />
