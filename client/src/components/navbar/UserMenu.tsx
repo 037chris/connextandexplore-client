@@ -16,13 +16,15 @@ import { MdOutlineGroups2 } from "react-icons/md";
 const UserMenu: FC = () => {
   const { userID } = useUserIDContext();
 
+  // const [profilePicture, setProfilePicture] = useState("")
+
   const [isOpen, setIsOpen] = useState(false);
   const [authenticationModalIsOpen, setAuthenticationModalIsOpen] = useState(false); // State to control the AuthenticationModal
   const navigate = useNavigate();
 
 
 
-  const [profilePicture, setProfilePicture] = useState<string | null>(null);
+   const [profilePicture, setProfilePicture] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -116,7 +118,7 @@ const UserMenu: FC = () => {
       ">
           <AiOutlineMenu />
           <div className="hidden md:block">
-            <Avatar src=""  />
+          {profilePicture && <Avatar src={profilePicture} />}
           </div>
     </div>
   </div> 

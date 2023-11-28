@@ -147,3 +147,32 @@ export function logout() {
   Cookies.remove("access_token");
 }
 
+
+
+// export async function getImage(imagePath: string): Promise<{ url: string } | null> {
+//   const url = `${imagePath}`; // Adjust the endpoint based on your server setup
+//   console.log('Image URL:', url);
+//   try {
+//     const response = await fetch(url, {
+//       method: 'GET',
+//       headers: {
+//         Accept: 'application/json',
+//         'Content-Type': 'application/json',
+//       },
+//     });
+
+//     if (response.ok) {
+//       const imageData = await response.json();
+//       console.log('Image Data:', imageData);
+//       return { url: imageData.url };
+//     } else {
+//       console.error('Error fetching image:', response);
+//       return null;
+//     }
+    
+//   } catch (error) {
+//     console.error('Error in getImage function:', error);
+//     throw error;
+//   }
+// }
+
