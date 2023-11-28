@@ -7,7 +7,6 @@ interface HashtagsProps {
 }
 
 const Hashtags: React.FC<HashtagsProps> = ({ hashtags }) => {
-  console.log(hashtags)
   return (
     <div>
     {(hashtags??["keineHashtags"]).map((hashtag, index) => (

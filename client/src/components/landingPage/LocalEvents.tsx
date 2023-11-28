@@ -22,7 +22,7 @@ const LocalEvents: React.FC<LocalEventsProps> = ({ events }) => {
                   date={event.date}
                   name={event.name}
                   description={event.description}
-                  imageUrl={event.imageUrl}
+                  thumbnail={event.imageUrl}
                   hashtags={event.hashtags}
                   
                 />

@@ -12,6 +12,7 @@ import { UserIDContext } from "./UserIDContext";
 
 // STYLES
 import './sass/App.scss'
+import Events from "./components/pages/Events";
 
 export default function App() {
   const [userID, setUserID] = useState(getUserIDFromJWT());
@@ -27,6 +28,7 @@ export default function App() {
           <Route path="/" element={<Home />}/>
           <Route path="/signup" element={<SignUp />}/>
           <Route path="/settings" element={<UserSettings activeTab={"profile"} />}/>
+          <Route path="/events" element={<Events />}/>
           <Route path='*' element={<NotFound />}/>
         </Routes>
     </UserIDContext.Provider>
