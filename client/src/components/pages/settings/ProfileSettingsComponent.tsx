@@ -7,7 +7,7 @@ import Button from "../../Button";
 
 const ProfilSettingsComponent = () => {
 
-        const [error, setError] = useState(null);
+    const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
     const [user, setUser] = useState<userResource | null>(null);
