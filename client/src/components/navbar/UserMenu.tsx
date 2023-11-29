@@ -55,6 +55,7 @@ const UserMenu: FC = () => {
     setIsOpen((value) => !value);
   }, []);
 
+  const url = `/uploads/e535a951-ae3e-47f7-a917-0b3966f5840d-HEADER_IMG.png`;
 
 
   const openAuthenticationModal = () => {
@@ -118,7 +119,7 @@ const UserMenu: FC = () => {
       ">
           <AiOutlineMenu />
           <div className="hidden md:block">
-          {profilePicture && <Avatar src={profilePicture} />}
+          {profilePicture && <Avatar src={`http://localhost:3000/users${url}`} />}
           </div>
     </div>
   </div> 
