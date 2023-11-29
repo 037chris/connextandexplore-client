@@ -24,7 +24,7 @@ const UserMenu: FC = () => {
 
 
 
-   const [profilePicture, setProfilePicture] = useState<string | null>(null);
+   const [profilePicture, setProfilePicture] = useState("");
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -33,7 +33,7 @@ const UserMenu: FC = () => {
 
         // Assuming getProfile function returns an object with a profilePicture property
         const currentUser = await getUser(userID || "");
-        setProfilePicture(currentUser.profilePicture);
+        setProfilePicture(currentUser.profilePicture || "");
         console.log('User profile:', currentUser.name);
 
         console.log('User profile:', currentUser.profilePicture);

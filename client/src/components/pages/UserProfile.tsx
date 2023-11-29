@@ -41,8 +41,8 @@ const UserProfile: React.FC = () => {
         setCityName(currentUser.address.city); 
         setCountryName(currentUser.address.country); 
 
-        setSocialInsta(currentUser.socialMediaUrls.instagram || "");
-        setSocialFacebook(currentUser.socialMediaUrls.facebook || "");
+        setSocialInsta(currentUser.socialMediaUrls?.instagram || "");
+        setSocialFacebook(currentUser.socialMediaUrls?.facebook || "");
 
         // setImage(currentUser.profilePicture); // Assuming profilePicture is the image URL
 
