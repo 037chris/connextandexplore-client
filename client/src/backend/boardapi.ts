@@ -1,5 +1,5 @@
 import { jwtDecode } from "jwt-decode";
-import { UserRegistration, userResource, usersResource } from "../Resources";
+import { UserRegistration, eventResource, eventsResource, userResource, usersResource } from "../Resources";
 import Cookies from "js-cookie";
 import { fetchWithErrorHandling } from "./validation";
 
@@ -207,5 +207,192 @@ export async function deleteUser(userid:string):Promise<Boolean> {
     return response as Boolean;
   } catch(err) {
     throw err;
+  }
+}
+
+export async function getAllEvents():Promise<eventsResource> {
+  const url = `${HOST}/api/events`;
+  try {
+    const response = await fetchWithErrorHandling(url, {
+      method:"GET",
+      headers: headers()
+    });
+    return response as eventsResource;
+  } catch (err) {
+    throw err;
+  }
+}
+
+export async function getParticipantsOfEvent(eventId:string):Promise<usersResource> {
+  if(!eventId) {
+    throw new Error("Invalid eventId, can not get Participants of event.")
+  }
+  const url = `${HOST}/api/events/${eventId}/participants`;
+  try {
+    const response = await fetchWithErrorHandling(url, {
+      method:"GET",
+      headers:headers()
+    })
+    return response as usersResource;
+  } catch(err) {
+    throw err;
+  }
+}
+
+/**
+ * public api call to retrieve information about an event. (no logged-in user is needed)
+ * @param eventId 
+ */
+export async function getEvent(eventId:string):Promise<eventResource> {
+  if(!eventId) {
+    throw new Error("Invalid eventId, can not get Event.")
+  }
+  const url = `${HOST}/api/events/${eventId}`;
+  try {
+    const response = await fetchWithErrorHandling(url, {
+      method:"GET",
+      headers:headers()
+    });
+    return response as eventResource;
+  } catch(err) {
+    throw err;
+  }
+}
+
+/**
+ * get all the events where the logged in user joined/ is a participant of.
+ * returns empty array of events if no events are found.
+ * could also be modified to return an "error" message that the user did not join any events yet.
+ */
+export async function getJoinedEvents():Promise<eventsResource> {
+  const url = `${HOST}/api/events/joined`;
+  try {
+    const response: eventsResource & { message:string } = await fetchWithErrorHandling(url, {
+      method:"GET",
+      headers:headers()
+    });
+    if (response.message) {
+      return {events:[]};
+    } else {
+      return response as eventsResource;
+    }
+  } catch(err) {
+    throw err;
+  }
+}
+
+/**
+ * a user (user who is currently logged in) can leave an event with this api call.
+ * Currently does not pass the errors, only returns false if any error appeared.
+ * possible backend outcomes can be expected in the thrown error:
+ * err.message === "User is not participating in the event" ||
+ * err.message === "Can not cancel participation as event manager"
+ * return res.status(409).json({ Error: err.message });
+ * return res.status(500).json({ Error: "Canceling event failed" });
+ */
+export async function exitEvent(eventId:string):Promise<boolean> {
+  if (!eventId) {
+    throw new Error("invalid eventId, can not leave event.");
+  }
+  const url = `${HOST}/api/events/${eventId}/ecancel`;
+  try {
+    const response = await fetchWithErrorHandling(url, {
+      method:"DELETE",
+      headers:headers(),
+    })
+    return true;
+  } catch(err) {
+    return false//throw err;
+  }
+}
+
+export async function postEvent(eventdata:eventResource):Promise<eventResource> {
+const url = `${HOST}/api/events/create`;
+  try {
+    const response = await fetchWithErrorHandling(url, {
+      method:"POST",
+      headers:headers(),
+      body:JSON.stringify(eventdata)
+    })
+    return response as eventResource;
+  } catch(err) {
+    throw err;
+  }
+}
+
+/**
+ * 
+ * @param query [query("query").isString().notEmpty()], keine ahnung ob das richtig ist?!
+ */
+export async function searchEvents(query:string):Promise<eventsResource> {
+if (!query) {
+    throw new Error("invalid eventid, can not search for any events");
+  }
+  const url = `${HOST}/api/events/search`;
+  try {
+    const response = await fetchWithErrorHandling(url, {
+      method:"GET",
+      headers:headers(),
+      body:JSON.stringify(query)
+    })
+    return response as eventsResource
+  } catch (err) {
+    throw err;
+  }
+}
+
+export async function getEventOwner(eventId:string):Promise<userResource> {
+  if (!eventId) {
+    throw new Error("invalid eventid, can not get event manager");
+  }
+  const url = `${HOST}/api/events/creator/${eventId}`;
+  try {
+    const response = await fetchWithErrorHandling(url, {
+      method:"GET",
+      headers:headers()
+    })
+    return response as userResource;
+  } catch(err) {
+    throw err;
+  }
+}
+
+/**
+ * It is also possible to return a message if the event got deleted.
+ * if the event got deleted the response looks like this: { message: "Event successfully deleted" } with the statusCode 204.
+ * if the event could not be deleted the response looks like this: { message: "Event could not be deleted" } with the statusCode 405.
+ * @param eventId 
+ * @returns Currently this api call returns: true if the event got deleted otherwise false
+ */
+export async function deleteEvent(eventId:string):Promise<Boolean> {
+  if (!eventId) {
+    throw new Error("invalid eventid, can not delete event");
+  }
+  const url = `${HOST}/api/events/${eventId}`;
+  try {
+    const response = await fetchWithErrorHandling(url, {
+      method:"DELETE",
+      headers:headers()
+    });
+    return true;
+  } catch(e) {
+    return false;
+  }
+}
+
+export async function updateEvent(eventData:eventResource):Promise<eventResource> {
+  if (!eventData.id) {
+    throw new Error("invalid eventid, can not update event");
+  }
+  const url = `${HOST}/api/events/${eventData.id}`;
+  try {
+    const response = await fetchWithErrorHandling(url, {
+      method:"PUT",
+      headers:headers(),
+      body:JSON.stringify(eventData)
+    });
+    return response as eventResource;
+  } catch(e) {
+    throw e;
   }
 }
