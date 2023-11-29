@@ -12,6 +12,7 @@ import { UserIDContext } from "./UserIDContext";
 
 // STYLES
 import './sass/App.scss'
+import UserProfile from "./components/pages/UserProfile";
 
 export default function App() {
   const [userID, setUserID] = useState(getUserIDFromJWT());
@@ -21,11 +22,12 @@ export default function App() {
    <>
     
     <UserIDContext.Provider value={{ userID, setUserID }} >
-      {/* <Navbar /> */}
+      <Navbar />
       <ToasterProvider />
         <Routes>
           <Route path="/" element={<Home />}/>
           <Route path="/signup" element={<SignUp />}/>
+          <Route path="/about" element={<UserProfile/>}/>
           <Route path="/settings" element={<UserSettings activeTab={"profile"} />}/>
           <Route path='*' element={<NotFound />}/>
         </Routes>

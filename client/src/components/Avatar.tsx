@@ -1,14 +1,23 @@
-"use client";
+import React from 'react';
 
-const Avatar = () => {
-  return (
-    <img 
-        className="rounded-full"
-        height="30"
-        width="30"
-        src="/images/placeholder.jpg"
-        alt="Avatar" />
-  )
+interface AvatarProps {
+  src: string | null;
+  onError?: () => void; // Add the onError prop to the AvatarProps type
 }
 
-export default Avatar
+const Avatar: React.FC<AvatarProps> = ({ src, onError }) => {
+  const imageUrl = src ? `${src}` : '/images/placeholder.jpg';
+
+  return (
+    <img
+      className="rounded-full"
+      height="30"
+      width="30"
+      src={src ||'/images/placeholder.jpg' }
+      alt="Avatar"
+      onError={onError} // Pass the onError prop to the img element
+    />
+  );
+};
+
+export default Avatar;

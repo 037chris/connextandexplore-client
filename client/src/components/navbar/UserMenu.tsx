@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import Avatar from '../Avatar';
 import MenuItem from './MenuItem';
@@ -6,22 +6,56 @@ import { useNavigate } from 'react-router-dom';
 import LoginModal from './LoginModal';
 import { useUserIDContext } from '../../UserIDContext';
 import Button from '../Button';
-import { logout } from '../../backend/boardapi';
+import { getUser, logout } from '../../backend/boardapi';
 
+import { FaRegEnvelope } from "react-icons/fa";
+import { MdOutlineGroups2 } from "react-icons/md";
 
 // on mouseClick close menu
 
 const UserMenu: FC = () => {
   const { userID } = useUserIDContext();
 
+  // const [profilePicture, setProfilePicture] = useState("")
+
   const [isOpen, setIsOpen] = useState(false);
   const [authenticationModalIsOpen, setAuthenticationModalIsOpen] = useState(false); // State to control the AuthenticationModal
   const navigate = useNavigate();
+
+
+
+   const [profilePicture, setProfilePicture] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        console.log('User ID:', userID);
+
+        // Assuming getProfile function returns an object with a profilePicture property
+        const currentUser = await getUser(userID || "");
+        setProfilePicture(currentUser.profilePicture);
+        console.log('User profile:', currentUser.name);
+
+        console.log('User profile:', currentUser.profilePicture);
+
+
+      } catch (error) {
+        console.error('Error fetching user profile:', error);
+      }
+    };
+
+    if (userID) {
+      fetchUserProfile(); 
+    }
+  }, [userID]);
+
+
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
 
+  const url = `/uploads/e535a951-ae3e-47f7-a917-0b3966f5840d-HEADER_IMG.png`;
 
 
   const openAuthenticationModal = () => {
@@ -57,10 +91,15 @@ const UserMenu: FC = () => {
                     rounded-full
                     hover:bg-neutral-100
                     transition
-                    cursor-pointer"
+                    cursor-pointer
+                    
+                    "
         >
-          Create your event
+          Event Erstellen 
         </div>
+        <div><MdOutlineGroups2 size={25}/></div>
+        <div><FaRegEnvelope size={20}/></div>
+       
     <div
       onClick={toggleOpen}
       className="
@@ -80,7 +119,7 @@ const UserMenu: FC = () => {
       ">
           <AiOutlineMenu />
           <div className="hidden md:block">
-              <Avatar />
+          {profilePicture && <Avatar src={`http://localhost:3000/users${url}`} />}
           </div>
     </div>
   </div> 
@@ -114,7 +153,7 @@ const UserMenu: FC = () => {
               <MenuItem onClick={() => {}} label="Dashboard" />
               <MenuItem onClick={() => {}} label="Deine Events" />
               <MenuItem onClick={() => {}} label="Nachrichten" />
-              <MenuItem onClick={() => {}} label="Einstellung" />
+              <MenuItem onClick={() => navigate('/about')} label="Einstellung" />
               <MenuItem onClick={() => {}} label="Hilfe / FAQ" />
               <hr/>
               <MenuItem onClick={onLogOut} label="Log out" />
