@@ -11,6 +11,9 @@ import { getUser, logout } from '../../backend/boardapi';
 import { FaRegEnvelope } from "react-icons/fa";
 import { MdOutlineGroups2 } from "react-icons/md";
 
+
+// '../../../../../connectandexplore-1/Backend/dist/src/utils/'
+
 // on mouseClick close menu
 
 const UserMenu: FC = () => {
@@ -22,7 +25,7 @@ const UserMenu: FC = () => {
   const [authenticationModalIsOpen, setAuthenticationModalIsOpen] = useState(false); // State to control the AuthenticationModal
   const navigate = useNavigate();
 
-
+const [url, setUrl] = useState('');
 
    const [profilePicture, setProfilePicture] = useState("");
 
@@ -37,6 +40,9 @@ const UserMenu: FC = () => {
         console.log('User profile:', currentUser.name);
 
         console.log('User profile:', currentUser.profilePicture);
+
+
+
 
 
       } catch (error) {
@@ -55,7 +61,6 @@ const UserMenu: FC = () => {
     setIsOpen((value) => !value);
   }, []);
 
-  const url = `/uploads/e535a951-ae3e-47f7-a917-0b3966f5840d-HEADER_IMG.png`;
 
 
   const openAuthenticationModal = () => {
@@ -119,7 +124,7 @@ const UserMenu: FC = () => {
       ">
           <AiOutlineMenu />
           <div className="hidden md:block">
-          {profilePicture && <Avatar src={`http://localhost:3000/users${url}`} />}
+          {profilePicture && <Avatar src={`../../../../../connectandexplore-1/Backend/dist/src/utils${profilePicture}`} />}
           </div>
     </div>
   </div> 

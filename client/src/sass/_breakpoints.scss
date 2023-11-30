@@ -14,9 +14,9 @@ $breakpoints: (
 );
 
 // // Mixin, um Media Queries mit benannten Breakpoints zu erstellen
-// @mixin breakpoint($name) {
-//   $size: map-get($breakpoints, $name);
-//   $next: null;
+@mixin breakpoint($name) {
+  $size: map-get($breakpoints, $name);
+  $next: null;
 
   @if $name == sm {
     $next: md;
@@ -45,3 +45,4 @@ $breakpoints: (
       @content;
     }
   }
+}
