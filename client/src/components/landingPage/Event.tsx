@@ -7,7 +7,7 @@ interface EventProps {
     date:any,
     name:string,
     description:string,
-    imageUrl?:string,
+    thumbnail?:string,
     hashtags?:string[]
     category?: string[]
     
@@ -17,7 +17,7 @@ const LocalEvents: React.FC<EventProps> = ({
     date,
     name,
     description,
-    imageUrl,
+    thumbnail: imageUrl,
     hashtags,
     category
   
