@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getEvent, getUserIDFromJWT, joinEvent } from '../../backend/boardapi';
+import { exitEvent, getEvent, getUserIDFromJWT, joinEvent } from '../../backend/boardapi';
 import { eventResource } from '../../Resources';
 import LoadingIndicator from '../LoadingIndicator';
 import Hashtags from '../landingPage/Hashtags';
@@ -13,20 +13,22 @@ const EventDetails: React.FC = () => {
   const { eventId } = useParams<{ eventId: string }>();
   const [event, setEvent] = useState<eventResource>()
   const [joined,setJoined] = useState(false);
+  const [reload,setReload] = useState(false);
   useEffect(() => {
     const fetchEvent = async () => {
         if(eventId){
             const result = await getEvent(eventId);
             setEvent(result)
-            if(event?.participants?.includes(getUserIDFromJWT())){
+            if(result.participants?.includes(getUserIDFromJWT())){
               setJoined(true)
-            }
+            }else{setJoined(false)}
         }
         
 
     }
     fetchEvent();
-  })
+    setReload(false);
+  },[reload])
   return (
     <div>
         <br />
@@ -57,9 +59,9 @@ const EventDetails: React.FC = () => {
             <Hashtags hashtags={event.hashtags}/>
             <>
             {!joined ? (
-                <Button label="Teilnehmen" onClick={()=>{joinEvent(eventId!)}}/>
+                <Button label="Teilnehmen" onClick={async()=>{setReload(await joinEvent(eventId!))}}/>
             ) : (
-              <Button disabled={true} label="Beigetreten" onClick={()=>{}}/>
+              <Button label="Austreten" onClick={async() =>{setReload(await exitEvent(eventId!))}}/>
             )}
             
             </>

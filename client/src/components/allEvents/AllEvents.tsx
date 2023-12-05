@@ -24,7 +24,7 @@ const AllEvents: React.FC<AllEventsProps> = ({}) => {
         setDbEvents(await getAllEvents())
       }
       load();
-    })
+    },[])
     return (
       <div className="flex font-sans bg-blue-500">
         <Container>
