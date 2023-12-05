@@ -1,5 +1,6 @@
 'use client'
 
+import  Button  from "../Button";
 import Container from "../Container";
 import Hashtags from "./Hashtags";
 
@@ -10,7 +11,7 @@ interface EventProps {
     thumbnail?:string,
     hashtags?:string[]
     category?: string[]
-    
+
 }
 
 const LocalEvents: React.FC<EventProps> = ({
@@ -20,6 +21,8 @@ const LocalEvents: React.FC<EventProps> = ({
     thumbnail: imageUrl,
     hashtags,
     category
+  
+  
   
 }) => {
     return ( 
@@ -42,6 +45,7 @@ const LocalEvents: React.FC<EventProps> = ({
                     <h2 className="text-gray-800">{description}</h2>
                 </div>
                 <Hashtags hashtags={hashtags}/>
+                <Button label="Details anzeigen" onClick={()=>{}}></Button>
             </div>
         </div>
   );

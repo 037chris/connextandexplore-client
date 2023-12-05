@@ -10,10 +10,13 @@ import { getUserIDFromJWT } from "./backend/boardapi";
 import { useState } from "react";
 import { UserIDContext } from "./UserIDContext";
 
+
+
 // STYLES
 import './sass/App.scss'
 import UserProfile from "./components/pages/UserProfile";
 import Events from "./components/pages/Events";
+import EventDetails from "./components/pages/EventDetails";
 
 export default function App() {
   const [userID, setUserID] = useState(getUserIDFromJWT());
@@ -30,6 +33,7 @@ export default function App() {
           <Route path="/signup" element={<SignUp />}/>
           <Route path="/about" element={<UserProfile/>}/>
           <Route path="/settings" element={<UserSettings activeTab={"profile"} />}/>
+          <Route path="/event/:eventId" element={<EventDetails  />}/>
           <Route path="/events" element={<Events />}/>
           <Route path='*' element={<NotFound />}/>
         </Routes>
