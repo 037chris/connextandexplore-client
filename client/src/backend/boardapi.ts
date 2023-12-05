@@ -326,6 +326,22 @@ export async function exitEvent(eventId: string): Promise<boolean> {
   }
 }
 
+export async function joinEvent(eventId: string): Promise<boolean> {
+  if (!eventId) {
+    throw new Error("invalid eventId, can not join event.");
+  }
+  const url = `${HOST}/api/events/${eventId}/join`;
+  try {
+    const response = await fetchWithErrorHandling(url, {
+      method: "POST",
+      headers: headers(),
+    });
+    return true;
+  } catch (err) {
+    return false; //throw err;
+  }
+}
+
 export async function postEvent(
   eventdata: eventResource
 ): Promise<eventResource> {
