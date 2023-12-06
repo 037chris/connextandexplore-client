@@ -234,6 +234,7 @@ export async function getAllEvents(): Promise<eventsResource> {
       method: "GET",
       headers: headers(),
     });
+    console.log(response)
     return response as eventsResource;
   } catch (err) {
     throw err;
@@ -286,16 +287,16 @@ export async function getEvent(eventId: string): Promise<eventResource> {
 export async function getJoinedEvents(): Promise<eventsResource> {
   const url = `${HOST}/api/events/joined`;
   try {
-    const response: eventsResource & { message: string } =
+    const response: eventsResource /*& { message: string }*/ =
       await fetchWithErrorHandling(url, {
         method: "GET",
         headers: headers(),
       });
-    if (response.message) {
+    /*if (response.message) {
       return { events: [] };
-    } else {
+    } else {*/
       return response as eventsResource;
-    }
+    //}
   } catch (err) {
     throw err;
   }
@@ -346,6 +347,7 @@ export async function postEvent(
   eventdata: eventResource
 ): Promise<eventResource> {
   const url = `${HOST}/api/events/create`;
+  console.log(eventdata)
   try {
     const response = await fetchWithErrorHandling(url, {
       method: "POST",

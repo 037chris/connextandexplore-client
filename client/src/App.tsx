@@ -17,6 +17,7 @@ import './sass/App.scss'
 import UserProfile from "./components/pages/UserProfile";
 import Events from "./components/pages/Events";
 import EventDetails from "./components/pages/EventDetails";
+import YourEvents from "./components/pages/YourEvents";
 
 export default function App() {
   const [userID, setUserID] = useState(getUserIDFromJWT());
@@ -35,6 +36,7 @@ export default function App() {
           <Route path="/settings" element={<UserSettings activeTab={"profile"} />}/>
           <Route path="/event/:eventId" element={<EventDetails  />}/>
           <Route path="/events" element={<Events />}/>
+          <Route path="/yourevents" element={<YourEvents />}/>
           <Route path='*' element={<NotFound />}/>
         </Routes>
     </UserIDContext.Provider>

@@ -5,6 +5,8 @@ import Categories from '../landingPage/Categories';
 import Join from '../landingPage/Join';
 import Button from '../Button';
 import { useNavigate } from 'react-router-dom';
+import { postEvent } from '../../backend/boardapi';
+import { addressResource, categoryResource, eventResource } from '../../Resources';
 
 
 const Home = () => {
@@ -18,6 +20,28 @@ const Home = () => {
   ];
   const navigate = useNavigate();
 
+  const testAddress:addressResource={
+    street: "test street",
+    houseNumber: "test number",
+    postalCode: 'as',
+    city: 'sd',
+    country: 'df'
+  }
+
+  const testCategory:categoryResource={
+    name: 'test category',
+    description: 'zum testen'
+  }
+
+  const testEvent:eventResource={
+    name:"testevent",
+    date:new Date(),
+    description:"test desc",
+    price:1,
+    address: testAddress,
+    category: [testCategory]
+  }
+
   return (
     
     <div className='p-3 gap-4'>
@@ -26,6 +50,8 @@ const Home = () => {
       <br />
       <br />
       <br />
+      <h1>TESTEVENTS ERSTELLEN</h1>
+      <Button label='TESTEVENT ERSTELLEN' onClick={()=>{postEvent(testEvent)}}/>
       {/*
     Placeholder, Link zur AllEvents Seite/Komponente, for testing
     */}
