@@ -78,7 +78,7 @@ export type eventResource = {
   creator?: string;
   description: string;
   price: number;
-  date: Date;
+  date?: Date;
   address: addressResource;
   thumbnail?: string;
   hashtags?: string[];
@@ -94,5 +94,5 @@ export type eventsResource = {
 export type categoryResource = {
   id?: string;
   name: string;
-  description: string;
+  description?: string;
 };

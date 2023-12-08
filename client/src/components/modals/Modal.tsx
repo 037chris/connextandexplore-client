@@ -169,6 +169,7 @@ if (!isOpen) {
                                     disabled={disabled}
                                     label={actionLabel}
                                     onClick={handleSubmit}
+                                    primary
                                 />
                             </div>
                                 {footer}

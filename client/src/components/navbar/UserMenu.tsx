@@ -3,13 +3,13 @@ import { AiOutlineMenu } from 'react-icons/ai';
 import Avatar from '../Avatar';
 import MenuItem from './MenuItem';
 import { useNavigate } from 'react-router-dom';
-import LoginModal from './LoginModal';
 import { useUserIDContext } from '../../UserIDContext';
 import Button from '../Button';
 import { getUser, logout } from '../../backend/boardapi';
 
 import { FaRegEnvelope } from "react-icons/fa";
 import { MdOutlineGroups2 } from "react-icons/md";
+import LoginModal from './LoginModal';
 
 
 // '../../../../../connectandexplore-1/Backend/dist/src/utils/'
@@ -85,7 +85,7 @@ const [url, setUrl] = useState('');
         ?
       <div className="flex flex-row items-center gap-3 md:mr-20">
         <div
-          onClick={() => {}}
+          onClick={() => {navigate('/create-event')}}
           className="
                     hidden
                     md:block
@@ -93,11 +93,11 @@ const [url, setUrl] = useState('');
                     font-semibold
                     py-3
                     px-4
-                    rounded-full
+                    rounded-md
                     hover:bg-neutral-100
                     transition
                     cursor-pointer
-                    
+                    border-2
                     "
         >
           Event Erstellen 
@@ -134,7 +134,7 @@ const [url, setUrl] = useState('');
               <Button outline label='Anmelden' onClick={openAuthenticationModal} />
           </div>
           <div className='w-24 md:w-32'>
-              <Button label='Registrieren' onClick={() => navigate('/signup')} />
+              <Button primary label='Registrieren' onClick={() => navigate('/signup')} />
           </div>
       </div>
     }

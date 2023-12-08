@@ -7,8 +7,8 @@ import { UserRegistration } from '../../Resources';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { signup } from '../../backend/boardapi';
-import LoginModal from '../navbar/LoginModal';
 import Select from '../inputs/Select';
+import LoginModal from '../navbar/LoginModal';
 
 export default function SignUp() {
   const [error, setError] = useState(null);
@@ -87,14 +87,6 @@ const onSubmit: SubmitHandler<FieldValues> = async (data) => {
       <Heading title='Welcome to Connect & Explore' subtitle="Create an account!" />
       
       <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4'>
-        <Input
-            id="username"
-            label='Username *'
-            disabled={loading}
-            register={register}
-            errors={errors}
-            required
-         />
         <Input
           id="email"
           label="Email *"
@@ -278,6 +270,7 @@ const onSubmit: SubmitHandler<FieldValues> = async (data) => {
             disabled={loading}
             label={loading ? 'Loading...' : 'Continue'}
             onClick={() => {}}
+            primary
         />
         </div>
         {/* <Button 
