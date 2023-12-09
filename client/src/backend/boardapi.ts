@@ -14,46 +14,7 @@ const HOST = process.env.REACT_APP_API_SERVER_URL;
 
 
 
-export async function createEvent(eventData: eventResource): Promise<boolean> {
-  const url = `${HOST}/api/events/create`;
 
-  try {
-    // Get the JWT from the cookies
-    const accessToken = Cookies.get("access_token");
-
-    if (!accessToken) {
-      console.error('Access token not found. User may not be authenticated.');
-      throw new Error('User not authenticated');
-    }
-
-    const response = await fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(eventData),
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${accessToken}`,
-      },
-    });
-    console.log('Raw Response:', response);
-    const responseData = await response.json();
-    console.log(responseData);
-    
-    if (!response.ok) {
-      const result = await response.json();
-
-      console.error('Event creation failed:', result);
-      throw new Error(result.message || 'Event creation failed');
-
-
-    }
-
-    return true;
-  } catch (error) {
-    console.error('Error in createEvent function:', error);
-    throw error;
-  }
-}
 
 export async function signup(user: UserRegistration): Promise<boolean> {
   const url = `${HOST}/api/users/register`;
@@ -423,9 +384,50 @@ export async function getEventOwner(eventId: string): Promise<userResource> {
   }
 }
 
+// bitte erstmal so lassen. Khatia
+export async function createEvent(eventData: eventResource): Promise<boolean> {
+  const url = `${HOST}/api/events/create`;
+
+  try {
+    // Get the JWT from the cookies
+    const accessToken = Cookies.get("access_token");
+
+    if (!accessToken) {
+      console.error('Access token not found. User may not be authenticated.');
+      throw new Error('User not authenticated');
+    }
+
+    const response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(eventData),
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`,
+      },
+    });
+    console.log('Raw Response:', response);
+    const responseData = await response.json();
+    console.log(responseData);
+    
+    if (!response.ok) {
+      const result = await response.json();
+
+      console.error('Event creation failed:', result);
+      throw new Error(result.message || 'Event creation failed');
+
+    }
+
+    return true;
+  } catch (error) {
+    console.error('Error in createEvent function:', error);
+    throw error;
+  }
+}
+
 
 /**
- * public api call to retrieve all user created events. (no logged-in user is needed)
+ * public api call to retrieve all user created events. (logged-in user is needed)
  * @param userId 
  */
 export async function getCreatedEvent(userId:string):Promise<eventsResource> {
