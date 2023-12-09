@@ -19,6 +19,8 @@ interface SelectProps {
   errors: any; // Adjust the type based on your needs
   required: boolean;
   disabled: boolean;
+  onChange?: (selectedOptions: string | string[]) => void; // Correct the type
+
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -30,7 +32,13 @@ const Select: React.FC<SelectProps> = ({
   errors,
   required,
   disabled,
+  onChange
 }) => {
+  const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    if (onChange) {
+      onChange(e.target.value);
+    }
+  };
   return (
     <div className={`w-full relative ${formatPrice ? 'col-span-full' : ''}`}>
       <label
