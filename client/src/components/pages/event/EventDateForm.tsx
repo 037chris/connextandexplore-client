@@ -3,6 +3,7 @@ import Input from "../../inputs/Input";
 import { useState } from "react";
 import FormWrapper from "./FormWrapper";
 import { eventResource } from "../../../Resources";
+import { format } from "date-fns";
 
 type EventData = {
   address: {
@@ -39,15 +40,7 @@ export default function EventDateForm({
       } = useForm<FieldValues>({
     });
 
-    // const handleStreetChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //   updateFields({
-    //     address: {
-    //       ...address,
-    //       street: e.target.value
-    //     }
-    //   });
-    // };
-console.log(address)
+
   return (
     <FormWrapper title="Wann und wo möchtest du dein Event veranstalten?">
          <input
@@ -138,11 +131,12 @@ console.log(address)
           type='date'
        
           id='date'
-          value={date?.toISOString().split('T')[0]}  // Ensure the value is in the correct format
+          value={date ? format(date, 'yyyy-MM-dd') : ''}
 
           disabled={loading}
           onChange={(e) => updateFields({ date: new Date(e.target.value) })}
           />
+ 
     </FormWrapper>
   )
 }

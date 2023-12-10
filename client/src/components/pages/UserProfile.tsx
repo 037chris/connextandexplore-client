@@ -100,17 +100,6 @@ const UserProfile: React.FC = () => {
               onClick={() => navigate('/settings')}
             />
           </div>
-          <div>
-          <button onClick={handleShowEvents} className='bg-red-400 w-full md:w-52 h-12 rounded-md'>Meine Events anzeigen</button>
-          {events?.events.map((event) => (
-            <div key={event.id}>
-          <p>{event.name}</p>
-          
-          {/* Add more properties as needed */}
-        </div>
-          )) }
-          </div>
-         
         </div>
       </div>
 
