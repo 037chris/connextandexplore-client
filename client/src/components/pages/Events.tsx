@@ -4,19 +4,24 @@ import Introduction from '../landingPage/Introduction';
 import Categories from '../landingPage/Categories';
 import Join from '../landingPage/Join';
 import AllEvents from '../allEvents/AllEvents';
+import Footer from '../web/Footer';
 
 
 const Events = () => {
   return (
-    
-    <div className='p-3 gap-4'>
+    <>
+    <div className='p-12'>
       <br />
       <br />
       <br />
       <br />
       <br />
-  <AllEvents />
+        <AllEvents />
+      
+        
     </div>
+    <Footer/>
+    </>
   );
 };
 export default Events

@@ -3,8 +3,11 @@ import Heading from '../Heading';
 import Button from '../Button';
 import HorizontalCard from '../ProfileCard';
 import { useUserIDContext } from '../../UserIDContext';
-import { getUser } from '../../backend/boardapi';
+import { getCreatedEvent, getEvent, getEventOwner, getUser } from '../../backend/boardapi';
 import Footer from '../web/Footer';
+import toast from 'react-hot-toast';
+import { useNavigate, useParams } from 'react-router-dom';
+import { eventResource, eventsResource, userResource } from '../../Resources';
 
 const user = {
   name: 'John Doe',
@@ -18,12 +21,19 @@ const user = {
 
 const UserProfile: React.FC = () => {
   const { userID } = useUserIDContext();
+  const navigate = useNavigate();
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [cityName, setCityName] = useState("");
   const [countryName, setCountryName] = useState("");
   const [socialInsta, setSocialInsta] = useState("");
   const [socialFacebook, setSocialFacebook] = useState("");
+
+  const [events, setEvents] = useState<eventsResource | null>(null)
+  // const params = useParams();
+  // const eventdID = params.eventID;
+
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -49,6 +59,26 @@ const UserProfile: React.FC = () => {
     }
   }, [userID]);
 
+
+//   async function load() {
+//     const e = await getBoard();
+//     setEvents(c);
+// }
+
+// React.useEffect(() => { load(); }, [userID]);
+
+
+
+  const handleShowEvents = async () => {
+    try {
+      const currentUserEvents: eventsResource = await getCreatedEvent(userID!);
+      setEvents(currentUserEvents);
+      console.log('User Event:', currentUserEvents);
+    } catch (error) {
+      console.error('Error fetching user events:',  error)
+    }
+  }
+
   return (
     <div className='relative'>
       <div
@@ -64,10 +94,10 @@ const UserProfile: React.FC = () => {
             userFirstName={firstName}
           />
           {/* Responsive Button in the right corner */}
-          <div className="absolute bottom-36 right-0 md:bottom-36 md:right-52 w-full md:w-52">
+          <div className="absolute bottom-0 right-0 md:bottom-36 md:right-52 w-full md:w-52">
             <Button
               label='Profil bearbeiten'
-              onClick={() => {}}
+              onClick={() => navigate('/settings')}
             />
           </div>
         </div>

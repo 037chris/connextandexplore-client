@@ -85,7 +85,7 @@ const [url, setUrl] = useState('');
         ?
       <div className="flex flex-row items-center gap-3 md:mr-20">
         <div
-          onClick={() => {}}
+         onClick={() => {navigate('/create-event')}}
           className="
                     hidden
                     md:block

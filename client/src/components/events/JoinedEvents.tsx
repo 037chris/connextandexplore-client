@@ -34,12 +34,14 @@ const JoinedEvents: React.FC<JoinedEventsProps> = ({}) => {
                 <div key={index} className="mb-8 mx-2">
                   <Link to={`/event/${event.id}`}>
                   <Event
+                 
                     key={index}
-                    date="datum"//{event.date.toISOString()}
+                    date={event.date}//{event.date.toISOString()}
                     name={event.name}
                     description={event.description}
                     thumbnail={event.thumbnail!}
                     hashtags={event.hashtags}
+                    
                     
                   />
                   </Link>
