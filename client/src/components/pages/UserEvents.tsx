@@ -4,11 +4,12 @@ import { useUserIDContext } from '../../UserIDContext';
 import { getCreatedEvent, getEvent, getEventOwner, getUser } from '../../backend/boardapi';
 import Footer from '../web/Footer';
 
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { eventResource, eventsResource, userResource } from '../../Resources';
 import EmptyState from '../EmptyState';
 import Container from '../Container';
 import Event from "../landingPage/Event";
+import { format, parseISO } from 'date-fns';
 
 const user = {
   name: 'John Doe',
@@ -26,6 +27,7 @@ const UserEvents: React.FC = () => {
   const [events, setEvents] = useState<eventsResource | null>(null);
   const [loading, setLoading] = useState(false);
 
+
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -33,6 +35,7 @@ const UserEvents: React.FC = () => {
         const currentUserEvents: eventsResource = await getCreatedEvent(userID!);
         setEvents(currentUserEvents);
         console.log('User Event:', currentUserEvents);
+
       } catch (error) {
         console.error('Error fetching user events:', error);
       } finally {
@@ -44,6 +47,7 @@ const UserEvents: React.FC = () => {
       fetchEvents();
     }
   }, [userID]);
+
 
   return (
     <>
@@ -63,20 +67,22 @@ const UserEvents: React.FC = () => {
                 gap-8
             '>
                 {events?.events.map((event) => (
-                <Event 
-                key={event.id}
-                date={event.date}
-                name={event.name}
-                description={event.description}   
-                hashtags={event.hashtags}    
-               
-                />
+                  <Link to={`/event/${event.id}`} key={event.id}>
+                  <Event 
+                    key={event.id}
+                    address={event.address}
+                    date={event.date}
+                    name={event.name}
+                    description={event.description}   
+                    hashtags={event.hashtags}    
+                  />
+                  </Link>
                 ))}
             </div>
         
         </Container>
    
-      <Footer />
+     
     </>
   );
 };

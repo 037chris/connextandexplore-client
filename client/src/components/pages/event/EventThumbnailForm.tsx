@@ -89,7 +89,7 @@ export default function EventThumbnailForm({
       <div className="mt-4">
         <strong>Hashtags:</strong>
         <div className="flex flex-wrap gap-2 mt-2">
-          {['#Event1', '#Event2', '#Event3', '#Event4', '#Event5'].map((hashtag) => (
+          {['Make new friends', 'Networking', 'Technologie', 'Professionals', 'foryou'].map((hashtag) => (
             <button
               type='button'
               key={hashtag}

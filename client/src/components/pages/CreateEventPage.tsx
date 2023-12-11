@@ -25,7 +25,6 @@ const options = [
     { name: "Social", value: 7 },
 ]
 
-let defaultImage = "../../../public/images/profile-photo-about.png"
 
 const defaultCategoryResource: categoryResource = {
     id: undefined,
@@ -156,13 +155,13 @@ const CreateEventPage = () => {
                 <div className='flex flex-row gap-3 justify-center'>
                     <div className='w-24 md:w-32 '>
                         {!isFirstStep && 
-                            <button  className="rounded-full bg-red-400" type='button' onClick={onBack}>
+                            <button  className='bg-red-400 w-full md:w-52 h-12 rounded-md' type='button' onClick={onBack}>
                                 Zurück
                             </button>
                         }
                     </div>
                     <div className='w-24 md:w-32'>
-                            <button className="rounded-full bg-red-400" type='submit'>
+                            <button className='bg-red-400 w-full md:w-52 h-12 rounded-md' type='submit'>
                                 {isLastStep ? "Fertigstellen" : "Weiter"}
                             </button>
                     </div>

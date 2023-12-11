@@ -9,10 +9,10 @@ interface HashtagsProps {
 const Hashtags: React.FC<HashtagsProps> = ({ hashtags }) => {
   console.log(hashtags)
   return (
-    <div>
+    <div className='flex flex-row gap-3 mb-2'>
     {(hashtags??["keineHashtags"]).map((hashtag, index) => (
-      <div key={index} className="mb-8 mx-2 bg-slate-400 text-white shadow rounded font.">
-        <p>{"#"+hashtag}</p>
+      <div key={index} className=" bg-slate-300 text-white shadow rounded">
+        <p>{"# " + hashtag}</p>
       </div>
     ))}
     </div>

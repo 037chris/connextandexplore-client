@@ -156,7 +156,7 @@ const [url, setUrl] = useState('');
           <div className="flex flex-col cursor-pointer">
             <>
               <MenuItem onClick={() => {}} label="Dashboard" />
-              <MenuItem onClick={() => navigate('/events')} label="Deine Events" />
+              <MenuItem onClick={() => navigate('/deine-events')} label="Deine Events" />
               <MenuItem onClick={() => {}} label="Nachrichten" />
               <MenuItem onClick={() => navigate('/about')} label="Einstellung" />
               <MenuItem onClick={() => {}} label="Hilfe / FAQ" />

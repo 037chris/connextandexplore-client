@@ -258,6 +258,8 @@ export async function getParticipantsOfEvent(
   }
 }
 
+
+
 /**
  * public api call to retrieve information about an event. (no logged-in user is needed)
  * @param eventId
@@ -478,5 +480,23 @@ export async function updateEvent(
     return response as eventResource;
   } catch (e) {
     throw e;
+  }
+}
+
+
+
+export async function joinEvent(eventId: string): Promise<boolean> {
+  if (!eventId) {
+    throw new Error("invalid eventId, can not join event.");
+  }
+  const url = `${HOST}/api/events/${eventId}/join`;
+  try {
+    const response = await fetchWithErrorHandling(url, {
+      method: "POST",
+      headers: headers(),
+    });
+    return true;
+  } catch (err) {
+    return false; //throw err;
   }
 }
