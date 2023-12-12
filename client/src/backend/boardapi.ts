@@ -8,8 +8,12 @@ import {
 } from "../Resources";
 import Cookies from "js-cookie";
 import { fetchWithErrorHandling } from "./validation";
-
-const HOST = process.env.REACT_APP_API_SERVER_URL;
+let HOST: any;
+if (process.env.NODE_ENV === "development") {
+  HOST = process.env.REACT_APP_API_SERVER_URL;
+} else if (process.env.NODE_ENV === "production") {
+  HOST = process.env.REACT_APP_API_SERVER_URL_PROD;
+}
 
 export async function signup(user: UserRegistration): Promise<boolean> {
   const url = `${HOST}/api/users/register`;
@@ -62,7 +66,9 @@ export async function signup(user: UserRegistration): Promise<boolean> {
 
 export async function login(email: string, password: string): Promise<Boolean> {
   const url = `${HOST}/api/login`;
-
+  console.log("HOST : ", HOST);
+  console.log("url : ", url);
+  console.log("node env : ", process.env.NODE_ENV);
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -257,8 +263,6 @@ export async function getParticipantsOfEvent(
     throw err;
   }
 }
-
-
 
 /**
  * public api call to retrieve information about an event. (no logged-in user is needed)
@@ -482,8 +486,6 @@ export async function updateEvent(
     throw e;
   }
 }
-
-
 
 export async function joinEvent(eventId: string): Promise<boolean> {
   if (!eventId) {
