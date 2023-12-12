@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Button from "../../Button";
 import { getUser, getUserIDFromJWT, updateUser } from "../../../backend/boardapi";
 import { addressResource, userResource } from "../../../Resources";
+import toast from "react-hot-toast";
+import { ErrorFromValidation } from "../../../backend/validation";
 
 const PersonalInfoSettingsComponent = () => {
 
@@ -58,6 +60,9 @@ const PersonalInfoSettingsComponent = () => {
             console.error(error);
             //todo: map backend validation error to inputfield
             //toast.error('Something went wrong...');
+            if (error instanceof ErrorFromValidation) {
+                toast.error(error.message)
+            }
         } finally {
             setLoading(false);
         }
