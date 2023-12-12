@@ -13,7 +13,7 @@ const Avatar: React.FC<AvatarProps> = ({ src, onError }) => {
       className="rounded-full"
       height="30"
       width="30"
-      src={src ||'/images/placeholder.jpg' }
+      src={imageUrl}
       alt="Avatar"
       onError={onError} // Pass the onError prop to the img element
     />
