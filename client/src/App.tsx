@@ -37,7 +37,7 @@ export default function App() {
           <Route path="/settings" element={<UserSettings activeTab={"profile"} />}/>
           
           <Route path="/create-event" element={<CreateEventPage />}/>
-          <Route path="/deine-events" element={<UserEvents />}/>
+          <Route path="/my-created-events" element={<UserEvents />}/>
           {/* <Route path="/deine-events/:eventId" element={<CreatedEventDetails />}/> */}
 
 

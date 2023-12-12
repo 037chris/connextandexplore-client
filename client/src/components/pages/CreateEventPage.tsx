@@ -130,7 +130,7 @@ const CreateEventPage = () => {
 
           if (success) {
             toast.success('Event created successfully!');
-            navigate(`/events`)
+            navigate(`/my-created-events`)
           } else {
             toast.error('Failed to create the event.');
             // Handle the case where event creation fails

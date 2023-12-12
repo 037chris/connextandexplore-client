@@ -10,6 +10,7 @@ import EmptyState from '../EmptyState';
 import Container from '../Container';
 import Event from "../landingPage/Event";
 import { format, parseISO } from 'date-fns';
+import Heading from '../Heading';
 
 const user = {
   name: 'John Doe',
@@ -53,33 +54,40 @@ const UserEvents: React.FC = () => {
     <>
         <Container>
         {loading && <p>Loading...</p>}
-        {events?.events.length === 0 && <EmptyState />}
-        <div className='pt-12 font-francisco text-2xl'>Meine Events</div>
-            <div className='
-                pt-24
-                grid
-                grid-cols-1
-                sm:grid-cols-2
-                md:grid-cols-3
-                lg:grid-cols-4
-                xl:grid-cols-5
-                2xl:grid-cols-6
-                gap-8
-            '>
-                {events?.events.map((event) => (
-                  <Link to={`/event/${event.id}`} key={event.id}>
-                  <Event 
-                    key={event.id}
-                    address={event.address}
-                    date={event.date}
-                    name={event.name}
-                    description={event.description}   
-                    hashtags={event.hashtags}    
-                  />
-                  </Link>
-                ))}
-            </div>
-        
+        {events && events.events && events.events.length !== 0 ? (
+           <>
+           <div className='pt-36 pl-12 font-francisco text-2xl'>Meine Events</div>
+               <div className='
+                   p-12
+                   grid
+                   grid-cols-1
+                   sm:grid-cols-2
+                   md:grid-cols-3
+                   lg:grid-cols-4
+                   xl:grid-cols-5
+                   2xl:grid-cols-6
+                   gap-8
+               '>
+                   {events?.events.map((event) => (
+                     <Link to={`/event/${event.id}`} key={event.id}>
+                     <Event 
+                       key={event.id}
+                       address={event.address}
+                       date={event.date}
+                       name={event.name}
+                       description={event.description}   
+                       hashtags={event.hashtags}    
+                     />
+                     </Link>
+                   ))}
+               </div>
+               </>
+        ) : (
+        <EmptyState 
+            title='Keine Events' 
+            subtitle='Erstelle jetzt dein eigenes Event!' 
+            onClick={() => navigate("/create-event")} />
+        )}
         </Container>
    
      

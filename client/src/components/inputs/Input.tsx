@@ -143,7 +143,7 @@ const Input: React.FC<InputProps> = ({
           font-sans
           duration-150
           transform
-          -translate-y-3
+          -translate-y-2
           top-5
           z-0
           origin-[0]
@@ -151,7 +151,7 @@ const Input: React.FC<InputProps> = ({
           peer-placeholder-shown:scale-100
           peer-placeholder-shown-translate-y-0
           peer-focus:scale-75
-          peer-focus:-translate-y-4
+          peer-focus:-translate-y-2
           ${error ? 'text-rose-500' : 'text-zinc-400'}
         `}
       >

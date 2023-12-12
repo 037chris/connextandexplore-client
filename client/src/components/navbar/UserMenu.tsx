@@ -11,40 +11,26 @@ import { FaRegEnvelope } from "react-icons/fa";
 import { MdOutlineGroups2 } from "react-icons/md";
 import LoginModal from './LoginModal';
 
-
-// '../../../../../connectandexplore-1/Backend/dist/src/utils/'
-
 // on mouseClick close menu
 
 const UserMenu: FC = () => {
   const { userID } = useUserIDContext();
-
-  // const [profilePicture, setProfilePicture] = useState("")
-
   const [isOpen, setIsOpen] = useState(false);
+
   const [authenticationModalIsOpen, setAuthenticationModalIsOpen] = useState(false); // State to control the AuthenticationModal
   const navigate = useNavigate();
 
-const [url, setUrl] = useState('');
+
+
 
    const [profilePicture, setProfilePicture] = useState("");
 
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        console.log('User ID:', userID);
-
         // Assuming getProfile function returns an object with a profilePicture property
         const currentUser = await getUser(userID || "");
         setProfilePicture(currentUser.profilePicture || "");
-        console.log('User profile:', currentUser.name);
-
-        console.log('User profile:', currentUser.profilePicture);
-
-
-
-
-
       } catch (error) {
         console.error('Error fetching user profile:', error);
       }
@@ -62,22 +48,23 @@ const [url, setUrl] = useState('');
   }, []);
 
 
-
   const openAuthenticationModal = () => {
     setIsOpen(false); // Close the UserMenu when opening the AuthenticationModal
     setAuthenticationModalIsOpen(true);
   };
-
 
   const onLogOut = () => {
     setIsOpen(false)
     logout();
     navigate('/');
     window.location.reload();
-
   }
 
-  
+
+  const handleBlur = () => {
+    setIsOpen(false);
+  };
+
   return (
     <>
     <div className="relative">
@@ -107,6 +94,8 @@ const [url, setUrl] = useState('');
        
     <div
       onClick={toggleOpen}
+      // onBlur={handleBlur}
+      // tabIndex={0}
       className="
                 p-4
                 md:py-1
@@ -124,7 +113,8 @@ const [url, setUrl] = useState('');
       ">
           <AiOutlineMenu />
           <div className="hidden md:block">
-          {profilePicture && <Avatar src={`../../../../../connectandexplore-1/Backend/dist/src/utils${profilePicture}`} />}
+          {/* {profilePicture && <Avatar src={`../../../../../connectandexplore-1/Backend/dist/src/utils${profilePicture}`} />} */}
+          <Avatar src="/images/placeholder.jpg" />
           </div>
     </div>
   </div> 
@@ -141,6 +131,8 @@ const [url, setUrl] = useState('');
   
     {isOpen && (
       <div
+      onBlur={handleBlur}
+            tabIndex={0}
         className="
             absolute
             rounded-xl
@@ -155,9 +147,10 @@ const [url, setUrl] = useState('');
         ">
           <div className="flex flex-col cursor-pointer">
             <>
-              <MenuItem onClick={() => {}} label="Dashboard" />
-              <MenuItem onClick={() => navigate('/deine-events')} label="Deine Events" />
+              <MenuItem onClick={() => navigate('/')} label="Dashboard" />
+              <MenuItem onClick={() => navigate('/my-created-events')} label="Meine erstellten Events" />
               <MenuItem onClick={() => {}} label="Nachrichten" />
+              <MenuItem onClick={() => navigate('/yourevents')} label="Meine Teilnahmen"  />
               <MenuItem onClick={() => navigate('/about')} label="Einstellung" />
               <MenuItem onClick={() => {}} label="Hilfe / FAQ" />
               <hr/>
