@@ -228,7 +228,6 @@ export async function deleteUser(userid:string):Promise<Boolean> {
     throw err;
   }
 }
-<<<<<<< HEAD
 
 export async function getAllEvents():Promise<eventsResource> {
   const url = `${HOST}/api/events`;
@@ -416,5 +415,3 @@ export async function updateEvent(eventData:eventResource):Promise<eventResource
     throw e;
   }
 }
-=======
->>>>>>> main
