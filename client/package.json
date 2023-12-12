@@ -33,10 +33,10 @@
     "zustand": "^4.4.6"
   },
   "scripts": {
-    "start:dev": "node set NODE_ENV=developement && react-scripts start",
-    "build:dev": "node set NODE_ENV=developement && react-scripts build",
-    "start:prod": "node set NODE_ENV=production && react-scripts start",
-    "build:prod": "node set NODE_ENV=production && react-scripts build",
+    "start:dev": "cross-env NODE_ENV=developement && react-scripts start",
+    "build:dev": "cross-env NODE_ENV=developement && react-scripts build",
+    "start:prod": "cross-env NODE_ENV=production && react-scripts start",
+    "build:prod": "cross-env NODE_ENV=production && react-scripts build",
     "test": "react-scripts test",
     "coverage": "react-scripts test --coverage --coverageReporters=text --coverageReporters=clover --reporters=default --reporters=jest-junit --watchAll=false",
     "eject": "react-scripts eject"
@@ -73,6 +73,7 @@
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",
     "@types/react-router-dom": "^5.3.3",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.3.1",
     "jest-junit": "^15.0.0",
     "postcss-import": "^15.1.0",
