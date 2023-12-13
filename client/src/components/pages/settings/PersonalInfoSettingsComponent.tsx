@@ -1,6 +1,6 @@
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { FieldErrors, FieldValues, SubmitHandler, useForm,UseFormSetError } from "react-hook-form";
 import Input from "../../inputs/Input";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import Button from "../../Button";
 import { getUser, getUserIDFromJWT, updateUser } from "../../../backend/boardapi";
 import { addressResource, userResource } from "../../../Resources";
@@ -9,9 +9,10 @@ import { ErrorFromValidation } from "../../../backend/validation";
 
 const PersonalInfoSettingsComponent = () => {
 
-    const [error, setError] = useState(null);
+    const [errorBackend, setErrorBackend] = useState<any[]|null>(null);
     const [loading, setLoading] = useState(false);
 
+    //const [streetErr, setStreetErr] = useState<F|null>(null);
     const [user, setUser] = useState<userResource | null>(null);
 
     const load = async () => {
@@ -30,11 +31,17 @@ const PersonalInfoSettingsComponent = () => {
     const {
         register,
         handleSubmit,
+        //setError,
         formState: {
             errors,
         },
+        
         reset
-    } = useForm<FieldValues>({})
+    } = useForm<FieldValues>({
+        // defaultValues: {
+        //     street:""
+        // }
+    })
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         setLoading(true);
@@ -62,6 +69,15 @@ const PersonalInfoSettingsComponent = () => {
             //toast.error('Something went wrong...');
             if (error instanceof ErrorFromValidation) {
                 toast.error(error.message)
+                error.validationErrors.forEach(err => {
+                    // Setzen der Backend-Fehler für die entsprechenden Felder
+                   /*  setError("street", { 
+                        type: "custom",
+                        message: err.msg,
+                     });*/
+
+                });
+                //const err:FieldErrors<any> = error.validationErrors 
             }
         } finally {
             setLoading(false);

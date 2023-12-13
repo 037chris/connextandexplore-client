@@ -1,6 +1,11 @@
 'use client'
 
 import { CgCopy } from "react-icons/cg";
+import EventFilter from "../pages/event/EventFilter";
+import { useState } from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import Input from "../inputs/Input";
+import Button from "../Button";
 
 interface IntroProps {
 
@@ -10,7 +15,27 @@ interface IntroProps {
 const LocalEvents: React.FC<IntroProps> = ({
 
 }) => {
-  
+const [query, setQuery] = useState<string>("");
+const [plz, setPLZ] = useState<string>("");
+const [loading, setLoading] = useState(false);
+
+ const {
+        register,
+        handleSubmit,
+        //setError,
+        formState: {
+            errors,
+        },
+        reset
+    } = useForm<FieldValues>({})
+
+const handleSearch:SubmitHandler<FieldValues> = (data) => {
+    setLoading(true);
+    setQuery(data.query||"");
+    setPLZ(data.plz||"");
+    setLoading(false);
+}
+
     return ( 
         <div className="bg-white flex w-full p-4">
             <div className="grid grid-cols-3 place-items-center w-full">
@@ -22,12 +47,37 @@ const LocalEvents: React.FC<IntroProps> = ({
                      Erlebe die Vielfalt deiner Stadt auf völlig neue Weisen und knüpfe wertvolle Verbindungen. Sei Teil unserer Community und gestalte deine Freizeit auf einzigartige Art und Weise.</p>
                   
                     <br />
-                    <form action="" className="bg-blue-500 rounded ">
-                        <input type="text" placeholder="Event suchen" className="shadow-inner"/>
+                    <form onSubmit={handleSubmit(handleSearch)} action="" className="bg-blue-500 rounded ">
+                        {/*<input type="text" placeholder="Event suchen" className="shadow-inner"/>
                         <input type="number" placeholder="Postleitzahl" className="shadow-inner"/>
                         <input type="button" value="Suchen" className="px-3 text-white"/>
+                        */}
+                        <Input
+                            type='text'
+                            label='Event suchen'
+                            id='query'
+                            register={register}
+                            errors={errors}
+                            disabled={loading}
+                            pattern={/^[A-Za-z0-9\s\-.]+$/}
+                        />
+                        <Input
+                            type='text'
+                            label='Postleitzahl'
+                            id='plz'
+                            register={register}
+                            errors={errors}
+                            disabled={loading}
+                            pattern={/^[A-Za-z0-9\s\-.]+$/}
+                        />
+                        <Button 
+                            disabled={loading}
+                            label={loading ? 'Loading...' : 'Continue'}
+                            onClick={() => {handleSubmit(handleSearch)}}
+                        />
                     </form>
-                    
+                    <br></br>
+                    <EventFilter query={query} setQuery={setQuery} setPLZ={setPLZ} plz={plz} ></EventFilter>
 
                 </div>
                 <div className="col-span-1">

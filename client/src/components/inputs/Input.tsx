@@ -14,6 +14,7 @@ interface InputProps {
   pattern?: RegExp;
   onChange?: (file: File | null) => void; // Add a callback for file input change
   defaultValue?: string; //set a default value for changing userSettings e.g. only the last name changes and the user does not want to set all values again.
+  //setErrors: (param:string, message:string) => void
 }
 
 const Input: React.FC<InputProps> = ({
@@ -27,7 +28,8 @@ const Input: React.FC<InputProps> = ({
   errors,
   pattern,
   onChange,
-  defaultValue
+  defaultValue,
+  //setErrors
 }) => {
   const error = get(errors, id);
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
@@ -188,7 +190,7 @@ function getCustomErrorText(id: string, error: any): string {
       case "address.country":
         return error.message || "Please enter a valid country name.";
       case "address.postalCode":
-        return error.message || "Please select a gender";
+        return error.message || "Please enter a valid ZIP.";
       case "birthDate":
         return error.message || "You must be 18 years or older to register.";
       case "gender":
