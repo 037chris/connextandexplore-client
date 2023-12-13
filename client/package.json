@@ -33,10 +33,9 @@
     "zustand": "^4.4.6"
   },
   "scripts": {
-    "start:dev": "cross-env NODE_ENV=developement && react-scripts start",
-    "build:dev": "cross-env NODE_ENV=developement && react-scripts build",
-    "start:prod": "cross-env NODE_ENV=production && react-scripts start",
-    "build:prod": "cross-env NODE_ENV=production && react-scripts build",
+    "start:dev": "react-scripts start",
+    "start:prod": "serve -s build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "coverage": "react-scripts test --coverage --coverageReporters=text --coverageReporters=clover --reporters=default --reporters=jest-junit --watchAll=false",
     "eject": "react-scripts eject"

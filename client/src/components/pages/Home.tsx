@@ -31,7 +31,7 @@ const Home = () => {
     */}
     <h1> Placeholder, Link zur AllEvents Seite/Komponente, for testing</h1>
     <Button label="AllEvents Seite aufrufen" onClick={()=>{navigate("/events")}} />
-    <h1> Placeholder ENDE</h1>
+    
       <Introduction />
       
       <br />

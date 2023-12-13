@@ -41,7 +41,6 @@ const handleSearch:SubmitHandler<FieldValues> = (data) => {
         <div className="bg-white flex w-full p-4">
             <div className="grid grid-cols-3 place-items-center w-full">
                 <div className="col-span-2">
-                    <CgCopy className="w-90 text-blue-600 text-center" />
                     <p className="text-center font-serif text-lg text-gray-800 mb-4">Mach die Stadt zu deinem Abenteuer</p>
                     <p className="text-center font-sans text-sm mb-4">Willkommen bei Click & Connect! 
                     Tauche ein in unsere Eventplattform und entdecke spannende Abenteuer in deiner Stadt.
@@ -82,7 +81,7 @@ const handleSearch:SubmitHandler<FieldValues> = (data) => {
 
                 </div>
                 <div className="col-span-1">
-                    <img className="" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdzhqM1WMJRsY9lYJ0Gi5OknZJiahj52a76iuVwB69fA&s" alt="" />
+                    <img className="" src={process.env.PUBLIC_URL + '/Images/HEADER_IMG.png'} alt="" />
                 </div>
             </div>
         </div>

@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { IoLocationOutline } from "react-icons/io5";
 import { IoCalendarOutline } from "react-icons/io5";
 import { HiOutlineUserGroup } from "react-icons/hi2";
-import EventDetails from "../pages/EventDetails";
+
 
 
 

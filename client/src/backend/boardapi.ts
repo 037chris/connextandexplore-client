@@ -13,6 +13,9 @@ if (process.env.NODE_ENV === "development") {
   HOST = process.env.REACT_APP_API_SERVER_URL;
 } else if (process.env.NODE_ENV === "production") {
   HOST = process.env.REACT_APP_API_SERVER_URL_PROD;
+  console.log("Here is prod envirement : ");
+  console.log("HOST : ", HOST);
+  console.log("node env : ", process.env.NODE_ENV);
 }
 
 export async function signup(user: UserRegistration): Promise<boolean> {
