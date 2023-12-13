@@ -7,29 +7,45 @@ import Container from "../../Container";
 import Event from "../../landingPage/Event";
 
 export type EventFilterProps = {
-    setQuery: (query:string) => void;
+    //setQuery: (query:string) => void;
     query: string;
-    setPLZ: (plz:string) => void;
+    //setPLZ: (plz:string) => void;
     plz: string;
 }
-export default function EventFilter({setQuery,query,setPLZ,plz}:EventFilterProps) {
+export default function EventFilter({query,plz}:EventFilterProps) {
 
     //const [query, setQuery] = useState<string | null>(null);
     const [events, setEvents] = useState<eventsResource | null>(null);
     //const [plz, setPLZ] = useState<string | null>(null);
 
     const load = async() => {
-        if (!query) {
+        console.log("did change?")
+        if (query == "" || !query) {
             try {
+                console.log("gets all events!")
                 const events:eventsResource = await getAllEvents();
+                events.events = events.events.filter((event) => {
+                    if (!plz) {
+                        return true;
+                    }
+                    return event.address.postalCode==plz;
+                })
                 setEvents(events)
             } catch (err) {
                 console.log(err);
                 setEvents(null);
             }
         } else {
+            console.log("query: ", query);
+            console.log("plz: ", plz);
             try {
                 const events:eventsResource = await searchEvents(query);
+                events.events = events.events.filter((event) => {
+                    if (!plz) {
+                        return true;
+                    }
+                    return event.address.postalCode==plz;
+                })
                 setEvents(events);
             } catch (err) {
                 console.log(err);

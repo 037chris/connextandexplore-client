@@ -30,10 +30,11 @@ const [loading, setLoading] = useState(false);
     } = useForm<FieldValues>({})
 
 const handleSearch:SubmitHandler<FieldValues> = (data) => {
-    setLoading(true);
+    //setLoading(true);
     setQuery(data.query||"");
     setPLZ(data.plz||"");
-    setLoading(false);
+    console.log("click")
+    //setLoading(false);
 }
 
     return ( 
@@ -72,12 +73,12 @@ const handleSearch:SubmitHandler<FieldValues> = (data) => {
                         />
                         <Button 
                             disabled={loading}
-                            label={loading ? 'Loading...' : 'Continue'}
+                            label={loading ? 'Loading...' : 'Search'}
                             onClick={() => {handleSubmit(handleSearch)}}
                         />
                     </form>
                     <br></br>
-                    <EventFilter query={query} setQuery={setQuery} setPLZ={setPLZ} plz={plz} ></EventFilter>
+                    <EventFilter query={query} /*setQuery={setQuery} setPLZ={setPLZ} */plz={plz} ></EventFilter>
 
                 </div>
                 <div className="col-span-1">

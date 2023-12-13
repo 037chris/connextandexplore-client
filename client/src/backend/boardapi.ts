@@ -356,13 +356,18 @@ export async function searchEvents(query: string): Promise<eventsResource> {
   if (!query) {
     throw new Error("invalid eventid, can not search for any events");
   }
-  const url = `${HOST}/api/events/search`;
+    // Kodieren der Query für die URL
+  const encodedQuery = encodeURIComponent(query);
+
+  // Hinzufügen der Query zur URL
+  const url = `${HOST}/api/events/search?query=${encodedQuery}`;
   try {
     const response = await fetchWithErrorHandling(url, {
       method: "GET",
       headers: headers(),
-      body: JSON.stringify(query),
+      //body: JSON.stringify(query),
     });
+    console.log(response);
     return response as eventsResource;
   } catch (err) {
     throw err;
