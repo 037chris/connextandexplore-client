@@ -6,6 +6,7 @@ import { eventResource } from '../../Resources';
 import LoadingIndicator from '../LoadingIndicator';
 import Hashtags from '../landingPage/Hashtags';
 import Button from '../Button';
+import 'tailwindcss/tailwind.css';
 
 
 
@@ -32,21 +33,20 @@ const eventId = params.eventId
   },[eventId, reload])
   return (
     <div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+       <br />
+       <br />
+       <br />
         <br />
         {event ? (
-            <div className="bg-white flex w-full shadow rounded p-4">
             
+            <div className="max-w-screen-md mx-auto p-4">
             <div>
             <img
+            
               //src={process.env.PUBLIC_URL + imageUrl!}
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp4zpIuafwUwAALiZhyewnZPBfWlm8OvxZIEawUIuHKw&s"
+              src={process.env.PUBLIC_URL + '/Images/CARD_IMG_Placeholder.jpg'}
               alt="test"
-              className="w-full"
+              className="'w-full md:max-w-md mx-auto"
             />
             <div className="mb-2">
                 <h1 className="text-2xl font-bold">{event.name}</h1>
@@ -54,24 +54,37 @@ const eventId = params.eventId
             <div className="mb-2">
                 <h2 className="text-gray-600">Datum{/*event.date*/}</h2>
             </div>
-            <div className="mb-2">
-                <h2 className="text-gray-800">{event.description}</h2>
-            </div>
+            
             <Hashtags hashtags={event.hashtags}/>
+            
+            <div className="bg-white flex flex-col w-full shadow rounded p-20 items-center">
+            <div className="text-center">
+                <h2 className="text-gray-80">{event.description}</h2>
+            </div>
+            </div>
+            
             <>
+           
+            <div className="ml-2mt-40">
             {!joined ? (
                 <Button label="Teilnehmen" onClick={async()=>{setReload(await joinEvent(eventId!))}}/>
             ) : (
-              <Button label="Austreten" onClick={async() =>{setReload(await exitEvent(eventId!))}}/>
+              <Button label="Austreten" onClick={async() =>{setReload(await exitEvent(eventId!))}}
+              
+              secondary
+              />
             )}
+            </div>
             
             </>
             
+            </div> 
         </div>
-    </div>
+   
         ) : (
             <LoadingIndicator/>
         )}
+        
     </div>
   );
 };
