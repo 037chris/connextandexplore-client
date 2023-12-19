@@ -137,22 +137,20 @@ const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         <div className="md:flex md:gap-4">
             <Input
               type='text'
-              label='Street *'
+              label='Street'
               id='address.street'
               register={register}
               errors={errors}
-              required
               disabled={loading}
-              pattern={/^[A-Za-z0-9\s\-.]+$/}
+              pattern={/^[A-Za-z0-9ß\s\-.]+$/}
             />
        <div className='mt-4 md:mt-0'>
             <Input
               type='text'
-              label='Number *'
+              label='Number'
               id='address.houseNumber'
               register={register}
               errors={errors}
-              required
               disabled={loading}
               pattern={/^[A-Za-z0-9\s\-/]+$/}
             />
@@ -174,11 +172,10 @@ const onSubmit: SubmitHandler<FieldValues> = async (data) => {
             <div className='mt-4 md:mt-0'>
               <Input
                 type='text'
-                label='Country *'
+                label='Country'
                 id='address.country'
                 register={register}
                 errors={errors}
-                required
                 disabled={loading}
                 pattern={/^[A-Za-z\s-]+$/}
               />
