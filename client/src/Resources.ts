@@ -34,7 +34,7 @@ export type userResource = {
   };
   password?: string;
   isAdministrator: Boolean;
-  address: addressResource;
+  address: uAddressResource;
   profilePicture?: string;
   birthDate: Date;
   gender: string;
@@ -50,7 +50,15 @@ export type usersResource = {
   users: userResource[];
 };
 
-export type addressResource = {
+// user address resource
+export type uAddressResource = {
+  id?: string;
+  postalCode: string;
+  city: string;
+};
+
+// event address resource
+export type eAddressResource = {
   id?: string;
   street: string;
   houseNumber: string;
@@ -79,7 +87,7 @@ export type eventResource = {
   description: string;
   price: number;
   date?: Date;
-  address: addressResource;
+  address: eAddressResource;
   thumbnail?: string;
   hashtags?: string[];
   category?: categoryResource[];
@@ -96,3 +104,5 @@ export type categoryResource = {
   name: string;
   description?: string;
 };
+
+

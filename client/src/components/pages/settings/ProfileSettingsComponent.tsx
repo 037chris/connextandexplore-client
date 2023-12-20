@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
-import { userResource, addressResource } from "../../../Resources";
+import { userResource, uAddressResource } from "../../../Resources";
 import { getUserIDFromJWT, getUser, updateUser } from "../../../backend/boardapi";
 import Input from "../../inputs/Input";
 import Button from "../../Button";

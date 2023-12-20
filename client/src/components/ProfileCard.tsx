@@ -2,6 +2,7 @@ import React from 'react';
 import Heading from './Heading';
 import { FaInstagram } from "react-icons/fa";
 import { FaFacebookSquare } from "react-icons/fa";
+
 interface HorizontalCardProps {
   imageSrc?: string;
   title: string;
@@ -32,19 +33,28 @@ const HorizontalCard: React.FC<HorizontalCardProps> = ({ imageSrc, title, subtit
                 <div className='border-b-2 border-neutral-200 pb-20'>
                   <Heading title={title} subtitle={subtitle}/>
                   
-                  <div className="flex items-center mt-4 gap-2">
-                    <FaInstagram size={19} className='text-red-500'/>
-                    <div className="text-sm">
-                      <p className="text-gray-800 leading-none">{socials?.instagram}</p>
+                  {socials && (
+                <>
+                  {socials.instagram && (
+                    <div className="flex items-center mt-4 gap-2">
+                      <FaInstagram size={19} className="text-red-500" />
+                      <div className="text-sm">
+                        <p className="text-gray-800 leading-none">{socials.instagram}</p>
+                      </div>
                     </div>
-                  </div>
-                  
-                  <div className="flex items-center mt-4 gap-2">
-                    <FaFacebookSquare size={19} className='text-blue-500'/>
-                    <div className="text-sm">
-                      <p className="text-gray-800 leading-none">{socials?.facebook}</p>
+                  )}
+
+                  {socials.facebook && (
+                    <div className="flex items-center mt-4 gap-2">
+                      <FaFacebookSquare size={19} className="text-blue-500" />
+                      <div className="text-sm">
+                        <p className="text-gray-800 leading-none">{socials.facebook}</p>
+                      </div>
                     </div>
-                  </div>
+                  )}
+                </>
+              )}
+                 
                 </div>
                 <p className='pt-7 text-gray-800'>{userFirstName} hat noch nichts über sich geschrieben</p>
 

@@ -470,11 +470,16 @@ export async function deleteEvent(eventId: string): Promise<Boolean> {
       method: "DELETE",
       headers: headers(),
     });
-    return true;
+    return response as Boolean;
+
   } catch (e) {
     return false;
   }
 }
+
+
+
+
 
 export async function updateEvent(
   eventData: eventResource

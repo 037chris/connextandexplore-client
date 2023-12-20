@@ -3,7 +3,7 @@ import Input from "../../inputs/Input";
 import { SetStateAction, useEffect, useState } from "react";
 import Button from "../../Button";
 import { getUser, getUserIDFromJWT, updateUser } from "../../../backend/boardapi";
-import { addressResource, userResource } from "../../../Resources";
+import { uAddressResource, userResource } from "../../../Resources";
 import toast from "react-hot-toast";
 import { ErrorFromValidation } from "../../../backend/validation";
 
@@ -47,14 +47,9 @@ const PersonalInfoSettingsComponent = () => {
         setLoading(true);
         try {
             const userData = user;
-            const address:addressResource =  {
-                street: data.address.street ? data.address.street : userData?.address.street,
-                houseNumber: data.address.houseNumber ? data.address.houseNumber : userData?.address.houseNumber,
+            const address:uAddressResource =  {    
                 postalCode: data.address.postalCode ? data.address.postalCode : userData?.address.postalCode,
                 city: data.address.city ? data.address.city : userData?.address.city,
-                country: data.address.country ? data.address.country : userData?.address.country,
-                stateOrRegion: (data.address.stateOrRegion || userData?.address.stateOrRegion) || "",
-                apartmentNumber: (data.address.apartmentNumber || userData?.address.apartmentNumber) || "", 
             }
             userData!.address = address;
             console.log(userData?.address);
@@ -113,28 +108,7 @@ const PersonalInfoSettingsComponent = () => {
                 <label htmlFor="city">Stadt</label>
                 <input id="city" type="text" placeholder="Stadt"></input>
                         */}
-                <Input
-                    type='text'
-                    label='Street *'
-                    id='address.street'
-                    register={register}
-                    errors={errors}
-                    required
-                    disabled={loading}
-                    pattern={/^[A-Za-z0-9\s\-.]+$/}
-                    defaultValue={user?.address.street}
-                />
-                <Input
-                    type='text'
-                    label='Number *'
-                    id='address.houseNumber'
-                    register={register}
-                    errors={errors}
-                    required
-                    disabled={loading}
-                    pattern={/^[A-Za-z0-9\s\-/]+$/}
-                    defaultValue={user?.address.houseNumber}
-                />
+                
                 <Input
                     type='text'
                     label='City *'
@@ -146,17 +120,7 @@ const PersonalInfoSettingsComponent = () => {
                     pattern={/^[A-Za-z\s-]+$/}
                     defaultValue={user?.address.city}
                 />
-                <Input
-                    type='text'
-                    label='Country *'
-                    id='address.country'
-                    register={register}
-                    errors={errors}
-                    required
-                    disabled={loading}
-                    pattern={/^[A-Za-z\s-]+$/}
-                    defaultValue={user?.address.country}
-                />
+          
                 <Input
                     type='text'
                     label='ZIP *'
@@ -167,24 +131,7 @@ const PersonalInfoSettingsComponent = () => {
                     disabled={loading}
                     defaultValue={user?.address.postalCode}
                 />
-                <Input
-                    type='text'
-                    label='State'
-                    id='address.stateOrRegion'
-                    register={register}
-                    errors={errors}
-                    disabled={loading}
-                    defaultValue={user?.address.stateOrRegion}
-                />
-                <Input
-                    type='text'
-                    label='Apartment Number'
-                    id='address.apartmentNumber'
-                    register={register}
-                    errors={errors}
-                    disabled={loading}
-                    defaultValue={user?.address.apartmentNumber}
-                />
+                
                 <Button 
                     disabled={loading}
                     label={loading ? 'Loading...' : 'Continue'}
