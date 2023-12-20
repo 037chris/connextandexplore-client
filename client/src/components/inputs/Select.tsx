@@ -87,7 +87,7 @@ const Select: React.FC<SelectProps> = ({
           ${errors[id] ? 'focus:border-rose-500' : 'focus:border-black'}
         `}
       >
-        <option value="" disabled selected>
+        <option value="" disabled>
           Select Gender
         </option>
         {options.map((option) => (

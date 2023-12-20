@@ -42,8 +42,7 @@ const UserProfile: React.FC = () => {
         const currentUser = await getUser(userID || "");
         setFirstName(currentUser.name.first); 
         setLastName(currentUser.name.last); 
-        setCityName(currentUser.address.city); 
-        setCountryName(currentUser.address.country); 
+
         setSocialInsta(currentUser.socialMediaUrls?.instagram || "");
         setSocialFacebook(currentUser.socialMediaUrls?.facebook || "");
 
