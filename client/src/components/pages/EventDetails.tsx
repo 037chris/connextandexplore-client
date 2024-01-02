@@ -1,12 +1,15 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { exitEvent, getEvent, getUserIDFromJWT, joinEvent } from '../../backend/boardapi';
-import { eventResource } from '../../Resources';
+import { useNavigate, useParams } from 'react-router-dom';
+import { deleteEvent, exitEvent, getEvent, getUserIDFromJWT, joinEvent } from '../../backend/boardapi';
+import { eventResource, eventsResource } from '../../Resources';
 import LoadingIndicator from '../LoadingIndicator';
 import Hashtags from '../landingPage/Hashtags';
 import Button from '../Button';
 import 'tailwindcss/tailwind.css';
+import { useUserIDContext } from '../../UserIDContext';
+import toast from 'react-hot-toast';
+
 
 
 
@@ -16,6 +19,12 @@ const eventId = params.eventId
   const [event, setEvent] = useState<eventResource>()
   const [joined,setJoined] = useState(false);
   const [reload,setReload] = useState(false);
+
+const isOwner = event?.creator === getUserIDFromJWT();
+const [events, setEvents] = useState<eventsResource | null>(null);
+const { userID } = useUserIDContext();
+const navigate = useNavigate();
+
   useEffect(() => {
     const fetchEvent = async () => {
         if(eventId){
@@ -31,6 +40,29 @@ const eventId = params.eventId
     fetchEvent();
     setReload(false);
   },[eventId, reload])
+
+  //Khatia
+  const handleDeleteEvent = async (eventId: string): Promise<void> => {
+    try {
+      const currentUserEvent = await deleteEvent(eventId);
+      setEvents((prev: eventsResource | null) => {
+        if (prev) {
+          const updatedEvents = {
+            ...prev,
+            events: prev.events.filter((event) => event.id !== eventId),
+          };
+          return updatedEvents;
+        }
+        return prev;
+      });
+      
+      toast.success('Successfully Deleted!')
+      navigate('/my-created-events', { replace: true });
+    } catch (error) {
+      console.log("Can't delete event:", error);
+    }
+  };
+
   return (
     <div>
        <br />
@@ -74,7 +106,21 @@ const eventId = params.eventId
               secondary
               />
             )}
+
+            {/* Khatia */}
+            {userID === event.creator && ( 
+              <div>
+                <button  
+                  className='bg-red-400 text-white w-full md:w-52 h-12 rounded-md mt-10' 
+                  onClick={() => handleDeleteEvent(event.id!)}
+                >
+                  Delete
+                </button>
+              </div>
+            )}
+
             </div>
+                             
             
             </>
             

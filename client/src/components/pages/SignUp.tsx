@@ -11,13 +11,8 @@ import Select from '../inputs/Select';
 import LoginModal from '../navbar/LoginModal';
 
 export default function SignUp() {
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  
-  const [isOpen, setIsOpen] = useState(false);
   const [authenticationModalIsOpen, setAuthenticationModalIsOpen] = useState(false); // State to control the AuthenticationModal
-
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
 
 
@@ -52,13 +47,8 @@ const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         },
         password: data.password,
         address: {
-          street: data.address.street,
-          houseNumber: data.address.houseNumber,
           postalCode: data.address.postalCode,
           city: data.address.city,
-          country: data.address.country,
-          stateOrRegion: data.address.stateOrRegion || "",
-          apartmentNumber: data.address.apartmentNumber || "", 
         },
         profilePicture: data.profilePicture instanceof File ? data.profilePicture : undefined,
         birthDate: data.birthDate,
@@ -137,80 +127,27 @@ const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         <div className="md:flex md:gap-4">
             <Input
               type='text'
-              label='Street *'
-              id='address.street'
+              label='City *'
+              id='address.city'
               register={register}
               errors={errors}
-              required
               disabled={loading}
-              pattern={/^[A-Za-z0-9\s\-.]+$/}
+              pattern={/^[A-Za-z0-9ß\s\-.]+$/}
             />
        <div className='mt-4 md:mt-0'>
             <Input
               type='text'
-              label='Number *'
-              id='address.houseNumber'
+              label='ZIP *'
+              id='address.postalCode'
               register={register}
               errors={errors}
-              required
               disabled={loading}
               pattern={/^[A-Za-z0-9\s\-/]+$/}
             />
          </div>
         </div>
-        <div className="md:flex md:gap-4">
-           <div className='mt-4 md:mt-0'>
-              <Input
-                type='text'
-                label='City *'
-                id='address.city'
-                register={register}
-                errors={errors}
-                required
-                disabled={loading}
-                pattern={/^[A-Za-z\s-]+$/}
-              />
-            </div>
-            <div className='mt-4 md:mt-0'>
-              <Input
-                type='text'
-                label='Country *'
-                id='address.country'
-                register={register}
-                errors={errors}
-                required
-                disabled={loading}
-                pattern={/^[A-Za-z\s-]+$/}
-              />
-            </div>
-            <div className='mt-4 md:mt-0'>
-              <Input
-                type='text'
-                label='ZIP *'
-                id='address.postalCode'
-                register={register}
-                errors={errors}
-                required
-                disabled={loading}
-              />
-            </div>
-        </div>
-        <Input
-          type='text'
-          label='State'
-          id='address.stateOrRegion'
-          register={register}
-          errors={errors}
-          disabled={loading}
-        />
-        <Input
-          type='text'
-          label='Apartment Number'
-          id='address.apartmentNumber'
-          register={register}
-          errors={errors}
-          disabled={loading}
-        />
+       
+        
         <Input
           type='file'
           label='Profile Picture'
@@ -230,15 +167,6 @@ const onSubmit: SubmitHandler<FieldValues> = async (data) => {
           disabled={loading}
           pattern={/\d{4}-\d{2}-\d{2}/} 
         />
-        {/* <Input
-          type='text'
-          label='Gender *'
-          id='gender'
-          register={register}
-          errors={errors}
-          required
-          disabled={loading}
-        /> */}
          <Select
           options={["Female", "Male", "Other"]}
           label='Gender *'
@@ -273,13 +201,6 @@ const onSubmit: SubmitHandler<FieldValues> = async (data) => {
             primary
         />
         </div>
-        {/* <Button 
-            disabled={loading}
-            label={loading ? 'Loading...' : 'Continue'}
-            onClick={() => {}}
-
-        /> */}
-
       </form>
       <div className='text-neutral-500 text-center mt-4 mb-20 font-light'>
           <div className='justify-center flex flex-row items-center gap-2'>

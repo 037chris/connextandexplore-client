@@ -2,7 +2,7 @@
 
 import Container from "../Container";
 import Event from "../landingPage/Event";
-import { addressResource, eventResource } from "../../Resources";
+import { eAddressResource, eventResource } from "../../Resources";
 import { getAllEvents } from "../../backend/boardapi";
 import { useState } from "react";
 import Button from "../Button";
@@ -13,7 +13,7 @@ interface AllEventsProps {
      //events: { date: any, name: string, description: string, imageUrl?: string, hashtags?:string[],category?: string }[]
 }
 
-const initAddress:addressResource={
+const initAddress:eAddressResource={
   street: "init",
   houseNumber: "init",
   postalCode: "init",

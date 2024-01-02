@@ -323,7 +323,7 @@ export async function exitEvent(eventId: string): Promise<boolean> {
   if (!eventId) {
     throw new Error("invalid eventId, can not leave event.");
   }
-  const url = `${HOST}/api/events/${eventId}/ecancel`;
+  const url = `${HOST}/api/events/${eventId}/cancel`;
   try {
     const response = await fetchWithErrorHandling(url, {
       method: "DELETE",
@@ -470,11 +470,16 @@ export async function deleteEvent(eventId: string): Promise<Boolean> {
       method: "DELETE",
       headers: headers(),
     });
-    return true;
+    return response as Boolean;
+
   } catch (e) {
     return false;
   }
 }
+
+
+
+
 
 export async function updateEvent(
   eventData: eventResource
