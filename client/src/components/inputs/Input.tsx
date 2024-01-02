@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FieldErrors, FieldValues, UseFormRegister, get } from "react-hook-form";
 import { BiDollar } from "react-icons/bi";
+import { ValidationError } from "../../backend/validation";
 
 interface InputProps {
   id: string;
@@ -13,8 +14,10 @@ interface InputProps {
   errors: FieldErrors;
   pattern?: RegExp;
   onChange?: (file: File | null) => void; // Add a callback for file input change
+  onChangeFn?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   defaultValue?: string; //set a default value for changing userSettings e.g. only the last name changes and the user does not want to set all values again.
   //setErrors: (param:string, message:string) => void
+  //bError:ValidationError[];
 }
 
 const Input: React.FC<InputProps> = ({
@@ -28,13 +31,15 @@ const Input: React.FC<InputProps> = ({
   errors,
   pattern,
   onChange,
+  onChangeFn,
   defaultValue,
   //setErrors
+  //bError
 }) => {
   const error = get(errors, id);
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
 
-
+  
   useEffect(() => {
     const validateAge = (value: any) => {
       const selectedYear = new Date(value).getFullYear();
@@ -116,6 +121,7 @@ const Input: React.FC<InputProps> = ({
           placeholder=" "
           type={type}
           defaultValue={defaultValue}
+          onChange={onChangeFn}
           className={`
             peer
             w-full

@@ -18,6 +18,11 @@ const ProfilSettingsComponent = () => {
             const u:userResource = await getUser(id);
             console.log(u);
             setUser(u);
+            setValue("firstname", u.name.first, {shouldValidate:true})
+            setValue("lastname", u.name.last, {shouldValidate:true})
+            setValue("email", u.email, {shouldValidate:true})
+            setValue("socialMediaUrls.facebook", u.socialMediaUrls?.facebook, {shouldValidate:true})
+            setValue("socialMediaUrls.instagram", u.socialMediaUrls?.instagram, {shouldValidate:true})
         } catch (err) {
             setUser(null);
         }
@@ -31,6 +36,7 @@ const ProfilSettingsComponent = () => {
         formState: {
             errors,
         },
+        setValue,
         reset
     } = useForm<FieldValues>({})
 
@@ -62,7 +68,7 @@ const ProfilSettingsComponent = () => {
                 <input type="submit" value="Neuer upload" />
                 <input type="submit" value="Foto löschen" />
             </form>
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
             {/*
                 <label htmlFor="vorname">Vorname</label>
                 <input id="vorname" type="text" placeholder="Vorname"></input>
@@ -123,7 +129,7 @@ const ProfilSettingsComponent = () => {
             />
             <Button 
                 disabled={loading}
-                label={loading ? 'Loading...' : 'Continue'}
+                label={loading ? 'Loading...' : 'Save'}
                 onClick={() => {handleSubmit(onSubmit)}}
             />
             </form>

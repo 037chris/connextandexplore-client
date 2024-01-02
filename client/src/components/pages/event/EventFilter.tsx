@@ -28,7 +28,7 @@ export default function EventFilter({query,plz}:EventFilterProps) {
                     if (!plz) {
                         return true;
                     }
-                    return event.address.postalCode==plz;
+                    return event.address.postalCode.includes(plz);
                 })
                 setEvents(events)
             } catch (err) {
@@ -44,7 +44,7 @@ export default function EventFilter({query,plz}:EventFilterProps) {
                     if (!plz) {
                         return true;
                     }
-                    return event.address.postalCode==plz;
+                    return event.address.postalCode.includes(plz);
                 })
                 setEvents(events);
             } catch (err) {

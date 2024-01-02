@@ -22,7 +22,7 @@ export class ErrorFromValidation extends Error {
 /**
  * ValidationError created by express-validator (without nested errors).
  */
-type ValidationError = {
+export type ValidationError = {
     msg: string;
     param: string;
     location: string;

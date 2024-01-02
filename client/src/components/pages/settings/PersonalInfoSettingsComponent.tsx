@@ -1,15 +1,15 @@
-import { FieldErrors, FieldValues, SubmitHandler, useForm,UseFormSetError } from "react-hook-form";
+import { ErrorOption, FieldErrors, FieldValues, SubmitHandler, useForm,UseFormSetError } from "react-hook-form";
 import Input from "../../inputs/Input";
 import { SetStateAction, useEffect, useState } from "react";
 import Button from "../../Button";
 import { getUser, getUserIDFromJWT, updateUser } from "../../../backend/boardapi";
 import { addressResource, userResource } from "../../../Resources";
 import toast from "react-hot-toast";
-import { ErrorFromValidation } from "../../../backend/validation";
+import { ErrorFromValidation, ValidationError } from "../../../backend/validation";
 
 const PersonalInfoSettingsComponent = () => {
 
-    const [errorBackend, setErrorBackend] = useState<any[]|null>(null);
+    const [errorBackend, setErrorBackend] = useState<ValidationError[]|null>(null);
     const [loading, setLoading] = useState(false);
 
     //const [streetErr, setStreetErr] = useState<F|null>(null);
@@ -21,6 +21,9 @@ const PersonalInfoSettingsComponent = () => {
             const u:userResource = await getUser(id);
             console.log(u);
             setUser(u);
+            setValue("address.city", u.address.city, {shouldValidate:true})
+            setValue("address.country", u.address.country, {shouldValidate:true})
+            setValue("address.postalCode", u.address.postalCode, {shouldValidate:true})
         } catch (err) {
             setUser(null);
         }
@@ -31,18 +34,20 @@ const PersonalInfoSettingsComponent = () => {
     const {
         register,
         handleSubmit,
-        //setError,
+        setError,
         formState: {
             errors,
         },
-        
+        //setError,
+        setValue,
         reset
     } = useForm<FieldValues>({
+        //setValue()
         // defaultValues: {
-        //     street:""
-        // }
+        //    "address.street":""
+        //}
     })
-
+    
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         setLoading(true);
         try {
@@ -67,6 +72,7 @@ const PersonalInfoSettingsComponent = () => {
             console.error(error);
             //todo: map backend validation error to inputfield
             //toast.error('Something went wrong...');
+
             if (error instanceof ErrorFromValidation) {
                 toast.error(error.message)
                 error.validationErrors.forEach(err => {
@@ -75,8 +81,10 @@ const PersonalInfoSettingsComponent = () => {
                         type: "custom",
                         message: err.msg,
                      });*/
-
+                     //const e:ErrorOption = {type:"manual", message:err.msg};
+                    //setError("address.street", e)
                 });
+                setErrorBackend(error.validationErrors);
                 //const err:FieldErrors<any> = error.validationErrors 
             }
         } finally {
@@ -123,6 +131,7 @@ const PersonalInfoSettingsComponent = () => {
                     disabled={loading}
                     pattern={/^[A-Za-z0-9\s\-.]+$/}
                     defaultValue={user?.address.street}
+                    //bError={errorBackend}
                 />
                 <Input
                     type='text'

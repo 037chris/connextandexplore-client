@@ -37,6 +37,20 @@ const handleSearch:SubmitHandler<FieldValues> = (data) => {
     //setLoading(false);
 }
 
+
+const handleOnChange = (e: React.ChangeEvent<HTMLInputElement> | File) => {
+    if (e instanceof File || e === null) {
+        return;
+    }
+    const { name, value } = e.target;
+    if (name === 'query') {
+        setQuery(value);
+    } else if (name === 'plz') {
+        setPLZ(value);
+    }
+};
+
+
     return ( 
         <div className="bg-white flex w-full p-4">
             <div className="grid grid-cols-3 place-items-center w-full">
@@ -60,6 +74,7 @@ const handleSearch:SubmitHandler<FieldValues> = (data) => {
                             errors={errors}
                             disabled={loading}
                             pattern={/^[A-Za-z0-9\s\-.]+$/}
+                            onChangeFn={handleOnChange}
                         />
                         <Input
                             type='text'
@@ -69,6 +84,7 @@ const handleSearch:SubmitHandler<FieldValues> = (data) => {
                             errors={errors}
                             disabled={loading}
                             pattern={/^[A-Za-z0-9\s\-.]+$/}
+                            onChangeFn={handleOnChange}
                         />
                         <Button 
                             disabled={loading}
