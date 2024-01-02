@@ -1,5 +1,9 @@
 import { jwtDecode } from "jwt-decode";
 import {
+  CommentResource,
+  CommentWithRatingsResource,
+  CommentsResource,
+  CommentsWithRatingsResource,
   UserRegistration,
   eventResource,
   eventsResource,
@@ -513,5 +517,131 @@ export async function joinEvent(eventId: string): Promise<boolean> {
     return true;
   } catch (err) {
     return false; //throw err;
+  }
+}
+
+export async function createComment(comment:CommentResource): Promise<CommentResource> {
+  const url = `${HOST}/api/comments/post`;
+  try {
+    const response = await fetchWithErrorHandling(url, {
+      method:"POST",
+      headers:headers(),
+      body:JSON.stringify(comment)
+    });
+    return response as CommentResource;
+  } catch (err) {
+    throw err;
+  }
+}
+
+export async function getAllComments(comments:CommentsResource): Promise<CommentsResource> {
+  const url = `${HOST}/api/comments`;
+  try {
+    const response = await fetchWithErrorHandling(url, {
+      method:"GET",
+      headers:headers()
+    });
+    return response as CommentsResource;
+  } catch (err) {
+    throw err;
+  }
+}
+
+
+export async function getComment(commentId:string): Promise<CommentWithRatingsResource> {
+   if (!commentId) {
+    throw new Error("invalid commentId, can not access comment.");
+  }
+  const url = `${HOST}/api/comments/event/${commentId}`;
+  try {
+    const response = await fetchWithErrorHandling(url, {
+      method:"GET",
+      headers:headers()
+    });
+    return response as CommentWithRatingsResource;
+  } catch (err) {
+    throw err;
+  }
+}
+
+export async function getCommentsOfEvent(eventId:string):Promise<CommentsWithRatingsResource> {
+  if (!eventId) {
+    throw new Error("invalid eventId, can not access comments of no event.");
+  }
+  const url = `${HOST}/api/comments/event/${eventId}`;
+  try {
+    const response = await fetchWithErrorHandling(url, {
+      method:"GET",
+      headers:headers()
+    });
+    return response as CommentsWithRatingsResource;
+  } catch (err) {
+    throw err;
+  }
+}
+
+//used to display comments on admin dashboard
+export async function getCommentsOfUser(userId:string):Promise<CommentsWithRatingsResource> {
+  if (!userId) {
+    throw new Error("invalid eventId, can not access comments of no event.");
+  }
+  const url = `${HOST}/api/comments/event/${userId}`;
+  try {
+    const response = await fetchWithErrorHandling(url, {
+      method:"GET",
+      headers:headers()
+    });
+    return response as CommentsWithRatingsResource;
+  } catch (err) {
+    throw err;
+  }
+}
+
+export async function updateComment(comment:CommentResource):Promise<CommentResource> {
+  if (!comment.id) {
+    throw new Error("invalid commentId, can not update.");
+  }
+  const url = `${HOST}/api/comments/${comment.id}`;
+  try {
+    const response = await fetchWithErrorHandling(url, {
+      method:"GET",
+      headers:headers(),
+      body:JSON.stringify(comment)
+    });
+    return response as CommentResource;
+  } catch (err) {
+    throw err;
+  }
+}
+
+export async function deleteComment(commentId:string):Promise<boolean> {
+  if (!commentId) {
+    throw new Error("invalid commentId, can not update.");
+  }
+  const url = `${HOST}/api/comments/${commentId}`;
+   try {
+    const response = await fetchWithErrorHandling(url, {
+      method:"GET",
+      headers:headers(),
+    });
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
+
+export async function getAVGRatingOfEvent(eventId:string):Promise<number> {
+if (!eventId) {
+    throw new Error("invalid eventId, can not access comments of no event.");
+  }
+  const url = `${HOST}/api/comments/event/${eventId}/average-rating`;
+  try {
+    const response = await fetchWithErrorHandling(url, {
+      method:"GET",
+      headers:headers()
+    });
+    return response as number;
+  } catch (err) {
+    return 0;
   }
 }
