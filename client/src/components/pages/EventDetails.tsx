@@ -110,12 +110,22 @@ const navigate = useNavigate();
             {/* Khatia */}
             {userID === event.creator && ( 
               <div>
-                <button  
-                  className='bg-red-400 text-white w-full md:w-52 h-12 rounded-md mt-10' 
-                  onClick={() => handleDeleteEvent(event.id!)}
-                >
-                  Delete
-                </button>
+                <div>
+                  <button  
+                    className='bg-red-400 text-white w-full md:w-52 h-12 rounded-md mt-10' 
+                    onClick={() => handleDeleteEvent(event.id!)}
+                  >
+                    Delete
+                  </button>
+                </div>
+                <div>
+                  <button  
+                    className='bg-red-400 text-white w-full md:w-52 h-12 rounded-md mt-10' 
+                    onClick={() => navigate(`/edit-event/${event.id}`)}
+                  >
+                    Edit
+                  </button>
+                </div>
               </div>
             )}
 

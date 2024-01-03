@@ -35,7 +35,6 @@ const UserEvents: React.FC = () => {
         setLoading(true);
         const currentUserEvents: eventsResource = await getCreatedEvent(userID!);
         setEvents(currentUserEvents);
-        console.log('User Event:', currentUserEvents);
 
       } catch (error) {
         console.error('Error fetching user events:', error);

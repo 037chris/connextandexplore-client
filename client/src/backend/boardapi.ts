@@ -146,7 +146,6 @@ export function getUserIDFromJWT() {
     const cookie = Cookies.get("access_token");
     if (cookie) {
       const jwt: any = jwtDecode(cookie);
-      console.log("Decoded JWT:", jwt);
       return jwt?.sub || undefined;
     }
   } catch (error) {
@@ -484,14 +483,15 @@ export async function deleteEvent(eventId: string): Promise<Boolean> {
 
 
 
-
+// boardapi.ts
 export async function updateEvent(
+  eventId: string,
   eventData: eventResource
 ): Promise<eventResource> {
-  if (!eventData.id) {
-    throw new Error("invalid eventid, can not update event");
+  if (!eventId) {
+    throw new Error("Invalid eventId, cannot update event");
   }
-  const url = `${HOST}/api/events/${eventData.id}`;
+  const url = `${HOST}/api/events/${eventId}`;
   try {
     const response = await fetchWithErrorHandling(url, {
       method: "PUT",
@@ -503,6 +503,7 @@ export async function updateEvent(
     throw e;
   }
 }
+
 
 export async function joinEvent(eventId: string): Promise<boolean> {
   if (!eventId) {

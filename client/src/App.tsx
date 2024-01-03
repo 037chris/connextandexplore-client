@@ -20,10 +20,12 @@ import YourEvents from "./components/pages/YourEvents";
 import UserEvents from "./components/pages/UserEvents";
 import CreatedEventDetails from "./components/pages/CreatedEventDetails";
 import PrivateRoute from "./components/PrivateRoute";
+import EditEvent from "./components/pages/EditEventPage";
+import EditEventPage from "./components/pages/EditEventPage";
 
 export default function App() {
   const [userID, setUserID] = useState(getUserIDFromJWT());
-  console.log("Initial user ID:", userID);
+  
   
   return (
    <>
@@ -40,6 +42,8 @@ export default function App() {
           <Route path="/settings" element={<UserSettings activeTab={"profile"} />}/>
           <Route path="/create-event" element={<CreateEventPage />}/>
           <Route path="/my-created-events" element={<UserEvents />}/>
+          <Route path="/edit-event/:eventId" element={<EditEventPage  />}/>
+
           </Route>
 
 

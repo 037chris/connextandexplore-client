@@ -63,7 +63,6 @@ const CreateEventPage = () => {
     <EventThumbnailForm {...data} updateFields={updateFields} />,
   ]);
 
-  const { userID } = useUserIDContext();
   const navigate = useNavigate();
 
   function updateFields(fields: Partial<eventResource>) {
@@ -120,7 +119,7 @@ const CreateEventPage = () => {
       <div className='max-w-2xl mx-auto border-2 border-sky-500 rounded-md p-8'>
         <form onSubmit={onSubmit}>
           <div className='text-center mb-6'>
-            <p className='text-xl font-semibold text-gray-800'>
+          <p className="text-gray-800 font-titan">
               EVENT EINTRAGEN SCHRITT {currentStepIndex + 1} VON {steps.length}
             </p>
           </div>

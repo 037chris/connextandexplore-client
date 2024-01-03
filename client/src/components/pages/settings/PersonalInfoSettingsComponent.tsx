@@ -22,7 +22,7 @@ const PersonalInfoSettingsComponent = () => {
             console.log(u);
             setUser(u);
             setValue("address.city", u.address.city, {shouldValidate:true})
-            setValue("address.country", u.address.country, {shouldValidate:true})
+            // setValue("address.country", u.address.country, {shouldValidate:true})
             setValue("address.postalCode", u.address.postalCode, {shouldValidate:true})
         } catch (err) {
             setUser(null);

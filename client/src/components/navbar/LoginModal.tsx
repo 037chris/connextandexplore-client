@@ -42,16 +42,11 @@ const LoginModal: FC<LoginModalProps> = ({ isOpen, onClose }) => {
     try {
       const loginResult = await login(data.email, data.password);
   
-      console.log("Result from login:", loginResult);
-  
       if (loginResult) {
         const user = getUserIDFromJWT();
-        console.log("User ID from JWT:", user);
   
         localStorage.setItem("user-info", JSON.stringify(loginResult));
         setUserID(user);
-  
-        console.log("User ID set in context:", user);
   
         toast.success('Successfully logged in!');
         onClose();

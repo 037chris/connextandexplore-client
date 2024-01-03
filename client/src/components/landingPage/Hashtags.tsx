@@ -5,7 +5,6 @@ interface HashtagsProps {
 }
 
 const Hashtags: React.FC<HashtagsProps> = ({ hashtags }) => {
-  console.log(hashtags)
   return (
     <div className='flex flex-wrap gap-3 mb-2'>
     {(hashtags??["keineHashtags"]).map((hashtag, index) => (

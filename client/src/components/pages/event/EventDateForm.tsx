@@ -104,14 +104,15 @@ export default function EventDateForm({
           onChange={(e) => updateFields({ address: { ...address, country: e.target.value } })}
         />
 
-        <input
-          type="date"
-          id="date"
-          placeholder="Veranstaltungsdatum"
-          value={date ? format(date, 'yyyy-MM-dd') : ''}
-          disabled={loading}
-          onChange={(e) => updateFields({ date: new Date(e.target.value) })}
-        />
+<input
+  type="date"
+  id="date"
+  placeholder="Veranstaltungsdatum"
+  value={date ? format(new Date(date), 'yyyy-MM-dd') : ''}
+  disabled={loading}
+  onChange={(e) => updateFields({ date: new Date(e.target.value) })}
+/>
+
       </div>
     </FormWrapper>
   );
