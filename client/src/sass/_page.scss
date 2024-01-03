@@ -216,3 +216,109 @@ footer {
 
     }
 }
+
+
+// HEADER
+
+header {
+    background-image: url('../../public/images/HEADER/header-bg-img.png');
+    background-repeat: repeat;
+    padding: rem(125) rem(15) rem(50);
+    text-align: center;
+
+    @include breakpoint(md){
+        padding: rem(155) rem(15) rem(60);
+    }
+
+    @include breakpoint(xl){
+        padding: rem(200) rem(15) rem(60);
+        text-align: left;
+    }
+
+    .clouds {
+        position: relative;
+
+        &::before{
+            width: rem(133);
+            height: rem(32);
+            position: absolute;
+            left: -90px;
+            top: 65px;
+            display: block;
+            z-index: 99;
+
+            @include breakpoint(xl) {
+                content: url('../img/cloud_1.png');
+            }
+        }
+
+        &::after{
+            width: rem(260);
+            height: rem(65);
+            position: absolute;
+            left: -190px;
+            top: -65px;
+            display: block;
+            z-index: 99;
+
+            @include breakpoint(xl) {
+                content: url('../img/cloud_2.png');
+            }
+        }
+    }
+
+    .header-logo {
+        max-width: rem(200);
+        margin: 0 auto;
+        position: relative;
+
+        @include breakpoint(ml) {
+            max-width: rem(230);
+        }
+
+        @include breakpoint(xl) {
+            max-width: rem(250);
+            margin: auto;
+        }
+    }
+
+    h1 {
+        font-size: rem(35);
+        margin-top: rem(30);
+        text-transform: uppercase;
+
+        @include breakpoint(md) {
+            font-size: rem(55);
+        }
+
+        @include breakpoint(xxl) {
+            font-size: rem(80);
+        }
+
+
+        span {
+            margin-top: rem(15);
+            display: block; 
+            font-weight: 300;
+            font-size: rem(18);
+            text-transform: none;
+
+            @include breakpoint(md) {
+                margin-top: rem(20);
+                font-size: rem(20);
+            }
+
+            @include breakpoint(xxl) {
+                margin-top: rem(35);
+                font-size: rem(22);
+            }
+        }
+    }
+    .header-img-box {
+        display: none;
+
+        @include breakpoint(xl) {
+            display: block;
+        }
+    }
+}

@@ -20,10 +20,7 @@ const UserMenu: FC = () => {
   const [authenticationModalIsOpen, setAuthenticationModalIsOpen] = useState(false); // State to control the AuthenticationModal
   const navigate = useNavigate();
 
-
-
-
-   const [profilePicture, setProfilePicture] = useState("");
+  const [profilePicture, setProfilePicture] = useState("");
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -31,13 +28,15 @@ const UserMenu: FC = () => {
         // Assuming getProfile function returns an object with a profilePicture property
         const currentUser = await getUser(userID || "");
         setProfilePicture(currentUser.profilePicture || "");
+        let str = currentUser.profilePicture;
+        console.log("PROFILE TEST " + str + " 1");
       } catch (error) {
         console.error('Error fetching user profile:', error);
       }
     };
 
     if (userID) {
-      fetchUserProfile(); 
+      fetchUserProfile();
     }
   }, [userID]);
 
@@ -67,13 +66,13 @@ const UserMenu: FC = () => {
 
   return (
     <>
-    <div className="relative">
-      {userID
-        ?
-      <div className="flex flex-row items-center gap-3 md:mr-20">
-        <div
-          onClick={() => {navigate('/create-event')}}
-          className="
+      <div className="relative">
+        {userID
+          ?
+          <div className="flex flex-row items-center gap-3">
+            <div
+              onClick={() => { navigate('/create-event') }}
+              className="
                     hidden
                     md:block
                     text-sm
@@ -86,17 +85,17 @@ const UserMenu: FC = () => {
                     cursor-pointer
                     border-2
                     "
-        >
-          Event Erstellen 
-        </div>
-        <div><MdOutlineGroups2 size={25}/></div>
-        <div><FaRegEnvelope size={20}/></div>
-       
-    <div
-      onClick={toggleOpen}
-      // onBlur={handleBlur}
-      // tabIndex={0}
-      className="
+            >
+              Event Erstellen
+            </div>
+            <div><MdOutlineGroups2 size={25} /></div>
+            <div><FaRegEnvelope size={20} /></div>
+
+            <div
+              onClick={toggleOpen}
+              // onBlur={handleBlur}
+              // tabIndex={0}
+              className="
                 p-4
                 md:py-1
                 md:px-2
@@ -111,29 +110,29 @@ const UserMenu: FC = () => {
                 hover:shadow-md
                 transition
       ">
-          <AiOutlineMenu />
-          <div className="hidden md:block">
-          {/* {profilePicture && <Avatar src={`../../../../../connectandexplore-1/Backend/dist/src/utils${profilePicture}`} />} */}
-          <Avatar src="/images/placeholder.jpg" />
+              <AiOutlineMenu />
+              <div className="hidden md:block">
+                {/* {profilePicture && <Avatar src={`../../../../../connectandexplore-1/Backend/dist/src/utils${profilePicture}`} />} */}
+                <Avatar src="/images/placeholder.jpg" />
+              </div>
+            </div>
           </div>
-    </div>
-  </div> 
-      :
-      <div className='flex flex-row gap-3 md:mr-20'>
-          <div className='w-24 md:w-32'>
+          :
+          <div className='flex flex-row gap-3'>
+            <div className='w-24 md:w-32'>
               <Button outline label='Anmelden' onClick={openAuthenticationModal} />
-          </div>
-          <div className='w-24 md:w-32'>
+            </div>
+            <div className='w-24 md:w-32'>
               <Button primary label='Registrieren' onClick={() => navigate('/signup')} />
+            </div>
           </div>
-      </div>
-    }
-  
-    {isOpen && (
-      <div
-      onBlur={handleBlur}
+        }
+
+        {isOpen && (
+          <div
+            onBlur={handleBlur}
             tabIndex={0}
-        className="
+            className="
             absolute
             rounded-xl
             shadow-md
@@ -145,25 +144,25 @@ const UserMenu: FC = () => {
             top-12
             text-sm
         ">
-          <div className="flex flex-col cursor-pointer">
-            <>
-              <MenuItem onClick={() => navigate('/')} label="Dashboard" />
-              <MenuItem onClick={() => navigate('/my-created-events')} label="Meine erstellten Events" />
-              <MenuItem onClick={() => {}} label="Nachrichten" />
-              <MenuItem onClick={() => navigate('/yourevents')} label="Meine Teilnahmen"  />
-              <MenuItem onClick={() => navigate('/about')} label="Einstellung" />
-              <MenuItem onClick={() => {}} label="Hilfe / FAQ" />
-              <hr/>
-              <MenuItem onClick={onLogOut} label="Log out" />
-            </>
+            <div className="flex flex-col cursor-pointer">
+              <>
+                <MenuItem onClick={() => navigate('/')} label="Dashboard" />
+                <MenuItem onClick={() => navigate('/my-created-events')} label="Meine erstellten Events" />
+                <MenuItem onClick={() => { }} label="Nachrichten" />
+                <MenuItem onClick={() => navigate('/yourevents')} label="Meine Teilnahmen" />
+                <MenuItem onClick={() => navigate('/about')} label="Einstellung" />
+                <MenuItem onClick={() => { }} label="Hilfe / FAQ" />
+                <hr />
+                <MenuItem onClick={onLogOut} label="Log out" />
+              </>
+            </div>
           </div>
-        </div>
-      )}
-      
-      {/* Login Modal */}
-      <LoginModal isOpen={authenticationModalIsOpen} onClose={() => setAuthenticationModalIsOpen(false)} />
-    </div>
-      
+        )}
+
+        {/* Login Modal */}
+        <LoginModal isOpen={authenticationModalIsOpen} onClose={() => setAuthenticationModalIsOpen(false)} />
+      </div>
+
     </>
   );
 };

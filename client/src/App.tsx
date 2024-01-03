@@ -12,6 +12,8 @@ import { UserIDContext } from "./UserIDContext";
 
 // STYLES
 import './sass/App.scss'
+
+//
 import UserProfile from "./components/pages/UserProfile";
 import Events from "./components/pages/Events";
 import CreateEventPage from "./components/pages/CreateEventPage";

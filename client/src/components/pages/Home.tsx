@@ -5,6 +5,8 @@ import Categories from '../landingPage/Categories';
 import Join from '../landingPage/Join';
 import Button from '../Button';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../web/Footer';
+import { Header } from '../web/Header';
 
 
 const Home = () => {
@@ -19,28 +21,23 @@ const Home = () => {
   const navigate = useNavigate();
 
   return (
-    
-    <div className='p-3 gap-4'>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      {/*
-    Placeholder, Link zur AllEvents Seite/Komponente, for testing
-    */}
-    <h1> Placeholder, Link zur AllEvents Seite/Komponente, for testing</h1>
-    <Button label="AllEvents Seite aufrufen" onClick={()=>{navigate("/events")}} />
-    
-      <Introduction />
-      
-      <br />
-      
-      <LocalEvents events={eventsData} />
-      <br />
-      <Categories categories={["Kultur&Kunst","Konzert","sport&Fitness","Gaming","Hobbys",
-      "outdoor","Social"]} />
-      <Join />
+    <div className='relative'>
+      <Header homeRoute={'home'} />
+
+      {/* 
+      OLD VERSION
+      <div className="max-grid">
+        <div className='p-3 gap-4'>
+        <h1> Placeholder, Link zur AllEvents Seite/Komponente, for testing</h1>
+        <Button label="AllEvents Seite aufrufen" onClick={()=>{navigate("/events")}} />
+          <Introduction />
+          <LocalEvents events={eventsData} />
+          <Categories categories={["Kultur&Kunst","Konzert","sport&Fitness","Gaming","Hobbys",
+          "outdoor","Social"]} />
+          <Join />
+          </div>
+      </div> */}
+      <Footer />
     </div>
   );
 };
