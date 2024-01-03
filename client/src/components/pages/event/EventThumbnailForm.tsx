@@ -20,7 +20,6 @@ export default function EventThumbnailForm({
     const file = e.target.files?.[0];
     const newThumbnail = file?.name;
 
-    // Update state and call updateFields directly
     setSelectedHashtags((prev) => {
       updateFields({ thumbnail: newThumbnail, hashtags: prev });
       return prev;
@@ -28,7 +27,6 @@ export default function EventThumbnailForm({
   };
 
   const toggleHashtag = (hashtag: string) => {
-    // Update state and call updateFields directly
     setSelectedHashtags((prev) => {
       const newHashtags = prev.includes(hashtag)
         ? prev.filter((h) => h !== hashtag)
@@ -45,13 +43,16 @@ export default function EventThumbnailForm({
 
   const addCustomHashtag = () => {
     if (customHashtag.trim() !== '') {
-      toggleHashtag(customHashtag.trim());
+      setSelectedHashtags((prev) => {
+        const newHashtags = [...prev, customHashtag.trim()];
+        updateFields({ thumbnail, hashtags: newHashtags });
+        return newHashtags;
+      });
       setCustomHashtag('');
     }
   };
 
   useEffect(() => {
-    // Update fields after component has rendered
     updateFields({ thumbnail, hashtags: selectedHashtags });
   }, [thumbnail, selectedHashtags]);
 
@@ -62,73 +63,82 @@ export default function EventThumbnailForm({
 
   return (
     <FormWrapper title="Lege ein Thumbnail fest und wähle Hashtags für deine Veranstaltung">
-      <input
-        type="file"
-        accept="image/*"
-        id="bild"
-        disabled={loading}
-        onChange={handleFileChange}
-      />
-      <button
-        className='border border-red-500 rounded hover:shadow-lg'
-        type='button'
-        onClick={handleImageSubmit}
-      >
-        Upload
-      </button>
-
-      {thumbnail && (
-        <img
-          src={thumbnail}
-          alt="Thumbnail Preview"
-          className="mt-2 rounded"
-          style={{ maxWidth: '100%', maxHeight: '200px' }}
-        />
-      )}
-
-      <div className="mt-4">
-        <strong>Hashtags:</strong>
-        <div className="flex flex-wrap gap-2 mt-2">
-          {['Make new friends', 'Networking', 'Technologie', 'Professionals', 'foryou'].map((hashtag) => (
-            <button
-              type='button'
-              key={hashtag}
-              className={`bg-blue-500 text-white px-4 py-2 rounded ${
-                selectedHashtags.includes(hashtag) ? 'bg-opacity-75' : ''
-              }`}
-              onClick={() => toggleHashtag(hashtag)}
-            >
-              {hashtag}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-4">
-        <strong>Custom Hashtags:</strong>
-        <div className="flex gap-2 mt-2">
-          <input
-            type="text"
-            placeholder="Type your custom hashtag"
-            value={customHashtag}
-            onChange={handleCustomHashtagChange}
-            className="border border-gray-700 rounded px-2 py-1 outline-none"
-          />
+      <div className="flex flex-col items-center">
+        <div className="flex gap-2">
+          <label htmlFor="bild" className="cursor-pointer">
+            <input
+              type="file"
+              accept="image/*"
+              id="bild"
+              disabled={loading}
+              onChange={handleFileChange}
+              className="hidden"
+            />
+            <div className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300 cursor-pointer">
+              Bild auswählen
+            </div>
+          </label>
           <button
-            onClick={addCustomHashtag}
+            className="px-4 py-2 bg-red-500 rounded hover:shadow-lg"
             type="button"
-            className="bg-green-500 text-white px-3 py-1 rounded cursor-pointer"
+            onClick={handleImageSubmit}
           >
-            Add
+            browse
           </button>
         </div>
-      </div>
 
-      {selectedHashtags.length > 0 && (
-        <div className="mt-4">
-          <strong>Selected Hashtags:</strong> {selectedHashtags.join(', ')}
+        {thumbnail && (
+          <img
+            src={thumbnail}
+            alt="Thumbnail Preview"
+            className="mt-4 rounded shadow-lg"
+            style={{ maxWidth: '100%', maxHeight: '200px' }}
+          />
+        )}
+
+        <div className="mt-4 text-center">
+          <strong>Makiere dein Event mit Hashtags:</strong>
+          <div className="flex flex-wrap gap-2 mt-2 justify-center">
+            {['Make new friends', 'Networking', 'Technologie', 'Professionals', 'foryou'].map((hashtag) => (
+              <button
+                type="button"
+                key={hashtag}
+                className={`bg-blue-500 text-white px-4 py-2 rounded ${
+                  selectedHashtags.includes(hashtag) ? 'bg-opacity-75' : ''
+                } hover:bg-blue-600 transition duration-300`}
+                onClick={() => toggleHashtag(hashtag)}
+              >
+                {hashtag}
+              </button>
+            ))}
+          </div>
         </div>
-      )}
+
+        <div className="mt-4">
+          <div className="flex gap-2 mt-2">
+            <input
+              type="text"
+              placeholder="# füge mich hinzu"
+              value={customHashtag}
+              onChange={handleCustomHashtagChange}
+              className="border border-gray-700 rounded px-2 py-1 outline-none focus:ring focus:border-blue-300"
+            />
+            <button
+              onClick={addCustomHashtag}
+              type="button"
+              className="bg-green-500 text-white px-3 py-1 rounded cursor-pointer hover:bg-green-600 transition duration-300"
+            >
+              Add
+            </button>
+          </div>
+        </div>
+
+        {selectedHashtags.length > 0 && (
+          <div className="mt-4">
+            <strong>Markierte Hashtags:</strong> {selectedHashtags.join(', ')}
+          </div>
+        )}
+      </div>
     </FormWrapper>
   );
 }
