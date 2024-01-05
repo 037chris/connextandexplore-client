@@ -30,7 +30,7 @@ const Footer = () => {
                                     </ul>
                                 </> :
                                 <>
-                                    <ul className="grid md:grid-cols-2">
+                                    <ul className="grid md:grid-cols-2 lg:grid-spans-4">
                                         <li><Link to="#">Einloggen</Link></li>
                                         <li><Link to="#">Registrieren</Link></li>
                                     </ul>

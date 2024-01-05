@@ -255,7 +255,7 @@ footer {
         span {
 
             @include breakpoint(xl) {
-                display: block;
+                //display: block;
             }
         }
     }
@@ -282,21 +282,26 @@ footer {
 header {
     background-image: url('../../public/images/HEADER/header-bg-img.png');
     background-repeat: repeat;
-    padding: rem(125) rem(15) rem(50);
-    text-align: center;
 
-    @include breakpoint(md) {
-        padding: rem(155) rem(15) rem(80);
+    .header-general {
+        padding: rem(125) rem(15) rem(50);
+        text-align: center;
+
+        @include breakpoint(md) {
+            padding: rem(155) rem(15) rem(80);
+        }
+
+        @include breakpoint(lg) {
+            padding: rem(155) rem(15) rem(100);
+        }
+
+        @include breakpoint(xl) {
+            padding: rem(200) rem(15) rem(120);
+            text-align: left;
+        }
     }
 
-    @include breakpoint(lg) {
-        padding: rem(155) rem(15) rem(100);
-    }
 
-    @include breakpoint(xl) {
-        padding: rem(200) rem(15) rem(120);
-        text-align: left;
-    }
 
     .clouds {
         position: relative;
@@ -417,7 +422,7 @@ header {
 
             @include breakpoint(md) {
                 width: 33%;
-                float:left;
+                float: left;
             }
 
             input {
@@ -456,6 +461,22 @@ header {
         }
 
 
+    }
+
+    .header-logged-in {
+        padding: rem(125) rem(15) rem(50);
+
+        @include breakpoint(md) {
+            padding: rem(155) rem(15) rem(0);
+        }
+
+        @include breakpoint(lg) {
+            padding: rem(155) rem(15) rem(0);
+        }
+
+        h1 {
+            font-family: "Sue Ellen Francisco", cursive;
+        }
     }
 }
 
