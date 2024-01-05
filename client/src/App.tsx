@@ -25,7 +25,7 @@ import PrivateRoute from "./components/PrivateRoute";
 
 export default function App() {
   const [userID, setUserID] = useState(getUserIDFromJWT());
-  console.log("Initial user ID:", userID);
+  //console.log("Initial user ID:", userID);
   
   return (
    <>
