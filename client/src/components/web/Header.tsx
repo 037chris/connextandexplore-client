@@ -21,10 +21,21 @@ export const Header: React.FC<HomeRouteName> = ({ }) => {
               <span className="font-sans">
                 Willkommen bei Click & Connect! Tauche ein in unsere Eventplattform und entdecke spannende Abenteuer in deiner Stadt. Erlebe die Vielfalt deiner Stadt auf völlig neue Weisen und knüpfe wertvolle Verbindungen. Sei Teil unserer Community und gestalte deine Freizeit auf einzigartige Art und Weise.
               </span>
+              <form onSubmit={() => { }}>
+                <label>
+                  <input id="event" type="text" placeholder="Event suchen" />
+                </label>
+                <label>
+                  <input id="place" type="text" placeholder="Ort oder PLZ" />
+                </label>
+                <label>
+                  <input type="submit" />
+                </label>
+              </form>
             </h1>
           </div>
           <div className="col-span-1 header-img-box lg:col-span-4">
-          <img src={headerImg} className="header-img" alt="Pärchen erkundet eine Stadt" />
+            <img src={headerImg} className="header-img" alt="Pärchen erkundet eine Stadt" />
           </div>
         </div>
 
