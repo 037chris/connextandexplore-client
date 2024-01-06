@@ -8,10 +8,6 @@ import { IoLocationOutline } from "react-icons/io5";
 import { IoCalendarOutline } from "react-icons/io5";
 import { HiOutlineUserGroup } from "react-icons/hi2";
 
-
-
-
-
 interface EventProps {
     id?: string,
     address?: {
@@ -19,10 +15,10 @@ interface EventProps {
         country: string;
     }
     date?: Date,
-    name:string,
-    description:string,
-    thumbnail?:string,
-    hashtags?:string[]
+    name: string,
+    description: string,
+    thumbnail?: string,
+    hashtags?: string[]
     category?: string[]
 }
 
@@ -38,36 +34,39 @@ const LocalEvents: React.FC<EventProps> = ({
 }) => {
     const navigate = useNavigate();
     const formattedDate = date ? (isValid(new Date(date)) ? format(new Date(date), 'PPP') : 'Invalid Date') : 'No Date';
+<<<<<<< HEAD
 
     
     const params = useParams();
     const eventId = params.eventId; 
+=======
+    console.log('Formatted date:', formattedDate, 'Original date:', date);
+>>>>>>> Styling
 
-    
+    const params = useParams();
+    const eventId = params.eventId;
+
     const handleNavigate = () => {
         if (eventId) {
-          console.log('Navigating to event:', eventId);
-          navigate(`/event/${eventId}`);
+            console.log('Navigating to event:', eventId);
+            navigate(`/event/${eventId}`);
         } else {
-          console.error('No eventId found in params.');
-          // Handle the case where eventId is not defined, e.g., show an error message or navigate to a default page.
+            console.error('No eventId found in params.');
+            // Handle the case where eventId is not defined, e.g., show an error message or navigate to a default page.
         }
-      };
-    
-    
-    return ( 
-        <div 
-            
-            className="col-span cursor-pointer group top-2">
+    };
+
+    return (
+        <div className="col-span cursor-pointer group top-2">
             <div className="bg-white flex flex-col w-full shadow rounded p-4">
                 <div className="w-full relative overflow-hidden rounded-xl">
                     <img
-                    //src={process.env.PUBLIC_URL + imageUrl!}
-                    src="/images/CARD_IMG_Placeholder.jpg"
-                    width="318"
-                    height="179"
-                    alt="eventCard"
-                    className="object-cover w-full group-hover:scale-110 transition"
+                        //src={process.env.PUBLIC_URL + imageUrl!}
+                        src="/images/CARD_IMG_Placeholder.jpg"
+                        width="318"
+                        height="179"
+                        alt="eventCard"
+                        className="object-cover w-full group-hover:scale-110 transition"
                     />
                 </div>
                 <div className="mt-2 font-titan">
@@ -75,37 +74,32 @@ const LocalEvents: React.FC<EventProps> = ({
                 </div>
                 <div className="flex flex-row items-center gap-2 font-light mt-2">
                     <div className="font-medium">
-                        <IoLocationOutline className="text-red-500"/>
+                        <IoLocationOutline className="text-red-500" />
                     </div>
-                    <div> 
+                    <div>
                         {address?.city}, {address?.country}
                     </div>
                 </div>
                 <div className="flex flex-row items-center gap-2 font-light mt-2">
                     <div className="font-medium">
-                        <IoCalendarOutline className="text-red-500"/>
+                        <IoCalendarOutline className="text-red-500" />
                     </div>
-                    <div> 
+                    <div>
                         {formattedDate}
                     </div>
                 </div>
                 <div className="flex flex-row items-center gap-2 font-light my-2">
                     <div className="font-medium">
-                        <HiOutlineUserGroup className="text-red-500"/>
+                        <HiOutlineUserGroup className="text-red-500" />
                     </div>
-                    <div> 
-                        dummy Plätzen verfügbar 
+                    <div>
+                        dummy Plätzen verfügbar
                     </div>
                 </div>
-           
-       
-                
-                <Hashtags hashtags={hashtags}/>
-          
+                <Hashtags hashtags={hashtags} />
             </div>
         </div>
-  );
+    );
 };
 
- 
 export default LocalEvents;

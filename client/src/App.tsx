@@ -12,6 +12,8 @@ import { UserIDContext } from "./UserIDContext";
 
 // STYLES
 import './sass/App.scss'
+
+//
 import UserProfile from "./components/pages/UserProfile";
 import Events from "./components/pages/Events";
 import CreateEventPage from "./components/pages/CreateEventPage";
@@ -25,6 +27,7 @@ import EditEventPage from "./components/pages/EditEventPage";
 
 export default function App() {
   const [userID, setUserID] = useState(getUserIDFromJWT());
+  console.log("Initial user ID:", userID);
   
   
   return (

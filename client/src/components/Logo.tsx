@@ -7,7 +7,7 @@ const Logo = () => {
   const navigate = useNavigate()
   return (
     <img 
-        className="hidden md:block md:ml-20 cursor-pointer"
+        className="hidden md:block cursor-pointer"
         height="150"
         width="150"
         src="/images/logo.png"
