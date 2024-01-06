@@ -119,7 +119,46 @@ const handleOnChange = (e: React.ChangeEvent<HTMLInputElement> | File) => {
                   <p>Überall dieselbe alte Leier. Das Layout ist fertig, der Text lässt auf sich warten. Damit das Layout nun nicht nackt im Raume steht und sich klein und leer vorkommt, springe ich ein: der Blindtext.</p>
                   </div>
               </div>
+              <form onSubmit={() => { handleSubmit(handleSearch) }}>
+                      <label>
+                        <Input
+                            type='text'
+                            label='Event suchen'
+                            id='query'
+                            register={register}
+                            errors={errors}
+                            disabled={loading}
+                            pattern={/^[A-Za-z0-9\s\-.]+$/}
+                            onChangeFn={handleOnChange}
+                            customInputClassNames=' '
+                            customLabelClassNames=' '
+                        />
+                      </label>
+                      <label>
+                        <Input
+                            type='text'
+                            label='Postleitzahl'
+                            id='plz'
+                            register={register}
+                            errors={errors}
+                            disabled={loading}
+                            pattern={/^[A-Za-z0-9\s\-.]+$/}
+                            onChangeFn={handleOnChange}
+                            customInputClassNames=' '
+                            customLabelClassNames=' '
+                        />
+                      </label>
+                      <label>
+                        <input type="submit" />
+                      </label>
+                    </form>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <EventFilter query={query} /*setQuery={setQuery} setPLZ={setPLZ} */plz={plz} ></EventFilter>
             </div>
+            
           </>}
       </div>
     </header>
