@@ -11,25 +11,21 @@ import { FaRegEnvelope } from "react-icons/fa";
 import { MdOutlineGroups2 } from "react-icons/md";
 import LoginModal from './LoginModal';
 
-// on mouseClick close menu
-
 const UserMenu: FC = () => {
   const { userID } = useUserIDContext();
   const [isOpen, setIsOpen] = useState(false);
 
-  const [authenticationModalIsOpen, setAuthenticationModalIsOpen] = useState(false); // State to control the AuthenticationModal
+  const [authenticationModalIsOpen, setAuthenticationModalIsOpen] = useState(false);
   const navigate = useNavigate();
 
+  const [forceUpdate, setForceUpdate] = useState(false);
   const [profilePicture, setProfilePicture] = useState("");
 
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        // Assuming getProfile function returns an object with a profilePicture property
         const currentUser = await getUser(userID || "");
         setProfilePicture(currentUser.profilePicture || "");
-        let str = currentUser.profilePicture;
-        console.log("PROFILE TEST " + str + " 1");
       } catch (error) {
         console.error('Error fetching user profile:', error);
       }
@@ -40,27 +36,26 @@ const UserMenu: FC = () => {
     }
   }, [userID]);
 
-
-
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
 
-
   const openAuthenticationModal = () => {
-    setIsOpen(false); // Close the UserMenu when opening the AuthenticationModal
+    console.log("Opening authentication modal"); // Add this line
+
+    setIsOpen(false);
     setAuthenticationModalIsOpen(true);
   };
 
   const onLogOut = () => {
-    setIsOpen(false)
+    setIsOpen(false);
+    sessionStorage.clear();
     logout();
-    navigate('/');
-    window.location.reload();
-  }
+    // navigate('/my-created-events', { replace: true }); 
+    navigate(0)
+  };
 
-
-  const handleBlur = () => {
+  const onCloseMenu = () => {
     setIsOpen(false);
   };
 
@@ -130,8 +125,6 @@ const UserMenu: FC = () => {
 
         {isOpen && (
           <div
-            onBlur={handleBlur}
-            tabIndex={0}
             className="
             absolute
             rounded-xl
@@ -144,7 +137,7 @@ const UserMenu: FC = () => {
             top-12
             text-sm
         ">
-            <div className="flex flex-col cursor-pointer">
+            <div className="flex flex-col cursor-pointer" onClick={onCloseMenu}>
               <>
                 <MenuItem onClick={() => navigate('/')} label="Dashboard" />
                 <MenuItem onClick={() => navigate('/my-created-events')} label="Meine erstellten Events" />

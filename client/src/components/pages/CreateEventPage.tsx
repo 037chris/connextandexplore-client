@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { useEffect, useState, FormEvent } from 'react';
 import { useStepForm } from '../hooks/useStepForm';
 
 import EventDateForm from './event/EventDateForm';
@@ -65,13 +65,22 @@ const CreateEventPage = () => {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const fetchData = async () => {
+      // Fetch any data needed for the current step
+      // You can perform async operations here if needed
+    };
+
+    fetchData();
+  }, [currentStepIndex]); // Only run the effect when the currentStepIndex changes
+
   function updateFields(fields: Partial<eventResource>) {
     setData(prev => ({ ...prev, ...fields }));
   }
 
   const selectedCategories = value1.map(selectedOption => ({
     name: selectedOption.name,
-    description: undefined, // Add a default or handle it as needed
+    description: undefined, 
   }));
 
   const onSubmit = async (e: FormEvent) => {
@@ -119,7 +128,7 @@ const CreateEventPage = () => {
       <div className='max-w-2xl mx-auto border-2 border-sky-500 rounded-md p-8'>
         <form onSubmit={onSubmit}>
           <div className='text-center mb-6'>
-          <p className="text-gray-800 font-titan">
+            <p className="text-gray-800 font-titan">
               EVENT EINTRAGEN SCHRITT {currentStepIndex + 1} VON {steps.length}
             </p>
           </div>

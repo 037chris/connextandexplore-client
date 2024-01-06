@@ -55,7 +55,9 @@ const Home = () => {
               <h3 className="font-francisco">Werde Teil unser Community</h3>
               <div>
                 <p>In Connect & Explore treffen sich Leute, um neue Freunde kennenzulernen, etwas Neues zu lernen, ihre Komfortzone zu verlassen oder einfach gemeinsam Hobbys auszuüben. Die Mitgliedschaft ist kostenlos.
-                  {/* <Link to={Home}>Registrieren</Link> */}
+                  <div className='pt-2 md:w-32'>
+                    <Button primary label='Registrieren' onClick={() => navigate('/signup')} />
+                  </div>
                 </p>
               </div>
             </div>

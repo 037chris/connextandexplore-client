@@ -45,7 +45,7 @@ const LoginModal: FC<LoginModalProps> = ({ isOpen, onClose }) => {
       if (loginResult) {
         const user = getUserIDFromJWT();
   
-        localStorage.setItem("user-info", JSON.stringify(loginResult));
+        sessionStorage.setItem('token', JSON.stringify(loginResult))
         setUserID(user);
   
         toast.success('Successfully logged in!');

@@ -27,7 +27,7 @@ import EditEventPage from "./components/pages/EditEventPage";
 
 export default function App() {
   const [userID, setUserID] = useState(getUserIDFromJWT());
-  console.log("Initial user ID:", userID);
+
   
   
   return (

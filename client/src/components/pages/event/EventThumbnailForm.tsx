@@ -19,23 +19,19 @@ export default function EventThumbnailForm({
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     const newThumbnail = file?.name;
-
-    setSelectedHashtags((prev) => {
-      updateFields({ thumbnail: newThumbnail, hashtags: prev });
-      return prev;
-    });
+  
+    updateFields({ thumbnail: newThumbnail, hashtags: selectedHashtags });
   };
-
+  
   const toggleHashtag = (hashtag: string) => {
-    setSelectedHashtags((prev) => {
-      const newHashtags = prev.includes(hashtag)
-        ? prev.filter((h) => h !== hashtag)
-        : [...prev, hashtag];
-
-      updateFields({ thumbnail, hashtags: newHashtags });
-      return newHashtags;
-    });
+    const newHashtags = selectedHashtags.includes(hashtag)
+      ? selectedHashtags.filter((h) => h !== hashtag)
+      : [...selectedHashtags, hashtag];
+  
+    updateFields({ thumbnail, hashtags: newHashtags });
+    setSelectedHashtags(newHashtags);
   };
+  
 
   const handleCustomHashtagChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCustomHashtag(e.target.value);

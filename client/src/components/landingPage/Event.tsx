@@ -34,14 +34,9 @@ const LocalEvents: React.FC<EventProps> = ({
 }) => {
     const navigate = useNavigate();
     const formattedDate = date ? (isValid(new Date(date)) ? format(new Date(date), 'PPP') : 'Invalid Date') : 'No Date';
-<<<<<<< HEAD
 
     
-    const params = useParams();
-    const eventId = params.eventId; 
-=======
-    console.log('Formatted date:', formattedDate, 'Original date:', date);
->>>>>>> Styling
+
 
     const params = useParams();
     const eventId = params.eventId;
