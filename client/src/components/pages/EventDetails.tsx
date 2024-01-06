@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { deleteEvent, exitEvent, getEvent, getUserIDFromJWT, joinEvent } from '../../backend/boardapi';
 import { eventResource, eventsResource } from '../../Resources';
 import LoadingIndicator from '../LoadingIndicator';
@@ -9,6 +9,7 @@ import Button from '../Button';
 import 'tailwindcss/tailwind.css';
 import { useUserIDContext } from '../../UserIDContext';
 import toast from 'react-hot-toast';
+import Comments from './Comments';
 
 
 
@@ -94,7 +95,8 @@ const navigate = useNavigate();
                 <h2 className="text-gray-80">{event.description}</h2>
             </div>
             </div>
-            
+            <Comments eventId={eventId!}></Comments>
+            <Link to={`/event/${eventId}/comment`}> Create a Comment! </Link>
             <>
            
             <div className="ml-2mt-40">

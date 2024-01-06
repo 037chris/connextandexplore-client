@@ -25,6 +25,8 @@ import PrivateRoute from "./components/PrivateRoute";
 import EditEvent from "./components/pages/EditEventPage";
 import EditEventPage from "./components/pages/EditEventPage";
 
+import { CreateComment } from "./components/pages/CreateComment";
+
 export default function App() {
   const [userID, setUserID] = useState(getUserIDFromJWT());
 
@@ -54,7 +56,7 @@ export default function App() {
           <Route path="/events" element={<Events />}/>
           <Route path="/yourevents" element={<YourEvents />}/>
           <Route path='*' element={<NotFound />}/>
-          
+          <Route path="/event/:eventId/comment" element={<CreateComment/>}/>
         </Routes>
     </UserIDContext.Provider>
 
