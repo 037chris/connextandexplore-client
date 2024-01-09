@@ -79,7 +79,7 @@ export default function EventSelectCategoryForm({
             onClearOptions();
           }}
         />
-        <div className=" bg-gray-700 self-stretch w-0.5"></div>
+        <div className="bg-gray-700 self-stretch w-0.5"></div>
         <div className="transform -translate-y-1/4 border-solid border-transparent border-t-2 border-gray-700 cursor-pointer">
           <FaCaretDown />
         </div>
@@ -116,9 +116,9 @@ export default function EventSelectCategoryForm({
                     py-1 
                     px-2 
                     cursor-pointer 
-                    ${onIsOptionSelected(option) ? ' bg-red-300' : ''}
+                    ${onIsOptionSelected(option) ? ' selectedTabber' : ''}
                     ${
-                      index === highlightedIndex ? ' bg-red-500 text-white' : ''
+                      index === highlightedIndex ? ' highlightTabber' : ''
                     }
                   `}
             >

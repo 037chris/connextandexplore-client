@@ -36,6 +36,11 @@ export default function EventDateForm({
     reset
   } = useForm<FieldValues>({});
 
+  // for date placeholder
+  let curr = new Date();
+  curr.setDate(curr.getDate() + 3);
+  let today = curr.toISOString().substring(0, 10);
+
   return (
     <FormWrapper title="Wann und wo möchtest du dein Event veranstalten?">
       <div className="form-container">
@@ -59,14 +64,14 @@ export default function EventDateForm({
           onChange={(e) => updateFields({ address: { ...address, houseNumber: e.target.value } })}
         />
 
-        <input
+        {/* <input
           type="text"
           id="apartmentNumber"
           placeholder="Wohnungsnummer (optional)"
           value={address.apartmentNumber || ''}
           disabled={loading}
           onChange={(e) => updateFields({ address: { ...address, apartmentNumber: e.target.value } })}
-        />
+        /> */}
 
         <input
           type="text"
@@ -86,14 +91,14 @@ export default function EventDateForm({
           onChange={(e) => updateFields({ address: { ...address, city: e.target.value } })}
         />
 
-        <input
+        {/* <input
           type="text"
           id="stateOrRegion"
           placeholder="Bundesland (optional)"
           value={address.stateOrRegion || ''}
           disabled={loading}
           onChange={(e) => updateFields({ address: { ...address, stateOrRegion: e.target.value } })}
-        />
+        /> */}
 
         <input
           type="text"
@@ -103,15 +108,14 @@ export default function EventDateForm({
           disabled={loading}
           onChange={(e) => updateFields({ address: { ...address, country: e.target.value } })}
         />
-
-<input
-  type="date"
-  id="date"
-  placeholder="Veranstaltungsdatum"
-  value={date ? format(new Date(date), 'yyyy-MM-dd') : ''}
-  disabled={loading}
-  onChange={(e) => updateFields({ date: new Date(e.target.value) })}
-/>
+        
+        <input
+          type="date"
+          id="date"
+          defaultValue={today}
+          disabled={loading}
+          onChange={(e) => updateFields({ date: new Date(e.target.value) })}
+        />
 
       </div>
     </FormWrapper>
