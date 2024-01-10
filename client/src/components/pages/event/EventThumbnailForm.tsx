@@ -27,9 +27,13 @@ export default function EventThumbnailForm({
       const newThumbnail = URL.createObjectURL(file);
       setThumbPreview(newThumbnail);
       setFileUploaded(true);
-      // Hier den lokalen Dateipfad setzen (z.B., der Name der ausgewählten Datei)
-      const localFilePath = file.name;
+      // Hier den lokalen Dateipfad setzen 
       setFilePath(file.name);
+      // Füge die Klasse "active" zum Button hinzu, wenn eine Datei ausgewählt wurde
+      const uploadButton = document.getElementById('uploadButton');
+      if (uploadButton) {
+        uploadButton.classList.add('active');
+      }
     }
   };
 
@@ -134,7 +138,8 @@ export default function EventThumbnailForm({
             </div>
           </label>
           <button
-            className="btn-event event-next upload"
+            id="uploadButton"
+            className={`btn-event upload ${fileUploaded ? 'active' : ''}`}
             type="button"
             onClick={handleImageSubmit}
           >

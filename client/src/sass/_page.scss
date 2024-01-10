@@ -730,6 +730,20 @@ header {
     &.upload {
         max-width: rem(110) !important;
         border-radius: 0 6px 6px 0 !important;
+        border-radius: rem(6);
+        background-color: $border !important;
+        border: rem(1) solid $border !important;
+        color: $white;
+
+        &.active {
+            background-color: $secondary !important;
+            border: rem(1) solid $secondary !important;
+
+            &:hover{
+                background-color: $secondary !important;
+                border: rem(1) solid $secondary !important;
+            }
+        }
     }
 
     &.event-back {
