@@ -151,7 +151,7 @@ const CreateEventPage = () => {
                 </p>
               </div> */}
 
-              <div className='mb-8'>{step}</div>
+              <div className='mb-8 step-name'>{step}</div>
 
               <div className='flex justify-between'>
                 <div className='w-full md:w-1/4'>

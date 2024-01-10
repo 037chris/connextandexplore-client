@@ -118,7 +118,7 @@ export default function EventSelectCategoryForm({
                     cursor-pointer 
                     ${onIsOptionSelected(option) ? ' selectedTabber' : ''}
                     ${
-                      index === highlightedIndex ? ' highlightTabber' : ''
+                      index === highlightedIndex ? ' highlightTabber  ' : ''
                     }
                   `}
             >

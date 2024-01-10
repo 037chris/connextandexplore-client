@@ -714,6 +714,11 @@ header {
     width: rem(200);
     height: rem(45);
 
+    &.upload {
+        max-width: rem(110) !important;
+        border-radius: 0 6px 6px 0 !important;
+    }
+
     &.event-back {
         background-color: $white;
         color: $border;
@@ -777,6 +782,16 @@ header {
     font-family: "Helvetica Neue", sans-serif;
     font-weight: 300;
 
+    .input-field {
+        border: rem(1) solid $border;
+        width: 100%;
+        margin: 0;
+        border-radius: rem(6) 0 0 rem(6);
+        padding: rem(10) rem(70);
+        position: relative;
+        left: rem(8);    
+    }
+
     input {
         border: rem(1) solid $border;
         width: 100%;
@@ -804,6 +819,19 @@ header {
     }
 }
 
+.step-name {
+
+    h2 {
+        font-size: rem(20);
+        //font-weight: bold;
+    
+        @include breakpoint(lg) {
+            //font-size: rem(24);
+        }
+    }
+    
+}
+
 .tabber {
 
 }
@@ -816,4 +844,30 @@ header {
 .highlightTabber {
     color: $white;
     background-color: rgba(32, 121, 255, 0.75);
+}
+
+.sub-headline {
+    font-size: rem(14);
+    margin: 35px 0 25px 0;
+}
+
+.hashtag-btn {
+    padding: rem(3) rem(10);
+    background-color: $border !important;
+    border: rem(1) solid $border;
+    color: $white;
+    border-radius: rem(8);
+    transition: 350ms all ease-in-out;
+    font-size: rem(14);
+    font-weight: bold;
+
+    &:hover {
+        border: rem(1) solid $primary;
+        background-color: $primary !important;
+    }
+
+    &.active {
+        border: rem(1) solid $primary;
+        background-color: $primary !important;
+    }
 }
