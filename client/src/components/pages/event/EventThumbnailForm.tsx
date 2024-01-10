@@ -18,7 +18,8 @@ export default function EventThumbnailForm({
   const [fileUploaded, setFileUploaded] = useState(false);
   const [thumbPrewview, setThumbPreview] = useState<string>('');
   const [filePath, setFilePath] = useState<string>('Bild auswählen');
-  
+  const [allHashtags, setNewHashtag] = useState(['MakeNewFriends', 'Networking', 'Technologie', 'Professionals', 'foryou']);
+
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -47,6 +48,20 @@ export default function EventThumbnailForm({
   };
 
   const addCustomHashtag = () => {
+    const inputField = document.getElementById('ht') as HTMLInputElement | null;
+
+    if (inputField) {
+      const newCustomHashtag = inputField.value;
+
+      // Überprüfe, ob das Hashtag bereits im Array vorhanden ist, um Duplikate zu vermeiden
+      if (newCustomHashtag.trim() && !allHashtags.includes(newCustomHashtag)) {
+        setNewHashtag(prevHashtags => [...prevHashtags, newCustomHashtag]);
+        inputField.value = ''; // Optional: Das Input-Feld leeren, wenn das Hashtag hinzugefügt wurde
+      } else {
+        console.log('Bitte gib ein gültiges und nicht vorhandenes Hashtag ein.');
+      }
+    }
+
     if (customHashtag.trim() !== '') {
       setSelectedHashtags((prev) => {
         const newHashtags = [...prev, customHashtag.trim()];
@@ -90,7 +105,7 @@ export default function EventThumbnailForm({
         convertToBase64(thumbnail)
           .then(base64Image => {
             // see code
-            //console.log("base64Image:" + base64Image);
+            //console.log("base64Image: " + base64Image);
             updateFields({ thumbnail: base64Image, hashtags: selectedHashtags });
           })
           .catch(error => {
@@ -143,15 +158,14 @@ export default function EventThumbnailForm({
         <div className="mt-4 text-center">
           <span className="sub-headline">Makiere dein Event mit Hashtags:</span>
           <div className="flex flex-wrap gap-2 mt-2 justify-center">
-            {['Make new friends', 'Networking', 'Technologie', 'Professionals', 'foryou'].map((hashtag) => (
+            {allHashtags.map((hashtag) => (
               <button
                 type="button"
                 key={hashtag}
-                className={`hashtag-btn ${selectedHashtags.includes(hashtag) ? 'active' : ''
-                  } `}
+                className={`hashtag-btn ${selectedHashtags.includes(hashtag) ? 'active' : ''}`}
                 onClick={() => toggleHashtag(hashtag)}
               >
-                {hashtag}
+                # {hashtag}
               </button>
             ))}
           </div>
@@ -162,6 +176,7 @@ export default function EventThumbnailForm({
             <input
               type="text"
               placeholder="# füge mich hinzu"
+              id="ht"
               value={customHashtag}
               onChange={handleCustomHashtagChange}
               className="border border-gray-700 rounded px-2 py-1 outline-none focus:ring focus:border-blue-300"
@@ -169,18 +184,18 @@ export default function EventThumbnailForm({
             <button
               onClick={addCustomHashtag}
               type="button"
-              className="bg-green-500 text-white px-3 py-1 rounded cursor-pointer hover:bg-green-600 transition duration-300"
+              className="btn-event add transition duration-300"
             >
               Add
             </button>
           </div>
         </div>
 
-        {selectedHashtags.length > 0 && (
+        {/* {selectedHashtags.length > 0 && (
           <div className="mt-4">
             <strong>Markierte Hashtags:</strong> {selectedHashtags.join(', ')}
           </div>
-        )}
+        )} */}
       </div>
     </FormWrapper>
   );

@@ -714,6 +714,19 @@ header {
     width: rem(200);
     height: rem(45);
 
+    &.add {
+        border: 1px solid $primary;
+        border-radius: rem(6);
+        max-height: rem(40);
+        background-color: $primary;
+            color: $white;
+
+        &:hover{
+            color: $primary;
+            background-color: $white;
+        }
+    }
+
     &.upload {
         max-width: rem(110) !important;
         border-radius: 0 6px 6px 0 !important;
@@ -863,7 +876,7 @@ header {
 
     &:hover {
         border: rem(1) solid $primary;
-        background-color: $primary !important;
+        //background-color: $primary !important;
     }
 
     &.active {
