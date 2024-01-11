@@ -9,16 +9,14 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { Link } from "react-router-dom";
 
 const Help = () => {
-    function Example() {
-        useEffect(() => {
-            document.title = 'Help/FAQ - Connect & Explore';
-        }, []);
-    }
+    useEffect(() => {
+        document.title = 'Help/FAQ - Connect & Explore';
+    }, []);
 
     return (
         <>
-            <Header homeRoute={'page'} headline={'Help / FAQs'} />
-            <div className='max-grid content content-pt'>
+            <Header homeRoute={'page'} headline={'Hilfe / FAQs'} />
+            <div className='max-grid content content-pt bg'>
                 <div className="grid grid-cols-1 gap-5 lg:grid-cols-5 place-items-center">
                     <div className="lg:col-span-1"></div>
                     <div className="col-span-1 lg:col-span-3">

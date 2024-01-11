@@ -1,7 +1,12 @@
+import { useEffect } from "react";
 import Footer from "../../html/Footer";
 import { Header } from "../../html/Header";
 
 const Dsgvo = () => {
+    useEffect(() => {
+        document.title = 'Datenschutz bei uns - Connect & Explore';
+    }, []);
+    
     return (
         <>
             <Header homeRoute={'page'} headline={'DSGVO'} />

@@ -35,6 +35,19 @@
         @include breakpoint(xl) {
             padding: rem(90) rem(15) rem(100) rem(15);
         }
+
+        h2 {
+            font-family: "Titan One", sans-serif;
+            text-transform: uppercase;
+            
+            @include breakpoint(lg) {
+                font-size: rem(18);
+            }
+        }
+    }
+
+    &.bg {
+        background-color: $border;
     }
 }
 
