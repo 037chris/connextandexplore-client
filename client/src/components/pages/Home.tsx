@@ -5,8 +5,8 @@ import Categories from '../landingPage/Categories';
 import Join from '../landingPage/Join';
 import Button from '../Button';
 import { Link, useNavigate } from 'react-router-dom';
-import Footer from '../web/Footer';
-import { Header } from '../web/Header';
+import Footer from '../html/Footer';
+import { Header } from '../html/Header';
 import PlaceholderImg from '../../img/PLACEHOLDER_PEOPLE.svg'
 import { useUserIDContext } from '../../UserIDContext';
 

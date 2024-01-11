@@ -12,8 +12,8 @@ import { createEvent } from '../../backend/boardapi';
 import toast from 'react-hot-toast';
 import { useUserIDContext } from '../../UserIDContext';
 import { useNavigate } from 'react-router-dom';
-import Footer from '../web/Footer';
-import { Header } from '../web/Header';
+import Footer from '../html/Footer';
+import { Header } from '../html/Header';
 
 const options = [
   { name: "Kultur & Kunst", value: 1 },
@@ -140,19 +140,12 @@ const CreateEventPage = () => {
   return (
     <>
       <Header homeRoute={'page'} headline={headlineString} />
-      <div className="progressbar"><span style={{ width: `${(currentStepIndex + 1) * 20}%` }}></span></div>
+      <div className="progressbar"><span style={{ width: `${(currentStepIndex + 1 - 0.5) * 20}%` }}></span></div>
       <div className="max-grid content">
         <div className='relative bg-white px-4 md:px-0'>
           <div className='max-w-2xl mx-auto p-8'>
             <form onSubmit={onSubmit} className="event-form">
-              {/* <div className='text-center mb-6'>
-                <p className="text-gray-800 font-titan">
-                  EVENT EINTRAGEN SCHRITT {currentStepIndex + 1} VON {steps.length}
-                </p>
-              </div> */}
-
               <div className='mb-8 step-name'>{step}</div>
-
               <div className='flex justify-between'>
                 <div className='w-full md:w-1/4'>
                   {!isFirstStep && (

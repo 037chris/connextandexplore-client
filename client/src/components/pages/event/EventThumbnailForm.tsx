@@ -109,7 +109,7 @@ export default function EventThumbnailForm({
         convertToBase64(thumbnail)
           .then(base64Image => {
             // see code
-            //console.log("base64Image: " + base64Image);
+            console.log("base64Image: " + base64Image);
             updateFields({ thumbnail: base64Image, hashtags: selectedHashtags });
           })
           .catch(error => {

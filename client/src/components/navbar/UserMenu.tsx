@@ -83,8 +83,8 @@ const UserMenu: FC = () => {
             >
               Event Erstellen
             </div>
-            <div><MdOutlineGroups2 size={25} /></div>
-            <div><FaRegEnvelope size={20} /></div>
+            {/* <div><MdOutlineGroups2 size={25} /></div>
+            <div><FaRegEnvelope size={20} /></div> */}
 
             <div
               onClick={toggleOpen}
@@ -139,14 +139,14 @@ const UserMenu: FC = () => {
         ">
             <div className="flex flex-col cursor-pointer" onClick={onCloseMenu}>
               <>
-                <MenuItem onClick={() => navigate('/')} label="Dashboard" />
-                <MenuItem onClick={() => navigate('/my-created-events')} label="Meine erstellten Events" />
-                <MenuItem onClick={() => { }} label="Nachrichten" />
-                <MenuItem onClick={() => navigate('/yourevents')} label="Meine Teilnahmen" />
-                <MenuItem onClick={() => navigate('/about')} label="Einstellung" />
+                <MenuItem onClick={() => navigate('/about')} label="Mein Profil" />
+                <MenuItem onClick={() => navigate('/my-created-events')} label="Erstellte Events" />
+                {/* <MenuItem onClick={() => { }} label="Nachrichten" /> */}
+                <MenuItem onClick={() => navigate('/yourevents')} label="Meine Zusagen" />
+                <MenuItem onClick={() => navigate('/settings')} label="Einstellung" />
                 <MenuItem onClick={() => { }} label="Hilfe / FAQ" />
                 <hr />
-                <MenuItem onClick={onLogOut} label="Log out" />
+                <MenuItem onClick={onLogOut} label="Logout" />
               </>
             </div>
           </div>

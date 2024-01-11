@@ -1,11 +1,11 @@
 import { useState } from "react";
-import Heading from "../Heading";
+import Heading from "../../Heading";
 import Autocomplete from "react-google-autocomplete";
-import Container from "../Container";
+import Container from "../../Container";
 import ProfileSettingsComponent from "./settings/ProfileSettingsComponent";
 import AccountSettingsComponent from "./settings/AccountSettingsComponent";
 import PersonalInfoSettingsComponent from "./settings/PersonalInfoSettingsComponent";
-import Footer from "../web/Footer";
+import Footer from "../../html/Footer";
 
 interface SettingsNavProps {
     activeTab: 'profile' | 'info' | 'account';

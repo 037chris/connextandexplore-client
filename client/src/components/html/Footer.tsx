@@ -42,7 +42,7 @@ const Footer = () => {
                             <ul className="grid md:grid-cols-5">
                                 <li><Link to="#">Events</Link></li>
                                 <li><Link to="#">AGBs</Link></li>
-                                <li><Link to="#">DSGVO</Link></li>
+                                <li><Link to="/dsgvo">DSGVO</Link></li>
                                 <li><Link to="#">Impressum</Link></li>
                                 <li><Link to="#">Hilfe/FAQ</Link></li>
                             </ul>

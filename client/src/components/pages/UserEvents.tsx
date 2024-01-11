@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { useUserIDContext } from '../../UserIDContext';
 import { getCreatedEvent, getEvent, getEventOwner, getUser } from '../../backend/boardapi';
-import Footer from '../web/Footer';
+import Footer from '../html/Footer';
 
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { eventResource, eventsResource, userResource } from '../../Resources';

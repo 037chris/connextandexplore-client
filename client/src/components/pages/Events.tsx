@@ -5,7 +5,7 @@ import Categories from '../landingPage/Categories';
 import Join from '../landingPage/Join';
 import AllEvents from '../allEvents/AllEvents';
 import UserEvents from './UserEvents';
-import Footer from '../web/Footer';
+import Footer from '../html/Footer';
 
 
 const Events = () => {

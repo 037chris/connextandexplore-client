@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
 import Home from "./components/pages/Home";
-import UserSettings from "./components/pages/UserSettings";
+import UserSettings from "./components/pages/user/UserSettings";
 import Modal from "./components/modals/Modal";
 import ToasterProvider from "./providers/ToasterProvider";
 import SignUp from "./components/pages/SignUp";
-import NotFound from "./components/pages/NotFound";
+import NotFound from "./components/pages/errors/NotFound";
 import { getUserIDFromJWT } from "./backend/boardapi";
 import { useState } from "react";
 import { UserIDContext } from "./UserIDContext";
@@ -14,16 +14,16 @@ import { UserIDContext } from "./UserIDContext";
 import './sass/App.scss'
 
 //
-import UserProfile from "./components/pages/UserProfile";
+import UserProfile from "./components/pages/user/UserProfile";
 import Events from "./components/pages/Events";
 import CreateEventPage from "./components/pages/CreateEventPage";
 import EventDetails from "./components/pages/EventDetails";
 import YourEvents from "./components/pages/YourEvents";
 import UserEvents from "./components/pages/UserEvents";
-import CreatedEventDetails from "./components/pages/CreatedEventDetails";
 import PrivateRoute from "./components/PrivateRoute";
 import EditEvent from "./components/pages/EditEventPage";
 import EditEventPage from "./components/pages/EditEventPage";
+import Dsgvo from "./components/pages/general/Dsgvo";
 
 export default function App() {
   const [userID, setUserID] = useState(getUserIDFromJWT());
@@ -54,6 +54,8 @@ export default function App() {
           <Route path="/events" element={<Events />}/>
           <Route path="/yourevents" element={<YourEvents />}/>
           <Route path='*' element={<NotFound />}/>
+
+          <Route path="/dsgvo" element={<Dsgvo />}/>
           
         </Routes>
     </UserIDContext.Provider>

@@ -1,8 +1,9 @@
-div.max-grid {
+.max-grid {
     max-width: rem(1360);
     width: 100%;
     margin: 0 auto;
     color: $text;
+    padding: 0 rem(15);
 
     &.content {
         padding: rem(50) rem(15);
@@ -225,7 +226,7 @@ footer {
 
         @include breakpoint(lg) {
             max-width: rem(1230) !important;
-            padding: 0;
+            padding: 0 rem(15);
         }
     }
 
@@ -693,10 +694,15 @@ header {
     width: 100%;
     height: rem(6);
     background-color: $border;
-    position: absolute;
-    top: rem(88);
+    position: fixed;
+    top: rem(83);
     left: 0;
     right: 0;
+    z-index: 1;
+
+    @include breakpoint(lg) {
+        top: rem(88);
+    }
 
     span {
         display: inline-block;
@@ -846,55 +852,61 @@ header {
     }
 }
 
-.step-name {
 
-    h2 {
-        font-size: rem(20);
-        //font-weight: bold;
+
+.create-event-form {
+
+    .step-name {
+
+        h2 {
+            font-size: rem(20);
+            //font-weight: bold;
+        
+            @include breakpoint(lg) {
+                //font-size: rem(24);
+            }
+        }
+        
+    }
     
-        @include breakpoint(lg) {
-            //font-size: rem(24);
+    .tabber {
+    
+    }
+    
+    .selectedTabber {
+        color: $white;
+        background-color: $primary;
+    }
+    
+    .highlightTabber {
+        color: $white;
+        background-color: rgba(32, 121, 255, 0.75);
+    }
+    
+    .sub-headline {
+        font-size: rem(14);
+        margin: 35px 0 25px 0;
+    }
+    
+    .hashtag-btn {
+        padding: rem(3) rem(10);
+        background-color: $border !important;
+        border: rem(1) solid $border;
+        color: $white;
+        border-radius: rem(8);
+        transition: 350ms all ease-in-out;
+        font-size: rem(14);
+        font-weight: bold;
+    
+        &:hover {
+            border: rem(1) solid $primary;
+            //background-color: $primary !important;
+        }
+    
+        &.active {
+            border: rem(1) solid $primary;
+            background-color: $primary !important;
         }
     }
     
-}
-
-.tabber {
-
-}
-
-.selectedTabber {
-    color: $white;
-    background-color: $primary;
-}
-
-.highlightTabber {
-    color: $white;
-    background-color: rgba(32, 121, 255, 0.75);
-}
-
-.sub-headline {
-    font-size: rem(14);
-    margin: 35px 0 25px 0;
-}
-
-.hashtag-btn {
-    padding: rem(3) rem(10);
-    background-color: $border !important;
-    border: rem(1) solid $border;
-    color: $white;
-    border-radius: rem(8);
-    transition: 350ms all ease-in-out;
-    font-size: rem(14);
-    font-weight: bold;
-
-    &:hover {
-        border: rem(1) solid $primary;
-        //background-color: $primary !important;
-    }
-
-    &.active {
-        border: rem(1) solid $primary;
-        background-color: $primary !important;
-    }
 }

@@ -8,7 +8,7 @@ type FormWrapperProps = {
 export default function FormWrapper({ title, children }: FormWrapperProps) {
   return (
     <>
-      <div className="max-grid">
+      <div className="max-grid create-event-form">
         <div className='flex flex-col items-center'>
           <h2 className='text-center pt-12'>
             {title}

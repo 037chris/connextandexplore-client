@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import Heading from '../Heading';
-import Button from '../Button';
-import HorizontalCard from '../ProfileCard';
-import { useUserIDContext } from '../../UserIDContext';
-import { getCreatedEvent, getEvent, getEventOwner, getUser } from '../../backend/boardapi';
-import Footer from '../web/Footer';
+import Heading from '../../Heading';
+import Button from '../../Button';
+import HorizontalCard from '../../ProfileCard';
+import { useUserIDContext } from '../../../UserIDContext';
+import { getCreatedEvent, getEvent, getEventOwner, getUser } from '../../../backend/boardapi';
+import Footer from '../../html/Footer';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
-import { eventResource, eventsResource, userResource } from '../../Resources';
+import { eventResource, eventsResource, userResource } from '../../../Resources';
 
 const user = {
   name: 'John Doe',

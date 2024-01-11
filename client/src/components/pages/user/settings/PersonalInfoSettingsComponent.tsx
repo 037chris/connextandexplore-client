@@ -1,11 +1,11 @@
 import { ErrorOption, FieldErrors, FieldValues, SubmitHandler, useForm,UseFormSetError } from "react-hook-form";
-import Input from "../../inputs/Input";
+import Input from "../../../inputs/Input";
 import { SetStateAction, useEffect, useState } from "react";
-import Button from "../../Button";
-import { getUser, getUserIDFromJWT, updateUser } from "../../../backend/boardapi";
-import { uAddressResource, userResource } from "../../../Resources";
+import Button from "../../../Button";
+import { getUser, getUserIDFromJWT, updateUser } from "../../../../backend/boardapi";
+import { uAddressResource, userResource } from "../../../../Resources";
 import toast from "react-hot-toast";
-import { ErrorFromValidation, ValidationError } from "../../../backend/validation";
+import { ErrorFromValidation, ValidationError } from "../../../../backend/validation";
 
 const PersonalInfoSettingsComponent = () => {
 

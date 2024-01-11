@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
-import { userResource, uAddressResource } from "../../../Resources";
-import { getUserIDFromJWT, getUser, updateUser } from "../../../backend/boardapi";
-import Input from "../../inputs/Input";
-import Button from "../../Button";
+import { userResource, uAddressResource } from "../../../../Resources";
+import { getUserIDFromJWT, getUser, updateUser } from "../../../../backend/boardapi";
+import Input from "../../../inputs/Input";
+import Button from "../../../Button";
 
 const ProfilSettingsComponent = () => {
 
