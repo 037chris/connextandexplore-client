@@ -24,6 +24,9 @@ import PrivateRoute from "./components/PrivateRoute";
 import EditEvent from "./components/pages/EditEventPage";
 import EditEventPage from "./components/pages/EditEventPage";
 import Dsgvo from "./components/pages/general/Dsgvo";
+import Agbs from "./components/pages/general/Agbs";
+import Impressum from "./components/pages/general/Impressum";
+import Help from "./components/pages/general/Help";
 
 export default function App() {
   const [userID, setUserID] = useState(getUserIDFromJWT());
@@ -56,7 +59,9 @@ export default function App() {
           <Route path='*' element={<NotFound />}/>
 
           <Route path="/dsgvo" element={<Dsgvo />}/>
-          
+          <Route path="/agbs" element={<Agbs />}/>
+          <Route path="/imprint" element={<Impressum />}/>
+          <Route path="/help" element={<Help />}/>
         </Routes>
     </UserIDContext.Provider>
 

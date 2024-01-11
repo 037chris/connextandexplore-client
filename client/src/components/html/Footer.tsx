@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import logo from '../../img/FOOTER_LOGO.png';
 import { useUserIDContext } from '../../UserIDContext';
+import Cookies from 'js-cookie';
 
 const Footer = () => {
     const { userID } = useUserIDContext();
@@ -22,11 +23,14 @@ const Footer = () => {
                             {userID !== undefined ?
                                 <>
                                     <ul className="grid md:grid-cols-5">
-                                        <li><Link to="#">Profil</Link></li>
-                                        <li><Link to="#">Deine Events</Link></li>
+                                        <li><Link to="/profile">Profil</Link></li>
+                                        <li><Link to="/my-created-events">Deine Events</Link></li>
                                         <li><Link to="#">Nachrichten</Link></li>
-                                        <li><Link to="#">Einstellungen</Link></li>
-                                        <li><Link to="#">Abmelden</Link></li>
+                                        <li><Link to="/settings">Einstellungen</Link></li>
+                                        <li><Link to="/" onClick={() => {
+                                            sessionStorage.clear();
+                                            Cookies.remove("access_token");
+                                        }}>Abmelden</Link></li>
                                     </ul>
                                 </> :
                                 <>
@@ -40,11 +44,11 @@ const Footer = () => {
                         <div className="footer-navi">
                             <p className="hl">Connect & <span>Explore</span></p>
                             <ul className="grid md:grid-cols-5">
-                                <li><Link to="#">Events</Link></li>
-                                <li><Link to="#">AGBs</Link></li>
+                                <li><Link to="/events">Events</Link></li>
+                                <li><Link to="/agbs">AGBs</Link></li>
                                 <li><Link to="/dsgvo">DSGVO</Link></li>
-                                <li><Link to="#">Impressum</Link></li>
-                                <li><Link to="#">Hilfe/FAQ</Link></li>
+                                <li><Link to="/imprint">Impressum</Link></li>
+                                <li><Link to="/help">Hilfe/FAQ</Link></li>
                             </ul>
                         </div>
                     </div>

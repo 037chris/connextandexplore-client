@@ -20,6 +20,22 @@
             padding: rem(0) rem(15) rem(100) rem(15);
         }
     }
+
+    &.content-pt {
+        padding: rem(50) rem(15);
+
+        @include breakpoint(md) {
+            padding: rem(70) rem(15) rem(100) rem(15);
+        }
+
+        @include breakpoint(lg) {
+            padding: rem(75) rem(15) rem(100) rem(15);
+        }
+
+        @include breakpoint(xl) {
+            padding: rem(90) rem(15) rem(100) rem(15);
+        }
+    }
 }
 
 .over-the-clouds {
@@ -909,4 +925,11 @@ header {
         }
     }
     
+}
+
+.MuiPaper-root {
+    border: rem(1) solid $border !important;
+    border-radius: rem(6) !important;
+    margin-bottom: rem(10) !important;
+    box-shadow: none !important;
 }

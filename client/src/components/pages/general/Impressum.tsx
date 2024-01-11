@@ -1,10 +1,10 @@
 import Footer from "../../html/Footer";
 import { Header } from "../../html/Header";
 
-const Dsgvo = () => {
+const Impressum = () => {
     return (
         <>
-            <Header homeRoute={'page'} headline={'DSGVO'} />
+            <Header homeRoute={'page'} headline={'Impressum'} />
             <div className='max-grid content'>
                 <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                     <div className="col-span-1 bg-blue-200 min-h-fit">
@@ -20,4 +20,4 @@ const Dsgvo = () => {
     )
 }
 
-export default Dsgvo;
+export default Impressum;
