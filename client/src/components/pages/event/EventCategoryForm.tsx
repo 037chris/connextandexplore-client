@@ -18,12 +18,14 @@ type MultipleSelectProps = {
 
 type EventCategoryFormProps = {
   options: SelectOption[];
+  errors?: Record<string, string>; // Add errors prop
 } & MultipleSelectProps;
 
 export default function EventSelectCategoryForm({
   options,
   value,
   onChange,
+  errors, // Receive errors from parent component
 }: EventCategoryFormProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(0);
@@ -49,7 +51,7 @@ export default function EventSelectCategoryForm({
     <FormWrapper title="Wähle Kategorie deiner Veranstaltung">
       <div
         tabIndex={0}
-        className="relative w-96 min-h-1.5 border border-solid border-gray-700 flex items-center p-2 rounded-md outline-none"
+        className={`relative w-96 min-h-1.5 border border-solid ${errors?.value ? 'border-red-500' : 'border-gray-700'} flex items-center p-2 rounded-md outline-none`}
         onClick={() => setIsOpen((prev) => !prev)}
         onBlur={() => setIsOpen(false)}
         ref={containerRef}
@@ -92,7 +94,9 @@ export default function EventSelectCategoryForm({
             max-h-40 
             overflow-y-auto 
             border
-             border-gray-700 
+            ${errors?.value ? 'border-red-500' : 'border-gray-700'} 
+
+            border-gray-700 
             rounded-md 
             w-full l
             eft-0 
@@ -127,6 +131,7 @@ export default function EventSelectCategoryForm({
           ))}
         </ul>
       </div>
+      {errors?.value && <p className="error text-red-500">{errors.value}</p>}
     </FormWrapper>
   );
 }

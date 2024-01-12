@@ -5,12 +5,15 @@ type EventThumbnailFormProps = {
   thumbnail?: string;
   hashtags?: string[];
   updateFields: (fields: Partial<{ thumbnail?: string; hashtags?: string[] }>) => void;
+  errors?: Record<string, string>; // Add this line
+
 };
 
 export default function EventThumbnailForm({
   thumbnail,
   hashtags = [],
   updateFields,
+  errors
 }: EventThumbnailFormProps) {
   const [loading, setLoading] = useState(false);
   const [selectedHashtags, setSelectedHashtags] = useState<string[]>(hashtags);
@@ -174,6 +177,8 @@ export default function EventThumbnailForm({
               </button>
             ))}
           </div>
+          {errors?.hashtag && <p className="error text-red-500">{errors?.hashtag}</p>  }
+
         </div>
 
         <div className="mt-4">

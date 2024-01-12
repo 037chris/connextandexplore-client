@@ -10,7 +10,7 @@ import { getUser, logout } from '../../backend/boardapi';
 import { FaRegEnvelope } from "react-icons/fa";
 import { MdOutlineGroups2 } from "react-icons/md";
 import LoginModal from './LoginModal';
-
+const port = 443
 const UserMenu: FC = () => {
   const { userID } = useUserIDContext();
   const [isOpen, setIsOpen] = useState(false);
@@ -41,8 +41,6 @@ const UserMenu: FC = () => {
   }, []);
 
   const openAuthenticationModal = () => {
-    console.log("Opening authentication modal"); // Add this line
-
     setIsOpen(false);
     setAuthenticationModalIsOpen(true);
   };
@@ -51,7 +49,6 @@ const UserMenu: FC = () => {
     setIsOpen(false);
     sessionStorage.clear();
     logout();
-    // navigate('/my-created-events', { replace: true }); 
     navigate(0)
   };
 
@@ -88,8 +85,6 @@ const UserMenu: FC = () => {
 
             <div
               onClick={toggleOpen}
-              // onBlur={handleBlur}
-              // tabIndex={0}
               className="
                 p-4
                 md:py-1
@@ -107,8 +102,17 @@ const UserMenu: FC = () => {
       ">
               <AiOutlineMenu />
               <div className="hidden md:block">
-                {/* {profilePicture && <Avatar src={`../../../../../connectandexplore-1/Backend/dist/src/utils${profilePicture}`} />} */}
-                <Avatar src="/images/placeholder.jpg" />
+                {profilePicture && 
+                  <img
+                    className="rounded-full"
+                    height="30"
+                    width="30"
+                    loading="lazy"
+
+                    src={`https://localhost:443/uploads/users/127b5e3f-011d-4975-b767-6d13cd0071ea-icons8-selenium-48.png`}
+                    alt="Avatar"/>
+                }
+                {/* <Avatar src="/images/placeholder.jpg" /> */}
               </div>
             </div>
           </div>

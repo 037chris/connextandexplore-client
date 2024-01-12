@@ -57,13 +57,25 @@ const INITIAL_DATA: eventResource = {
 const CreateEventPage = () => {
   const [data, setData] = useState(INITIAL_DATA);
   const [value1, setValue1] = useState<SelectOption[]>([options[0]]);
+  let [errors, setErrors] = useState<Record<string, string>>({}); // Declare errors at the top
+
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, onBack, onNext } = useStepForm([
-    <EventDateForm {...data} updateFields={updateFields} />,
-    <EventSelectCategoryForm multiple options={options} value={value1} onChange={o => setValue1(o)} />,
-    <EventNameForm {...data} updateFields={updateFields} />,
-    <EventDescriptionForm {...data} updateFields={updateFields} />,
+    <EventDateForm {...data} updateFields={updateFields}   errors={errors}  // Pass errors state to the form component
+    />,
+    <EventSelectCategoryForm multiple options={options} value={value1} onChange={o => setValue1(o)} errors={errors} />,
+    <EventNameForm {...data} updateFields={updateFields} errors={errors}/>,
+    <EventDescriptionForm {...data} updateFields={updateFields} errors={errors}/>,
     <EventThumbnailForm {...data} updateFields={updateFields} />,
-  ]);
+  ],
+  [
+    () => validateForm(data),
+    () => validateCategorySelection(value1),
+    () => validateName(data.name),
+    () => validateDescription(data.description),
+
+    
+  ]
+  );
   const [headlineString, setHeadlineString] = useState(`Event erstellen: Schritt ${currentStepIndex + 1} von ${steps.length}`);
 
   const navigate = useNavigate();
@@ -73,8 +85,6 @@ const CreateEventPage = () => {
     let newHeadlineString = `Event erstellen: Schritt ${currentStepIndex + 1} von ${steps.length}`;
     setHeadlineString(newHeadlineString);
     const fetchData = async () => {
-      // Fetch any data needed for the current step
-      // You can perform async operations here if needed
     };
 
     fetchData();
@@ -97,13 +107,111 @@ const CreateEventPage = () => {
     });
   };
 
-  const onSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-
-    if (!isLastStep) {
-      return onNext();
+  const validateCategorySelection = (selectedCategories: SelectOption[]) => {
+    let formErrors: Record<string, string> = {};
+  
+    // Example validation logic for category selection
+    if (selectedCategories.length === 0) {
+      formErrors.value = 'Bitte wählen Sie mindestens eine Kategorie aus.';
     }
+  
+    setErrors(formErrors);
+  
+    return Object.keys(formErrors).length === 0;
+  };
+  
 
+  
+ const validateForm = (validatedData: eventResource) => {
+  let formErrors: Record<string, string> = {};
+
+ // Example validation logic for street address
+if (validatedData.address.street.length < 3) {
+  formErrors.street = 'Die Adresse muss mindestens 3 Zeichen lang sein.';
+} else if (validatedData.address.street.length > 50) {
+  formErrors.street = 'Die Adresse darf maximal 50 Zeichen lang sein.';
+} else if (!/^[a-zA-Z0-9äöüßÄÖÜ\s]+$/.test(validatedData.address.street)) {
+  formErrors.street = 'Die Adresse sollte nur Buchstaben, Zahlen und Leerzeichen enthalten.';
+}
+
+ // Example validation logic for houseNumber address
+ if (validatedData.address.houseNumber.length === 0) {
+  formErrors.houseNumber = 'Die Hausnummer ist erforderlich.';
+}
+
+// Validation for Postal Code
+if (!validatedData.address.postalCode || validatedData.address.postalCode.trim().length === 0) {
+  formErrors.postalCode = 'Die Postleitzahl ist erforderlich.';
+} else if (!/^\d{5}$/.test(validatedData.address.postalCode)) {
+  formErrors.postalCode = 'Ungültige Postleitzahl. Bitte geben Sie eine fünfstellige Zahl ein.';
+}
+
+ // Example validation logic for City address
+ if (!validatedData.address.city || validatedData.address.city.trim().length === 0) {
+  formErrors.city = 'Die Stadt ist erforderlich.';
+}
+ // Example validation logic for Country address
+ if (!validatedData.address.country || validatedData.address.country.trim().length === 0) {
+  formErrors.country = 'Das Land ist erforderlich.';
+}
+
+if (!validatedData.date ) {
+  formErrors.date = 'Das Datum ist erforderlich.';
+}
+  setErrors(formErrors);
+  if (Object.keys(formErrors).length === 0) {
+    setErrors({});
+    return true;
+  }
+  return false;
+};
+
+const validateName = (name: string) => {
+  let formErrors: Record<string, string> = {};
+  // Example validation logic for the name
+  if (name.trim() === "") {
+    formErrors.name = 'Der Name ist erforderlich.';
+  } else if (name.length < 3) {
+    formErrors.name = 'Der Name muss mindestens 3 Zeichen lang sein.';
+  } else if (name.length > 20) {
+    formErrors.name = 'Der Name kann maximal 20 Zeichen lang sein.';
+  }
+
+  setErrors(formErrors);
+
+  return Object.keys(formErrors).length === 0;
+};
+
+
+const validateDescription = (description: string) => {
+  let formErrors: Record<string, string> = {};
+
+  // Example validation logic for the description
+  if (description.trim() === "") {
+    formErrors.description = 'Die Beschreibung ist erforderlich.';
+  } else if (description.length < 3) {
+    formErrors.description = 'Die Beschreibung muss mindestens 3 Zeichen lang sein.';
+  } else if (description.length > 700) {
+    formErrors.name = 'Die Beschreibung kann maximal 700 Zeichen lang sein.';
+  }
+
+  setErrors(formErrors);
+
+  return Object.keys(formErrors).length === 0;
+};
+
+ const onSubmit = async (e: FormEvent) => {
+  e.preventDefault();
+
+  if (!isLastStep) {
+    const isStepValid = validateForm(data);
+
+    if (isStepValid) {
+      onNext();
+    } else {
+      console.error(`Step ${currentStepIndex} is not valid. Please review and correct the form.`);
+    }
+  } else {
     try {
       const success = await createEvent({
         name: data.name,
@@ -135,7 +243,8 @@ const CreateEventPage = () => {
       console.error(error);
       toast.error('Something went wrong...');
     }
-  };
+  }
+}
 
   return (
     <>

@@ -44,6 +44,8 @@ export type userResource = {
   };
   isActive: boolean;
   oldPassword?: string;
+  photoUrl?: string; // Add this line
+
 };
 
 export type usersResource = {

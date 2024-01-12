@@ -8,20 +8,24 @@ type EventData = {
 
 type EventNameFormProps = EventData & {
   updateFields: (fields: Partial<EventData>) => void;
+  errors?: Record<string, string>; // Add this line
+
 };
 
 export default function EventNameForm({
   name,
   updateFields,
+  errors
+  
 }: EventNameFormProps) {
-  const {
-    register,
-    handleSubmit,
-    formState: {
-      errors,
-    },
-    reset
-  } = useForm<FieldValues>();
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: {
+  //     errors,
+  //   },
+  //   reset
+  // } = useForm<FieldValues>();
 
   return (
     <FormWrapper title="Lege einen Namen für deine Veranstaltung fest">
@@ -30,13 +34,15 @@ export default function EventNameForm({
           <input
             type="text"
             id="name"
-            {...register("name")}
+            // {...register("name")}
             placeholder="Gruppenname"
             value={name}
             disabled={false} // Remove loading state for responsiveness
             onChange={(e) => updateFields({ name: e.target.value })}
             className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
           />
+            {errors?.name && <p className="error text-red-500">{errors?.name}</p>  }
+
           <div className="mt-6"> 
           <p>Wähle einen Namen, der Auskunft über den Zweck deiner Veranstaltung gibt. Du kannst ihn später noch anpassen.</p>
         </div>

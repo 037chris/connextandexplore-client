@@ -9,22 +9,24 @@ type EventData = {
 
 type EventDescriptionProps = EventData & {
   updateFields: (fields: Partial<EventData>) => void;
+  errors?: Record<string, string>; // Add this line
+
 };
 
 export default function EventDescription({
   description,
-  price,
   updateFields,
+  errors
 }: EventDescriptionProps) {
   const [loading, setLoading] = useState(false);
   const [charCount, setCharCount] = useState(description.length);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<FieldValues>();
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  //   reset,
+  // } = useForm<FieldValues>();
 
   const handleDescriptionChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>
@@ -48,6 +50,8 @@ export default function EventDescription({
               disabled={loading}
               onChange={handleDescriptionChange}
             />
+            {errors?.description && <p className="error text-red-500">{errors?.description}</p>  }
+
             <div className="absolute bottom-4 md:bottom-4 right-2 text-sm text-gray-500">
               {charCount} / 700
             </div>

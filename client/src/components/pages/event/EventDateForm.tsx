@@ -1,40 +1,39 @@
-import { FieldValues, useForm } from "react-hook-form";
 import { useState } from "react";
 import FormWrapper from "./FormWrapper";
-import { eventResource } from "../../../Resources";
-import { format } from "date-fns";
+
+
+interface Address {
+  street: string;
+  houseNumber: string;
+  apartmentNumber?: string;
+  postalCode: string;
+  city: string;
+  stateOrRegion?: string;
+  country: string;
+}
 
 type EventData = {
-  address: {
-    id?: string | undefined;
-    street: string;
-    houseNumber: string;
-    apartmentNumber?: string | undefined;
-    postalCode: string;
-    city: string;
-    stateOrRegion?: string | undefined;
-    country: string;
-  };
+  address: Address;
   date?: Date;
+  
 };
 
 type EventDateFormProps = EventData & {
   updateFields: (fields: Partial<EventData>) => void;
+  errors?: Record<string, string>; // Add this line
+
 };
 
 export default function EventDateForm({
   date,
   address,
-  updateFields
+  updateFields,
+  errors, 
+
 }: EventDateFormProps) {
   const [loading, setLoading] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset
-  } = useForm<FieldValues>({});
+
 
   // for date placeholder
   let curr = new Date();
@@ -44,34 +43,35 @@ export default function EventDateForm({
   return (
     <FormWrapper title="Wann und wo möchtest du dein Event veranstalten?">
       <div className="form-container">
-        <input
-          type="text"
-          id="street"
-          placeholder="Straße"
-          autoFocus
-          required
-          disabled={loading}
-          value={address.street}
-          onChange={(e) => updateFields({ address: { ...address, street: e.target.value } })}
-        />
+      <input
+        type="text"
+        id="street"
+        placeholder="Straße"
+        autoFocus
+        disabled={loading}
+        value={address.street}
+        onChange={(e) =>
+          updateFields({
+            address: {
+              ...(address as any), // Type assertion to any to avoid TypeScript error
+              street: e.target.value
+            }
+          })
+        }
+        className={`border p-2 ${errors?.street ? 'focus:border-red-500' : 'border-gray-300 '} `}
 
-        <input
-          type="text"
-          id="houseNumber"
-          placeholder="Hausnummer"
-          value={address.houseNumber}
-          disabled={loading}
-          onChange={(e) => updateFields({ address: { ...address, houseNumber: e.target.value } })}
-        />
+      />
+      {errors?.street && <p className="error text-red-500">{errors.street}</p>  }
 
-        {/* <input
-          type="text"
-          id="apartmentNumber"
-          placeholder="Wohnungsnummer (optional)"
-          value={address.apartmentNumber || ''}
-          disabled={loading}
-          onChange={(e) => updateFields({ address: { ...address, apartmentNumber: e.target.value } })}
-        /> */}
+      <input
+        type="text"
+        id="houseNumber"
+        placeholder="Hausnummer"
+        value={address.houseNumber}
+        disabled={loading}
+        onChange={(e) => updateFields({ address: { ...address, houseNumber: e.target.value } })}
+      />
+      {errors?.houseNumber && <p className="error text-red-500">{errors.houseNumber}</p>  }
 
         <input
           type="text"
@@ -81,6 +81,8 @@ export default function EventDateForm({
           disabled={loading}
           onChange={(e) => updateFields({ address: { ...address, postalCode: e.target.value } })}
         />
+        {errors?.postalCode && <p className="error text-red-500">{errors.postalCode}</p>  }
+
 
         <input
           type="text"
@@ -90,15 +92,7 @@ export default function EventDateForm({
           disabled={loading}
           onChange={(e) => updateFields({ address: { ...address, city: e.target.value } })}
         />
-
-        {/* <input
-          type="text"
-          id="stateOrRegion"
-          placeholder="Bundesland (optional)"
-          value={address.stateOrRegion || ''}
-          disabled={loading}
-          onChange={(e) => updateFields({ address: { ...address, stateOrRegion: e.target.value } })}
-        /> */}
+        {errors?.city && <p className="error text-red-500">{errors.city}</p>  }
 
         <input
           type="text"
@@ -108,6 +102,8 @@ export default function EventDateForm({
           disabled={loading}
           onChange={(e) => updateFields({ address: { ...address, country: e.target.value } })}
         />
+        {errors?.country && <p className="error text-red-500">{errors.country}</p>  }
+
         
         <input
           type="date"
@@ -116,6 +112,8 @@ export default function EventDateForm({
           disabled={loading}
           onChange={(e) => updateFields({ date: new Date(e.target.value) })}
         />
+        {errors?.date && <p className="error text-red-500">{errors.date}</p>  }
+
 
       </div>
     </FormWrapper>
