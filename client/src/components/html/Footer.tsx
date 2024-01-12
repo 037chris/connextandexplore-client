@@ -1,10 +1,28 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../img/FOOTER_LOGO.png';
 import { useUserIDContext } from '../../UserIDContext';
 import Cookies from 'js-cookie';
+import { logout } from '../../backend/boardapi';
+import { useState } from 'react';
+import LoginModal from '../navbar/LoginModal';
 
 const Footer = () => {
     const { userID } = useUserIDContext();
+    const navigate = useNavigate();
+    const [isOpen, setIsOpen] = useState(false);
+    const [authenticationModalIsOpen, setAuthenticationModalIsOpen] = useState(false);
+
+    const onLogOut = () => {
+        sessionStorage.clear();
+        logout();
+        navigate(0)
+    };
+    
+    const openAuthenticationModal = () => {
+        setIsOpen(false);
+        setAuthenticationModalIsOpen(true);
+    }
+    
     
     return (
         <footer>
@@ -27,16 +45,13 @@ const Footer = () => {
                                         <li><Link to="/my-created-events">Deine Events</Link></li>
                                         <li><Link to="#">Nachrichten</Link></li>
                                         <li><Link to="/settings">Einstellungen</Link></li>
-                                        <li><Link to="/" onClick={() => {
-                                            sessionStorage.clear();
-                                            Cookies.remove("access_token");
-                                        }}>Abmelden</Link></li>
+                                        <li><Link to="/" onClick={onLogOut}>Abmelden</Link></li>
                                     </ul>
                                 </> :
                                 <>
                                     <ul className="grid md:grid-cols-2 lg:grid-spans-4">
-                                        <li><Link to="#">Einloggen</Link></li>
-                                        <li><Link to="#">Registrieren</Link></li>
+                                        <li><Link to="#" onClick={openAuthenticationModal}>Einloggen</Link></li>
+                                        <li><Link to='/signup'>Registrieren</Link></li>
                                     </ul>
                                 </>}
 
@@ -54,6 +69,8 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
+            <LoginModal isOpen={authenticationModalIsOpen} onClose={() => setAuthenticationModalIsOpen(false)} />
+
         </footer>
     );
 }

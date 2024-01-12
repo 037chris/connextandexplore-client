@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import Avatar from '../Avatar';
 import MenuItem from './MenuItem';
@@ -17,8 +17,8 @@ const UserMenu: FC = () => {
 
   const [authenticationModalIsOpen, setAuthenticationModalIsOpen] = useState(false);
   const navigate = useNavigate();
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const [forceUpdate, setForceUpdate] = useState(false);
   const [profilePicture, setProfilePicture] = useState("");
 
   useEffect(() => {
@@ -56,9 +56,17 @@ const UserMenu: FC = () => {
     setIsOpen(false);
   };
 
+
+  const onBlur = (event: React.FocusEvent<HTMLDivElement>) => {
+    // Check if the related target (where the focus is moving to) is outside the menu
+    if (containerRef.current && !containerRef.current.contains(event.relatedTarget as Node)) {
+      setIsOpen(false);
+    }
+  };
+
   return (
     <>
-      <div className="relative">
+      <div className="relative" ref={containerRef} onBlur={onBlur} tabIndex={0}>
         {userID
           ?
           <div className="flex flex-row items-center gap-3">
@@ -102,7 +110,7 @@ const UserMenu: FC = () => {
       ">
               <AiOutlineMenu />
               <div className="hidden md:block">
-                {profilePicture && 
+                {/* {profilePicture && 
                   <img
                     className="rounded-full"
                     height="30"
@@ -111,8 +119,8 @@ const UserMenu: FC = () => {
 
                     src={`https://localhost:443/uploads/users/127b5e3f-011d-4975-b767-6d13cd0071ea-icons8-selenium-48.png`}
                     alt="Avatar"/>
-                }
-                {/* <Avatar src="/images/placeholder.jpg" /> */}
+                } */}
+                <Avatar src="/images/placeholder.jpg" />
               </div>
             </div>
           </div>

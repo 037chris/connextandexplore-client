@@ -13,7 +13,7 @@ const Avatar: React.FC<AvatarProps> = ({ src }) => {
       height="30"
       loading="lazy"
       width="30"
-      // src={src || "/images/placeholder.jpg"}
+      src={src || "/images/placeholder.jpg"}
       
       alt="Avatar"
     />

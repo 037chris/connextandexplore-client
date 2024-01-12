@@ -60,7 +60,8 @@ const onSubmit: SubmitHandler<FieldValues> = async (data) => {
       } as UserRegistration;
 
         const user = await signup(userData); 
-        console.log(user);
+        setAuthenticationModalIsOpen(true);
+
         toast.success('Successfully Created!')
         reset();
       } catch (error) {
