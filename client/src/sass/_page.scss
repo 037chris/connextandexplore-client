@@ -50,6 +50,25 @@
     &.bg {
         background-color: $border;
     }
+
+    &.team {
+        ul {
+            font-weight: 300;
+
+            li {
+                margin-bottom: rem(10);
+
+                a {
+                    color: $primary; 
+
+                    &:hover{
+                        text-decoration: underline;
+                        color: $primary;
+                    } 
+                }
+            }
+        }
+    }
 }
 
 .over-the-clouds {
