@@ -1,8 +1,5 @@
 import * as React from 'react';
 import LocalEvents from '../landingPage/LocalEvents';
-import Introduction from '../landingPage/Introduction';
-import Categories from '../landingPage/Categories';
-import Join from '../landingPage/Join';
 import Button from '../Button';
 import { Link, useNavigate } from 'react-router-dom';
 import Footer from '../html/Footer';
@@ -72,19 +69,6 @@ const Home = () => {
           </div>
         </div>
       </>}
-      {/* 
-      OLD VERSION
-      <div className="max-grid">
-        <div className='p-3 gap-4'>
-        <h1> Placeholder, Link zur AllEvents Seite/Komponente, for testing</h1>
-        <Button label="AllEvents Seite aufrufen" onClick={()=>{navigate("/events")}} />
-          <Introduction />
-          <LocalEvents events={eventsData} />
-          <Categories categories={["Kultur&Kunst","Konzert","sport&Fitness","Gaming","Hobbys",
-          "outdoor","Social"]} />
-          <Join />
-          </div>
-      </div> */}
       <Footer />
     </div>
   );
