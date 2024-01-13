@@ -9,6 +9,7 @@ import Button from '../Button';
 import 'tailwindcss/tailwind.css';
 import { useUserIDContext } from '../../UserIDContext';
 import toast from 'react-hot-toast';
+import Chat from './Chat';
 
 
 
@@ -130,8 +131,9 @@ const navigate = useNavigate();
             )}
 
             </div>
-                             
-            
+            <br />
+            <br />                 
+            {event.participants?.includes(userID!) && <Chat chatId={event.chat} />}
             </>
             
             </div> 
