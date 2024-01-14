@@ -167,8 +167,8 @@ export type CommentsWithRatingsResource = {
 
 export type MessageResource = {
   user: string;
+  username?: string;
   message: string;
-  chat?: string;
 }
 
 export type ChatResource = {
