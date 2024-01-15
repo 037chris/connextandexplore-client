@@ -89,7 +89,6 @@ const PersonalInfoSettingsComponent = () => {
 
     return (
         <div className="grid pt-6">
-            <p>Personal Info Settings</p>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <label htmlFor="gender">Geschlecht</label>
                 <select {...register('gender')} required name="gender" id="gender">

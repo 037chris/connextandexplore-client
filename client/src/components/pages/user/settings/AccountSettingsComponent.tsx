@@ -1,16 +1,10 @@
 const AccountSettingsComponent = () => {
     return (
         <div className="grid pt-6">
-            <p>Account Setting</p>
             <form>
                 <label htmlFor="email">E-Mail</label>
                 <input id="email" type="text" placeholder="E-Mail"></input>
                 {/* Passwortabfrage beim speichern */}
-                <label htmlFor="language">Sprache</label>
-                <select name="language" id="language">
-                    <option value="german">deutsch</option>
-                    <option value="english">english</option>
-                </select>
 
                 {/* <Select
                                 options={["deutsch", "english"]}

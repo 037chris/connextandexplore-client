@@ -80,33 +80,92 @@ const EventDetails: React.FC = () => {
 
   return (
     <>
-      {/* event!.name */}
+
       {event ? <>
-        <Header homeRoute={'event'} headline={'test'} />
+        {/* <Header homeRoute={'event'} headline={'test'} /> */}
+        <header>
+          <div className="max-grid">
+            <div className="header-event grid grid-cols-1 md:grid-cols-3">
+              {/* 2/3 GRID FOR HEADLINE + CREATOR + BUTTONS */}
+              <div className="col-span-1 md:col-span-2">
+                <h1>{event!.name}</h1>
+                {/* UNDER GRID 3/3 CREATOR + BTNS */}
+                <div className="col-span-1 md:col-span-3">
+                  {/* CREATOR */}
+                  <div className="creator">
+                    <img src="" alt="Creator" />
+                    <span>
+                      Hosted by
+                      <span>
+                        {event.creator}
+                      </span>
+                    </span>
+                  </div>
+                </div>
+                {userID === event.creator && (
+                  // BTN 1
+                  <div>
+                    <div>
+                      <button
+                        className='delete'
+                        onClick={() => handleDeleteEvent(event.id!)}>
+                        Löschen
+                      </button>
+                    </div>
+                    {/* BTN 2 */}
+                    <div>
+                      <button
+                        className='edit'
+                        onClick={() => navigate(`/edit-event/${event.id}`)}>
+                        Bearbeiten
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+              {/* EVENT IMG GRID */}
+              <div className="col-span-1">
+                  {/* EVENT IMG CONTAINER */}
+                  <div className="event-image">
+
+                  </div>
+              </div>
+            </div>
+          </div>
+        </header>
         <div className='max-grid content content-pt'>
           <div className="event-box grid grid-cols-1 md:grid-cols-3">
             <div className="col-span-1 min-h-fit event-content-box-left">
               <ul>
-                <li>{event.date?.toString()}</li>
-                <li>{event.address.street} {event.address.houseNumber} <span>{event.address.city}</span></li>
-                <li>{event.participants?.length} Teilnehmer</li>
+                <li className="date">{event.date?.toString()}</li>
+                <li className="adress">{event.address.street} {event.address.houseNumber} <span>{event.address.city}</span></li>
+                <li className="participants">{event.participants?.length} Teilnehmer</li>
               </ul>
-              {userID !== event.creator && (
-                <div className="btns">
+              <div className="btns">
+                {!joined ? (
                   <button
                     className='teilnehmen'
-                    onClick={() => {}}
+                    onClick={async () => { setReload(await joinEvent(eventId!)) }}
                   >
                     Teilnehmen
                   </button>
-                  <button
-                    className='bewerten'
-                    onClick={() => {}}
-                  >
-                    Bewertung abgeben
-                  </button>
-                </div>
-              )}
+                ) : (
+                  <>
+                    <button
+                      className='teilnehmen austreten'
+                      onClick={async () => { setReload(await exitEvent(eventId!)) }}
+                    >
+                      Austreten
+                    </button>
+                    <button
+                      className='bewerten'
+                      onClick={async () => { }}
+                    >
+                      Bewerten
+                    </button>
+                  </>
+                )}
+              </div>
             </div>
             <div className="col-span-1 md:col-span-2 min-h-fit event-content-box-right">
               <h2 className="font-francisco">Details</h2>
@@ -120,53 +179,16 @@ const EventDetails: React.FC = () => {
               <Hashtags hashtags={event.hashtags} />
             </div>
           </div>
-        </div>
-
-        <div className="max-w-screen-md mx-auto p-4">
-          <div>
-            {/* <img
-
-                  //src={process.env.PUBLIC_URL + imageUrl!}
-                  src={process.env.PUBLIC_URL + '/Images/CARD_IMG_Placeholder.jpg'}
-                  alt="test"
-                  className="'w-full md:max-w-md mx-auto"
-                /> */}
-            <>
-              <div className="ml-2mt-40">
-                {!joined ? (
-                  <Button label="Teilnehmen" onClick={async () => { setReload(await joinEvent(eventId!)) }} />
-                ) : (
-                  <Button label="Austreten" onClick={async () => { setReload(await exitEvent(eventId!)) }}
-
-                    secondary
-                  />
-                )}
+          <hr />
+          <div className="rewviews pt-2">
+            <div className="grid grid-cols-1">
+              <div className="col-span-1">
+                <p>PLACEHOLDER</p>
               </div>
-              {/* Khatia */}
-              {userID === event.creator && (
-                <div>
-                  <div>
-                    <button
-                      className='bg-red-400 text-white w-full md:w-52 h-12 rounded-md mt-10'
-                      onClick={() => handleDeleteEvent(event.id!)}
-                    >
-                      Delete
-                    </button>
-                  </div>
-                  <div>
-                    <button
-                      className='bg-red-400 text-white w-full md:w-52 h-12 rounded-md mt-10'
-                      onClick={() => navigate(`/edit-event/${event.id}`)}
-                    >
-                      Edit
-                    </button>
-                  </div>
-                </div>
-              )}
-            </>
-
+            </div>
           </div>
         </div>
+        {/* END GRID */}
         <Footer />
       </>
         : (

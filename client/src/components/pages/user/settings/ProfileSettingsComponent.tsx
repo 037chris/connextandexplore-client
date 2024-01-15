@@ -62,7 +62,6 @@ const ProfilSettingsComponent = () => {
 
     return (
         <div>
-            <p>Profile Settings</p>
             <form>
                 {/* hier fehlt das ausgelesene Profilbild */}
                 <input type="submit" value="Neuer upload" />

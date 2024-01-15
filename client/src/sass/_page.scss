@@ -390,6 +390,28 @@ header {
         }
     }
 
+    .header-event {
+        padding: rem(145) rem(15) rem(30);
+
+        @include breakpoint(md) {
+            padding: rem(155) rem(15) rem(30);
+        }
+
+        @include breakpoint(xl) {
+            padding: rem(150) rem(15) rem(36);
+        }
+
+        h1 {
+            font-family: 'Titan One', sans-serif;
+            font-size: rem(22);
+            margin-top: 0;
+
+            @include breakpoint(lg) {
+                font-size: rem(27);
+            }
+        }
+    }
+
     .clouds {
         position: relative;
 
@@ -994,9 +1016,47 @@ header {
 
         ul {
             li {
-                span {
-                    display: block;
+                margin-bottom: rem(20);
+                padding-left: rem(35);
+                position: relative;
+
+                &.date {
+                    span {
+                        display: block;
+                    }
+
+                    &:before {
+                        content: url('../img/helper/heroicons-outline/clock.svg');
+                        position: absolute;
+                        left: 0;
+                        top: rem(2);
+                    }
                 }
+
+                &.adress {
+                    span {
+                        display: block;
+                        color: $border;
+                    }
+
+                    &:before {
+                        content: url('../img/helper/heroicons-outline/MAP\ VECTOR.svg');
+                        position: absolute;
+                        left: rem(3);
+                        top: rem(3);
+                    }
+                }
+
+                &.participants {
+
+                    &:before {
+                        content: url('../img/helper/heroicons-outline/community.svg');
+                        position: absolute;
+                        left: rem(2);
+                        top: rem(3);
+                    }
+                }
+                
             }
         }
 
@@ -1026,6 +1086,18 @@ header {
                         border: rem(1) solid $secondary;
                         background-color: $secondary;
                     }
+
+                    // &.austreten {
+                    //     background-color: $alert;
+                    //     color: $white;
+                    //     border: rem(1) solid $alert;
+                    //     margin-bottom: rem(6);
+    
+                    //     &:hover {
+                    //         border: rem(1) solid $alert;
+                    //         background-color: $alert;
+                    //     }
+                    // }
                 }
 
                 &.bewerten {
