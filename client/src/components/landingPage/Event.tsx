@@ -33,8 +33,20 @@ const LocalEvents: React.FC<EventProps> = ({
     category
 }) => {
     const navigate = useNavigate();
-    const formattedDate = date ? (isValid(new Date(date)) ? format(new Date(date), 'PPP') : 'Invalid Date') : 'No Date';
-   
+    // const formattedDate = date
+    // ? isValid(new Date(date))
+    //     ? `${format(new Date(date), 'eeee, MMMM d, yyyy')} at ${format(new Date(date), 'hh:mm a')} to ${format(
+    //           new Date(date),
+    //           'hh:mm a'
+    //       )}`
+    //     : 'Invalid Date'
+    // : 'No Date';   
+
+    const formattedDate = date
+    ? isValid(new Date(date))
+        ? `${format(new Date(date), 'eeee, MMMM d, yyyy')} at ${format(new Date(date), 'hh:mm a')}`
+        : 'Invalid Date'
+    : 'No Date';   
     const params = useParams();
     const eventId = params.eventId; 
 

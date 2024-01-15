@@ -11,6 +11,7 @@ import { useUserIDContext } from '../../UserIDContext';
 import toast from 'react-hot-toast';
 import { Header } from '../html/Header';
 import Footer from '../html/Footer';
+import { format } from 'date-fns';
 
 
 const EventDetails: React.FC = () => {
@@ -137,9 +138,9 @@ const EventDetails: React.FC = () => {
           <div className="event-box grid grid-cols-1 md:grid-cols-3">
             <div className="col-span-1 min-h-fit event-content-box-left">
               <ul>
-                <li className="date">{event.date?.toString()}</li>
-                <li className="adress">{event.address.street} {event.address.houseNumber} <span>{event.address.city}</span></li>
-                <li className="participants">{event.participants?.length} Teilnehmer</li>
+              <li>{`${format(new Date(event.date!), 'eeee, MMMM d, yyyy')} at ${format(new Date(event.date!), 'hh:mm a')}`}</li>
+                <li>{event.address.street} {event.address.houseNumber} <span>{event.address.city}</span></li>
+                <li>{event.participants?.length} Teilnehmer</li>
               </ul>
               <div className="btns">
                 {!joined ? (
