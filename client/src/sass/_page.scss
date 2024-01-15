@@ -40,7 +40,7 @@
             font-family: "Titan One", sans-serif;
             text-transform: uppercase;
             ont-size: rem(18);
-            
+
             @include breakpoint(lg) {
                 font-size: rem(20);
             }
@@ -59,12 +59,12 @@
                 margin-bottom: rem(10);
 
                 a {
-                    color: $primary; 
+                    color: $primary;
 
-                    &:hover{
+                    &:hover {
                         text-decoration: underline;
                         color: $primary;
-                    } 
+                    }
                 }
             }
         }
@@ -774,9 +774,9 @@ header {
         border-radius: rem(6);
         max-height: rem(40);
         background-color: $primary;
-            color: $white;
+        color: $white;
 
-        &:hover{
+        &:hover {
             color: $primary;
             background-color: $white;
         }
@@ -794,7 +794,7 @@ header {
             background-color: $secondary !important;
             border: rem(1) solid $secondary !important;
 
-            &:hover{
+            &:hover {
                 background-color: $secondary !important;
                 border: rem(1) solid $secondary !important;
             }
@@ -871,7 +871,7 @@ header {
         border-radius: rem(6) 0 0 rem(6);
         padding: rem(10) rem(70);
         position: relative;
-        left: rem(8);    
+        left: rem(8);
     }
 
     input {
@@ -889,8 +889,9 @@ header {
         }
 
         &::-webkit-calendar-picker-indicator {
-            padding-right: rem(15);   
+            padding-right: rem(15);
         }
+
         &::-webkit-datetime-edit {
             color: #a1a6b2;
 
@@ -910,33 +911,31 @@ header {
         h2 {
             font-size: rem(20);
             //font-weight: bold;
-        
+
             @include breakpoint(lg) {
                 //font-size: rem(24);
             }
         }
-        
+
     }
-    
-    .tabber {
-    
-    }
-    
+
+    .tabber {}
+
     .selectedTabber {
         color: $white;
         background-color: $primary;
     }
-    
+
     .highlightTabber {
         color: $white;
         background-color: rgba(32, 121, 255, 0.75);
     }
-    
+
     .sub-headline {
         font-size: rem(14);
         margin: 35px 0 25px 0;
     }
-    
+
     .hashtag-btn {
         padding: rem(3) rem(10);
         background-color: $border !important;
@@ -946,18 +945,18 @@ header {
         transition: 350ms all ease-in-out;
         font-size: rem(14);
         font-weight: bold;
-    
+
         &:hover {
             border: rem(1) solid $primary;
             //background-color: $primary !important;
         }
-    
+
         &.active {
             border: rem(1) solid $primary;
             background-color: $primary !important;
         }
     }
-    
+
 }
 
 .MuiPaper-root {
@@ -965,4 +964,125 @@ header {
     border-radius: rem(6) !important;
     margin-bottom: rem(10) !important;
     box-shadow: none !important;
+}
+
+// EVENT DETAILS
+
+.event-box {
+    border-radius: rem(8);
+    border: rem(1) solid $border;
+    font-weight: 300;
+
+    .event-content-box-left {
+        position: relative;
+        padding: rem(25);
+
+        @include breakpoint(md) {
+            padding: rem(50) rem(25);
+        }
+
+        &:before {
+            content: '';
+            width: rem(1);
+            height: 100%;
+            display: inline-block;
+            position: absolute;
+            right: 0;
+            top: 0;
+            background-color: $border;
+        }
+
+        ul {
+            li {
+                span {
+                    display: block;
+                }
+            }
+        }
+
+        .btns {
+            margin-top: rem(15);
+
+            @include breakpoint(md) {
+                margin-top: rem(35);
+            }
+
+            button {
+                width: 100%;
+                text-align: center;
+                text-transform: uppercase;
+                border-radius: rem(6);
+                transition: 350ms all ease-in-out;
+                padding: rem(8) 0;
+
+
+                &.teilnehmen {
+                    background-color: $primary;
+                    color: $white;
+                    border: rem(1) solid $primary;
+                    margin-bottom: rem(6);
+
+                    &:hover {
+                        border: rem(1) solid $secondary;
+                        background-color: $secondary;
+                    }
+                }
+
+                &.bewerten {
+                    background-color: $white;
+                    color: $primary;
+                    border: rem(1) solid $primary;
+
+                    &:hover {
+                        border: rem(1) solid $secondary;
+                        color: $secondary;
+                    }
+                }
+            }
+        }
+
+
+    }
+
+    .event-content-box-right {
+        padding: rem(25);
+
+        @include breakpoint(md) {
+            padding: rem(50) rem(25);
+        }
+
+        h2 {
+            text-transform: none;
+            font-size: rem(22);
+            font-family: "Sue Ellen Francisco";
+            font-weight: 400;
+            margin-bottom: rem(20);
+
+            @include breakpoint(md) {
+                font-size: rem(27);
+            }
+        }
+    }
+}
+
+.hashtags {
+    font-weight: 300;
+    margin-top: rem(20);
+    display: block;
+
+    @include breakpoint(md) {
+        float: right;
+    }
+
+    span {
+        color: $white;
+        background-color: $border;
+        border: rem(1) solid $border;
+        border-radius: rem(6);
+        font-size: rem(14);
+        padding: rem(2) rem(6);
+        display: inline-block;
+
+
+    }
 }

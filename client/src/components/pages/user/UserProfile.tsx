@@ -58,16 +58,6 @@ const UserProfile: React.FC = () => {
     }
   }, [userID]);
 
-
-//   async function load() {
-//     const e = await getBoard();
-//     setEvents(c);
-// }
-
-// React.useEffect(() => { load(); }, [userID]);
-
-
-
   const handleShowEvents = async () => {
     try {
       const currentUserEvents: eventsResource = await getCreatedEvent(userID!);
@@ -79,7 +69,7 @@ const UserProfile: React.FC = () => {
   }
 
   return (
-    <div className='relative'>
+    <div className='max-grid'>
       <div
         className='pb-36 bg-cover bg-center relative'
         style={{ backgroundImage: "url('/images/back-img.png')" }}

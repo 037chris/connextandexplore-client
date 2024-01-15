@@ -106,7 +106,7 @@ export default function EventDateForm({
 
         
         <input
-          type="date"
+          type="datetime-local"
           id="date"
           defaultValue={today}
           disabled={loading}

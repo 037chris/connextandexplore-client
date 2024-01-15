@@ -84,6 +84,26 @@ export default function EventThumbnailForm({
   }, [thumbnail, selectedHashtags]);
 
   // weird base64 converter, but works! (:)) combination of stackoverflow and chatgpt monolog
+  // const convertToBase64 = (url: string): Promise<string> => {
+  //   return new Promise((resolve, reject) => {
+  //     const img = new Image();
+  //     img.crossOrigin = 'Anonymous';
+  //     img.onload = () => {
+  //       const canvas = document.createElement('canvas');
+  //       const ctx = canvas.getContext('2d');
+  //       canvas.width = img.width;
+  //       canvas.height = img.height;
+  //       ctx?.drawImage(img, 0, 0);
+  //       const base64Data = canvas.toDataURL('image/png');
+  //       resolve(base64Data);
+  //     };
+  //     img.onerror = () => {
+  //       reject(new Error('Fehler beim Laden des Bildes.'));
+  //     };
+  //     img.src = url;
+  //   });
+  // };
+
   const convertToBase64 = (url: string): Promise<string> => {
     return new Promise((resolve, reject) => {
       const img = new Image();
@@ -91,9 +111,17 @@ export default function EventThumbnailForm({
       img.onload = () => {
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
-        canvas.width = img.width;
-        canvas.height = img.height;
-        ctx?.drawImage(img, 0, 0);
+
+        // Setze die canvas-Größe auf 400x300 Pixel
+        const targetWidth = 400;
+        const targetHeight = 300;
+        canvas.width = targetWidth;
+        canvas.height = targetHeight;
+
+        // Zeichne das Bild auf die canvas mit der neuen Größe
+        ctx?.drawImage(img, 0, 0, img.width, img.height, 0, 0, targetWidth, targetHeight);
+
+        // Konvertiere die canvas-Daten in Base64
         const base64Data = canvas.toDataURL('image/png');
         resolve(base64Data);
       };
@@ -106,18 +134,24 @@ export default function EventThumbnailForm({
 
   const handleImageSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    console.log("HIT THE BTN: ");
     if (fileUploaded) {
       // convert imge in base 64, save this in event model
-      if (thumbnail) {
-        convertToBase64(thumbnail)
-          .then(base64Image => {
-            // see code
-            console.log("base64Image: " + base64Image);
-            updateFields({ thumbnail: base64Image, hashtags: selectedHashtags });
-          })
-          .catch(error => {
-            console.error('Fehler bei der Konvertierung in Base64:', error);
-          });
+      if (thumbPrewview) {
+        const fileInput = document.getElementById('bild') as HTMLInputElement | null;
+        if (fileInput && fileInput.files) {
+          //thumbnail = fileInput.files[0];
+        }
+        // console.log("HIT THE BTN: find the thumb");
+        // convertToBase64(thumbPrewview)
+        //   .then(base64Image => {
+        //     // see code
+        //     console.log("base64Image: " + base64Image);
+        //     updateFields({ thumbnail: base64Image, hashtags: selectedHashtags });
+        //   })
+        //   .catch(error => {
+        //     console.error('Fehler bei der Konvertierung in Base64:', error);
+        //   });
       }
     }
 
@@ -177,7 +211,7 @@ export default function EventThumbnailForm({
               </button>
             ))}
           </div>
-          {errors?.hashtag && <p className="error text-red-500">{errors?.hashtag}</p>  }
+          {errors?.hashtag && <p className="error text-red-500">{errors?.hashtag}</p>}
 
         </div>
 

@@ -6,13 +6,13 @@ import { useUserIDContext } from '../../UserIDContext';
 import { getUser } from '../../backend/boardapi';
 
 interface HomeRouteName {
-  homeRoute: 'home' | 'page' | undefined;
+  homeRoute: 'home' | 'page' | 'event' | undefined;
   headline: string | undefined;
 }
 
 export const Header: React.FC<HomeRouteName> = ({ homeRoute, headline }) => {
   const { userID } = useUserIDContext();
-  const [hR, setHomeRoute] = useState<'home' | 'page' | undefined>(homeRoute);
+  const [hR, setHomeRoute] = useState<'home' | 'page' | 'event' | undefined>(homeRoute);
   const [hl, setHeadline] = useState<string | undefined>(headline);
   const [firstname, setFirstname] = useState<string>('');
 
@@ -26,7 +26,15 @@ export const Header: React.FC<HomeRouteName> = ({ homeRoute, headline }) => {
     }
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   useEffect(() => {
+    scrollToTop();
     setHomeRoute(homeRoute);
     setHeadline(headline);
     if (userID) {
@@ -93,7 +101,17 @@ export const Header: React.FC<HomeRouteName> = ({ homeRoute, headline }) => {
               </div>
             </div>
           </>
-        ) : (
+        ) : hR === 'event' ? (
+          //Code für 'page'
+          <>
+            <div className="header-page">
+              <div>
+                <h1>{hl}</h1>
+              </div>
+            </div>
+          </>
+        )
+        : (
           // JSX-Code für andere Fälle (falls erforderlich)
           <>
             {/* Dein Code für andere Fälle hier */}

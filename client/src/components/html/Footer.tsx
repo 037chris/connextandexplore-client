@@ -17,13 +17,12 @@ const Footer = () => {
         logout();
         navigate(0)
     };
-    
+
     const openAuthenticationModal = () => {
         setIsOpen(false);
         setAuthenticationModalIsOpen(true);
     }
-    
-    
+
     return (
         <footer>
             <div className="max-grid">
@@ -49,7 +48,9 @@ const Footer = () => {
                                     </ul>
                                 </> :
                                 <>
-                                    <ul className="grid md:grid-cols-2 lg:grid-spans-4">
+                                    <ul className="grid md:grid-cols-4 lg:grid-spans-4">
+                                        <li></li>
+                                        <li></li>
                                         <li><Link to="#" onClick={openAuthenticationModal}>Einloggen</Link></li>
                                         <li><Link to='/signup'>Registrieren</Link></li>
                                     </ul>
