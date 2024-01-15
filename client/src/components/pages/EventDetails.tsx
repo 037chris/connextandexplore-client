@@ -9,7 +9,7 @@ import Button from '../Button';
 import 'tailwindcss/tailwind.css';
 import { useUserIDContext } from '../../UserIDContext';
 import toast from 'react-hot-toast';
-import Chat from './Chat';
+import { format, isValid } from 'date-fns';
 
 
 
@@ -64,6 +64,22 @@ const navigate = useNavigate();
     }
   };
 
+  const formattedDate = event?.date ? (isValid(new Date(event?.date)) ? format(new Date(event?.date), 'PPP') : 'Invalid Date') : 'No Date';
+  
+  let participateButton;
+  if(userID !== event?.creator) {
+    if(!joined) {
+      participateButton = <Button label="Teilnehmen" onClick={async()=>{setReload(await joinEvent(eventId!))}}/>
+    } else {
+      participateButton = <Button label="Austreten" onClick={async() =>{setReload(await exitEvent(eventId!))}} secondary/>
+    }
+  }
+
+  let chatButton;
+  if(joined) {
+    chatButton = <Button label="Chat" onClick={() => navigate('/chat', { state: { chatId: event?.chat } })}></Button>
+  }
+
   return (
     <div>
        <br />
@@ -85,7 +101,7 @@ const navigate = useNavigate();
                 <h1 className="text-2xl font-bold">{event.name}</h1>
             </div>
             <div className="mb-2">
-                <h2 className="text-gray-600">Datum{/*event.date*/}</h2>
+                <h2 className="text-gray-600">{formattedDate}</h2>
             </div>
             
             <Hashtags hashtags={event.hashtags}/>
@@ -99,14 +115,11 @@ const navigate = useNavigate();
             <>
            
             <div className="ml-2mt-40">
-            {!joined ? (
-                <Button label="Teilnehmen" onClick={async()=>{setReload(await joinEvent(eventId!))}}/>
-            ) : (
-              <Button label="Austreten" onClick={async() =>{setReload(await exitEvent(eventId!))}}
-              
-              secondary
-              />
-            )}
+              <br />
+              {chatButton}
+              <br />
+              <br />
+              {participateButton}
 
             {/* Khatia */}
             {userID === event.creator && ( 
@@ -131,9 +144,7 @@ const navigate = useNavigate();
             )}
 
             </div>
-            <br />
-            <br />                 
-            {event.participants?.includes(userID!) && <Chat chatId={event.chat} />}
+
             </>
             
             </div> 

@@ -71,6 +71,24 @@ const UserMenu: FC = () => {
           ?
           <div className="flex flex-row items-center gap-3">
             <div
+              onClick={() => { navigate('/chat') }}
+              className="
+                    hidden
+                    md:block
+                    text-sm
+                    font-semibold
+                    py-3
+                    px-4
+                    rounded-md
+                    hover:bg-neutral-100
+                    transition
+                    cursor-pointer
+                    border-2
+                    "
+            >
+              Chat
+            </div>
+            <div
               onClick={() => { navigate('/create-event') }}
               className="
                     hidden

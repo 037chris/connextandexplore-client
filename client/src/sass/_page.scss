@@ -39,7 +39,7 @@
         h2 {
             font-family: "Titan One", sans-serif;
             text-transform: uppercase;
-            ont-size: rem(18);
+            font-size: rem(18);
             
             @include breakpoint(lg) {
                 font-size: rem(20);
