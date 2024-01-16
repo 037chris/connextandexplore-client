@@ -133,7 +133,7 @@ export default function EventFilter({query,plz}:EventFilterProps) {
                 onClick={() => handleFilterByCategory("Social")}
               />
               <input
-              className="hidden md:block rounded-md bg-neutral-100 hover:bg-gray-50 transition cursor-pointer text-center"
+              className="md:block rounded-md bg-neutral-100 hover:bg-gray-50 transition cursor-pointer text-center"
               type="date"
               value={selectedDate || ''}
               onChange={(e) => handleFilterByDate(e.target.value)}
@@ -150,8 +150,6 @@ export default function EventFilter({query,plz}:EventFilterProps) {
                        sm:grid-cols-2
                        md:grid-cols-3
                        lg:grid-cols-4
-                       xl:grid-cols-5
-                       2xl:grid-cols-6
                        gap-8
                    "
                 >
