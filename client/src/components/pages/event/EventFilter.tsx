@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { eventsResource } from "../../../Resources";
 import { getAllEvents, searchEvents } from "../../../backend/boardapi";
 import { Link } from "react-router-dom";
-import Button from "../../Button";
+import Button from "../../html/Button";
 import Container from "../../Container";
 import Event from "../../landingPage/Event";
 

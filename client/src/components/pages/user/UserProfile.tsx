@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Heading from '../../Heading';
-import Button from '../../Button';
+import Button from '../../html/Button';
 import HorizontalCard from '../../ProfileCard';
 import { useUserIDContext } from '../../../UserIDContext';
 import { getCreatedEvent, getEvent, getEventOwner, getUser } from '../../../backend/boardapi';

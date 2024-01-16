@@ -3,9 +3,9 @@ import { AiFillGithub, AiOutlineClose } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
 
 import { useNavigate } from 'react-router-dom';
-import Input from '../inputs/Input';
+import Input from '../html/inputs/Input';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import Button from '../Button';
+import Button from '../html/Button';
 import toast from 'react-hot-toast';
 import { getUserIDFromJWT, login } from '../../backend/boardapi';
 import Modal from '../modals/Modal';

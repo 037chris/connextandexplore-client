@@ -4,7 +4,7 @@ import Avatar from '../Avatar';
 import MenuItem from './MenuItem';
 import { useNavigate } from 'react-router-dom';
 import { useUserIDContext } from '../../UserIDContext';
-import Button from '../Button';
+import Button from '../html/Button';
 import { getUser, logout } from '../../backend/boardapi';
 
 import { FaRegEnvelope } from "react-icons/fa";

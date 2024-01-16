@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Input from '../inputs/Input';
-import Button from '../Button';
+import Input from '../html/inputs/Input';
+import Button from '../html/Button';
 import Heading from '../Heading';
 import { UserRegistration } from '../../Resources';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { signup } from '../../backend/boardapi';
-import Select from '../inputs/Select';
+import Select from '../html/inputs/Select';
 import LoginModal from '../navbar/LoginModal';
 
 export default function SignUp() {

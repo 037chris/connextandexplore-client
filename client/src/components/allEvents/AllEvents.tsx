@@ -5,7 +5,7 @@ import Event from "../landingPage/Event";
 import { eAddressResource, eventResource } from "../../Resources";
 import { getAllEvents } from "../../backend/boardapi";
 import { useState } from "react";
-import Button from "../Button";
+import Button from "../html/Button";
 import { Link } from "react-router-dom";
 
 

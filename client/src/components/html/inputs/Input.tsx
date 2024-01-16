@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FieldErrors, FieldValues, UseFormRegister, get } from "react-hook-form";
 import { BiDollar } from "react-icons/bi";
-import { ValidationError } from "../../backend/validation";
+import { ValidationError } from "../../../backend/validation";
 
 interface InputProps {
   id: string;
@@ -123,19 +123,19 @@ const Input: React.FC<InputProps> = ({
           defaultValue={defaultValue}
           onChange={onChangeFn}
           className={`
-            peer
-            w-full
-            p-4
-            pt-6
-            font-light
-            font-sans
-            bg-white
-            border-2
-            rounded-md
-            outline-none
-            transition
-            disabled:opacity-70
-            disabled:cursor-not-allowed
+            // peer
+            // w-full
+            // p-4
+            // pt-6
+            // font-light
+            // font-sans
+            // bg-white
+            // border-2
+            // rounded-md
+            // outline-none
+            // transition
+            // disabled:opacity-70
+            // disabled:cursor-not-allowed
             ${formatPrice ? 'pl-9' : 'pl-4'}
             ${error ? 'border-rose-500' : 'border-neutral-300'}
             ${error ? 'focus:border-rose-500' : 'focus:border-black'}
@@ -146,15 +146,15 @@ const Input: React.FC<InputProps> = ({
       <label
         htmlFor={id}
         className={`
-          absolute
-          text-md 
-          font-sans
-          duration-150
-          transform
-          -translate-y-2
-          top-5
-          z-0
-          origin-[0]
+          // absolute
+          // text-md 
+          // font-sans
+          // duration-150
+          // transform
+          // -translate-y-2
+          // top-5
+          // z-0
+          // origin-[0]
           ${formatPrice ? 'left-9' : 'left-4'}
           peer-placeholder-shown:scale-100
           peer-placeholder-shown-translate-y-0

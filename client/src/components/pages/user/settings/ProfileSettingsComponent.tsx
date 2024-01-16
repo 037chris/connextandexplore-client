@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import { userResource, uAddressResource } from "../../../../Resources";
 import { getUserIDFromJWT, getUser, updateUser } from "../../../../backend/boardapi";
-import Input from "../../../inputs/Input";
-import Button from "../../../Button";
+import Input from "../../../html/inputs/Input";
+import Button from "../../../html/Button";
+import profilepicture from "../../../../img/placeholder.jpg";
 
 const ProfilSettingsComponent = () => {
 
@@ -15,20 +16,23 @@ const ProfilSettingsComponent = () => {
     const load = async () => {
         try {
             const id = await getUserIDFromJWT();
-            const u:userResource = await getUser(id);
+            const u: userResource = await getUser(id);
             console.log(u);
             setUser(u);
-            setValue("firstname", u.name.first, {shouldValidate:true})
-            setValue("lastname", u.name.last, {shouldValidate:true})
-            setValue("email", u.email, {shouldValidate:true})
-            setValue("socialMediaUrls.facebook", u.socialMediaUrls?.facebook, {shouldValidate:true})
-            setValue("socialMediaUrls.instagram", u.socialMediaUrls?.instagram, {shouldValidate:true})
+            setValue("firstname", u.name.first, { shouldValidate: true })
+            setValue("lastname", u.name.last, { shouldValidate: true })
+            setValue("email", u.email, { shouldValidate: true })
+            setValue("socialMediaUrls.facebook", u.socialMediaUrls?.facebook, { shouldValidate: true })
+            setValue("socialMediaUrls.instagram", u.socialMediaUrls?.instagram, { shouldValidate: true })
         } catch (err) {
             setUser(null);
         }
     }
 
-    useEffect(() => { load(); }, []);
+    useEffect(() => { 
+        document.title = 'Profil Einstellungen - Connect & Explore"';
+        load(); 
+    }, []);
 
     const {
         register,
@@ -45,11 +49,11 @@ const ProfilSettingsComponent = () => {
         try {
             const userData = user;
             if (data.username)
-            console.log(userData?.address);
-            userData!.gender=data.gender;
+                console.log(userData?.address);
+            userData!.gender = data.gender;
             console.log("fetch");
             const res = await updateUser(userData!);
-            console.log("res:",res);
+            console.log("res:", res);
             reset();
         } catch (error) {
             console.error(error);
@@ -62,75 +66,75 @@ const ProfilSettingsComponent = () => {
 
     return (
         <div>
-            <form>
-                {/* hier fehlt das ausgelesene Profilbild */}
-                <input type="submit" value="Neuer upload" />
-                <input type="submit" value="Foto löschen" />
-            </form>
-            <form onSubmit={handleSubmit(onSubmit)}>
-            {/*
-                <label htmlFor="vorname">Vorname</label>
-                <input id="vorname" type="text" placeholder="Vorname"></input>
-                <label htmlFor="name">Name</label>
-                <input id="name" type="text" placeholder="Name"></input>
-                <span>Social Media Links</span>
-                <label htmlFor="instagram">Instagram</label>
-                <input id="instagram" type="text" placeholder="Instagram Profil URL"></input>
-                <label htmlFor="facebook">Facebook</label>
-                <input id="facebook" type="text" placeholder="Facbook Profil URL"></input>
-                <input type="submit" className="save" value="speichern" />
-            */}
-            <Input
-                id="firstname"
-                label='Firstname *'
-                disabled={loading}
-                register={register}
-                errors={errors}
-                required
-                defaultValue={user?.name.first}
-            />
-            <Input
-                id="lastname"
-                label='Name *'
-                disabled={loading}
-                register={register}
-                errors={errors}
-                required
-                defaultValue={user?.name.last}
-            />
-            <Input
-                id="email"
-                label="Email *"
-                disabled={loading} 
-                register={register}
-                errors={errors}
-                pattern={/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/}
-                required
-                defaultValue={user?.email}
-            />
-            <Input
-                type='text'
-                label='Facebook URL'
-                id='socialMediaUrls.facebook'
-                register={register}
-                errors={errors}
-                disabled={loading}
-                defaultValue={user?.socialMediaUrls?.facebook}
-            />
-            <Input
-                type='text'
-                label='Instagram URL'
-                id='socialMediaUrls.instagram'
-                register={register}
-                errors={errors}
-                disabled={loading}
-                defaultValue={user?.socialMediaUrls?.instagram}
-            />
-            <Button 
-                disabled={loading}
-                label={loading ? 'Loading...' : 'Save'}
-                onClick={() => {handleSubmit(onSubmit)}}
-            />
+            <form onSubmit={handleSubmit(onSubmit)} className="setting-form">
+                <div className="profile-img md:flex items-center">
+                    <div className="user-picture">
+                        <img src={profilepicture} alt="" />
+                    </div>
+                    <input type="submit" value="Neuer upload" className="new-upload" />
+                    <input type="submit" value="Foto löschen" className="delete-profile-img" />
+                </div>
+
+                <Input
+                    id="firstname"
+                    label='Vorname'
+                    disabled={loading}
+                    register={register}
+                    errors={errors}
+                    required
+                    defaultValue={user?.name.first}
+                />
+                <Input
+                    id="lastname"
+                    label='Name'
+                    disabled={loading}
+                    register={register}
+                    errors={errors}
+                    required
+                    defaultValue={user?.name.last}
+                />
+                <Input
+                    id="email"
+                    label="E-Mail"
+                    disabled={loading}
+                    register={register}
+                    errors={errors}
+                    pattern={/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/}
+                    required
+                    defaultValue={user?.email}
+                />
+                <span className="sm-headline">Social-Media Link</span>
+                <Input
+                    type='text'
+                    label='Facebook Url'
+                    id='socialMediaUrls.facebook'
+                    register={register}
+                    errors={errors}
+                    disabled={loading}
+                    defaultValue={user?.socialMediaUrls?.facebook}
+                />
+                <Input
+                    type='text'
+                    label='Instagram Url'
+                    id='socialMediaUrls.instagram'
+                    register={register}
+                    errors={errors}
+                    disabled={loading}
+                    defaultValue={user?.socialMediaUrls?.instagram}
+                />
+                {/* <Button
+                    disabled={loading}
+                    label={loading ? 'Loading...' : 'Save'}
+                    onClick={() => { handleSubmit(onSubmit) }}
+                /> */}
+                <button
+                    className='btn save font-sans'
+                    type='button'
+                    onClick={() => {
+                        handleSubmit(onSubmit)
+                    }}>
+                    Speichern
+                </button>
             </form>
         </div>
     );

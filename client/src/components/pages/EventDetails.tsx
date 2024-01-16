@@ -5,7 +5,7 @@ import { deleteEvent, exitEvent, getEvent, getUserIDFromJWT, joinEvent } from '.
 import { eventResource, eventsResource } from '../../Resources';
 import LoadingIndicator from '../LoadingIndicator';
 import Hashtags from '../landingPage/Hashtags';
-import Button from '../Button';
+import Button from '../html/Button';
 import 'tailwindcss/tailwind.css';
 import { useUserIDContext } from '../../UserIDContext';
 import toast from 'react-hot-toast';
