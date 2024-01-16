@@ -51,7 +51,7 @@ export default function EventSelectCategoryForm({
     <FormWrapper title="Wähle Kategorie deiner Veranstaltung">
       <div
         tabIndex={0}
-        className={`relative w-96 min-h-1.5 border border-solid ${errors?.value ? 'border-red-500' : 'border-gray-700'} flex items-center p-2 rounded-md outline-none`}
+        className={`relative tabber min-h-1.5 border border-solid ${errors?.value ? 'border-red-500' : 'border-gray-700'} flex items-center p-2 rounded-md outline-none`}
         onClick={() => setIsOpen((prev) => !prev)}
         onBlur={() => setIsOpen(false)}
         ref={containerRef}

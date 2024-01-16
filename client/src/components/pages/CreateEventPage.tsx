@@ -252,10 +252,10 @@ const validateDescription = (description: string) => {
       <div className="progressbar"><span style={{ width: `${(currentStepIndex + 1 - 0.5) * 20}%` }}></span></div>
       <div className="max-grid content">
         <div className='relative bg-white px-4 md:px-0'>
-          <div className='max-w-2xl mx-auto p-8'>
+          <div className='max-w-2xl mx-auto md:p-8'>
             <form onSubmit={onSubmit} className="event-form">
               <div className='mb-8 step-name'>{step}</div>
-              <div className='flex justify-between'>
+              <div className='md:flex justify-between'>
                 <div className='w-full md:w-1/4'>
                   {!isFirstStep && (
                     // zurück

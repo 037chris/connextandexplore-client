@@ -134,7 +134,7 @@ export default function EventThumbnailForm({
 
   const handleImageSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log("HIT THE BTN: ");
+
     if (fileUploaded) {
       // convert imge in base 64, save this in event model
       if (thumbPrewview) {
@@ -170,7 +170,7 @@ export default function EventThumbnailForm({
               onChange={handleFileChange}
               className="hidden"
             />
-            <div className="input-field cursor-pointer">
+            <div className="input-field cursor-pointer" id="filepointer">
               {filePath}
             </div>
           </label>

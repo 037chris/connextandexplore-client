@@ -10,7 +10,7 @@ export default function FormWrapper({ title, children }: FormWrapperProps) {
     <>
       <div className="max-grid create-event-form">
         <div className='flex flex-col items-center'>
-          <h2 className='text-center pt-12'>
+          <h2 className='text-center'>
             {title}
           </h2>
           <div className='grid gap-3 p-3 justify-start'>

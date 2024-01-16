@@ -790,6 +790,13 @@ header {
     text-align: center;
     width: rem(200);
     height: rem(45);
+    left: 50%;
+    transform: translateX(-50%);
+
+    @include breakpoint(md) {
+        transform: translateX(0);
+        left: auto;
+    }
 
     &.add {
         border: 1px solid $primary;
@@ -797,6 +804,7 @@ header {
         max-height: rem(40);
         background-color: $primary;
         color: $white;
+        transform: translateX(0);
 
         &:hover {
             color: $primary;
@@ -807,10 +815,11 @@ header {
     &.upload {
         max-width: rem(110) !important;
         border-radius: 0 6px 6px 0 !important;
-        border-radius: rem(6);
         background-color: $border !important;
         border: rem(1) solid $border !important;
         color: $white;
+        transform: translateX(0);
+        height: 100%;
 
         &.active {
             background-color: $secondary !important;
@@ -859,6 +868,11 @@ header {
         border: 1px solid $secondary;
         position: relative;
         overflow: hidden;
+        margin-top: rem(12);
+
+        @include breakpoint(md) {
+            margin-top: 0;
+        }
 
         &:hover {
             color: $secondary;
@@ -891,9 +905,13 @@ header {
         width: 100%;
         margin: 0;
         border-radius: rem(6) 0 0 rem(6);
-        padding: rem(10) rem(70);
+        padding: rem(15) rem(20);
         position: relative;
         left: rem(8);
+
+        @include breakpoint(md) {
+            padding: rem(10) rem(70);
+        }
     }
 
     input {
@@ -927,9 +945,7 @@ header {
 
 
 .create-event-form {
-
     .step-name {
-
         h2 {
             font-size: rem(20);
             //font-weight: bold;
@@ -938,7 +954,10 @@ header {
                 //font-size: rem(24);
             }
         }
+    }
 
+    .tabber {
+        min-width: rem(200);
     }
 
     .selectedTabber {
@@ -1224,12 +1243,18 @@ header {
         width: 100%;
         margin: 0;
         border-radius: rem(6) 0 0 rem(6);
-        padding: rem(10) rem(70);
+        padding: rem(15) rem(20);
         position: relative;
         left: rem(8);
+
+
+        @include breakpoint(md) {
+            padding: rem(10) rem(70);
+        }
     }
 
-    input, select {
+    input,
+    select {
         border: rem(1) solid $border;
         width: 100%;
         margin: 0;
@@ -1313,4 +1338,10 @@ header {
             }
         }
     }
+}
+
+// HELPER
+
+.w100 {
+    width: 100%;
 }
