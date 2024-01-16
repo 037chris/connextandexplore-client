@@ -2,7 +2,7 @@
 import { Outlet, Navigate } from 'react-router-dom';
 import { useUserIDContext } from '../UserIDContext';
 import { useState } from 'react';
-import LoginModal from './navbar/LoginModal';
+import LoginModal from './html/navbar/LoginModal';
 import EmptyState from './EmptyState';
 
 export default function PrivateRoute() {

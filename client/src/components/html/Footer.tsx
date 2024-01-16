@@ -4,7 +4,7 @@ import { useUserIDContext } from '../../UserIDContext';
 import Cookies from 'js-cookie';
 import { logout } from '../../backend/boardapi';
 import { useState } from 'react';
-import LoginModal from '../navbar/LoginModal';
+import LoginModal from './navbar/LoginModal';
 
 const Footer = () => {
     const { userID } = useUserIDContext();

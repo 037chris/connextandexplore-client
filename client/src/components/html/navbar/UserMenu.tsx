@@ -1,11 +1,11 @@
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
-import Avatar from '../Avatar';
+import Avatar from '../../Avatar';
 import MenuItem from './MenuItem';
 import { useNavigate } from 'react-router-dom';
-import { useUserIDContext } from '../../UserIDContext';
-import Button from '../html/Button';
-import { getUser, logout } from '../../backend/boardapi';
+import { useUserIDContext } from '../../../UserIDContext';
+import Button from '../Button';
+import { getUser, logout } from '../../../backend/boardapi';
 
 import { FaRegEnvelope } from "react-icons/fa";
 import { MdOutlineGroups2 } from "react-icons/md";

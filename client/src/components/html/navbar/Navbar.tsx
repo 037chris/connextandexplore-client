@@ -1,8 +1,8 @@
 'use client';
 
 import { BiSearch } from "react-icons/bi";
-import Container from "../Container";
-import Logo from "../Logo";
+import Container from "../../Container";
+import Logo from "../../Logo";
 import UserMenu from "./UserMenu";
 
 const Navbar = () => {

@@ -11,16 +11,7 @@ import Container from '../Container';
 import Event from "../landingPage/Event";
 import { format, parseISO } from 'date-fns';
 import Heading from '../Heading';
-
-const user = {
-  name: 'John Doe',
-  location: 'Berlin, Country',
-  imageSrc: '/images/profile-photo-about.png', // Replace with the actual path to the image
-  socials: {
-    instagram: 'instagram',
-    facebook: 'facebook',
-  },
-};
+import { Header } from '../html/Header';
 
 const UserEvents: React.FC = () => {
   const { userID } = useUserIDContext();
@@ -28,8 +19,8 @@ const UserEvents: React.FC = () => {
   const [events, setEvents] = useState<eventsResource | null>(null);
   const [loading, setLoading] = useState(false);
 
-
   useEffect(() => {
+    document.title = 'Meine Events - Connect & Explore"';
     const fetchEvents = async () => {
       try {
         setLoading(true);
@@ -51,45 +42,36 @@ const UserEvents: React.FC = () => {
 
   return (
     <>
-        <Container>
+      <Header homeRoute={'page'} headline={'Meine Events'} />
+      <div className='max-grid content content-pt'>
         {loading && <p>Loading...</p>}
         {events && events.events && events.events.length !== 0 ? (
-           <>
-           <div className='pt-36 pl-12 font-francisco text-2xl'>Meine Events</div>
-               <div className='
-                   p-12
-                   grid
-                   grid-cols-1
-                   sm:grid-cols-2
-                   md:grid-cols-3
-                   lg:grid-cols-4
-                   xl:grid-cols-5
-                   2xl:grid-cols-6
-                   gap-8
-               '>
-                   {events?.events.map((event) => (
-                     <Link to={`/event/${event.id}`} key={event.id}>
-                     <Event 
-                       key={event.id}
-                       address={event.address}
-                       date={event.date}
-                       name={event.name}
-                       description={event.description}   
-                       hashtags={event.hashtags}    
-                     />
-                     </Link>
-                   ))}
-               </div>
-               </>
+          <>
+            <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-5'>
+              {events?.events.map((event) => (
+                <Link to={`/event/${event.id}`} key={event.id}>
+                  <Event
+                    key={event.id}
+                    address={event.address}
+                    date={event.date}
+                    name={event.name}
+                    description={event.description}
+                    hashtags={event.hashtags}
+                    participants={event.participants}
+                  />
+                </Link>
+              ))}
+            </div>
+          </>
         ) : (
-        <EmptyState 
-            title='Keine Events' 
-            subtitle='Erstelle jetzt dein eigenes Event!' 
+          <EmptyState
+            title='Keine Events'
+            subtitle='Erstelle jetzt dein eigenes Event!'
             onClick={() => navigate("/create-event")} />
         )}
-        </Container>
-   
-     
+
+      </div>
+      <Footer />
     </>
   );
 };

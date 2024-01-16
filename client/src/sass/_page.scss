@@ -998,14 +998,30 @@ header {
 
 }
 
-.MuiPaper-root {
-    border: rem(1) solid $border !important;
-    border-radius: rem(6) !important;
-    margin-bottom: rem(10) !important;
-    box-shadow: none !important;
-}
-
 // EVENT DETAILS
+
+.event-card {
+    font-weight: 300;
+    border: rem(1) solid $border;
+    border-radius: rem(8);
+
+    &:hover {
+        @extend .box-shadow;
+    }
+
+    .img-round {
+        border-radius: rem(6)
+    }
+
+    .hl {
+        margin: rem(10) 0 rem(15) 0;
+        padding: 0 rem(5);
+
+        @include breakpoint(xl) {
+            font-size: rem(18);
+        }
+    }
+}
 
 .event-box {
     border-radius: rem(8);
@@ -1344,4 +1360,12 @@ header {
 
 .w100 {
     width: 100%;
+}
+
+// OVERWRITE
+.MuiPaper-root {
+    border: rem(1) solid $border !important;
+    border-radius: rem(6) !important;
+    margin-bottom: rem(10) !important;
+    box-shadow: none !important;
 }

@@ -8,7 +8,7 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { signup } from '../../backend/boardapi';
 import Select from '../html/inputs/Select';
-import LoginModal from '../navbar/LoginModal';
+import LoginModal from '../html/navbar/LoginModal';
 
 export default function SignUp() {
   const [loading, setLoading] = useState(false);

@@ -18,8 +18,9 @@ interface EventProps {
     name: string,
     description: string,
     thumbnail?: string,
-    hashtags?: string[]
-    category?: string[]
+    hashtags?: string[],
+    category?: string[],
+    participants?: string[];
 }
 
 const LocalEvents: React.FC<EventProps> = ({
@@ -30,7 +31,9 @@ const LocalEvents: React.FC<EventProps> = ({
     description,
     thumbnail: imageUrl,
     hashtags,
-    category
+    category,
+    participants
+
 }) => {
     const navigate = useNavigate();
     const formattedDate = date ? (isValid(new Date(date)) ? format(new Date(date), 'PPP') : 'Invalid Date') : 'No Date';
@@ -49,9 +52,9 @@ const LocalEvents: React.FC<EventProps> = ({
     };
 
     return (
-        <div className="col-span cursor-pointer group top-2">
-            <div className="bg-white flex flex-col w-full shadow rounded p-4">
-                <div className="w-full relative overflow-hidden rounded-xl">
+        <div className="col-span cursor-pointer group top-2 event-card">
+            <div className="bg-white flex flex-col w-full p-4">
+                <div className="w-full relative overflow-hidden img-round">
                     <img
                         //src={process.env.PUBLIC_URL + imageUrl!}
                         src="/images/CARD_IMG_Placeholder.jpg"
@@ -61,11 +64,11 @@ const LocalEvents: React.FC<EventProps> = ({
                         className="object-cover w-full group-hover:scale-110 transition"
                     />
                 </div>
-                <div className="mt-2 font-titan">
+                <div className="mt-2 font-titan hl">
                     {name}
                 </div>
                 <div className="flex flex-row items-center gap-2 font-light mt-2">
-                    <div className="font-medium">
+                    <div className="">
                         <IoLocationOutline className="text-red-500" />
                     </div>
                     <div>
@@ -73,7 +76,7 @@ const LocalEvents: React.FC<EventProps> = ({
                     </div>
                 </div>
                 <div className="flex flex-row items-center gap-2 font-light mt-2">
-                    <div className="font-medium">
+                    <div className="">
                         <IoCalendarOutline className="text-red-500" />
                     </div>
                     <div>
@@ -81,11 +84,11 @@ const LocalEvents: React.FC<EventProps> = ({
                     </div>
                 </div>
                 <div className="flex flex-row items-center gap-2 font-light my-2">
-                    <div className="font-medium">
+                    <div className="">
                         <HiOutlineUserGroup className="text-red-500" />
                     </div>
                     <div>
-                        dummy Plätzen verfügbar
+                        {participants?.length} Teilnehmer
                     </div>
                 </div>
                 <Hashtags hashtags={hashtags} />
