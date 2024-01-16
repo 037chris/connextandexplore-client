@@ -146,12 +146,22 @@ export function getUserIDFromJWT() {
     const cookie = Cookies.get("access_token");
     if (cookie) {
       const jwt: any = jwtDecode(cookie);
+      if (isTokenExpired(cookie)) {
+        console.log(jwt)
+        return undefined;
+      }
       return jwt?.sub || undefined;
     }
   } catch (error) {
     console.error("Error decoding JWT:", error);
   }
   return undefined;
+}
+
+function isTokenExpired(token:string):boolean {
+  const decodedToken = jwtDecode(token);
+  const currentTime = Math.floor(Date.now()/1000);
+  return decodedToken.exp ? decodedToken.exp < currentTime : false;
 }
 
 export function logout() {
@@ -163,7 +173,14 @@ function headers() {
     "Content-Type": "application/json",
   };
   const jwt = Cookies.get("access_token");
+ 
   if (jwt) {
+    if (isTokenExpired(jwt)) {
+      logout();
+      sessionStorage.clear();
+      console.log("token expired");
+      throw new Error("Token expired!")
+    }
     headers.Authorization = `Bearer ${jwt}`;
   }
   return headers;
