@@ -1,5 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 import {
+  ChatResource,
   CommentResource,
   CommentWithRatingsResource,
   CommentsResource,
@@ -646,3 +647,31 @@ if (!eventId) {
     return 0;
   }
 }
+
+export async function getChat(id: string) {
+  try {
+    const response = await fetchWithErrorHandling(`${HOST}/api/chat/${id}`, {
+      method: 'GET',
+      headers: headers()
+    });
+
+    return response as ChatResource;
+
+  } catch (error) {
+    throw new Error('Error fetching chat data');
+  }
+};
+
+export async function sendChatMessage(id: string, message: string) {
+  try {
+    const response = await fetchWithErrorHandling(`${HOST}/api/chat/${id}`, {
+      method: 'POST',
+      headers: headers(),
+      body: JSON.stringify({ message }),
+    });
+
+    return response as ChatResource;
+  } catch (error) {
+    throw error
+  }
+};

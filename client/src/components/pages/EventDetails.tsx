@@ -9,8 +9,14 @@ import Button from '../html/Button';
 import 'tailwindcss/tailwind.css';
 import { useUserIDContext } from '../../UserIDContext';
 import toast from 'react-hot-toast';
+<<<<<<< HEAD
 import { Header } from '../html/Header';
 import Footer from '../html/Footer';
+=======
+import { format, isValid } from 'date-fns';
+
+
+>>>>>>> origin/chat
 
 
 const EventDetails: React.FC = () => {
@@ -78,8 +84,66 @@ const EventDetails: React.FC = () => {
     }
   };
 
+  const formattedDate = event?.date ? (isValid(new Date(event?.date)) ? format(new Date(event?.date), 'PPP') : 'Invalid Date') : 'No Date';
+  
+  let participateButton;
+  if(userID !== event?.creator) {
+    if(!joined) {
+      participateButton = <Button label="Teilnehmen" onClick={async()=>{setReload(await joinEvent(eventId!))}}/>
+    } else {
+      participateButton = <Button label="Austreten" onClick={async() =>{setReload(await exitEvent(eventId!))}} secondary/>
+    }
+  }
+
+  let chatButton;
+  if(joined) {
+    chatButton = <Button label="Chat" onClick={() => navigate('/chat', { state: { chatId: event?.chat } })}></Button>
+  }
+
   return (
+<<<<<<< HEAD
     <>
+=======
+    <div>
+       <br />
+       <br />
+       <br />
+        <br />
+        {event ? (
+            
+            <div className="max-w-screen-md mx-auto p-4">
+            <div>
+            <img
+            
+              //src={process.env.PUBLIC_URL + imageUrl!}
+              src={process.env.PUBLIC_URL + '/Images/CARD_IMG_Placeholder.jpg'}
+              alt="test"
+              className="'w-full md:max-w-md mx-auto"
+            />
+            <div className="mb-2">
+                <h1 className="text-2xl font-bold">{event.name}</h1>
+            </div>
+            <div className="mb-2">
+                <h2 className="text-gray-600">{formattedDate}</h2>
+            </div>
+            
+            <Hashtags hashtags={event.hashtags}/>
+            
+            <div className="bg-white flex flex-col w-full shadow rounded p-20 items-center">
+            <div className="text-center">
+                <h2 className="text-gray-80">{event.description}</h2>
+            </div>
+            </div>
+            
+            <>
+           
+            <div className="ml-2mt-40">
+              <br />
+              {chatButton}
+              <br />
+              <br />
+              {participateButton}
+>>>>>>> origin/chat
 
       {event ? <>
         {/* <Header homeRoute={'event'} headline={'test'} /> */}
@@ -131,6 +195,7 @@ const EventDetails: React.FC = () => {
                   </div>
               </div>
             </div>
+<<<<<<< HEAD
           </div>
         </header>
         <div className='max-grid content content-pt'>
@@ -187,6 +252,12 @@ const EventDetails: React.FC = () => {
               </div>
             </div>
           </div>
+=======
+
+            </>
+            
+            </div> 
+>>>>>>> origin/chat
         </div>
         {/* END GRID */}
         <Footer />

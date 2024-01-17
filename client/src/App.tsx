@@ -27,6 +27,7 @@ import Dsgvo from "./components/pages/general/Dsgvo";
 import Agbs from "./components/pages/general/Agbs";
 import Impressum from "./components/pages/general/Impressum";
 import Help from "./components/pages/general/Help";
+import ChatApp from "./components/chat/ChatApp";
 
 export default function App() {
   const [userID, setUserID] = useState(getUserIDFromJWT());
@@ -49,7 +50,7 @@ export default function App() {
           <Route path="/create-event" element={<CreateEventPage />}/>
           <Route path="/my-created-events" element={<UserEvents />}/>
           <Route path="/edit-event/:eventId" element={<EditEventPage  />}/>
-
+          <Route path='/chat' element={<ChatApp />}/>
           </Route>
 
 

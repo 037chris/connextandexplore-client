@@ -39,8 +39,13 @@
         h2 {
             font-family: "Titan One", sans-serif;
             text-transform: uppercase;
+<<<<<<< HEAD
             ont-size: rem(18);
 
+=======
+            font-size: rem(18);
+            
+>>>>>>> origin/chat
             @include breakpoint(lg) {
                 font-size: rem(20);
             }

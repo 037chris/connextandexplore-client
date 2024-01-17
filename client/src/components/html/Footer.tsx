@@ -42,7 +42,7 @@ const Footer = () => {
                                     <ul className="grid md:grid-cols-5">
                                         <li><Link to="/profile">Profil</Link></li>
                                         <li><Link to="/my-created-events">Deine Events</Link></li>
-                                        <li><Link to="#">Nachrichten</Link></li>
+                                        <li><Link to="/chat">Nachrichten</Link></li>
                                         <li><Link to="/settings">Einstellungen</Link></li>
                                         <li><Link to="/" onClick={onLogOut}>Abmelden</Link></li>
                                     </ul>
