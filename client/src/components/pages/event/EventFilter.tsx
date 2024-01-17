@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { MouseEvent, useEffect, useState } from "react"
 import { eventsResource } from "../../../Resources";
 import { getAllEvents, searchEvents } from "../../../backend/boardapi";
 import { Link } from "react-router-dom";
@@ -59,25 +59,27 @@ export default function EventFilter({query,plz}:EventFilterProps) {
     const [selectedCategory, setSelectedCategory] = useState<string>("");
     const [selectedDate, setSelectedDate] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
+    const [active, setActive] = useState(true);
+    const [switchCategory, setSwitchCategory] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
         try {
             const allEventsData = await getAllEvents();
             let filteredEvents = allEventsData.events;
-            if(selectedCategory != "/") {
+            if(selectedCategory !== "/") {
                 filteredEvents = allEventsData.events.filter(
                     (event) =>
                     event.category &&
                     event.category.some((category) => category.name === selectedCategory)
                 );
-            if(selectedCategory == "") setEvents(allEventsData);
+            if(selectedCategory === "") setEvents(allEventsData);
             else setEvents({ events: filteredEvents });
             }
-            else if (selectedDate != "") {
+            else if (selectedDate !== "") {
                 filteredEvents = allEventsData.events.filter(
                     (event) => 
-                    JSON.stringify(event.date).slice(1, 11) == selectedDate
+                    JSON.stringify(event.date).slice(1, 11) === selectedDate
                 );
                 setEvents({ events: filteredEvents });
             }
@@ -87,10 +89,11 @@ export default function EventFilter({query,plz}:EventFilterProps) {
         };
   
         fetchData();
-    }, [selectedCategory, selectedDate]);
+    }, [selectedCategory, selectedDate, switchCategory]);
 
     const handleFilterByCategory = (category: string) => {
         setSelectedCategory(category);
+        setSwitchCategory(!switchCategory);
         setSelectedDate("");
     };
 
@@ -99,10 +102,18 @@ export default function EventFilter({query,plz}:EventFilterProps) {
         setSelectedCategory("/");
     }
 
+    const handleActive = () => {
+      setActive(!active);
+    }
+
     return (
         <>
           <Container>
-            <div className="grid grid-cols-9 gap-5">
+            <div className="grid grid-cols-9">
+              <Button label={"Filter"} onClick={handleActive}></Button>
+            </div>
+            <br />
+            {active && (<div className="grid grid-cols-9 gap-5 active">
               <Button label="Alle Events" onClick={() => handleFilterByCategory("")} />
               <Button
                 label="Kultur & Kunst"
@@ -138,7 +149,7 @@ export default function EventFilter({query,plz}:EventFilterProps) {
               value={selectedDate || ''}
               onChange={(e) => handleFilterByDate(e.target.value)}
               />
-            </div>
+            </div>)}
             {loading && <p>Loading...</p>}
             {events && events.events && events.events.length !== 0 ? (
               <>
