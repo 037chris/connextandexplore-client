@@ -4,13 +4,19 @@ export function useStepForm(steps: React.ReactNode[], validationFunctions: (() =
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
   function onNext() {
-    const isStepValid = validationFunctions[currentStepIndex]?.();
+    // const isStepValid = validationFunctions[currentStepIndex]?.();
 
-    if (isStepValid) {
-      setCurrentStepIndex((i) => (i < steps.length - 1 ? i + 1 : i));
-    } else {
-      console.error(`Step ${currentStepIndex} is not valid. Please review and correct the form.`);
-    }
+    // if (isStepValid) {
+     
+      
+      setCurrentStepIndex(i => {
+            if (i >= steps.length - 1) return i;
+            
+            return i + 1;
+        })
+    
+
+  
   }
 
   function onBack() {

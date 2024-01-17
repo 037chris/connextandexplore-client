@@ -11,6 +11,7 @@ import { useUserIDContext } from '../../UserIDContext';
 import toast from 'react-hot-toast';
 import { Header } from '../html/Header';
 import Footer from '../html/Footer';
+import { format } from 'date-fns';
 
 
 const EventDetails: React.FC = () => {
@@ -24,21 +25,6 @@ const EventDetails: React.FC = () => {
   const [events, setEvents] = useState<eventsResource | null>(null);
   const { userID } = useUserIDContext();
   const navigate = useNavigate();
-
-  // export type eventResource = {
-  //   id?: string;
-  //   name: string;
-  //   creator?: string;
-  //   description: string;
-  //   price: number;
-  //   date?: Date;
-  //   address: eAddressResource;
-  //   thumbnail?: string;
-  //   hashtags?: string[];
-  //   category?: categoryResource[];
-  //   chat?: string;
-  //   participants?: string[];
-  // };
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -137,7 +123,7 @@ const EventDetails: React.FC = () => {
           <div className="event-box grid grid-cols-1 md:grid-cols-3">
             <div className="col-span-1 min-h-fit event-content-box-left">
               <ul>
-                <li className="date">{event.date?.toString()}</li>
+                <li className="date">{event.date ? format(new Date(event.date), 'PPP, p') : 'No Date'}</li>
                 <li className="adress">{event.address.street} {event.address.houseNumber} <span>{event.address.city}</span></li>
                 <li className="participants">{event.participants?.length} Teilnehmer</li>
               </ul>

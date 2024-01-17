@@ -1,5 +1,6 @@
 import { useState } from "react";
 import FormWrapper from "./FormWrapper";
+import { format } from "date-fns";
 
 
 interface Address {
@@ -14,7 +15,7 @@ interface Address {
 
 type EventData = {
   address: Address;
-  date?: Date;
+  date?: Date | undefined;
   
 };
 
@@ -35,11 +36,8 @@ export default function EventDateForm({
 
 
 
-  // for date placeholder
-  let curr = new Date();
-  curr.setDate(curr.getDate() + 3);
-  let today = curr.toISOString().substring(0, 10);
-
+  
+  
   return (
     <FormWrapper title="Wann und wo möchtest du dein Event veranstalten?">
       <div className="form-container">
@@ -108,9 +106,12 @@ export default function EventDateForm({
         <input
           type="datetime-local"
           id="date"
-          defaultValue={today}
+          value={date ? format(new Date(date), "yyyy-MM-dd'T'HH:mm") : ''}
           disabled={loading}
-          onChange={(e) => updateFields({ date: new Date(e.target.value) })}
+          onChange={(e) => {
+            const selectedDate = e.target.value ? new Date(e.target.value) : undefined;
+            updateFields({ date: selectedDate });
+          }}
         />
         {errors?.date && <p className="error text-red-500">{errors.date}</p>  }
 

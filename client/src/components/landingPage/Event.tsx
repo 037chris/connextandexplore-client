@@ -1,6 +1,6 @@
 'use client'
 
-import { format, isValid } from "date-fns";
+import { format, isValid, parse } from "date-fns";
 import Container from "../Container";
 import Hashtags from "./Hashtags";
 import { useNavigate, useParams } from "react-router-dom";
@@ -33,8 +33,16 @@ const LocalEvents: React.FC<EventProps> = ({
     category
 }) => {
     const navigate = useNavigate();
-    const formattedDate = date ? (isValid(new Date(date)) ? format(new Date(date), 'PPP') : 'Invalid Date') : 'No Date';
-   
+    
+    
+// Parse the date string if it's a string
+const parsedDate = typeof date === 'string' ? parse(date, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx", new Date()) : date;
+
+// Format the date using date-fns format function
+const formattedDate = parsedDate ? (isValid(parsedDate) ? format(parsedDate, 'PPP, p') : 'Invalid Date') : 'No Date';
+
+
+
     const params = useParams();
     const eventId = params.eventId; 
 
@@ -47,6 +55,8 @@ const LocalEvents: React.FC<EventProps> = ({
             // Handle the case where eventId is not defined, e.g., show an error message or navigate to a default page.
         }
     };
+
+
 
     return (
         <div className="col-span cursor-pointer group top-2">
