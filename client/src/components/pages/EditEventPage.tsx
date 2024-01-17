@@ -12,6 +12,7 @@ import { createEvent, getEvent, updateEvent } from '../../backend/boardapi';
 import toast from 'react-hot-toast';
 import { useUserIDContext } from '../../UserIDContext';
 import { useNavigate, useParams } from 'react-router-dom';
+import { format } from 'date-fns';
 
 const options = [
   { name: 'Kultur & Kunst', value: 1 },
@@ -107,9 +108,11 @@ const EditEventPage: React.FC = () => {
 
   const onSubmit = async () => {
     try {
+      const convertedDate = typeof data.date === 'string' ? new Date(data.date) : data.date;
+
       const success = await updateEvent(eventId!, {
         name: data.name,
-        date: data.date ? new Date(data.date) : undefined,
+        date: convertedDate,
         description: data.description,
         price: data.price,
         address: {

@@ -26,21 +26,6 @@ const EventDetails: React.FC = () => {
   const { userID } = useUserIDContext();
   const navigate = useNavigate();
 
-  // export type eventResource = {
-  //   id?: string;
-  //   name: string;
-  //   creator?: string;
-  //   description: string;
-  //   price: number;
-  //   date?: Date;
-  //   address: eAddressResource;
-  //   thumbnail?: string;
-  //   hashtags?: string[];
-  //   category?: categoryResource[];
-  //   chat?: string;
-  //   participants?: string[];
-  // };
-
   useEffect(() => {
     const fetchEvent = async () => {
       if (eventId) {
@@ -138,9 +123,9 @@ const EventDetails: React.FC = () => {
           <div className="event-box grid grid-cols-1 md:grid-cols-3">
             <div className="col-span-1 min-h-fit event-content-box-left">
               <ul>
-              <li>{`${format(new Date(event.date!), 'eeee, MMMM d, yyyy')} at ${format(new Date(event.date!), 'hh:mm a')}`}</li>
-                <li>{event.address.street} {event.address.houseNumber} <span>{event.address.city}</span></li>
-                <li>{event.participants?.length} Teilnehmer</li>
+                <li className="date">{event.date ? format(new Date(event.date), 'PPP, p') : 'No Date'}</li>
+                <li className="adress">{event.address.street} {event.address.houseNumber} <span>{event.address.city}</span></li>
+                <li className="participants">{event.participants?.length} Teilnehmer</li>
               </ul>
               <div className="btns">
                 {!joined ? (
