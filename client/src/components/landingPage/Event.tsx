@@ -7,6 +7,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { IoLocationOutline } from "react-icons/io5";
 import { IoCalendarOutline } from "react-icons/io5";
 import { HiOutlineUserGroup } from "react-icons/hi2";
+import Comments from "../pages/Comments";
 
 interface EventProps {
     id?: string,
@@ -94,6 +95,7 @@ const LocalEvents: React.FC<EventProps> = ({
                 {/* <Hashtags hashtags={hashtags} /> */}
                 <Link className="details" to={`/event/${id}`}>Details</Link>
             </div>
+            
         </div>
     );
 };

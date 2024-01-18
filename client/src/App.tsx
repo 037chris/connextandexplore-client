@@ -29,6 +29,8 @@ import Help from "./components/pages/general/Help";
 import ChatApp from "./components/chat/ChatApp";
 import YourEvents from "./components/pages/YourEvents";
 
+import { CreateComment } from "./components/pages/CreateComment";
+
 export default function App() {
   const [userID, setUserID] = useState(getUserIDFromJWT());
 
@@ -58,6 +60,7 @@ export default function App() {
           <Route path="/events" element={<Events />}/>
           <Route path="/yourevents" element={<YourEvents />}/>
           <Route path='*' element={<NotFound />}/>
+          <Route path="/event/:eventId/comment" element={<CreateComment/>}/>
 
           <Route path="/dsgvo" element={<Dsgvo />}/>
           <Route path="/agbs" element={<Agbs />}/>

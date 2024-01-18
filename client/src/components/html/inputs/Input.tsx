@@ -18,6 +18,8 @@ interface InputProps {
   defaultValue?: string; //set a default value for changing userSettings e.g. only the last name changes and the user does not want to set all values again.
   //setErrors: (param:string, message:string) => void
   //bError:ValidationError[];
+  customInputClassNames?:string; //verwende diese classnames um das input feld zu stylen, error handling styling ist bereits gesetzt.
+  customLabelClassNames?:string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -33,6 +35,8 @@ const Input: React.FC<InputProps> = ({
   onChange,
   onChangeFn,
   defaultValue,
+  customInputClassNames,
+  customLabelClassNames
   //setErrors
   //bError
 }) => {
@@ -136,6 +140,24 @@ const Input: React.FC<InputProps> = ({
             // transition
             // disabled:opacity-70
             // disabled:cursor-not-allowed
+          className={
+            customInputClassNames?customInputClassNames+`${formatPrice ? 'pl-9' : 'pl-4'}
+            ${error ? 'border-rose-500' : 'border-neutral-300'}
+            ${error ? 'focus:border-rose-500' : 'focus:border-black'}`:
+            `
+            peer
+            w-full
+            p-4
+            pt-6
+            font-light
+            font-sans
+            bg-white
+            border-2
+            rounded-md
+            outline-none
+            transition
+            disabled:opacity-70
+            disabled:cursor-not-allowed
             ${formatPrice ? 'pl-9' : 'pl-4'}
             ${error ? 'border-rose-500' : 'border-neutral-300'}
             ${error ? 'focus:border-rose-500' : 'focus:border-black'}
@@ -146,15 +168,15 @@ const Input: React.FC<InputProps> = ({
       <label
         htmlFor={id}
         className={`
-          // absolute
-          // text-md 
-          // font-sans
-          // duration-150
-          // transform
-          // -translate-y-2
-          // top-5
-          // z-0
-          // origin-[0]
+          absolute
+          text-md 
+          font-sans
+          duration-150
+          transform
+          -translate-y-2
+          top-5
+          z-0
+          origin-[0]
           ${formatPrice ? 'left-9' : 'left-4'}
           peer-placeholder-shown:scale-100
           peer-placeholder-shown-translate-y-0
