@@ -3,7 +3,7 @@
 import { format, isValid } from "date-fns";
 import Container from "../Container";
 import Hashtags from "./Hashtags";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { IoLocationOutline } from "react-icons/io5";
 import { IoCalendarOutline } from "react-icons/io5";
 import { HiOutlineUserGroup } from "react-icons/hi2";
@@ -91,7 +91,8 @@ const LocalEvents: React.FC<EventProps> = ({
                         {participants?.length} Teilnehmer
                     </div>
                 </div>
-                <Hashtags hashtags={hashtags} />
+                {/* <Hashtags hashtags={hashtags} /> */}
+                <Link className="details" to={`/event/${id}`}>Details</Link>
             </div>
         </div>
     );

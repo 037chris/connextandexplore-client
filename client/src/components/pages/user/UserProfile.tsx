@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Heading from '../../Heading';
 import Button from '../../html/Button';
-import HorizontalCard from '../../ProfileCard';
+import HorizontalCard from './ProfileCard';
 import { useUserIDContext } from '../../../UserIDContext';
 import { getCreatedEvent, getEvent, getEventOwner, getUser } from '../../../backend/boardapi';
 import Footer from '../../html/Footer';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
 import { eventResource, eventsResource, userResource } from '../../../Resources';
+import { Header } from '../../html/Header';
 
 const user = {
   name: 'John Doe',
@@ -40,21 +41,22 @@ const UserProfile: React.FC = () => {
       try {
         console.log('User ID:', userID);
         const currentUser = await getUser(userID || "");
-        setFirstName(currentUser.name.first); 
-        setLastName(currentUser.name.last); 
+        setFirstName(currentUser.name.first);
+        setLastName(currentUser.name.last);
 
         setSocialInsta(currentUser.socialMediaUrls?.instagram || "");
         setSocialFacebook(currentUser.socialMediaUrls?.facebook || "");
 
         localStorage.setItem('userProfile', JSON.stringify(currentUser));
-        console.log('User profile:', currentUser.name);
+        //console.log('User profile:', currentUser.name);
+        document.title = 'Dein Profil - Connect & Explore';
       } catch (error) {
         console.error('Error fetching user profile:', error);
       }
     };
 
     if (userID) {
-      fetchUserProfile(); 
+      fetchUserProfile();
     }
   }, [userID]);
 
@@ -64,36 +66,36 @@ const UserProfile: React.FC = () => {
       setEvents(currentUserEvents);
       console.log('User Event:', currentUserEvents);
     } catch (error) {
-      console.error('Error fetching user events:',  error)
+      console.error('Error fetching user events:', error)
     }
   }
 
   return (
-    <div className='max-grid'>
-      <div
-        className='pb-36 bg-cover bg-center relative'
-        style={{ backgroundImage: "url('/images/back-img.png')" }}
-      >
-        <div className="container mx-auto px-4">
-          <HorizontalCard
-            title={`${firstName} ${lastName}`} 
-            subtitle={`${cityName} ${countryName}`}
-            imageSrc={user.imageSrc}
-            socials={{ instagram: socialInsta, facebook: socialFacebook }}
-            userFirstName={firstName}
-          />
-          {/* Responsive Button in the right corner */}
-          <div className="absolute bottom-0 right-0 md:bottom-36 md:right-52 w-full md:w-52">
+    <>
+      <Header homeRoute={'page'} headline={`${firstName}'s Profil`} />
+      <div className='max-grid content-pt'>
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-6">
+        <div className="lg:col-span-1"></div>
+          <div className="col-span-1 lg:col-span-4">
+            <HorizontalCard
+              title={`${firstName} ${lastName}`}
+              subtitle={`${cityName} ${countryName}`}
+              imageSrc={user.imageSrc}
+              socials={{ instagram: socialInsta, facebook: socialFacebook }}
+              userFirstName={firstName}
+            />
+            {/* Responsive Button in the right corner */}
+            {/* <div">
             <Button
               label='Profil bearbeiten'
               onClick={() => navigate('/settings')}
             />
+          </div> */}
           </div>
         </div>
       </div>
-
       <Footer />
-    </div>
+    </>
   );
 };
 

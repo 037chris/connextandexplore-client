@@ -18,7 +18,6 @@ import UserProfile from "./components/pages/user/UserProfile";
 import Events from "./components/pages/Events";
 import CreateEventPage from "./components/pages/CreateEventPage";
 import EventDetails from "./components/pages/EventDetails";
-import YourEvents from "./components/pages/YourEvents";
 import UserEvents from "./components/pages/UserEvents";
 import PrivateRoute from "./components/PrivateRoute";
 import EditEvent from "./components/pages/EditEventPage";
@@ -28,6 +27,7 @@ import Agbs from "./components/pages/general/Agbs";
 import Impressum from "./components/pages/general/Impressum";
 import Help from "./components/pages/general/Help";
 import ChatApp from "./components/chat/ChatApp";
+import YourEvents from "./components/pages/YourEvents";
 
 export default function App() {
   const [userID, setUserID] = useState(getUserIDFromJWT());

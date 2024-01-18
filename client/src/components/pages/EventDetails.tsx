@@ -9,14 +9,10 @@ import Button from '../html/Button';
 import 'tailwindcss/tailwind.css';
 import { useUserIDContext } from '../../UserIDContext';
 import toast from 'react-hot-toast';
-<<<<<<< HEAD
-import { Header } from '../html/Header';
-import Footer from '../html/Footer';
-=======
 import { format, isValid } from 'date-fns';
+import Footer from '../html/Footer';
 
 
->>>>>>> origin/chat
 
 
 const EventDetails: React.FC = () => {
@@ -101,11 +97,8 @@ const EventDetails: React.FC = () => {
   }
 
   return (
-<<<<<<< HEAD
     <>
-=======
-    <div>
-       <br />
+       {/* <br />
        <br />
        <br />
         <br />
@@ -142,8 +135,7 @@ const EventDetails: React.FC = () => {
               {chatButton}
               <br />
               <br />
-              {participateButton}
->>>>>>> origin/chat
+              {participateButton} */}
 
       {event ? <>
         {/* <Header homeRoute={'event'} headline={'test'} /> */}
@@ -195,7 +187,6 @@ const EventDetails: React.FC = () => {
                   </div>
               </div>
             </div>
-<<<<<<< HEAD
           </div>
         </header>
         <div className='max-grid content content-pt'>
@@ -252,12 +243,6 @@ const EventDetails: React.FC = () => {
               </div>
             </div>
           </div>
-=======
-
-            </>
-            
-            </div> 
->>>>>>> origin/chat
         </div>
         {/* END GRID */}
         <Footer />

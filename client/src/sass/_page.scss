@@ -39,13 +39,8 @@
         h2 {
             font-family: "Titan One", sans-serif;
             text-transform: uppercase;
-<<<<<<< HEAD
-            ont-size: rem(18);
-
-=======
             font-size: rem(18);
             
->>>>>>> origin/chat
             @include breakpoint(lg) {
                 font-size: rem(20);
             }
@@ -1026,6 +1021,22 @@ header {
             font-size: rem(18);
         }
     }
+
+    .details {
+        text-align: center;
+        border: rem(1) solid $primary;
+        border-radius: rem(6);
+        background-color: $white;
+        color: $primary;
+        margin-top: rem(15);
+        padding: rem(7) 0;
+        transition: 350ms all ease-in-out;
+
+        &:hover {
+            background-color: $primary;
+            color: $white
+        }
+    }
 }
 
 .event-box {
@@ -1373,4 +1384,10 @@ header {
     border-radius: rem(6) !important;
     margin-bottom: rem(10) !important;
     box-shadow: none !important;
+}
+
+//PROFIL
+.profil-card {
+    @extend .border-slim;
+    border-radius: rem(8);
 }
