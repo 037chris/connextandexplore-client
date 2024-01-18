@@ -40,8 +40,9 @@ const Footer = () => {
                             {userID !== undefined ?
                                 <>
                                     <ul className="grid md:grid-cols-5">
-                                        <li><Link to="/profile">Profil</Link></li>
-                                        <li><Link to="/my-created-events">Deine Events</Link></li>
+                                        <li></li>
+                                        {/* <li><Link to="/profile">Profil</Link></li> */}
+                                        <li><Link to="/my-created-events">Meine Events</Link></li>
                                         <li><Link to="/chat">Nachrichten</Link></li>
                                         <li><Link to="/settings">Einstellungen</Link></li>
                                         <li><Link to="/" onClick={onLogOut}>Abmelden</Link></li>
@@ -60,7 +61,7 @@ const Footer = () => {
                         <div className="footer-navi">
                             <p className="hl">Connect & <span>Explore</span></p>
                             <ul className="grid md:grid-cols-5">
-                                <li><Link to="/events">Events</Link></li>
+                                <li><Link to="/events">Alle Events</Link></li>
                                 <li><Link to="/agbs">AGBs</Link></li>
                                 <li><Link to="/dsgvo">DSGVO</Link></li>
                                 <li><Link to="/imprint">Team</Link></li>

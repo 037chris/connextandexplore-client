@@ -47,16 +47,15 @@ const EventDetails: React.FC = () => {
     const fetchEvent = async () => {
       if (eventId) {
         const result = await getEvent(eventId);
-        setEvent(result)
+        setEvent(result);
         if (result.participants?.includes(getUserIDFromJWT())) {
           setJoined(true)
         } else { setJoined(false) }
       }
-
-
     }
     fetchEvent();
     setReload(false);
+    document.title = `Event's bei - Connect and Explore`;
   }, [eventId, reload])
 
   //Khatia
@@ -82,65 +81,24 @@ const EventDetails: React.FC = () => {
   };
 
   const formattedDate = event?.date ? (isValid(new Date(event?.date)) ? format(new Date(event?.date), 'PPP') : 'Invalid Date') : 'No Date';
-  
+
   let participateButton;
-  if(userID !== event?.creator) {
-    if(!joined) {
-      participateButton = <Button label="Teilnehmen" onClick={async()=>{setReload(await joinEvent(eventId!))}}/>
+  if (userID !== event?.creator) {
+    if (!joined) {
+      participateButton = <Button label="Teilnehmen" onClick={async () => { setReload(await joinEvent(eventId!)) }} />
     } else {
-      participateButton = <Button label="Austreten" onClick={async() =>{setReload(await exitEvent(eventId!))}} secondary/>
+      participateButton = <Button label="Austreten" onClick={async () => { setReload(await exitEvent(eventId!)) }} secondary />
     }
   }
 
   let chatButton;
-  if(joined) {
+  if (joined) {
     chatButton = <Button label="Chat" onClick={() => navigate('/chat', { state: { chatId: event?.chat } })}></Button>
   }
 
   return (
     <>
-       {/* <br />
-       <br />
-       <br />
-        <br />
-        {event ? (
-            
-            <div className="max-w-screen-md mx-auto p-4">
-            <div>
-            <img
-            
-              //src={process.env.PUBLIC_URL + imageUrl!}
-              src={process.env.PUBLIC_URL + '/Images/CARD_IMG_Placeholder.jpg'}
-              alt="test"
-              className="'w-full md:max-w-md mx-auto"
-            />
-            <div className="mb-2">
-                <h1 className="text-2xl font-bold">{event.name}</h1>
-            </div>
-            <div className="mb-2">
-                <h2 className="text-gray-600">{formattedDate}</h2>
-            </div>
-            
-            <Hashtags hashtags={event.hashtags}/>
-            
-            <div className="bg-white flex flex-col w-full shadow rounded p-20 items-center">
-            <div className="text-center">
-                <h2 className="text-gray-80">{event.description}</h2>
-            </div>
-            </div>
-            <Comments eventId={eventId!}></Comments>
-            <Link to={`/event/${eventId}/comment`}> Create a Comment! </Link>
-            <>
-           
-            <div className="ml-2mt-40">
-              <br />
-              {chatButton}
-              <br />
-              <br />
-              {participateButton} */}
-
       {event ? <>
-        {/* <Header homeRoute={'event'} headline={'test'} /> */}
         <header>
           <div className="max-grid">
             <div className="header-event grid grid-cols-1 md:grid-cols-3">
@@ -157,6 +115,7 @@ const EventDetails: React.FC = () => {
                       <span>
                         {event.creator}
                       </span>
+                      {chatButton}
                     </span>
                   </div>
                 </div>
@@ -183,10 +142,10 @@ const EventDetails: React.FC = () => {
               </div>
               {/* EVENT IMG GRID */}
               <div className="col-span-1">
-                  {/* EVENT IMG CONTAINER */}
-                  <div className="event-image">
+                {/* EVENT IMG CONTAINER */}
+                <div className="event-image">
 
-                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -242,6 +201,8 @@ const EventDetails: React.FC = () => {
             <div className="grid grid-cols-1">
               <div className="col-span-1">
                 <p>PLACEHOLDER</p>
+                
+
               </div>
             </div>
           </div>

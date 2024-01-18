@@ -126,48 +126,16 @@ const Input: React.FC<InputProps> = ({
           type={type}
           defaultValue={defaultValue}
           onChange={onChangeFn}
-          className={`
-            // peer
-            // w-full
-            // p-4
-            // pt-6
-            // font-light
-            // font-sans
-            // bg-white
-            // border-2
-            // rounded-md
-            // outline-none
-            // transition
-            // disabled:opacity-70
-            // disabled:cursor-not-allowed
-          className={
-            customInputClassNames?customInputClassNames+`${formatPrice ? 'pl-9' : 'pl-4'}
-            ${error ? 'border-rose-500' : 'border-neutral-300'}
-            ${error ? 'focus:border-rose-500' : 'focus:border-black'}`:
-            `
-            peer
-            w-full
-            p-4
-            pt-6
-            font-light
-            font-sans
-            bg-white
-            border-2
-            rounded-md
-            outline-none
-            transition
-            disabled:opacity-70
-            disabled:cursor-not-allowed
-            ${formatPrice ? 'pl-9' : 'pl-4'}
-            ${error ? 'border-rose-500' : 'border-neutral-300'}
-            ${error ? 'focus:border-rose-500' : 'focus:border-black'}
-          `}
+          className={customInputClassNames?customInputClassNames+`${formatPrice ? 'pl-9' : 'pl-4'}
+          ${error ? 'border-rose-500' : 'border-neutral-300'}
+          ${error ? 'focus:border-rose-500' : 'focus:border-black'}`:''
+        }
         />
       )}
 
       <label
         htmlFor={id}
-        className={`
+        className={customLabelClassNames?customLabelClassNames+`${formatPrice ? 'left-9' : 'left-4'} ${error ? 'text-rose-500' : 'text-zinc-400'}`:`
           absolute
           text-md 
           font-sans
