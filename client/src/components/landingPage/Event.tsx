@@ -7,7 +7,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { IoLocationOutline } from "react-icons/io5";
 import { IoCalendarOutline } from "react-icons/io5";
 import { HiOutlineUserGroup } from "react-icons/hi2";
-import Comments from "../pages/Comments";
+import Comments from "../pages/event/comments/Comments";
 
 interface EventProps {
     id?: string,

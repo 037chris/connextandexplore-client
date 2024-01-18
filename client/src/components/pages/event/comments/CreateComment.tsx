@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { CommentResource, eventResource, userResource } from "../../Resources";
+import { CommentResource, eventResource, userResource } from "../../../../Resources";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
-import { getUserIDFromJWT, getUser, updateUser, createComment, getEvent } from "../../backend/boardapi";
+import { getUserIDFromJWT, getUser, updateUser, createComment, getEvent } from "../../../../backend/boardapi";
 import { useParams } from "react-router-dom";
-import Input from "../html/inputs/Input";
+import Input from "../../../html/inputs/Input";
 
 export const CreateComment = () => {
 

@@ -11,7 +11,8 @@ import { useUserIDContext } from '../../UserIDContext';
 import toast from 'react-hot-toast';
 import { format, isValid } from 'date-fns';
 import Footer from '../html/Footer';
-import Comments from './Comments';
+import Comments from './event/comments/Comments';
+import { CreateComment } from './event/comments/CreateComment';
 
 
 
@@ -202,7 +203,8 @@ const EventDetails: React.FC = () => {
               <div className="col-span-1">
                 <p>PLACEHOLDER</p>
                 
-
+                  <CreateComment />
+                  <Comments eventId={event.id} />
               </div>
             </div>
           </div>

@@ -29,7 +29,7 @@ import Help from "./components/pages/general/Help";
 import ChatApp from "./components/chat/ChatApp";
 import YourEvents from "./components/pages/YourEvents";
 
-import { CreateComment } from "./components/pages/CreateComment";
+import { CreateComment } from "./components/pages/event/comments/CreateComment";
 
 export default function App() {
   const [userID, setUserID] = useState(getUserIDFromJWT());
