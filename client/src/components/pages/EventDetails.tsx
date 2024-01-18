@@ -29,6 +29,8 @@ const EventDetails: React.FC = () => {
   const { userID } = useUserIDContext();
   const navigate = useNavigate();
 
+  const [rating, setRating] = useState(0);
+
   // export type eventResource = {
   //   id?: string;
   //   name: string;
@@ -197,14 +199,16 @@ const EventDetails: React.FC = () => {
               <Hashtags hashtags={event.hashtags} />
             </div>
           </div>
-          <hr />
-          <div className="rewviews pt-2">
+
+          <div className="commment-section">
             <div className="grid grid-cols-1">
               <div className="col-span-1">
-                <p>PLACEHOLDER</p>
+                <CreateComment />
                 
-                  <CreateComment />
+                <h2>Kommentare</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2">
                   <Comments eventId={event.id} />
+                </div>
               </div>
             </div>
           </div>

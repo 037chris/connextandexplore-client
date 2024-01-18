@@ -66,7 +66,7 @@ export const CreateComment = () => {
     return <>
     <h1>create a comment!</h1>
 
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className="comment-form">
         <Input
             id="title"
             label='Title *'

@@ -40,7 +40,7 @@
             font-family: "Titan One", sans-serif;
             text-transform: uppercase;
             font-size: rem(18);
-            
+
             @include breakpoint(lg) {
                 font-size: rem(20);
             }
@@ -1187,7 +1187,12 @@ header {
                 font-size: rem(27);
             }
         }
+
+        .event-des {
+            word-wrap: break-word;
+        }
     }
+
 }
 
 .hashtags {
@@ -1207,8 +1212,14 @@ header {
         font-size: rem(14);
         padding: rem(2) rem(6);
         display: inline-block;
+        margin-left: rem(7);
+        transition: 350ms all ease-in-out;
 
-
+        &:hover {
+            cursor: pointer;
+            border: rem(1) solid $primary;
+            background-color: $primary;
+        }
     }
 }
 
@@ -1394,4 +1405,103 @@ header {
 .profil-card {
     @extend .border-slim;
     border-radius: rem(8);
+}
+
+// COMMENTS
+
+.comment-form {
+    #content {
+        min-height: rem(150);
+    }
+}
+
+.commment-section {
+    padding: rem(50) rem(15);
+
+    @include breakpoint(md) {
+        padding: rem(70) rem(25) rem(100) rem(25);
+    }
+
+    @include breakpoint(lg) {
+        padding: rem(75) rem(30) rem(100) rem(30);
+    }
+
+    @include breakpoint(xl) {
+        padding: rem(90) rem(35) rem(100) rem(35);
+    }
+
+    .no-comment {
+        svg {
+            display:inline-block;
+            width: rem(20);
+            height: rem(20);
+        }
+    }
+    h2 {
+        text-align: center;
+        font-size: rem(26) !important;
+        font-family: "Sue Ellen Francisco", cursive !important;
+        margin-bottom: rem(20);
+
+        @include breakpoint(md) {
+            font-size: rem(32) !important;
+            margin-bottom: rem(35);
+        }
+    }
+
+    .comment-box {
+        border: rem(1) solid $border;
+        border-radius: rem(6);
+        padding: rem(25);
+
+        .title {
+            font-family: 'Titan One', sans-serif;
+            font-size: rem(20);
+
+            @include breakpoint(md) {
+                font-size: rem(24);
+            }
+
+            .stars {
+                display: block;
+                font-weight: 300;
+                position: relative;
+                color: $primary;
+                top: rem(-6);
+
+                svg {
+                    width:rem(20);
+                    margin-right: rem(3);
+                    display: inline;
+                    position: relative;
+                    top: rem(-3);
+                }
+            }
+
+            .sec-line {
+                display: block;
+                font-family: "Helvetica Neue", sans-serif;
+                font-weight: 300;
+                color: $text-lighter;
+                font-size: rem(14);
+            }
+        }
+
+        .comment-content {
+            margin-top: rem(12);
+            margin-bottom: 0;
+            word-wrap: break-word;
+        }
+
+        .delete {
+            float: right;
+            color: $alert;
+            font-size: rem(14);
+            font-weight: 300;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
 }
