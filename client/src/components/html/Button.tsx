@@ -11,6 +11,7 @@ interface ButtonProps {
     secondary?: boolean;
     small?: boolean;
     icon?: IconType;
+    del?: boolean;
 }
 const Button: React.FC<ButtonProps> = ({
     label,
@@ -20,7 +21,8 @@ const Button: React.FC<ButtonProps> = ({
     outline,
     secondary,
     small,
-    icon: Icon
+    icon: Icon,
+    del
 }) => {
   return (
     <button 

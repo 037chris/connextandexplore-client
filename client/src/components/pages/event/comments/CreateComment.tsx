@@ -24,6 +24,11 @@ export const CreateComment = ({
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState<userResource | null>(null);
     const [event, setEvent] = useState<eventResource | null>(null);
+    const [selectedStars, setSelectedStars] = useState<number>(5);
+
+    const handleStarClick = (star: number) => {
+        setSelectedStars(star);
+    };
 
     const navigate = useNavigate();
 
@@ -57,7 +62,7 @@ export const CreateComment = ({
         try {
             const comment: CommentResource = {
                 title: data.title,
-                stars: data.stars,
+                stars: selectedStars, 
                 content: data.content,
                 edited: false,
                 creator: user?.id!,
@@ -68,10 +73,13 @@ export const CreateComment = ({
             console.log("comment", comment);
             const res = await createComment(comment);
             console.log(res);
-            
 
-            toast.success('Successfully created!');
-           
+
+            toast.success('Erfolgreich abgegeben!');
+            onClose();
+
+            navigate(0)
+
             reset();
         } catch (error) {
             console.error(error);
@@ -84,21 +92,20 @@ export const CreateComment = ({
 
 
     const footerContent = (
-        <div className='flex flex-col gap-4 mt-3'>     
-          <div
-            className='text-neutral-500 text-center mt-4 font-light'>
-            <div className='justify-center flex flex-row items-center gap-2'>
-              <div>
-                Nutzen Sie Connect & Explore zum ersten Mal?
-              </div>
-      
-                Account erstellen
-              </div>
+        <div className='flex flex-col gap-4 mt-3'>
+            <div
+                className='text-neutral-500 text-center mt-4 font-light'>
+                <div className='justify-center flex flex-row items-center gap-2'>
+                    <div>
+                        Placeholder
+                    </div>
+
+                </div>
             </div>
-          </div>
-  
-      );
-    
+        </div>
+
+    );
+
 
     return <>
         <Modal
@@ -107,14 +114,14 @@ export const CreateComment = ({
             onSubmit={handleSubmit(onSubmit)}
             body={
                 <div className="flex flex-col gap-2">
-<form className='flex flex-col gap-4' onSubmit={handleSubmit(onSubmit)}>
+                    <form className='flex flex-col gap-4' onSubmit={handleSubmit(onSubmit)}>
                         <Heading
-                            title='Willkommen zurück'
-                            subtitle='Log dich in deinen Account ein!'
+                            title='Bewertung und Rezension'
+                            subtitle='Teile deine Gedanken mit!'
                         />
                         <Input
                             id="title"
-                            label='Title *'
+                            label='Titel *'
                             disabled={loading}
                             register={register}
                             errors={errors}
@@ -122,35 +129,48 @@ export const CreateComment = ({
                         />
                         <Input
                             id="content"
-                            label='Content *'
+                            label='Inhalt *'
                             disabled={loading}
                             register={register}
                             errors={errors}
                             required
                         />
-                        <Input
+                        {/* <Input
                             id="stars"
-                            label='Stars *'
+                            label='Sterne *'
                             disabled={loading}
                             register={register}
                             errors={errors}
                             required
                         //pattern={/0-9/}
-                        />
+                        /> */}
+
+                        <div className="flex items-center gap-2 text-">
+                            <span className="font-thin text-gray-500">Sterne *: </span>
+                            {[1, 2, 3, 4, 5].map((star) => (
+                                <span
+                                    key={star}
+                                    className={`cursor-pointer text-3xl ${selectedStars >= star ? 'text-yellow-500' : 'text-gray-300'}`}
+                                    onClick={() => handleStarClick(star)}
+                                >
+                                    ★
+                                </span>
+                            ))}
+                        </div>
 
 
                     </form>
                 </div>
             }
             footer={footerContent}
-            actionLabel='Weiter'
+            actionLabel='Abgeben'
             disabled={loading}
 
 
         />
 
 
-    
+
 
     </>
 }

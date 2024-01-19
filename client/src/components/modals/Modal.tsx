@@ -16,6 +16,8 @@ interface ModalProps {
     disabled?: boolean;
     seconaryAction?: () => void;
     secondaryActionLabel?: string;
+    actionLabelColor?: string; // Add a prop for the action label color
+
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -28,7 +30,9 @@ const Modal: React.FC<ModalProps> = ({
     actionLabel,
     disabled,
     seconaryAction,
-    secondaryActionLabel
+    secondaryActionLabel,
+    actionLabelColor
+
 }) => {
     const [showModal, setShowModal] = useState(isOpen);
 
@@ -171,7 +175,11 @@ if (!isOpen) {
                                     onClick={handleSubmit}
                                     primary
                                 />
+
+                                 
+                             
                             </div>
+                            
                                 {footer}
                         </div>
 

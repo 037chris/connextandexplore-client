@@ -188,7 +188,7 @@ const EventDetails: React.FC = () => {
                     </button>
                     <button
                       className='bewerten'
-                      onClick={async () => { }}
+                      onClick={openAuthenticationModal}
                     >
                       Bewerten
                     </button>

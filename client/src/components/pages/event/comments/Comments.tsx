@@ -3,6 +3,7 @@ import { CommentsWithRatingsResource } from "../../../../Resources";
 import { getCommentsOfEvent } from "../../../../backend/boardapi";
 import { HiStar } from "react-icons/hi2";
 import { HiOutlineEmojiSad, HiOutlineStar } from "react-icons/hi";
+import { DeleteComment } from "../../DeleteComment";
 
 // export type CommentsProps = {
 //     eventId: string
@@ -15,7 +16,9 @@ interface CommentsProps {
 
 const Comments: React.FC<CommentsProps> = ({ eventId }) => {
     const [comments, setComments] = useState<CommentsWithRatingsResource | null>(null);
+    const [isOpen, setIsOpen] = useState(false);
 
+    const [authenticationModalIsOpen, setAuthenticationModalIsOpen] = useState(false);
     const load = async () => {
         try {
             const comments = await getCommentsOfEvent(eventId!);
@@ -28,6 +31,10 @@ const Comments: React.FC<CommentsProps> = ({ eventId }) => {
 
     useEffect(() => { load(); }, [eventId])
 
+    const openAuthenticationModal = () => {
+        setIsOpen(false);
+        setAuthenticationModalIsOpen(true);
+      };
     return (
         <>
             <div className="col-span-1">
@@ -99,15 +106,20 @@ const Comments: React.FC<CommentsProps> = ({ eventId }) => {
                                 </p>
                                 <p className="comment-content">{comment.content}</p>
                                 {/* <p>{comment.edited ? "comment edited" : "comment not edited"}</p> */}
-                                <button className="delete">löschen</button>
+                                <button className="delete" onClick={openAuthenticationModal}>löschen</button>
                             </div>
+
                         </div>
+                        
                     ))
+                    
                 ) : (
                     <p className="no-comment">Noch kleine Kommentare vorhanden <HiOutlineEmojiSad /></p>
                 )}
 
             </div>
+            <DeleteComment isOpen={authenticationModalIsOpen} onClose={() => setAuthenticationModalIsOpen(false)} commentId={""}  />
+
         </>
     );
 }

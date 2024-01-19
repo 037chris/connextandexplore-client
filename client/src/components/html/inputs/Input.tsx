@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FieldErrors, FieldValues, UseFormRegister, get } from "react-hook-form";
 import { BiDollar } from "react-icons/bi";
-import { ValidationError } from "../../../backend/validation";
 
 interface InputProps {
   id: string;
@@ -18,8 +17,6 @@ interface InputProps {
   defaultValue?: string; //set a default value for changing userSettings e.g. only the last name changes and the user does not want to set all values again.
   //setErrors: (param:string, message:string) => void
   //bError:ValidationError[];
-  customInputClassNames?:string; //verwende diese classnames um das input feld zu stylen, error handling styling ist bereits gesetzt.
-  customLabelClassNames?:string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -35,8 +32,6 @@ const Input: React.FC<InputProps> = ({
   onChange,
   onChangeFn,
   defaultValue,
-  customInputClassNames,
-  customLabelClassNames
   //setErrors
   //bError
 }) => {
@@ -126,16 +121,30 @@ const Input: React.FC<InputProps> = ({
           type={type}
           defaultValue={defaultValue}
           onChange={onChangeFn}
-          className={customInputClassNames?customInputClassNames+`${formatPrice ? 'pl-9' : 'pl-4'}
-          ${error ? 'border-rose-500' : 'border-neutral-300'}
-          ${error ? 'focus:border-rose-500' : 'focus:border-black'}`:''
-        }
+          className={`
+            peer
+            w-full
+            p-4
+            pt-6
+            font-light
+            font-sans
+            bg-white
+            border-2
+            rounded-md
+            outline-none
+            transition
+            disabled:opacity-70
+            disabled:cursor-not-allowed
+            ${formatPrice ? 'pl-9' : 'pl-4'}
+            ${error ? 'border-rose-500' : 'border-neutral-300'}
+            ${error ? 'focus:border-rose-500' : 'focus:border-black'}
+          `}
         />
       )}
 
       <label
         htmlFor={id}
-        className={customLabelClassNames?customLabelClassNames+`${formatPrice ? 'left-9' : 'left-4'} ${error ? 'text-rose-500' : 'text-zinc-400'}`:`
+        className={`
           absolute
           text-md 
           font-sans

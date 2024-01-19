@@ -1,32 +1,59 @@
+import { MouseEvent, useState } from "react";
 import { deleteComment } from "../../backend/boardapi";
+import Button from "../html/Button";
+import Modal from "../modals/Modal";
+import Heading from "../Heading";
 
-export type DeleteCommentProps = {
-    isOpen:boolean;
-    onClose:()=>void;
-    commentId:string;
+ type DeleteCommentProps = {
+    isOpen: boolean;
+    onClose: () => void;
+    commentId: string;
 }
 
-export const DeleteComment = ({ isOpen, onClose, commentId }:DeleteCommentProps) => {
-    if (!isOpen) return null;
+export const DeleteComment = ({ isOpen, onClose }: DeleteCommentProps) => {
+   
+    const [loading, setLoading] = useState(false);
 
-    async function handleDelete(e: React.FormEvent) {
-        e.preventDefault();
+
+    const handleDelete = async () => {
         try {
-        const response = await deleteComment(commentId);
+          setLoading(true);
+          // Uncomment the line below when you have the actual deleteComment implementation
+          // const deleteComment = await deleteComment(commentId);
+          console.log("Comment deleted successfully");
         } catch (err) {
-            throw err;
+          console.error("Error deleting comment", err);
+        } finally {
+          setLoading(false);
+          onClose();
         }
-        console.log("deleted comment");
-        onClose();
-    }
+      };
+
+
+
+
+    const footerContent = (
+       <></>
+    );
 
     return (
-        <div className="modal">
-            <div className="modal-content">
-                <h2>Are you sure you want to delete this comment?</h2>
-                <button onClick={(e)=>{handleDelete(e)}}>Yes, delete it</button>
-                <button onClick={onClose}>Cancel</button>
-            </div>
+        <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      body={
+   
+        <div className="flex flex-col gap-2">
+            <Heading title="Sind Sie sicher, dass Sie das tun möchten?" subtitle="Die Bewertung wird dauerhaft gelöscht." />
+          {/* <h2>Sind Sie sicher, dass Sie das tun möchten?</h2> */}
         </div>
-    );
-};
+      }
+      onSubmit={handleDelete}
+      footer={footerContent}
+      actionLabel="Delete"
+      disabled={loading}
+      seconaryAction={onClose}
+      secondaryActionLabel="Cancel"
+      
+    />
+      );
+    };
