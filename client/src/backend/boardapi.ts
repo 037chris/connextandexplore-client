@@ -7,6 +7,7 @@ import {
   CommentsWithRatingsResource,
   UserRegistration,
   eventResource,
+  eventResourceRegistration,
   eventsResource,
   userResource,
   usersResource,
@@ -23,39 +24,46 @@ if (process.env.NODE_ENV === "development") {
   console.log("node env : ", process.env.NODE_ENV);
 }
 
-export async function signup(user: UserRegistration): Promise<boolean> {
+export async function signup(
+  user: UserRegistration | FormData
+): Promise<boolean> {
   const url = `${HOST}/api/users/register`;
+
   try {
+    let formData: FormData;
+
+    if (user instanceof FormData) {
+      // If user is already a FormData object, use it directly
+      formData = user;
+    } else {
+      // Convert UserRegistration object to FormData
+      formData = new FormData();
+      formData.append("email", user.email);
+      formData.append("name[first]", user.name.first);
+      formData.append("name[last]", user.name.last);
+      formData.append("password", user.password);
+      formData.append("address[postalCode]", user.address.postalCode);
+      formData.append("address[city]", user.address.city);
+      formData.append("birthDate", user.birthDate);
+      formData.append("gender", user.gender);
+      formData.append(
+        "socialMediaUrls[facebook]",
+        user.socialMediaUrls?.facebook || ""
+      );
+      formData.append(
+        "socialMediaUrls[instagram]",
+        user.socialMediaUrls?.instagram || ""
+      );
+
+      // Check if user.profilePicture is defined and is a File
+      if (user.profilePicture !== undefined && user.profilePicture.length > 0) {
+        formData.append("profilePicture", user.profilePicture[0]);
+      }
+    }
+
     const response = await fetch(url, {
       method: "POST",
-      body: JSON.stringify({
-        email: user.email,
-        name: {
-          first: user.name.first,
-          last: user.name.last,
-        },
-        password: user.password,
-        address: {
-          street: user.address.street,
-          houseNumber: user.address.houseNumber,
-          postalCode: user.address.postalCode,
-          city: user.address.city,
-          country: user.address.country,
-          stateOrRegion: user.address.stateOrRegion,
-          apartmentNumber: user.address.apartmentNumber,
-        },
-        profilePicture: user.profilePicture,
-        birthDate: user.birthDate,
-        gender: user.gender,
-        socialMediaUrls: {
-          facebook: user.socialMediaUrls?.facebook,
-          instagram: user.socialMediaUrls?.instagram,
-        },
-      }),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
+      body: formData,
     });
 
     const result = await response.json();
@@ -169,7 +177,14 @@ function headers() {
   }
   return headers;
 }
-
+function headersMulti() {
+  const headers: any = {};
+  const jwt = Cookies.get("access_token");
+  if (jwt) {
+    headers.Authorization = `Bearer ${jwt}`;
+  }
+  return headers;
+}
 /**
  *
  * @returns users as usersResource
@@ -206,18 +221,21 @@ export async function getUser(userid: string): Promise<userResource> {
   }
 }
 
-export async function updateUser(user: userResource): Promise<userResource> {
-  if (!user.id) {
+export async function updateUser(formData: FormData): Promise<userResource> {
+  if (!formData.get("id")) {
     throw new Error("Userid is invalid.");
   }
-  const url = `${HOST}/api/users/${user.id}`;
+
+  const url = `${HOST}/api/users/${formData.get("id")}`;
+  console.log("formData: ", formData);
+  console.log("url: ", url);
   try {
-    console.log("userinfo:", user);
     const response = await fetchWithErrorHandling(url, {
       method: "PUT",
-      headers: headers(),
-      body: JSON.stringify(user),
+      headers: headersMulti(),
+      body: formData,
     });
+
     return response as userResource;
   } catch (err) {
     throw err;
@@ -344,10 +362,63 @@ export async function postEvent(
 ): Promise<eventResource> {
   const url = `${HOST}/api/events/create`;
   try {
+    console.log("Event data :", eventdata);
+    const formData = new FormData();
+    if (eventdata.name) {
+      formData.append("name", eventdata.name);
+    }
+
+    if (eventdata.date) {
+      const dateString = eventdata.date.toISOString();
+      formData.append("date", dateString);
+    }
+
+    if (eventdata.description) {
+      formData.append("description", eventdata.description);
+    }
+
+    formData.append("price", "0");
+    /** 
+    if (eventdata.address.id) {
+      formData.append("address.id", eventdata.address.id);
+    }
+    if (eventdata.address.street) {
+      formData.append("address.street", eventdata.address.street);
+    }
+    if (eventdata.address.houseNumber) {
+      formData.append("address.houseNumber", eventdata.address.houseNumber);
+    }
+    if (eventdata.address.postalCode) {
+      formData.append("address.postalCode", eventdata.address.postalCode);
+    }
+    if (eventdata.address.city) {
+      formData.append("address.city", eventdata.address.city);
+    }
+    if (eventdata.address.country) {
+      formData.append("address.country", eventdata.address.country);
+    }
+*/
+    const addressString = JSON.stringify(eventdata.address);
+    formData.append("address", addressString);
+
+    if (eventdata.category) {
+      const categoryString = JSON.stringify(eventdata.category);
+      formData.append("category", categoryString);
+    }
+
+    if (eventdata.thumbnail) {
+      formData.append("thumbnail", eventdata.thumbnail);
+    }
+
+    if (eventdata.hashtags) {
+      const hashtagsString = JSON.stringify(eventdata.hashtags);
+      formData.append("hashtags", hashtagsString);
+    }
+    console.log("Formdata:", formData);
     const response = await fetchWithErrorHandling(url, {
       method: "POST",
-      headers: headers(),
-      body: JSON.stringify(eventdata),
+      headers: headersMulti(),
+      body: formData,
     });
     return response as eventResource;
   } catch (err) {
@@ -363,7 +434,7 @@ export async function searchEvents(query: string): Promise<eventsResource> {
   if (!query) {
     throw new Error("invalid eventid, can not search for any events");
   }
-    // Kodieren der Query für die URL
+  // Kodieren der Query für die URL
   const encodedQuery = encodeURIComponent(query);
 
   // Hinzufügen der Query zur URL
@@ -475,14 +546,10 @@ export async function deleteEvent(eventId: string): Promise<Boolean> {
       headers: headers(),
     });
     return response as Boolean;
-
   } catch (e) {
     return false;
   }
 }
-
-
-
 
 // boardapi.ts
 export async function updateEvent(
@@ -505,7 +572,6 @@ export async function updateEvent(
   }
 }
 
-
 export async function joinEvent(eventId: string): Promise<boolean> {
   if (!eventId) {
     throw new Error("invalid eventId, can not join event.");
@@ -522,13 +588,15 @@ export async function joinEvent(eventId: string): Promise<boolean> {
   }
 }
 
-export async function createComment(comment:CommentResource): Promise<CommentResource> {
+export async function createComment(
+  comment: CommentResource
+): Promise<CommentResource> {
   const url = `${HOST}/api/comments/post`;
   try {
     const response = await fetchWithErrorHandling(url, {
-      method:"POST",
-      headers:headers(),
-      body:JSON.stringify(comment)
+      method: "POST",
+      headers: headers(),
+      body: JSON.stringify(comment),
     });
     return response as CommentResource;
   } catch (err) {
@@ -536,12 +604,14 @@ export async function createComment(comment:CommentResource): Promise<CommentRes
   }
 }
 
-export async function getAllComments(comments:CommentsResource): Promise<CommentsResource> {
+export async function getAllComments(
+  comments: CommentsResource
+): Promise<CommentsResource> {
   const url = `${HOST}/api/comments`;
   try {
     const response = await fetchWithErrorHandling(url, {
-      method:"GET",
-      headers:headers()
+      method: "GET",
+      headers: headers(),
     });
     return response as CommentsResource;
   } catch (err) {
@@ -549,16 +619,17 @@ export async function getAllComments(comments:CommentsResource): Promise<Comment
   }
 }
 
-
-export async function getComment(commentId:string): Promise<CommentWithRatingsResource> {
-   if (!commentId) {
+export async function getComment(
+  commentId: string
+): Promise<CommentWithRatingsResource> {
+  if (!commentId) {
     throw new Error("invalid commentId, can not access comment.");
   }
   const url = `${HOST}/api/comments/event/${commentId}`;
   try {
     const response = await fetchWithErrorHandling(url, {
-      method:"GET",
-      headers:headers()
+      method: "GET",
+      headers: headers(),
     });
     return response as CommentWithRatingsResource;
   } catch (err) {
@@ -566,15 +637,17 @@ export async function getComment(commentId:string): Promise<CommentWithRatingsRe
   }
 }
 
-export async function getCommentsOfEvent(eventId:string):Promise<CommentsWithRatingsResource> {
+export async function getCommentsOfEvent(
+  eventId: string
+): Promise<CommentsWithRatingsResource> {
   if (!eventId) {
     throw new Error("invalid eventId, can not access comments of no event.");
   }
   const url = `${HOST}/api/comments/event/${eventId}`;
   try {
     const response = await fetchWithErrorHandling(url, {
-      method:"GET",
-      headers:headers()
+      method: "GET",
+      headers: headers(),
     });
     return response as CommentsWithRatingsResource;
   } catch (err) {
@@ -583,15 +656,17 @@ export async function getCommentsOfEvent(eventId:string):Promise<CommentsWithRat
 }
 
 //used to display comments on admin dashboard
-export async function getCommentsOfUser(userId:string):Promise<CommentsWithRatingsResource> {
+export async function getCommentsOfUser(
+  userId: string
+): Promise<CommentsWithRatingsResource> {
   if (!userId) {
     throw new Error("invalid eventId, can not access comments of no event.");
   }
   const url = `${HOST}/api/comments/event/${userId}`;
   try {
     const response = await fetchWithErrorHandling(url, {
-      method:"GET",
-      headers:headers()
+      method: "GET",
+      headers: headers(),
     });
     return response as CommentsWithRatingsResource;
   } catch (err) {
@@ -599,16 +674,18 @@ export async function getCommentsOfUser(userId:string):Promise<CommentsWithRatin
   }
 }
 
-export async function updateComment(comment:CommentResource):Promise<CommentResource> {
+export async function updateComment(
+  comment: CommentResource
+): Promise<CommentResource> {
   if (!comment.id) {
     throw new Error("invalid commentId, can not update.");
   }
   const url = `${HOST}/api/comments/${comment.id}`;
   try {
     const response = await fetchWithErrorHandling(url, {
-      method:"GET",
-      headers:headers(),
-      body:JSON.stringify(comment)
+      method: "GET",
+      headers: headers(),
+      body: JSON.stringify(comment),
     });
     return response as CommentResource;
   } catch (err) {
@@ -616,15 +693,15 @@ export async function updateComment(comment:CommentResource):Promise<CommentReso
   }
 }
 
-export async function deleteComment(commentId:string):Promise<boolean> {
+export async function deleteComment(commentId: string): Promise<boolean> {
   if (!commentId) {
     throw new Error("invalid commentId, can not update.");
   }
   const url = `${HOST}/api/comments/${commentId}`;
-   try {
+  try {
     const response = await fetchWithErrorHandling(url, {
-      method:"GET",
-      headers:headers(),
+      method: "GET",
+      headers: headers(),
     });
     return true;
   } catch (err) {
@@ -632,15 +709,15 @@ export async function deleteComment(commentId:string):Promise<boolean> {
   }
 }
 
-export async function getAVGRatingOfEvent(eventId:string):Promise<number> {
-if (!eventId) {
+export async function getAVGRatingOfEvent(eventId: string): Promise<number> {
+  if (!eventId) {
     throw new Error("invalid eventId, can not access comments of no event.");
   }
   const url = `${HOST}/api/comments/event/${eventId}/average-rating`;
   try {
     const response = await fetchWithErrorHandling(url, {
-      method:"GET",
-      headers:headers()
+      method: "GET",
+      headers: headers(),
     });
     return response as number;
   } catch (err) {
@@ -651,27 +728,26 @@ if (!eventId) {
 export async function getChat(id: string) {
   try {
     const response = await fetchWithErrorHandling(`${HOST}/api/chat/${id}`, {
-      method: 'GET',
-      headers: headers()
+      method: "GET",
+      headers: headers(),
     });
 
     return response as ChatResource;
-
   } catch (error) {
-    throw new Error('Error fetching chat data');
+    throw new Error("Error fetching chat data");
   }
-};
+}
 
 export async function sendChatMessage(id: string, message: string) {
   try {
     const response = await fetchWithErrorHandling(`${HOST}/api/chat/${id}`, {
-      method: 'POST',
+      method: "POST",
       headers: headers(),
       body: JSON.stringify({ message }),
     });
 
     return response as ChatResource;
   } catch (error) {
-    throw error
+    throw error;
   }
-};
+}

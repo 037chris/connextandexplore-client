@@ -18,10 +18,17 @@ const HorizontalCard: React.FC<HorizontalCardProps> = ({ imageSrc, title, subtit
     return (
        <>
        <div className="profil-card">
-          <div className="img-container"></div>
+          <div className="img-container">
+          <img
+          src={imageSrc} 
+          alt={userFirstName}
+          className="profile-picture"
+        />
+          </div>
           <div>
             <p>{userFirstName}</p>
           </div>
+          
        </div>
        </>
       );

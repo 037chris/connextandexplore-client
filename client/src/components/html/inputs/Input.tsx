@@ -126,7 +126,7 @@ const Input: React.FC<InputProps> = ({
           type={type}
           defaultValue={defaultValue}
           onChange={onChangeFn}
-          className={`
+          //className={
             // peer
             // w-full
             // p-4
@@ -140,6 +140,7 @@ const Input: React.FC<InputProps> = ({
             // transition
             // disabled:opacity-70
             // disabled:cursor-not-allowed
+           // `}
           className={
             customInputClassNames?customInputClassNames+`${formatPrice ? 'pl-9' : 'pl-4'}
             ${error ? 'border-rose-500' : 'border-neutral-300'}
