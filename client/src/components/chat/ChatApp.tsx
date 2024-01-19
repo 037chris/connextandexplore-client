@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./chatapp.css";
-import Button from "../Button";
+import Button from "../html/Button";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { eventsResource, eventResource } from "../../Resources";
 import { getJoinedEvents } from "../../backend/boardapi";
@@ -14,7 +13,7 @@ const ChatApp = () => {
   >();
   const [closed, setClosed] = useState("");
   const [mobile, setMobile] = useState(false);
-
+  const [eventLister, setEventLister] = useState<string>("Chats ausblenden");
   const location = useLocation();
   const chatId = location.state && location.state.chatId;
 
@@ -29,10 +28,7 @@ const ChatApp = () => {
         backgroundChat = (
           <>
             <Chat chatId={selectedRoom}></Chat>
-            <Link
-              to={`/event/${selectedEvent.id}`}
-              style={{ position: "absolute", top: 100, right: 10 }}
-            >
+            <Link to={`/event/${selectedEvent.id}`} className="chat-room">
               {selectedEvent.name}
             </Link>
           </>
@@ -41,10 +37,7 @@ const ChatApp = () => {
       backgroundChat = (
         <>
           <Chat chatId={selectedRoom}></Chat>
-          <Link
-            to={`/event/${selectedEvent.id}`}
-            style={{ position: "absolute", top: 100, right: 10 }}
-          >
+          <Link to={`/event/${selectedEvent.id}`} className="chat-room">
             {selectedEvent.name}
           </Link>
         </>
@@ -63,7 +56,7 @@ const ChatApp = () => {
         console.error("Error fetching joined events:", error);
       }
     };
-
+    document.title = 'Chats - Connect & Explore';
     load();
   }, []);
 
@@ -77,38 +70,32 @@ const ChatApp = () => {
   };
 
   const handleSidebar = () => {
-    if (closed == "") setClosed("close");
-    else if (closed == "close") setClosed("");
+    if (closed == "") {
+      setClosed("close");
+      setEventLister("Chats anzeigen")
+    }
+    else if (closed == "close") {
+      setClosed("");
+      setEventLister("Chats ausblenden")
+    }
   };
 
   return (
     <>
-      <nav className={`sidebar ${closed}`}>
+      <div className={`sidebar ${closed}`}>
         <div className="menu-content">
-          <ul className="menu-items mt-20">
+          <ul className="menu-items">
             {dbEvents?.events.map((event) => (
-              <div key={event.chat}>
+              <li key={event.chat}>
                 {selectedRoom === event.chat && (
                   <button
                     onClick={() => {
                       handleRoomSelect(event.chat!);
                       setSelectedEvent(event);
                     }}
-                    style={{
-                      width: "100%",
-                      height: "100px",
-                      padding: "10px 10px 10px 30px",
-                      textAlign: "left",
-                      borderRadius: "20px",
-                      marginBottom: "10px",
-                      backgroundColor: "#3b82f6",
-                      color: "white",
-                    }}
                   >
                     {event.name}
-                    <small>
-                      <p>({event.participants?.length} Teilnehmer)</p>
-                    </small>
+                    <span>({event.participants?.length} Teilnehmer)</span>
                   </button>
                 )}
                 {selectedRoom !== event.chat && (
@@ -117,44 +104,30 @@ const ChatApp = () => {
                       handleRoomSelect(event.chat!);
                       setSelectedEvent(event);
                     }}
-                    style={{
-                      width: "100%",
-                      height: "100px",
-                      padding: "10px 10px 10px 30px",
-                      textAlign: "left",
-                      borderRadius: "20px",
-                      marginBottom: "10px",
-                      color: "black",
-                    }}
-                    className="bg-neutral-100 hover:bg-white transition"
+                    className="unchoosen"
                   >
                     {event.name}
-                    <small>
-                      <p>({event.participants?.length} Teilnehmer)</p>
-                    </small>
+                    <span>({event.participants?.length} Teilnehmer)</span>
                   </button>
                 )}
-              </div>
+              </li>
             ))}
           </ul>
-          <div style={{ position: "fixed", bottom: 10, width: "230px" }}>
+          <div className="go-back">
             <Button label={"Zurück"} onClick={() => navigate(-1)}></Button>
           </div>
         </div>
-      </nav>
-      <main className="main">
-        <div
-          style={{ position: "absolute", top: "95px", left: 5 }}
-          onClick={handleSidebar}
-        >
-          <Button label={"Event Liste"} onClick={() => {}}></Button>
+      </div>
+      <div className="main">
+        <div className="event-list" onClick={handleSidebar}>
+          <Button label={eventLister} onClick={() => { }}></Button>
         </div>
         {selectedRoom ? (
           <>{backgroundChat}</>
         ) : (
-          <p style={{ textAlign: "center" }}>kein Chat ausgewählt</p>
+          <span style={{ textAlign: "center" }}>kein Chat ausgewählt</span>
         )}
-      </main>
+      </div>
     </>
   );
 };
