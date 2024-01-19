@@ -33,16 +33,21 @@ const initEvent:eventResource={
 
 const AllEvents: React.FC<AllEventsProps> = ({}) => {
     const [dbEvents,setDbEvents] = useState({events:[initEvent]});
+    const [displayedEvents,setDisplayedEvents] = useState({events:[initEvent]});
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
     const load=async ()=>{
       //let allDbEvents=await getAllEvents();
       //if(allDbEvents===-1)return
       setDbEvents(await getAllEvents())
+      setDisplayedEvents(await getAllEvents())
     }
 
     useEffect(() => {
       // Hier wird der Filter angewendet, basierend auf der ausgewählten Kategorie
+      if(selectedCategory===null){
+        load()
+      }
       const filteredEvents = dbEvents.events.filter(event =>
         event.category && event.category.some(category => category.name === selectedCategory)
       );
@@ -50,7 +55,7 @@ const AllEvents: React.FC<AllEventsProps> = ({}) => {
       console.log(selectedCategory)
     
       // Setze den Zustand mit den gefilterten Events
-      setDbEvents({ events: filteredEvents });
+      setDisplayedEvents({ events: filteredEvents });
     }, [selectedCategory]);
     
   
@@ -70,7 +75,7 @@ const AllEvents: React.FC<AllEventsProps> = ({}) => {
           <Button label="Gaming" onClick={() => handleFilterByCategory('Gaming')} />
           <Button label="Hobbys" onClick={() => handleFilterByCategory('Hobbys')} />
 
-            {dbEvents.events.map((event, index) => (
+            {displayedEvents.events.map((event, index) => (
               <div key={event.id} className="mb-8 mx-2">
                   <Link to={`/event/${event.id}`} key={event.id}>
 
