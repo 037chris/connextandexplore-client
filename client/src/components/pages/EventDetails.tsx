@@ -207,7 +207,7 @@ const EventDetails: React.FC = () => {
                 
                 <h2>Kommentare</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2">
-                  <Comments eventId={event.id} />
+                  <Comments eventId={event.id!} />
                 </div>
               </div>
             </div>

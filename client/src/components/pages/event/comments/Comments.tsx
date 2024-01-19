@@ -1,32 +1,50 @@
 import { useEffect, useState } from "react"
-import { CommentsWithRatingsResource } from "../../../../Resources";
-import { getCommentsOfEvent } from "../../../../backend/boardapi";
-import { HiStar } from "react-icons/hi2";
+import { EditComment } from "./EditComment";
+import { DeleteComment } from "./DeleteComment";
+import { CommentsWithRatingsResource, userResource } from "../../../../Resources";
+import { getCommentsOfEvent, getUser, getUserIDFromJWT } from "../../../../backend/boardapi";
 import { HiOutlineEmojiSad, HiOutlineStar } from "react-icons/hi";
+import { HiStar } from "react-icons/hi2";
 
-// export type CommentsProps = {
-//     eventId: string
-// }
-
-interface CommentsProps {
-    eventId: string | undefined
+export type CommentsProps = {
+    eventId:string
 }
 
-
-const Comments: React.FC<CommentsProps> = ({ eventId }) => {
+const Comments:React.FC<CommentsProps> = ({eventId}:CommentsProps) => {
     const [comments, setComments] = useState<CommentsWithRatingsResource | null>(null);
+    const [activeComment, setActiveComment] = useState<string>("");
 
-    const load = async () => {
+    const [user, setUser] = useState<userResource | null>(null);
+
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    const openModal = () => {
+        setModalIsOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalIsOpen(false);
+    };
+
+    const load = async() => {
         try {
             const comments = await getCommentsOfEvent(eventId!);
-            //console.log(comments);
+            console.log(comments);
             setComments(comments);
+
+            const id = await getUserIDFromJWT();
+            if (!id) {
+                return;
+            }
+            const u = await getUser(id);
+            setUser(u);
         } catch (e) {
+            setUser(null);
             setComments(null)
         }
     }
 
-    useEffect(() => { load(); }, [eventId])
+    useEffect(() => {load();}, [])
 
     return (
         <>
@@ -43,41 +61,41 @@ const Comments: React.FC<CommentsProps> = ({ eventId }) => {
                                                 case 1:
                                                     return (
                                                         <>
-                                                            <HiOutlineStar />
-                                                            <HiOutlineStar />
-                                                            <HiOutlineStar />
-                                                            <HiOutlineStar />
                                                             <HiStar />
+                                                            <HiOutlineStar />
+                                                            <HiOutlineStar />
+                                                            <HiOutlineStar />
+                                                            <HiOutlineStar />
                                                         </>
                                                     );
                                                 case 2:
                                                     return (
                                                         <>
-                                                            <HiOutlineStar />
-                                                            <HiOutlineStar />
-                                                            <HiOutlineStar />
                                                             <HiStar />
                                                             <HiStar />
+                                                            <HiOutlineStar />
+                                                            <HiOutlineStar />
+                                                            <HiOutlineStar />
                                                         </>
                                                     );
                                                 case 3:
                                                     return (
                                                         <>
+                                                            <HiStar />
+                                                            <HiStar />
+                                                            <HiStar />
                                                             <HiOutlineStar />
                                                             <HiOutlineStar />
-                                                            <HiStar />
-                                                            <HiStar />
-                                                            <HiStar />
                                                         </>
                                                     );
                                                 case 4:
                                                     return (
                                                         <>
+                                                            <HiStar />
+                                                            <HiStar />
+                                                            <HiStar />
+                                                            <HiStar />
                                                             <HiOutlineStar />
-                                                            <HiStar />
-                                                            <HiStar />
-                                                            <HiStar />
-                                                            <HiStar />
                                                         </>
                                                     );
                                                 case 5:
@@ -99,7 +117,29 @@ const Comments: React.FC<CommentsProps> = ({ eventId }) => {
                                 </p>
                                 <p className="comment-content">{comment.content}</p>
                                 {/* <p>{comment.edited ? "comment edited" : "comment not edited"}</p> */}
-                                <button className="delete">löschen</button>
+                                {/* <button className="delete">löschen</button> */}
+                                {/* {user && (user.isAdministrator || user.id === comment.creator) && (
+                                    <>
+                                        {activeComment === comment.id ? (
+                                            <EditComment
+                                                commentId={comment.id}
+                                                eventId={comment.event}
+                                                onCancel={() => setActiveComment("")}
+                                            />
+                                        ) : (
+                                            <button onClick={() => setActiveComment(comment.id!)}>Edit this comment</button>
+                                        )}
+                                        <button onClick={() => openModal()}>Delete?</button>
+                                        {modalIsOpen && activeComment === comment.id && (
+                                            <DeleteComment
+                                                isOpen={modalIsOpen}
+                                                onClose={closeModal}
+                                                commentId={comment.id!}
+                                                key={comment.id}
+                                            />
+                                        )}
+                                    </>
+                                )} */}
                             </div>
                         </div>
                     ))
