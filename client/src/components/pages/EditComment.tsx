@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { CommentResource, eventResource, userResource } from "../../Resources";
-import Input from "../inputs/Input";
+import Input from "../html/inputs/Input";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import { getUserIDFromJWT, getUser, getEvent, updateComment, getComment } from "../../backend/boardapi";
 
