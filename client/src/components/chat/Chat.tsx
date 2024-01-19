@@ -3,6 +3,7 @@ import io from "socket.io-client";
 import { useUserIDContext } from "../../UserIDContext";
 import { getChat, getUser, sendChatMessage } from "../../backend/boardapi";
 import { MessageResource } from "../../Resources";
+import { Grid } from "@mui/material";
 
 const serverUrl = "https://localhost:443";
 const socket = io(serverUrl);
@@ -87,11 +88,15 @@ const Chat: React.FC<ChatProps> = ({ chatId }) => {
       style={{
         display: "flex",
         flexDirection: "column",
-        height: "88vh",
+        width: "100%",
+        height: "90vh",
         overflowAnchor: "auto",
       }}
     >
-      <div style={{ flex: "1", overflowY: "auto", padding: "20px" }}>
+      <div
+        style={{ flex: "1", overflowY: "auto", padding: "20px" }}
+        className="mt-20"
+      >
         {messages.map((msg, index) => (
           <div key={index}>
             {msg.user === userID && (
@@ -117,7 +122,14 @@ const Chat: React.FC<ChatProps> = ({ chatId }) => {
                   <p>{msg.message}</p>
                 </div>
                 <small>
-                  <p style={{ fontFamily: "monospace", width: "fit-content", marginLeft: "auto", marginRight: "0" }}>
+                  <p
+                    style={{
+                      fontFamily: "monospace",
+                      width: "fit-content",
+                      marginLeft: "auto",
+                      marginRight: "0",
+                    }}
+                  >
                     {msg.time}
                   </p>
                 </small>
@@ -146,7 +158,14 @@ const Chat: React.FC<ChatProps> = ({ chatId }) => {
                   <p>{msg.message}</p>
                 </div>
                 <small>
-                  <p style={{ fontFamily: "monospace", width: "fit-content", marginLeft: "0", marginRight: "auto" }}>
+                  <p
+                    style={{
+                      fontFamily: "monospace",
+                      width: "fit-content",
+                      marginLeft: "0",
+                      marginRight: "auto",
+                    }}
+                  >
                     {msg.time}
                   </p>
                 </small>
@@ -158,6 +177,10 @@ const Chat: React.FC<ChatProps> = ({ chatId }) => {
       </div>
       <div
         style={{
+          position: "fixed",
+          bottom: 0,
+          width: "100%",
+          backgroundColor: "#eeeeee",
           display: "flex",
           alignItems: "center",
           padding: "10px",
