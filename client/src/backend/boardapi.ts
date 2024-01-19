@@ -566,17 +566,30 @@ export async function getAllComments(comments:CommentsResource): Promise<Comment
 }
 
 
-export async function getComment(commentId:string): Promise<CommentWithRatingsResource> {
+export async function getComment(commentId:string, eventId:string): Promise<CommentWithRatingsResource> {
    if (!commentId) {
     throw new Error("invalid commentId, can not access comment.");
   }
-  const url = `${HOST}/api/comments/event/${commentId}`;
+  if (!eventId) {
+    throw new Error("invalid eventId, can not access comments of no event.");
+  }
+  const url = `${HOST}/api/comments/event/${eventId}`;
   try {
     const response = await fetchWithErrorHandling(url, {
       method:"GET",
       headers:headers()
     });
-    return response as CommentWithRatingsResource;
+        const r = response as CommentsWithRatingsResource;
+        
+        // Verwenden Sie find anstelle von filter, um den ersten übereinstimmenden Kommentar zu finden.
+        const result = r.comments.find(comment => comment.id === commentId);
+
+        // Wenn kein Kommentar gefunden wurde, werfen Sie einen Fehler oder handhaben Sie den Fall entsprechend.
+        if (!result) {
+            throw new Error("Comment not found.");
+        }
+
+        return result;
   } catch (err) {
     throw err;
   }
@@ -622,7 +635,7 @@ export async function updateComment(comment:CommentResource):Promise<CommentReso
   const url = `${HOST}/api/comments/${comment.id}`;
   try {
     const response = await fetchWithErrorHandling(url, {
-      method:"GET",
+      method:"PUT",
       headers:headers(),
       body:JSON.stringify(comment)
     });
@@ -639,7 +652,7 @@ export async function deleteComment(commentId:string):Promise<boolean> {
   const url = `${HOST}/api/comments/${commentId}`;
    try {
     const response = await fetchWithErrorHandling(url, {
-      method:"GET",
+      method:"DELETE",
       headers:headers(),
     });
     return true;
