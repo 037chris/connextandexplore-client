@@ -1514,7 +1514,7 @@ header {
     height: 100%;
     width: 100%;
     margin-top: 40px;
-    overflow-y: scroll;
+    overflow-y: auto;
 
     &:-webkit-scrollbar {
         display: none;
@@ -1651,7 +1651,7 @@ header {
             }
 
             .chat-info {
-                font-family: "monospace";
+                font-family: monospace;
                 width: fit-content;
                 margin-left: auto;
                 margin-right: 0;
@@ -1660,7 +1660,7 @@ header {
     }
 
     .chat-bar {
-        position: fixed;
+        position: absolute;
         bottom: 0;
         width: 100%;
         background-color: #eeeeee;
