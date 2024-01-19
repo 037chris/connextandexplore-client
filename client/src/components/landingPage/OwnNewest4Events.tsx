@@ -16,6 +16,7 @@ const OwnNewest4Events: React.FC<OwnNewest4EventsProps> = ({ events }) => {
           {events.map((event, index) => (
             <div key={index} className="mb-8 mx-2">
               <Event
+                id={event.id}
                 key={index}
                 date={event.date}
                 name={event.name}
