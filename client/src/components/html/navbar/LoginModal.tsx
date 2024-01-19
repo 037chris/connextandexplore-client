@@ -102,7 +102,7 @@ const LoginModal: FC<LoginModalProps> = ({ isOpen, onClose }) => {
       onSubmit={handleSubmit(onSubmit)}
       body={
         <div className='flex flex-col gap-2'>
-          <form className='flex flex-col gap-4 setting-form'>
+          <form className='flex flex-col gap-4'>
             <Heading
               title='Willkommen zurück'
               subtitle='Log dich in deinen Account ein!'

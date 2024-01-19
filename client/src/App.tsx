@@ -60,7 +60,7 @@ export default function App() {
           <Route path="/events" element={<Events />}/>
           <Route path="/yourevents" element={<YourEvents />}/>
           <Route path='*' element={<NotFound />}/>
-          <Route path="/event/:eventId/comment" element={<CreateComment/>}/>
+          {/* <Route path="/event/:eventId/comment" element={<CreateComment/>}/> */}
 
           <Route path="/dsgvo" element={<Dsgvo />}/>
           <Route path="/agbs" element={<Agbs />}/>

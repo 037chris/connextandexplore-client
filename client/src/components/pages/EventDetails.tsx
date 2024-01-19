@@ -30,6 +30,8 @@ const EventDetails: React.FC = () => {
   const navigate = useNavigate();
 
   const [rating, setRating] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
+  const [authenticationModalIsOpen, setAuthenticationModalIsOpen] = useState(false);
 
   // export type eventResource = {
   //   id?: string;
@@ -98,6 +100,13 @@ const EventDetails: React.FC = () => {
   if (joined) {
     chatButton = <Button label="Chat" onClick={() => navigate('/chat', { state: { chatId: event?.chat } })}></Button>
   }
+
+
+  const openAuthenticationModal = () => {
+    setIsOpen(false);
+    setAuthenticationModalIsOpen(true);
+  };
+
 
   return (
     <>
@@ -202,9 +211,9 @@ const EventDetails: React.FC = () => {
 
           <div className="commment-section">
             <div className="grid grid-cols-1">
-              <div className="col-span-1">
-                <CreateComment />
-                
+            <div className='w-24 md:w-32'>
+              <Button outline label='comment' onClick={openAuthenticationModal} />
+            </div>   
                 <h2>Kommentare</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2">
                   <Comments eventId={event.id} />
@@ -212,7 +221,8 @@ const EventDetails: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
+          <CreateComment isOpen={authenticationModalIsOpen} onClose={() => setAuthenticationModalIsOpen(false)} />
+
         {/* END GRID */}
         <Footer />
       </>
