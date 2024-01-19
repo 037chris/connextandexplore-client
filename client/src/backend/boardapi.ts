@@ -147,12 +147,22 @@ export function getUserIDFromJWT() {
     const cookie = Cookies.get("access_token");
     if (cookie) {
       const jwt: any = jwtDecode(cookie);
+      if (isTokenExpired(cookie)) {
+        console.log(jwt)
+        return undefined;
+      }
       return jwt?.sub || undefined;
     }
   } catch (error) {
     console.error("Error decoding JWT:", error);
   }
   return undefined;
+}
+
+function isTokenExpired(token:string):boolean {
+  const decodedToken = jwtDecode(token);
+  const currentTime = Math.floor(Date.now()/1000);
+  return decodedToken.exp ? decodedToken.exp < currentTime : false;
 }
 
 export function logout() {
@@ -164,7 +174,14 @@ function headers() {
     "Content-Type": "application/json",
   };
   const jwt = Cookies.get("access_token");
+ 
   if (jwt) {
+    if (isTokenExpired(jwt)) {
+      logout();
+      sessionStorage.clear();
+      console.log("token expired");
+      throw new Error("Token expired!")
+    }
     headers.Authorization = `Bearer ${jwt}`;
   }
   return headers;
@@ -550,17 +567,30 @@ export async function getAllComments(comments:CommentsResource): Promise<Comment
 }
 
 
-export async function getComment(commentId:string): Promise<CommentWithRatingsResource> {
+export async function getComment(commentId:string, eventId:string): Promise<CommentWithRatingsResource> {
    if (!commentId) {
     throw new Error("invalid commentId, can not access comment.");
   }
-  const url = `${HOST}/api/comments/event/${commentId}`;
+  if (!eventId) {
+    throw new Error("invalid eventId, can not access comments of no event.");
+  }
+  const url = `${HOST}/api/comments/event/${eventId}`;
   try {
     const response = await fetchWithErrorHandling(url, {
       method:"GET",
       headers:headers()
     });
-    return response as CommentWithRatingsResource;
+        const r = response as CommentsWithRatingsResource;
+        
+        // Verwenden Sie find anstelle von filter, um den ersten übereinstimmenden Kommentar zu finden.
+        const result = r.comments.find(comment => comment.id === commentId);
+
+        // Wenn kein Kommentar gefunden wurde, werfen Sie einen Fehler oder handhaben Sie den Fall entsprechend.
+        if (!result) {
+            throw new Error("Comment not found.");
+        }
+
+        return result;
   } catch (err) {
     throw err;
   }
@@ -606,7 +636,7 @@ export async function updateComment(comment:CommentResource):Promise<CommentReso
   const url = `${HOST}/api/comments/${comment.id}`;
   try {
     const response = await fetchWithErrorHandling(url, {
-      method:"GET",
+      method:"PUT",
       headers:headers(),
       body:JSON.stringify(comment)
     });
@@ -623,7 +653,7 @@ export async function deleteComment(commentId:string):Promise<boolean> {
   const url = `${HOST}/api/comments/${commentId}`;
    try {
     const response = await fetchWithErrorHandling(url, {
-      method:"GET",
+      method:"DELETE",
       headers:headers(),
     });
     return true;
