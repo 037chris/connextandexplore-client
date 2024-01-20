@@ -182,6 +182,9 @@ const UserMenu: FC = () => {
           >
             <div className="flex flex-col cursor-pointer" onClick={onCloseMenu}>
               <>
+              <div className='md:hidden'>
+                  <MenuItem onClick={() => { navigate('/create-event')}} label="Event Erstellen" />
+                </div>
                 <MenuItem
                   onClick={() => navigate("/about")}
                   label="Mein Profil"
