@@ -2,6 +2,8 @@
 import { MouseEvent, useState } from "react";
 import Heading from "../../../Heading";
 import Modal from "../../../modals/Modal";
+import { deleteComment } from "../../../../backend/boardapi";
+import { useNavigate } from "react-router-dom";
 
 
 type DeleteCommentProps = {
@@ -10,16 +12,17 @@ type DeleteCommentProps = {
   commentId: string;
 }
 
-export const DeleteComment = ({ isOpen, onClose }: DeleteCommentProps) => {
+export const DeleteComment = ({ isOpen, onClose, commentId }: DeleteCommentProps) => {
 
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
 
   const handleDelete = async () => {
     try {
       setLoading(true);
       // Uncomment the line below when you have the actual deleteComment implementation
-      // const deleteComment = await deleteComment(commentId);
+      const deletedComment = await deleteComment(commentId);
+      navigate(0);
       console.log("Comment deleted successfully");
     } catch (err) {
       console.error("Error deleting comment", err);

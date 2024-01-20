@@ -7,6 +7,7 @@ import Input from "../../../html/inputs/Input";
 import toast from "react-hot-toast";
 import Modal from "../../../modals/Modal";
 import Heading from "../../../Heading";
+import { ErrorFromValidation } from "../../../../backend/validation";
 
 
 interface CreateCommentModalProps {
@@ -41,6 +42,7 @@ export const CreateComment = ({
             const ev = await getEvent(eventId!);
             setEvent(ev)
         } catch (err) {
+            
             setUser(null);
             setEvent(null);
         }
@@ -83,6 +85,8 @@ export const CreateComment = ({
             reset();
         } catch (error) {
             console.error(error);
+            toast.error("Du hast bereits ein Kommentar zu diesem Event geschrieben!")
+            
             //todo: map backend validation error to inputfield
             //toast.error('Something went wrong...');
         } finally {

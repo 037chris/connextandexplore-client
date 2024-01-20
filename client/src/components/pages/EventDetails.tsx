@@ -261,9 +261,6 @@ const EventDetails: React.FC = () => {
             <div className="grid grid-cols-1 commment-section">
               <div className="col-span-1">
                 <h2>Kommentare</h2>
-                <button className="bewerten" onClick={openAuthenticationModal}>
-                  Bewerten
-                </button>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2">
                 <Comments eventId={event.id!} />

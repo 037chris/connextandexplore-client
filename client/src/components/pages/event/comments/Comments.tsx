@@ -4,6 +4,7 @@ import { CommentsWithRatingsResource, userResource } from "../../../../Resources
 import { getCommentsOfEvent, getUser, getUserIDFromJWT } from "../../../../backend/boardapi";
 import { HiOutlineEmojiSad, HiOutlineStar } from "react-icons/hi";
 import { HiStar } from "react-icons/hi2";
+import { EditComment } from "./EditCommentModal";
 
 export type CommentsProps = {
     eventId: string
@@ -39,16 +40,19 @@ const Comments: React.FC<CommentsProps> = ({ eventId }: CommentsProps) => {
     useEffect(() => { load(); }, [eventId])
 
     const openAuthenticationModal = () => {
-        setIsOpen(false);
         setAuthenticationModalIsOpen(true);
     };
+
+    const openEditModal = () => {
+        setModalIsOpen(true);
+    }
     return (
         <>
             <div className="col-span-1">
                 {(comments?.comments && comments.comments.length > 0) ? (
                     comments.comments.map((comment) => (
-                        <div className="comment-box">
-                            <div key={comment.id}>
+                        <div className="comment-box" key={comment.id}>
+                            <div>
                                 <p className="title">
                                     {comment.creatorName?.first}: {comment.title}
                                     <span className="stars">
@@ -112,10 +116,16 @@ const Comments: React.FC<CommentsProps> = ({ eventId }: CommentsProps) => {
                                     <span className="sec-line">{comment.createdAt}</span>
                                 </p>
                                 <p className="comment-content">{comment.content}</p>
-                                {/* <p>{comment.edited ? "comment edited" : "comment not edited"}</p> */}
-                                <button className="delete" onClick={openAuthenticationModal}>löschen</button>
+                                { <p>{comment.edited ? "comment edited" : "comment not edited"}</p> }
+                                
+                                {user && comment.creator === user.id && <button className="delete" onClick={openAuthenticationModal}>löschen</button>}
+                                {user && comment.creator === user.id && <button className="edit" onClick={openEditModal}>edit</button>}
+                                
                             </div>
-
+                            
+                                {user && comment.creator === user.id && <DeleteComment isOpen={authenticationModalIsOpen} onClose={() => setAuthenticationModalIsOpen(false)} commentId={comment.id!} />}
+                                {user && comment.creator === user.id && <EditComment isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)} commentId={comment.id!} eventId={eventId}></EditComment>}
+                            
                         </div>
 
                     ))
@@ -125,7 +135,7 @@ const Comments: React.FC<CommentsProps> = ({ eventId }: CommentsProps) => {
                 )}
 
             </div>
-            <DeleteComment isOpen={authenticationModalIsOpen} onClose={() => setAuthenticationModalIsOpen(false)} commentId={""} />
+           
         </>
     );
 }
