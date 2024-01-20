@@ -5,16 +5,22 @@ import { getJoinedEvents } from "../../backend/boardapi";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import LoadingIndicator from "../LoadingIndicator";
+import { useUserIDContext } from "../../UserIDContext";
 
 interface JoinedEventsProps {}
 
 const JoinedEvents: React.FC<JoinedEventsProps> = () => {
+  const { userID } = useUserIDContext();
   const [dbEvents, setDbEvents] = useState<eventsResource | undefined>();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const load = async () => {
       try {
         const joinedEvents = await getJoinedEvents();
+        joinedEvents.events = joinedEvents.events.filter(
+          (event) => event.creator !== userID
+        );
         setDbEvents(joinedEvents);
       } catch (error) {
         console.error("Error fetching joined events:", error);
@@ -26,33 +32,39 @@ const JoinedEvents: React.FC<JoinedEventsProps> = () => {
   }, []);
 
   return (
-    <div className="flex font-sans bg-blue-500">
-      <Container>
-        <div className="grid grid-cols-4 overflow-x-scroll gap-5">
-          {dbEvents ? (
-            dbEvents.events.length > 0 ? (
-              dbEvents.events.map((event, index) => (
-                <div key={index} className="mb-8 mx-2">
-                  <Link to={`/event/${event.id}`}>
-                    <Event
-                      key={index}
-                      date={event.date}
-                      name={event.name}
-                      description={event.description}
-                      thumbnail={event.thumbnail!}
-                      hashtags={event.hashtags}
-                    />
-                  </Link>
-                </div>
-              ))
-            ) : (
-              <p>No joined events available.</p>
-            )
-          ) : (
-            <LoadingIndicator />
-          )}
-        </div>
-      </Container>
+    <div className="max-grid content content-pt">
+      {loading && <p>Loading...</p>}
+      {dbEvents && dbEvents.events && dbEvents.events.length !== 0 && (
+        <>
+          <div
+              className="
+                       p-12
+                       grid
+                       grid-cols-1
+                       sm:grid-cols-2
+                       md:grid-cols-3
+                       lg:grid-cols-4
+                       gap-8
+                   "
+            >
+            {dbEvents?.events.map((event) => (
+              <Link to={`/event/${event.id}`} key={event.id}>
+                <Event
+                  key={event.id}
+                  id={event.id}
+                  address={event.address}
+                  date={event.date}
+                  name={event.name}
+                  description={event.description}
+                  hashtags={event.hashtags}
+                  participants={event.participants}
+                  thumbnail={event.thumbnail!}
+                />
+              </Link>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };

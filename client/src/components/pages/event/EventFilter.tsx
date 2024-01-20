@@ -60,7 +60,7 @@ export default function EventFilter({ query, plz }: EventFilterProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [active, setActive] = useState(true);
+  const [active, setActive] = useState(false);
   const [switchCategory, setSwitchCategory] = useState(false);
 
   useEffect(() => {
@@ -165,7 +165,7 @@ export default function EventFilter({ query, plz }: EventFilterProps) {
               />
             </div>
             <input
-              className="rounded-md bg-neutral-100 hover:bg-gray-50 transition text-center w-60 p-2"
+              className="w-60 p-2"
               type="date"
               value={selectedDate || ""}
               onChange={(e) => handleFilterByDate(e.target.value)}
@@ -190,6 +190,7 @@ export default function EventFilter({ query, plz }: EventFilterProps) {
                 <Link to={`/event/${event.id}`} key={index}>
                   <Event
                     key={index}
+                    id={event.id}
                     address={event.address}
                     date={event.date}
                     name={event.name}

@@ -52,11 +52,22 @@ const UserEvents: React.FC = () => {
         {loading && <p>Loading...</p>}
         {events && events.events && events.events.length !== 0 ? (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-5">
+            <div
+              className="
+                       p-12
+                       grid
+                       grid-cols-1
+                       sm:grid-cols-2
+                       md:grid-cols-3
+                       lg:grid-cols-4
+                       gap-8
+                   "
+            >
               {events?.events.map((event) => (
                 <Link to={`/event/${event.id}`} key={event.id}>
                   <Event
                     key={event.id}
+                    id={event.id}
                     address={event.address}
                     date={event.date}
                     name={event.name}
