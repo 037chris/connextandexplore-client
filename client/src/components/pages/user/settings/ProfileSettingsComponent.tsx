@@ -1,139 +1,255 @@
 import { useState, useEffect } from "react";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import { userResource, uAddressResource } from "../../../../Resources";
-import { getUserIDFromJWT, getUser, updateUser } from "../../../../backend/boardapi";
-import Input from "../../../inputs/Input";
-import Button from "../../../Button";
+import {
+  getUserIDFromJWT,
+  getUser,
+  updateUser,
+} from "../../../../backend/boardapi";
+import Input from "../../../html/inputs/Input";
+import Button from "../../../html/Button";
+import profilepicturedefault from "../../../../img/placeholder.jpg";
+import Avatar from "../../../Avatar";
+import toast from "react-hot-toast";
+import { HOST } from "../../../../backend/getHostApi";
+import { useNavigate } from "react-router-dom";
 
 const ProfilSettingsComponent = () => {
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
-
-    const [user, setUser] = useState<userResource | null>(null);
-
-    const load = async () => {
-        try {
-            const id = await getUserIDFromJWT();
-            const u:userResource = await getUser(id);
-            console.log(u);
-            setUser(u);
-            setValue("firstname", u.name.first, {shouldValidate:true})
-            setValue("lastname", u.name.last, {shouldValidate:true})
-            setValue("email", u.email, {shouldValidate:true})
-            setValue("socialMediaUrls.facebook", u.socialMediaUrls?.facebook, {shouldValidate:true})
-            setValue("socialMediaUrls.instagram", u.socialMediaUrls?.instagram, {shouldValidate:true})
-        } catch (err) {
-            setUser(null);
-        }
+  const [user, setUser] = useState<userResource | null>(null);
+  const [profilePicture, setProfilePicture] = useState("");
+  const navigate = useNavigate();
+  const load = async () => {
+    try {
+      const id = await getUserIDFromJWT();
+      const u: userResource = await getUser(id);
+      setProfilePicture(u?.profilePicture || "");
+      console.log(u);
+      setUser(u);
+      setValue("firstname", u.name.first, { shouldValidate: true });
+      setValue("lastname", u.name.last, { shouldValidate: true });
+      setValue("email", u.email, { shouldValidate: true });
+      setValue("socialMediaUrls.facebook", u.socialMediaUrls?.facebook, {
+        shouldValidate: true,
+      });
+      setValue("socialMediaUrls.instagram", u.socialMediaUrls?.instagram, {
+        shouldValidate: true,
+      });
+    } catch (err) {
+      setUser(null);
     }
+  };
 
-    useEffect(() => { load(); }, []);
+  useEffect(() => {
+    document.title = 'Profil Einstellungen - Connect & Explore"';
+    load();
+  }, []);
 
-    const {
-        register,
-        handleSubmit,
-        formState: {
-            errors,
-        },
-        setValue,
-        reset
-    } = useForm<FieldValues>({})
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    reset,
+  } = useForm<FieldValues>({});
 
-    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-        setLoading(true);
-        try {
-            const userData = user;
-            if (data.username)
-            console.log(userData?.address);
-            userData!.gender=data.gender;
-            console.log("fetch");
-            const res = await updateUser(userData!);
-            console.log("res:",res);
-            reset();
-        } catch (error) {
-            console.error(error);
-            //todo: map backend validation error to inputfield
-            //toast.error('Something went wrong...');
-        } finally {
-            setLoading(false);
-        }
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    setLoading(true);
+    try {
+      const userData = user;
+      console.log("Data:", data);
+      console.log("userData:", userData);
+
+      const formData = new FormData();
+      if (data.firstname) {
+        formData.append("name[first]", data.firstname);
+      } else if (userData?.name.first) {
+        formData.append("name[first]", userData.name.first);
+      }
+      if (data.lastname) {
+        formData.append("name[last]", data.lastname);
+      } else if (userData?.name.last) {
+        formData.append("name[last]", userData.name.last);
+      }
+      if (userData?.id) {
+        formData.append("id", userData?.id);
+      }
+      if (data.socialMediaUrls?.facebook) {
+        formData.append(
+          "socialMediaUrls[facebook]",
+          data.socialMediaUrls?.facebook
+        );
+      } else if (userData?.socialMediaUrls?.facebook) {
+        formData.append(
+          "socialMediaUrls[facebook]",
+          userData?.socialMediaUrls?.facebook
+        );
+      }
+      if (data.socialMediaUrls?.instagram) {
+        formData.append(
+          "socialMediaUrls[instagram]",
+          data.socialMediaUrls?.instagram
+        );
+      } else if (userData?.socialMediaUrls?.instagram) {
+        formData.append(
+          "socialMediaUrls[instagram]",
+          userData?.socialMediaUrls?.instagram
+        );
+      }
+
+      if (data.profilePicture.length > 0) {
+        formData.append("profilePicture", data.profilePicture[0]);
+      }
+      console.log("profilePicture", data.profilePicture[0]);
+      const updatedUserData = await updateUser(formData!);
+      console.log("res:", updatedUserData);
+      if (updatedUserData.profilePicture) {
+        setProfilePicture(updatedUserData.profilePicture);
+      }
+      toast.success("Your profile has been successfully updated");
+      reset();
+
+      // Update the form inputs with the updated data
+      setValue("firstname", updatedUserData?.name?.first ?? "");
+      setValue("lastname", updatedUserData?.name?.last ?? "");
+      setValue(
+        "socialMediaUrls.facebook",
+        updatedUserData?.socialMediaUrls?.facebook ?? ""
+      );
+      setValue(
+        "socialMediaUrls.instagram",
+        updatedUserData?.socialMediaUrls?.instagram ?? ""
+      );
+      //navigate(0);
+    } catch (error) {
+      toast.error("Please enter a valid data!");
+      console.error(error);
+      //todo: map backend validation error to inputfield
+      //toast.error('Something went wrong...');
+    } finally {
+      setLoading(false);
     }
+  };
+  const onSubmitDeletePicture: SubmitHandler<FieldValues> = async () => {
+    setLoading(true);
+    try {
+      const userData = user;
+      const formData = new FormData();
+      formData.append("deletePicture", "true");
+      if (userData?.id) {
+        formData.append("id", userData?.id);
+      }
+      const updatedUserData = await updateUser(formData!);
+      console.log("res:", updatedUserData);
+      if (updatedUserData.profilePicture === "") {
+        setProfilePicture("");
+      }
+      toast.success("Your profile picture has been successfully deleted");
+      reset();
+      //navigate(0);
+    } catch (error) {
+      toast.error("Your profile picture can not be deleted");
+      console.error(error);
+      //todo: map backend validation error to inputfield
+      //toast.error('Something went wrong...');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    return (
-        <div>
-            <form>
-                {/* hier fehlt das ausgelesene Profilbild */}
-                <input type="submit" value="Neuer upload" />
-                <input type="submit" value="Foto löschen" />
-            </form>
-            <form onSubmit={handleSubmit(onSubmit)}>
-            {/*
-                <label htmlFor="vorname">Vorname</label>
-                <input id="vorname" type="text" placeholder="Vorname"></input>
-                <label htmlFor="name">Name</label>
-                <input id="name" type="text" placeholder="Name"></input>
-                <span>Social Media Links</span>
-                <label htmlFor="instagram">Instagram</label>
-                <input id="instagram" type="text" placeholder="Instagram Profil URL"></input>
-                <label htmlFor="facebook">Facebook</label>
-                <input id="facebook" type="text" placeholder="Facbook Profil URL"></input>
-                <input type="submit" className="save" value="speichern" />
-            */}
+  return (
+    <div>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="setting-form"
+        encType="multipart/form-data"
+      >
+        <div className="profile-img flex flex-col items-center md:flex-row md:items-center md:gap-4">
+          <div className="user-picture mb-2 md:mb-0">
+            <Avatar
+              src={
+                profilePicture
+                  ? `${HOST}/images/users/${profilePicture}`
+                  : "/images/placeholder.jpg"
+              }
+            />
+          </div>
+
+          <div className="profile-actions md:flex md:items-center md:gap-4">
+            <input
+              type="button"
+              value="Foto löschen"
+              className="delete-profile-img"
+              onClick={onSubmitDeletePicture}
+            />
+          </div>
+
+          <div className="mt-2 md:mt-0 flex flex-col items-center">
             <Input
-                id="firstname"
-                label='Firstname *'
-                disabled={loading}
-                register={register}
-                errors={errors}
-                required
-                defaultValue={user?.name.first}
+              type="file"
+              label="Update Profile Picture"
+              id="profilePicture"
+              register={register}
+              errors={errors}
+              disabled={loading}
             />
-            <Input
-                id="lastname"
-                label='Name *'
-                disabled={loading}
-                register={register}
-                errors={errors}
-                required
-                defaultValue={user?.name.last}
-            />
-            <Input
-                id="email"
-                label="Email *"
-                disabled={loading} 
-                register={register}
-                errors={errors}
-                pattern={/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/}
-                required
-                defaultValue={user?.email}
-            />
-            <Input
-                type='text'
-                label='Facebook URL'
-                id='socialMediaUrls.facebook'
-                register={register}
-                errors={errors}
-                disabled={loading}
-                defaultValue={user?.socialMediaUrls?.facebook}
-            />
-            <Input
-                type='text'
-                label='Instagram URL'
-                id='socialMediaUrls.instagram'
-                register={register}
-                errors={errors}
-                disabled={loading}
-                defaultValue={user?.socialMediaUrls?.instagram}
-            />
-            <Button 
-                disabled={loading}
-                label={loading ? 'Loading...' : 'Save'}
-                onClick={() => {handleSubmit(onSubmit)}}
-            />
-            </form>
+          </div>
         </div>
-    );
+
+        <Input
+          id="firstname"
+          label={!user?.name.first ? "Vorname" : ""}
+          disabled={loading}
+          register={register}
+          errors={errors}
+          required
+          defaultValue={user?.name.first}
+        />
+        <Input
+          id="lastname"
+          label={!user?.name.last ? "Name" : ""}
+          disabled={loading}
+          register={register}
+          errors={errors}
+          required
+          defaultValue={user?.name.last}
+        />
+
+        <span className="sm-headline">Social-Media Link</span>
+        <Input
+          type="text"
+          label={!user?.socialMediaUrls?.facebook ? "Facebook Url" : ""}
+          id="socialMediaUrls.facebook"
+          register={register}
+          errors={errors}
+          disabled={loading}
+          defaultValue={user?.socialMediaUrls?.facebook}
+        />
+        <Input
+          type="text"
+          label={!user?.socialMediaUrls?.instagram ? "Instagram Url" : ""}
+          id="socialMediaUrls.instagram"
+          register={register}
+          errors={errors}
+          disabled={loading}
+          defaultValue={user?.socialMediaUrls?.instagram}
+        />
+        {/* <Button
+                    disabled={loading}
+                    label={loading ? 'Loading...' : 'Save'}
+                    onClick={() => { handleSubmit(onSubmit) }}
+                /> */}
+        <Button
+          disabled={loading}
+          label={loading ? "Loading..." : "Speichern"}
+          onClick={() => {}}
+          primary
+        />
+      </form>
+    </div>
+  );
 };
 
 export default ProfilSettingsComponent;

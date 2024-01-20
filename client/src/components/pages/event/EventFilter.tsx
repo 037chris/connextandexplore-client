@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react"
+import { MouseEvent, useEffect, useState } from "react"
 import { eventsResource } from "../../../Resources";
 import { getAllEvents, searchEvents } from "../../../backend/boardapi";
 import { Link } from "react-router-dom";
-import Button from "../../Button";
+import Button from "../../html/Button";
 import Container from "../../Container";
 import Event from "../../landingPage/Event";
 
@@ -56,28 +56,134 @@ export default function EventFilter({query,plz}:EventFilterProps) {
 
     useEffect(()=>{load();}, [query,plz])
 
-    return <>
-    {events ? <div className="flex font-sans bg-blue-500">
-        <Container>
-          <div className="grid grid-cols-4 overflow-x-scroll gap-5">
-            {events.events.map((event, index) => (
-              <div key={event.id} className="mb-8 mx-2">
-                  <Link to={`/event/${event.id}`} key={event.id}>
+    const [selectedCategory, setSelectedCategory] = useState<string>("");
+    const [selectedDate, setSelectedDate] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false);
+    const [active, setActive] = useState(true);
+    const [switchCategory, setSwitchCategory] = useState(false);
 
-                  <Event 
-                    key={event.id}
-                    address={event.address}
-                    date={event.date}
-                    name={event.name}
-                    description={event.description}   
-                    hashtags={event.hashtags}    
-                  />
-                  </Link>
+    useEffect(() => {
+        const fetchData = async () => {
+        try {
+            const allEventsData = await getAllEvents();
+            let filteredEvents = allEventsData.events;
+            if(selectedCategory !== "/") {
+                filteredEvents = allEventsData.events.filter(
+                    (event) =>
+                    event.category &&
+                    event.category.some((category) => category.name === selectedCategory)
+                );
+            if(selectedCategory === "") setEvents(allEventsData);
+            else setEvents({ events: filteredEvents });
+            }
+            else if (selectedDate !== "") {
+                filteredEvents = allEventsData.events.filter(
+                    (event) => 
+                    JSON.stringify(event.date).slice(1, 11) === selectedDate
+                );
+                setEvents({ events: filteredEvents });
+            }
+         } catch (error) {
+            console.error("Fehler beim Laden der Daten:", error);
+        }
+        };
+  
+        fetchData();
+    }, [selectedCategory, selectedDate, switchCategory]);
+
+    const handleFilterByCategory = (category: string) => {
+        setSelectedCategory(category);
+        setSwitchCategory(!switchCategory);
+        setSelectedDate("");
+    };
+
+    const handleFilterByDate = (date: string) => {
+        setSelectedDate(date);
+        setSelectedCategory("/");
+    }
+
+    const handleActive = () => {
+      setActive(!active);
+    }
+
+    return (
+        <>
+          <Container>
+            <div className="grid grid-cols-9">
+              <Button label={"Filter"} onClick={handleActive}></Button>
             </div>
-          ))}
-        </div>
-      </Container>
-    </div>: <p>Keine Events gefunden.</p>}
-
-    </>
+            <br />
+            {active && (<div className="grid grid-cols-9 gap-5 active">
+              <Button label="Alle Events" onClick={() => handleFilterByCategory("")} />
+              <Button
+                label="Kultur & Kunst"
+                onClick={() => handleFilterByCategory("Kultur & Kunst")}
+              />
+              <Button
+                label="Konzert"
+                onClick={() => handleFilterByCategory("Konzert")}
+              />
+              <Button
+                label="Sport & Fitness"
+                onClick={() => handleFilterByCategory("Sport & Fitness")}
+              />
+              <Button
+                label="Gaming"
+                onClick={() => handleFilterByCategory("Gaming")}
+              />
+              <Button
+                label="Hobbys"
+                onClick={() => handleFilterByCategory("Hobbys")}
+              />
+              <Button
+                label="Outdoor"
+                onClick={() => handleFilterByCategory("Outdoor")}
+              />
+              <Button
+                label="Social"
+                onClick={() => handleFilterByCategory("Social")}
+              />
+              <input
+              className="md:block rounded-md bg-neutral-100 hover:bg-gray-50 transition cursor-pointer text-center"
+              type="date"
+              value={selectedDate || ''}
+              onChange={(e) => handleFilterByDate(e.target.value)}
+              />
+            </div>)}
+            {loading && <p>Loading...</p>}
+            {events && events.events && events.events.length !== 0 ? (
+              <>
+                <div
+                  className="
+                       p-12
+                       grid
+                       grid-cols-1
+                       sm:grid-cols-2
+                       md:grid-cols-3
+                       lg:grid-cols-4
+                       gap-8
+                   "
+                >
+                  {events?.events.map((event, index) => (
+                    <Link to={`/event/${event.id}`} key={index}>
+                      <Event
+                        key={index}
+                        address={event.address}
+                        date={event.date}
+                        name={event.name}
+                        description={event.description}
+                        hashtags={event.hashtags}
+                        category={event.category?.map((category) => category.name)}
+                      />
+                    </Link>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <><br /><p>
+                  keine Events gefunden
+                </p></>)}
+          </Container>
+        </>
+      );
 }

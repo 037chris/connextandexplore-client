@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { FieldErrors, FieldValues, UseFormRegister, get } from "react-hook-form";
+import {
+  FieldErrors,
+  FieldValues,
+  UseFormRegister,
+  get,
+} from "react-hook-form";
 import { BiDollar } from "react-icons/bi";
-import { ValidationError } from "../../backend/validation";
 
 interface InputProps {
   id: string;
@@ -39,7 +43,6 @@ const Input: React.FC<InputProps> = ({
   const error = get(errors, id);
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
 
-  
   useEffect(() => {
     const validateAge = (value: any) => {
       const selectedYear = new Date(value).getFullYear();
@@ -68,7 +71,6 @@ const Input: React.FC<InputProps> = ({
     setUploadedFileName(file ? file.name : null);
   };
 
-
   return (
     <div className={`w-full relative ${isFileInput ? "col-span-full" : ""}`}>
       {formatPrice && (
@@ -78,7 +80,7 @@ const Input: React.FC<InputProps> = ({
         />
       )}
 
-{isFileInput ? (
+      {isFileInput ? (
         <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
           <div className="text-center">
             <svg
@@ -101,16 +103,19 @@ const Input: React.FC<InputProps> = ({
                 <span>Upload a file</span>
                 <input
                   id={id}
-                 
                   type="file"
                   className="sr-only"
                   {...register(id, { required })}
                   onChange={handleFileChange}
                 />
               </label>
-              <p className="pl-1">{uploadedFileName ? uploadedFileName : "or drag and drop"}</p>
+              <p className="pl-1">
+                {uploadedFileName ? uploadedFileName : "or drag and drop"}
+              </p>
             </div>
-            <p className="text-xs leading-5 text-gray-600">PNG, JPG up to 10MB</p>
+            <p className="text-xs leading-5 text-gray-600">
+              PNG, JPG up to 10MB
+            </p>
           </div>
         </div>
       ) : (
@@ -155,12 +160,12 @@ const Input: React.FC<InputProps> = ({
           top-5
           z-0
           origin-[0]
-          ${formatPrice ? 'left-9' : 'left-4'}
+          ${formatPrice ? "left-9" : "left-4"}
           peer-placeholder-shown:scale-100
           peer-placeholder-shown-translate-y-0
           peer-focus:scale-75
           peer-focus:-translate-y-2
-          ${error ? 'text-rose-500' : 'text-zinc-400'}
+          ${error ? "text-rose-500" : "text-zinc-400"}
         `}
       >
         {label}
@@ -178,32 +183,34 @@ const Input: React.FC<InputProps> = ({
 export default Input;
 
 function getCustomErrorText(id: string, error: any): string {
-    switch (id) {
-      case "email":
-        return error.message || "Please enter a valid email address";
-      case "password":
-        return error.message || "Please enter a valid password";
-      case "name.first":
-        return error.message || "Please enter a valid first name";
-      case "name.last":
-        return error.message || "Please enter a valid last name";
-      case "address.street":
-        return "Please enter a valid street name";
-      case "address.houseNumber":
-        return error.message || "Please enter a valid street number";
-      case "address.city":
-        return error.message || "Please enter a valid city name.";
-      case "address.country":
-        return error.message || "Please enter a valid country name.";
-      case "address.postalCode":
-        return error.message || "Please enter a valid ZIP.";
-      case "birthDate":
-        return error.message || "You must be 18 years or older to register.";
-      case "gender":
-        return error.message || "Accepted values are 'Male', 'Female', or 'Other'.";
-      
-      // more cases for other input fields are needed
-      default:
-        return "This field is required";
-    }
+  switch (id) {
+    case "email":
+      return error.message || "Please enter a valid email address";
+    case "password":
+      return error.message || "Please enter a valid password";
+    case "name.first":
+      return error.message || "Please enter a valid first name";
+    case "name.last":
+      return error.message || "Please enter a valid last name";
+    case "address.street":
+      return "Please enter a valid street name";
+    case "address.houseNumber":
+      return error.message || "Please enter a valid street number";
+    case "address.city":
+      return error.message || "Please enter a valid city name.";
+    case "address.country":
+      return error.message || "Please enter a valid country name.";
+    case "address.postalCode":
+      return error.message || "Please enter a valid ZIP.";
+    case "birthDate":
+      return error.message || "You must be 18 years or older to register.";
+    case "gender":
+      return (
+        error.message || "Accepted values are 'Male', 'Female', or 'Other'."
+      );
+
+    // more cases for other input fields are needed
+    default:
+      return "This field is required";
   }
+}

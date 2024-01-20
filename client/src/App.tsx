@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Navbar from "./components/navbar/Navbar";
+import Navbar from "./components/html/navbar/Navbar";
 import Home from "./components/pages/Home";
 import UserSettings from "./components/pages/user/UserSettings";
 import Modal from "./components/modals/Modal";
@@ -18,7 +18,6 @@ import UserProfile from "./components/pages/user/UserProfile";
 import Events from "./components/pages/Events";
 import CreateEventPage from "./components/pages/CreateEventPage";
 import EventDetails from "./components/pages/EventDetails";
-import YourEvents from "./components/pages/YourEvents";
 import UserEvents from "./components/pages/UserEvents";
 import PrivateRoute from "./components/PrivateRoute";
 import EditEvent from "./components/pages/EditEventPage";
@@ -27,6 +26,10 @@ import Dsgvo from "./components/pages/general/Dsgvo";
 import Agbs from "./components/pages/general/Agbs";
 import Impressum from "./components/pages/general/Impressum";
 import Help from "./components/pages/general/Help";
+import ChatApp from "./components/chat/ChatApp";
+import YourEvents from "./components/pages/YourEvents";
+
+import { CreateComment } from "./components/pages/event/comments/CreateComment";
 
 export default function App() {
   const [userID, setUserID] = useState(getUserIDFromJWT());
@@ -49,7 +52,7 @@ export default function App() {
           <Route path="/create-event" element={<CreateEventPage />}/>
           <Route path="/my-created-events" element={<UserEvents />}/>
           <Route path="/edit-event/:eventId" element={<EditEventPage  />}/>
-
+          <Route path='/chat' element={<ChatApp />}/>
           </Route>
 
 
@@ -57,6 +60,7 @@ export default function App() {
           <Route path="/events" element={<Events />}/>
           <Route path="/yourevents" element={<YourEvents />}/>
           <Route path='*' element={<NotFound />}/>
+          {/* <Route path="/event/:eventId/comment" element={<CreateComment/>}/> */}
 
           <Route path="/dsgvo" element={<Dsgvo />}/>
           <Route path="/agbs" element={<Agbs />}/>

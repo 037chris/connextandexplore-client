@@ -1,5 +1,4 @@
-
-export type  UserRegistration = {
+export type UserRegistration = {
   email: string;
   name: {
     first: string;
@@ -23,7 +22,7 @@ export type  UserRegistration = {
     facebook?: string;
     instagram?: string;
   };
-}
+};
 
 export type userResource = {
   id?: string;
@@ -45,7 +44,6 @@ export type userResource = {
   isActive: boolean;
   oldPassword?: string;
   photoUrl?: string; // Add this line
-
 };
 
 export type usersResource = {
@@ -73,7 +71,7 @@ export type eAddressResource = {
 
 export type ValidationMessages<Type> = {
   [Property in keyof Type]?: string;
-}
+};
 
 export type LoginResource = {
   /** The JWT */
@@ -90,13 +88,26 @@ export type eventResource = {
   price: number;
   date?: Date;
   address: eAddressResource;
-  thumbnail?: string;
+  thumbnail?: File | string;
   hashtags?: string[];
   category?: categoryResource[];
   chat?: string;
   participants?: string[];
 };
-
+export type eventResourceRegistration = {
+  id?: string;
+  name: string;
+  creator?: string;
+  description: string;
+  price: number;
+  date?: Date;
+  address: eAddressResource;
+  thumbnail?: File | string;
+  hashtags?: string[];
+  category?: categoryResource[];
+  chat?: string;
+  participants?: string[];
+};
 export type eventsResource = {
   events: eventResource[];
 };
@@ -106,8 +117,6 @@ export type categoryResource = {
   name: string;
   description?: string;
 };
-
-
 
 export type CommentsResource = {
   comments: CommentResource[];
@@ -163,4 +172,17 @@ export type CommentWithRatingsResource = {
 
 export type CommentsWithRatingsResource = {
   comments: CommentWithRatingsResource[];
+};
+
+export type MessageResource = {
+  user: string;
+  username?: string;
+  message: string;
+  time?: string;
+};
+
+export type ChatResource = {
+  id?: string;
+  event: string;
+  messages: MessageResource[];
 };

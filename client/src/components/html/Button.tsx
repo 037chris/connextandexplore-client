@@ -11,6 +11,7 @@ interface ButtonProps {
     secondary?: boolean;
     small?: boolean;
     icon?: IconType;
+    del?: boolean;
 }
 const Button: React.FC<ButtonProps> = ({
     label,
@@ -20,7 +21,8 @@ const Button: React.FC<ButtonProps> = ({
     outline,
     secondary,
     small,
-    icon: Icon
+    icon: Icon,
+    del
 }) => {
   return (
     <button 
@@ -28,14 +30,14 @@ const Button: React.FC<ButtonProps> = ({
       onClick={onClick}
       disabled={disabled}
       className={`
-        relative
-        disabled:opacity-70
-        disabled:cursor-not-allowed
-        rounded-lg
-        hover:opacity-80
-        transition
-        w-full
-        font-sans
+        // relative
+        // disabled:opacity-70
+        // disabled:cursor-not-allowed
+        // rounded-lg
+        // hover:opacity-80
+        // transition
+        // w-full
+        // font-sans
         ${outline && 'bg-white' }
         ${outline && 'border-blue-500' }
         ${outline && 'text-blue-500'}

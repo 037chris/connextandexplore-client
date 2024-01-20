@@ -59,7 +59,7 @@ export default function EventDateForm({
         className={`border p-2 ${errors?.street ? 'focus:border-red-500' : 'border-gray-300 '} `}
 
       />
-      {errors?.street && <p className="error text-red-500">{errors.street}</p>  }
+      {errors?.street && <span className="error text-red-500">{errors.street}</span>  }
 
       <input
         type="text"
@@ -69,7 +69,7 @@ export default function EventDateForm({
         disabled={loading}
         onChange={(e) => updateFields({ address: { ...address, houseNumber: e.target.value } })}
       />
-      {errors?.houseNumber && <p className="error text-red-500">{errors.houseNumber}</p>  }
+      {errors?.houseNumber && <span className="error text-red-500">{errors.houseNumber}</span>  }
 
         <input
           type="text"
@@ -79,7 +79,7 @@ export default function EventDateForm({
           disabled={loading}
           onChange={(e) => updateFields({ address: { ...address, postalCode: e.target.value } })}
         />
-        {errors?.postalCode && <p className="error text-red-500">{errors.postalCode}</p>  }
+        {errors?.postalCode && <span className="error text-red-500">{errors.postalCode}</span>  }
 
 
         <input
@@ -90,7 +90,7 @@ export default function EventDateForm({
           disabled={loading}
           onChange={(e) => updateFields({ address: { ...address, city: e.target.value } })}
         />
-        {errors?.city && <p className="error text-red-500">{errors.city}</p>  }
+        {errors?.city && <span className="error text-red-500">{errors.city}</span>  }
 
         <input
           type="text"
@@ -100,7 +100,7 @@ export default function EventDateForm({
           disabled={loading}
           onChange={(e) => updateFields({ address: { ...address, country: e.target.value } })}
         />
-        {errors?.country && <p className="error text-red-500">{errors.country}</p>  }
+        {errors?.country && <span className="error text-red-500">{errors.country}</span>  }
 
         
         <input
@@ -113,7 +113,7 @@ export default function EventDateForm({
             updateFields({ date: selectedDate });
           }}
         />
-        {errors?.date && <p className="error text-red-500">{errors.date}</p>  }
+        {errors?.date && <span className="error text-red-500">{errors.date}</span>  }
 
 
       </div>

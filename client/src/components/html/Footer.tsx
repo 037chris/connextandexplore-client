@@ -4,7 +4,7 @@ import { useUserIDContext } from '../../UserIDContext';
 import Cookies from 'js-cookie';
 import { logout } from '../../backend/boardapi';
 import { useState } from 'react';
-import LoginModal from '../navbar/LoginModal';
+import LoginModal from './navbar/LoginModal';
 
 const Footer = () => {
     const { userID } = useUserIDContext();
@@ -40,9 +40,10 @@ const Footer = () => {
                             {userID !== undefined ?
                                 <>
                                     <ul className="grid md:grid-cols-5">
-                                        <li><Link to="/profile">Profil</Link></li>
-                                        <li><Link to="/my-created-events">Deine Events</Link></li>
-                                        <li><Link to="#">Nachrichten</Link></li>
+                                        <li></li>
+                                        {/* <li><Link to="/profile">Profil</Link></li> */}
+                                        <li><Link to="/my-created-events">Meine Events</Link></li>
+                                        <li><Link to="/chat">Nachrichten</Link></li>
                                         <li><Link to="/settings">Einstellungen</Link></li>
                                         <li><Link to="/" onClick={onLogOut}>Abmelden</Link></li>
                                     </ul>
@@ -60,7 +61,7 @@ const Footer = () => {
                         <div className="footer-navi">
                             <p className="hl">Connect & <span>Explore</span></p>
                             <ul className="grid md:grid-cols-5">
-                                <li><Link to="/events">Events</Link></li>
+                                <li><Link to="/events">Alle Events</Link></li>
                                 <li><Link to="/agbs">AGBs</Link></li>
                                 <li><Link to="/dsgvo">DSGVO</Link></li>
                                 <li><Link to="/imprint">Team</Link></li>

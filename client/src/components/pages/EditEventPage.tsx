@@ -1,11 +1,13 @@
-import React, { FormEvent, useEffect, useState } from 'react';
-import { useStepForm } from '../hooks/useStepForm';
+import React, { FormEvent, useEffect, useState } from "react";
+import { useStepForm } from "../hooks/useStepForm";
 
-import EventDateForm from './event/EventDateForm';
-import EventNameForm from './event/EventNameForm';
-import EventDescriptionForm from './event/EventDescriptionForm';
-import EventThumbnailForm from './event/EventThumbnailForm';
-import EventSelectCategoryForm, { SelectOption } from './event/EventCategoryForm';
+import EventDateForm from "./event/EventDateForm";
+import EventNameForm from "./event/EventNameForm";
+import EventDescriptionForm from "./event/EventDescriptionForm";
+import EventThumbnailForm from "./event/EventThumbnailForm";
+import EventSelectCategoryForm, {
+  SelectOption,
+} from "./event/EventCategoryForm";
 
 import { categoryResource, eventResource } from '../../Resources';
 import { createEvent, getEvent, updateEvent } from '../../backend/boardapi';
@@ -15,36 +17,36 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 
 const options = [
-  { name: 'Kultur & Kunst', value: 1 },
-  { name: 'Konzert', value: 2 },
-  { name: 'Sport & Fitness', value: 3 },
-  { name: 'Gaming', value: 4 },
-  { name: 'Hobbys', value: 5 },
-  { name: 'Outdoor', value: 6 },
-  { name: 'Social', value: 7 },
+  { name: "Kultur & Kunst", value: 1 },
+  { name: "Konzert", value: 2 },
+  { name: "Sport & Fitness", value: 3 },
+  { name: "Gaming", value: 4 },
+  { name: "Hobbys", value: 5 },
+  { name: "Outdoor", value: 6 },
+  { name: "Social", value: 7 },
 ];
 
 const defaultCategoryResource: categoryResource = {
   id: undefined,
-  name: '',
+  name: "",
   description: undefined,
 };
 
 const INITIAL_DATA: eventResource = {
   id: undefined,
-  name: '',
+  name: "",
   creator: undefined,
-  description: '',
+  description: "",
   price: 0,
   date: undefined,
   address: {
-    street: '',
-    houseNumber: '',
+    street: "",
+    houseNumber: "",
     apartmentNumber: undefined,
-    postalCode: '',
-    city: '',
+    postalCode: "",
+    city: "",
     stateOrRegion: undefined,
-    country: '',
+    country: "",
   },
   thumbnail: undefined,
   hashtags: [],
@@ -56,10 +58,25 @@ const INITIAL_DATA: eventResource = {
 const EditEventPage: React.FC = () => {
   const { eventId } = useParams<{ eventId: string }>();
   const [data, setData] = useState<eventResource>(INITIAL_DATA);
-  const [selectedCategories, setSelectedCategories] = useState<SelectOption[]>([]);
-  const { steps, currentStepIndex, step, isFirstStep, isLastStep, onBack, onNext } = useStepForm([
+  const [selectedCategories, setSelectedCategories] = useState<SelectOption[]>(
+    []
+  );
+  const {
+    steps,
+    currentStepIndex,
+    step,
+    isFirstStep,
+    isLastStep,
+    onBack,
+    onNext,
+  } = useStepForm([
     <EventDateForm {...data} updateFields={updateFields} />,
-    <EventSelectCategoryForm multiple options={options} value={selectedCategories} onChange={setSelectedCategories} />,
+    <EventSelectCategoryForm
+      multiple
+      options={options}
+      value={selectedCategories}
+      onChange={setSelectedCategories}
+    />,
     <EventNameForm {...data} updateFields={updateFields} />,
     <EventDescriptionForm {...data} updateFields={updateFields} />,
     <EventThumbnailForm {...data} updateFields={updateFields} />,
@@ -77,7 +94,7 @@ const EditEventPage: React.FC = () => {
         const mappedCategories: SelectOption[] = event.category
           ? event.category.map((cat) => ({
               name: cat.name,
-              value: cat.id || '',
+              value: cat.id || "",
             }))
           : [];
 
@@ -87,7 +104,7 @@ const EditEventPage: React.FC = () => {
           updateFields({ category: [] });
         }
       } catch (error) {
-        console.error('Error fetching event:', error);
+        console.error("Error fetching event:", error);
       }
     };
 
@@ -134,14 +151,14 @@ const EditEventPage: React.FC = () => {
       });
 
       if (success) {
-        toast.success('Event updated successfully!');
+        toast.success("Event updated successfully!");
         navigate(`/my-created-events`);
       } else {
-        toast.error('Failed to update the event.');
+        toast.error("Failed to update the event.");
       }
     } catch (error) {
       console.error(error);
-      toast.error('Something went wrong...');
+      toast.error("Something went wrong...");
     }
   };
 
@@ -151,7 +168,9 @@ const EditEventPage: React.FC = () => {
         <form onSubmit={(e) => e.preventDefault()}>
           <div className="text-center mb-6">
             <p className="text-gray-800 font-titan">
-              {`EVENT AKTUALISIEREN SCHRITT ${currentStepIndex + 1} VON ${steps.length}`}
+              {`EVENT AKTUALISIEREN SCHRITT ${currentStepIndex + 1} VON ${
+                steps.length
+              }`}
             </p>
           </div>
 
@@ -165,7 +184,7 @@ const EditEventPage: React.FC = () => {
                   type="button"
                   onClick={onBack}
                 >
-                  Zurück
+                  ZurÃ¼ck
                 </button>
               )}
             </div>
@@ -175,7 +194,7 @@ const EditEventPage: React.FC = () => {
                 type="button"
                 onClick={handleNext}
               >
-                {isLastStep ? 'Fertigstellen' : 'Weiter'}
+                {isLastStep ? "Fertigstellen" : "Weiter"}
               </button>
             </div>
           </div>

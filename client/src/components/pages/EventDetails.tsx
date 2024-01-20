@@ -10,12 +10,15 @@ import {
 } from "../../backend/boardapi";
 import { eventResource, eventsResource } from "../../Resources";
 import LoadingIndicator from "../LoadingIndicator";
+import Hashtags from "../landingPage/Hashtags";
+import Button from "../html/Button";
 import "tailwindcss/tailwind.css";
 import { useUserIDContext } from "../../UserIDContext";
 import toast from "react-hot-toast";
 import { format, isValid } from "date-fns";
 import Footer from "../html/Footer";
-import Button from "../Button";
+import Comments from "./event/comments/Comments";
+import { CreateComment } from "./event/comments/CreateComment";
 
 const EventDetails: React.FC = () => {
   const params = useParams();
@@ -232,22 +235,29 @@ const EventDetails: React.FC = () => {
               </div>
             </div>
             <div className="grid grid-cols-1">
-              <div className='w-24 md:w-32'>
-                <Button outline label='comment' onClick={openAuthenticationModal} />
-              </div>
+              <div className="col-span-1">
+                <Hashtags hashtags={event.hashtags} />
               <h2>Kommentare</h2>
               <div className="grid grid-cols-1 md:grid-cols-2">
                 {/* <Comments eventId={event.id!} /> */}
               </div>
             </div>
+              <div className="grid grid-cols-1">
+                <div className="col-span-1">
+                    <Button outline label='comment' onClick={openAuthenticationModal} />
+                        <div className="grid grid-cols-1 md:grid-cols-2">
+                            <Comments eventId={event.id} />
+                        </div>
+                </div>
+              </div>
+            </div>
           </div>
-          {/* <CreateComment isOpen={authenticationModalIsOpen} onClose={() => setAuthenticationModalIsOpen(false)} /> */}
-
+          {/* END GRID */}
           <Footer />
-        </> )
-        : (
-          <LoadingIndicator />
-        )}
+        </>
+      ) : (
+        <LoadingIndicator />
+      )}
     </>
   );
 };

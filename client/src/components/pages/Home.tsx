@@ -1,6 +1,6 @@
 import * as React from 'react';
 import LocalEvents from '../landingPage/LocalEvents';
-import Button from '../Button';
+import Button from '../html/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import Footer from '../html/Footer';
 import { Header } from '../html/Header';
@@ -24,7 +24,6 @@ const Home = () => {
 
   React.useEffect(() => {
     document.title = 'Willkommen auf der Seite Connect & Explore"';
-    
   }, []); 
 
   return (
