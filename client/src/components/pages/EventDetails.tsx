@@ -19,6 +19,7 @@ import { format, isValid } from "date-fns";
 import Footer from "../html/Footer";
 import Comments from "./event/comments/Comments";
 import { CreateComment } from "./event/comments/CreateComment";
+import { HOST } from "../../backend/getHostApi";
 
 const EventDetails: React.FC = () => {
   const params = useParams();
@@ -140,27 +141,31 @@ const EventDetails: React.FC = () => {
     <>
       {event ? (
         <>
-          {/* <Header homeRoute={'event'} headline={'test'} /> */}
           <header>
             <div className="max-grid">
-              <div className="header-event grid grid-cols-1 md:grid-cols-3">
+              <div className="header-event grid grid-cols-1 md:grid-cols-12 xl:grid-cols-12">
                 {/* 2/3 GRID FOR HEADLINE + CREATOR + BUTTONS */}
-                <div className="col-span-1 md:col-span-2">
+                <div className="col-span-1 md:col-span-5 lg:col-span-6 xl:col-span-5">
                   <h1>{event!.name}</h1>
                   {/* UNDER GRID 3/3 CREATOR + BTNS */}
                   <div className="col-span-1 md:col-span-3">
                     {/* CREATOR */}
-                    <div className="creator">
-                      <img src="" alt="Creator" />
-                      <span>
-                        Hosted by
-                        <span>{event.creator}</span>
-                      </span>
+                    <div className="creator flex">
+                      <div className="creator-profil-img">
+                        <img src="" alt="Creator" />
+                      </div>
+                      <div className="creator-info">
+                        <span>
+                          Hosted by
+                          <span>{event.creatorName?.first} {event.creatorName?.last}</span>
+                        </span>
+                      </div>
                     </div>
                   </div>
+                  {/* EDIT + DELETE EVENT  */}
                   {userID === event.creator && (
                     // BTN 1
-                    <div>
+                    <div className="btn flex gap-2">
                       <div>
                         <button
                           className="delete"
@@ -181,10 +186,17 @@ const EventDetails: React.FC = () => {
                     </div>
                   )}
                 </div>
+                <div className="md:col-span-1 xl:col-span-2"></div>
                 {/* EVENT IMG GRID */}
-                <div className="col-span-1">
+                <div className="col-span-1 md:col-span-6 lg:col-span-5 xl:col-span-5">
                   {/* EVENT IMG CONTAINER */}
-                  <div className="event-image"></div>
+                  <div className="event-image">
+                    <img src={
+                      event.thumbnail
+                        ? `${HOST}/images/events/${event.thumbnail}`
+                        : "/images/CARD_IMG_Placeholder.jpg"
+                    } alt={event!.name} />
+                  </div>
                 </div>
               </div>
             </div>
@@ -249,6 +261,9 @@ const EventDetails: React.FC = () => {
             <div className="grid grid-cols-1 commment-section">
               <div className="col-span-1">
                 <h2>Kommentare</h2>
+                <button className="bewerten" onClick={openAuthenticationModal}>
+                  Bewerten
+                </button>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2">
                 <Comments eventId={event.id!} />
