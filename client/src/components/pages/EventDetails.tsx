@@ -207,7 +207,7 @@ const EventDetails: React.FC = () => {
             <div className="event-box grid grid-cols-1 md:grid-cols-3">
               <div className="col-span-1 min-h-fit event-content-box-left">
                 <ul>
-                  <li className="date">{event.date?.toString()}</li>
+                  <li className="date">{event.date ? format(new Date(event.date), 'PPP, p') : 'No Date'}</li>
                   <li className="adress">
                     {event.address.street} {event.address.houseNumber}{" "}
                     <span>{event.address.city}</span>
