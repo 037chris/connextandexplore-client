@@ -166,14 +166,28 @@ const ProfilSettingsComponent = () => {
         className="setting-form"
         encType="multipart/form-data"
       >
-        <div className="profile-img flex flex-col items-center md:flex-row md:items-center md:gap-4">
-          <div className="user-picture mb-2 md:mb-0">
-            <Avatar
-              src={
-                profilePicture
-                  ? `${HOST}/images/users/${profilePicture}`
-                  : "/images/placeholder.jpg"
-              }
+        {/* <div className="profile-img flex flex-col items-center md:flex-row md:items-center md:gap-4"> */}
+        <div className="profile-img grid grid-cols-1 sm:grid-cols-3 items-center sm:flex-row md:items-center md:gap-4">
+          <div className="user-picture mb-2 sm:mb-0">
+            <div>
+              <Avatar
+                src={
+                  profilePicture
+                    ? `${HOST}/images/users/${profilePicture}`
+                    : "/images/placeholder.jpg"
+                }
+              />
+            </div>
+          </div>
+
+          <div className="mt-2 md:mt-0 flex flex-col items-center">
+            <Input
+              type="file"
+              label=""
+              id="profilePicture"
+              register={register}
+              errors={errors}
+              disabled={loading}
             />
           </div>
 
@@ -183,17 +197,6 @@ const ProfilSettingsComponent = () => {
               value="Foto löschen"
               className="delete-profile-img"
               onClick={onSubmitDeletePicture}
-            />
-          </div>
-
-          <div className="mt-2 md:mt-0 flex flex-col items-center">
-            <Input
-              type="file"
-              label="Update Profile Picture"
-              id="profilePicture"
-              register={register}
-              errors={errors}
-              disabled={loading}
             />
           </div>
         </div>
@@ -244,8 +247,9 @@ const ProfilSettingsComponent = () => {
         <Button
           disabled={loading}
           label={loading ? "Loading..." : "Speichern"}
-          onClick={() => {}}
+          onClick={() => { }}
           primary
+          className="save"
         />
       </form>
     </div>

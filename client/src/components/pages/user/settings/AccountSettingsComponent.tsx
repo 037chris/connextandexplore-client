@@ -140,8 +140,9 @@ const AccountSettingsComponent = () => {
         <Button
           disabled={loading}
           label={loading ? "Loading..." : "speichern"}
-          onClick={() => {}}
+          onClick={() => { }}
           primary
+          className="save"
         />
       </form>
 
@@ -159,36 +160,38 @@ const AccountSettingsComponent = () => {
             errors={errors}
             disabled={loading}
           />
-          <label htmlFor="password">Neues Passwort</label>
+          <label htmlFor="newPassword">Neues Passwort</label>
           <Input
             type="password"
             label={""}
-            id="password"
+            id="newPassword"
             register={register}
-            errors={errors} 
+            errors={errors}
             disabled={loading}
           />
           <Button
             disabled={loading}
             label={loading ? "Loading..." : "speichern"}
-            onClick={() => {}}
+            onClick={() => { }}
             primary
+            className="save"
           />
         </form>
       </div>
 
       <div>
-        <p className="strong mb-5 mt-7">Account deaktivieren</p>
+        <p className="strong mb-5 mt-7">Account löschen</p>
         <p>
-          Du kannst deinen Account vorübergehend deaktivieren. Meld dich einfach
-          erneut an für eine Reaktivierung.{" "}
+          Hier kannst du deinen Account löschen. Solltest du es dir anders überlegen, kontaktiere unseren Suppport.
+           {" "}
         </p>
         <form onSubmit={handleSubmit(onSubmitAccOff)} className="setting-form">
           <Button
             disabled={loading}
-            label={loading ? "Loading..." : "deaktivieren"}
-            onClick={() => {}}
+            label={loading ? "Loading..." : "löschen"}
+            onClick={() => { }}
             secondary
+            className="save password"
           />
         </form>
       </div>

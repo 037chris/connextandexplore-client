@@ -175,6 +175,7 @@ const PersonalInfoSettingsComponent = () => {
           label={loading ? "Loading..." : "Speichern"}
           onClick={() => {}}
           primary
+          className="save"
         />
       </form>
     </div>

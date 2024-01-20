@@ -1344,6 +1344,7 @@ header {
     font-family: "Helvetica Neue", sans-serif;
     font-weight: 300;
     margin-top: rem(10);
+    padding: 0;
 
     .profile-img {
         margin-bottom: rem(25);
@@ -1354,13 +1355,17 @@ header {
         }
 
         .user-picture {
-            width: rem(150);
+            width: 100%;
+            display:block;
+
+            > div {
+                width: rem(150);
             height: rem(150);
             border: rem(2) solid $primary;
             border-radius: 100%;
             overflow: hidden;
             position: relative;
-            margin: 0 auto rem(25) 0;
+            margin: 0 auto 0 auto;
             display: inline-block;
 
             @include breakpoint(md) {
@@ -1382,6 +1387,8 @@ header {
                     min-height: rem(90);
                 }
             }
+            }
+            
         }
     }
 
@@ -1425,22 +1432,32 @@ header {
         margin-bottom: rem(8);
         padding: 0 1.25rem 0 1.25rem;
 
+        // &[type='password'] {
+        //     &:-webkit-input-placeholder {
+        //         color: red;
+        //     }
+        // }
+
         &.delete-profile-img {
-            border: rem(1) solid $border;
-            color: $border;
+            border: rem(1) solid $alert;
+            color: $alert;
             background-color: $white;
             width: 100%;
             transition: 350ms ease-in-out all;
             max-height: rem(45);
+            margin-top: rem(15);
+            margin-bottom: 0;
 
             @include breakpoint(md) {
                 max-width: rem(200);
+                margin-top: rem(15);
             }
 
             &:hover {
                 border: rem(1) solid $secondary;
                 color: $white;
                 background-color: $secondary;
+                cursor: pointer;
             }
         }
 
