@@ -67,6 +67,7 @@ const ChatApp = () => {
 
   const handleRoomSelect = (roomId: string) => {
     setSelectedRoom(roomId);
+    setClosed("close");
   };
 
   const handleSidebar = () => {
@@ -77,6 +78,7 @@ const ChatApp = () => {
     else if (closed == "close") {
       setClosed("");
       setEventLister("Chats ausblenden")
+      if (window.innerWidth < 600) setMobile(true);
     }
   };
 

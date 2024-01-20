@@ -198,6 +198,9 @@ const UserMenu: FC = () => {
                   onClick={() => navigate("/yourevents")}
                   label="Meine Zusagen"
                 />
+                <div className='md:hidden'>
+                  <MenuItem onClick={() => { navigate('/chat')}} label="Chat" />
+                </div>
                 <MenuItem
                   onClick={() => navigate("/settings")}
                   label="Einstellung"

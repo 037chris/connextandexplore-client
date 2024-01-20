@@ -67,6 +67,7 @@ const AllEvents: React.FC<AllEventsProps> = ({}) => {
   const [query, setQuery] = React.useState<string>("");
   const [plz, setPLZ] = React.useState<string>("");
   const [loading, setLoading] = React.useState(false);
+  const [mobile, setMobile] = useState("");
 
   const {
     register,
@@ -87,14 +88,22 @@ const AllEvents: React.FC<AllEventsProps> = ({}) => {
     }
   };
 
+  useEffect(() => {
+    window.addEventListener("resize", handleMobile);
+  }, []);
+
+  const handleMobile = () => {
+    if (window.innerWidth < 414) setMobile("");
+    else setMobile("flex gap-4");
+  };
+
   return (
     <>
       <Header homeRoute={"page"} headline={"Alle Events"} />
       <div className="max-grid content content-pt ">
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          <div className="col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4 xl:col-span-5">
+        
             <form>
-              <label>
+              <div className={mobile}>
                 <Input
                   type="text"
                   label="Event suchen"
@@ -107,8 +116,7 @@ const AllEvents: React.FC<AllEventsProps> = ({}) => {
                   // customInputClassNames=" "
                   // customLabelClassNames=" "
                 />
-              </label>
-              <label>
+                <label className="w-32">
                 <Input
                   type="text"
                   label="Postleitzahl"
@@ -121,17 +129,17 @@ const AllEvents: React.FC<AllEventsProps> = ({}) => {
                   // customInputClassNames=" "
                   // customLabelClassNames=" "
                 />
-              </label>
+                </label>
+              </div>
             </form>
             <br />
-            <div className="flex">
+            
               <EventFilter
                 query={query}
                 /*setQuery={setQuery} setPLZ={setPLZ} */ plz={plz}
               ></EventFilter>
-            </div>
-          </div>
-        </div>
+            
+          
       </div>
     </>
   );
