@@ -255,6 +255,7 @@ const EventDetails: React.FC = () => {
               </div>
             </div>
           </div>
+          <CreateComment isOpen={authenticationModalIsOpen} onClose={() => setAuthenticationModalIsOpen(false)} />
           {/* END COMMENT SECTION */}
           {/* END GRID */}
           <Footer />
