@@ -224,11 +224,12 @@ const EventDetails: React.FC = () => {
                       >
                         Austreten
                       </button>
-                      <button className="bewerten" onClick={openAuthenticationModal}>
-                        Bewerten
-                      </button>
+                      
                     </>
                   )}
+                  {!isOwner && joined && (<button className="bewerten" onClick={openAuthenticationModal}>
+                        Bewerten
+                      </button>)}
                 </div>
               </div>
               <div className="col-span-1 md:col-span-2 min-h-fit event-content-box-right">
