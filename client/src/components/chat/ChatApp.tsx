@@ -6,24 +6,24 @@ import { getJoinedEvents } from "../../backend/boardapi";
 import Chat from "./Chat";
 
 const ChatApp = () => {
-  const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
+  const [selectedRoom, setSelectedRoom] = useState<string | undefined>(undefined);
   const [dbEvents, setDbEvents] = useState<eventsResource | undefined>();
   const [selectedEvent, setSelectedEvent] = useState<
     eventResource | undefined
   >();
-  const [closed, setClosed] = useState("");
+  const [closed, setClosed] = useState("close");
   const [mobile, setMobile] = useState(false);
-  const [eventLister, setEventLister] = useState<string>("Chats ausblenden");
+  const [eventLister, setEventLister] = useState<string>("Chats anzeigen");
   const location = useLocation();
   const chatId = location.state && location.state.chatId;
 
   const navigate = useNavigate();
 
-  let backgroundChat;
+  let backgroundChat = <Chat chatId={selectedRoom}></Chat>
   if (selectedRoom && selectedEvent) {
     if (!closed) {
       if (mobile) {
-        backgroundChat = <div />;
+        backgroundChat = <div></div>;
       } else
         backgroundChat = (
           <>
@@ -82,6 +82,7 @@ const ChatApp = () => {
 
   return (
     <>
+    <div style={{overflow: "hidden"}}>
       <div className={`sidebar ${closed}`}>
         <div className="menu-content">
           <ul className="menu-items">
@@ -127,6 +128,7 @@ const ChatApp = () => {
         ) : (
           <span style={{ textAlign: "center" }}>kein Chat ausgewählt</span>
         )}
+      </div>
       </div>
     </>
   );
