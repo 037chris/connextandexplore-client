@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { EditComment } from "./EditComment";
 import { DeleteComment } from "./DeleteComment";
 import { CommentsWithRatingsResource, userResource } from "../../../../Resources";
 import { getCommentsOfEvent, getUser, getUserIDFromJWT } from "../../../../backend/boardapi";
@@ -7,18 +6,19 @@ import { HiOutlineEmojiSad, HiOutlineStar } from "react-icons/hi";
 import { HiStar } from "react-icons/hi2";
 
 export type CommentsProps = {
-    eventId:string
+    eventId: string
 }
 
-const Comments:React.FC<CommentsProps> = ({eventId}:CommentsProps) => {
+const Comments: React.FC<CommentsProps> = ({ eventId }: CommentsProps) => {
     const [comments, setComments] = useState<CommentsWithRatingsResource | null>(null);
     const [activeComment, setActiveComment] = useState<string>("");
     const [isOpen, setIsOpen] = useState(false);
 
     const [authenticationModalIsOpen, setAuthenticationModalIsOpen] = useState(false);
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    const load = async () => {
     const [user, setUser] = useState<userResource | null>(null);
+
+    const load = async () => {
         try {
             const comments = await getCommentsOfEvent(eventId!);
             console.log(comments);
@@ -36,12 +36,12 @@ const Comments:React.FC<CommentsProps> = ({eventId}:CommentsProps) => {
         }
     }
 
-    useEffect(() => {load();}, [eventId])
+    useEffect(() => { load(); }, [eventId])
 
     const openAuthenticationModal = () => {
         setIsOpen(false);
         setAuthenticationModalIsOpen(true);
-      };
+    };
     return (
         <>
             <div className="col-span-1">
@@ -117,16 +117,15 @@ const Comments:React.FC<CommentsProps> = ({eventId}:CommentsProps) => {
                             </div>
 
                         </div>
-                        
+
                     ))
-                    
+
                 ) : (
                     <p className="no-comment">Noch kleine Kommentare vorhanden <HiOutlineEmojiSad /></p>
                 )}
 
             </div>
-            <DeleteComment isOpen={authenticationModalIsOpen} onClose={() => setAuthenticationModalIsOpen(false)} commentId={""}  />
-
+            <DeleteComment isOpen={authenticationModalIsOpen} onClose={() => setAuthenticationModalIsOpen(false)} commentId={""} />
         </>
     );
 }

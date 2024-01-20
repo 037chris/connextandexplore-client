@@ -165,7 +165,7 @@ const AccountSettingsComponent = () => {
             label={""}
             id="password"
             register={register}
-            errors={errors}
+            errors={errors} 
             disabled={loading}
           />
           <Button

@@ -104,8 +104,8 @@ const AllEvents: React.FC<AllEventsProps> = ({}) => {
                   disabled={loading}
                   pattern={/^[A-Za-z0-9\s\-.]+$/}
                   onChangeFn={handleOnChange}
-                  customInputClassNames=" "
-                  customLabelClassNames=" "
+                  // customInputClassNames=" "
+                  // customLabelClassNames=" "
                 />
               </label>
               <label>
@@ -118,8 +118,8 @@ const AllEvents: React.FC<AllEventsProps> = ({}) => {
                   disabled={loading}
                   pattern={/^[A-Za-z0-9\s\-.]+$/}
                   onChangeFn={handleOnChange}
-                  customInputClassNames=" "
-                  customLabelClassNames=" "
+                  // customInputClassNames=" "
+                  // customLabelClassNames=" "
                 />
               </label>
             </form>
