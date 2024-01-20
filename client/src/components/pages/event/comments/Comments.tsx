@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react"
-import { EditComment } from "../../EditComment";
 import { CommentsWithRatingsResource, userResource } from "../../../../Resources";
 import { getCommentsOfEvent, getUser, getUserIDFromJWT } from "../../../../backend/boardapi";
-import { HiOutlineEmojiSad, HiOutlineStar } from "react-icons/hi";
 import { HiStar } from "react-icons/hi2";
 import { HiOutlineEmojiSad, HiOutlineStar } from "react-icons/hi";
-import { DeleteComment } from "../../DeleteComment";
+import { DeleteComment } from "./DeleteComment";
 
 export type CommentsProps = {
     eventId:string
@@ -29,9 +27,7 @@ const Comments:React.FC<CommentsProps> = ({eventId}:CommentsProps) => {
                 return;
             }
             const u = await getUser(id);
-            setUser(u);
         } catch (e) {
-            setUser(null);
             setComments(null)
         }
     }

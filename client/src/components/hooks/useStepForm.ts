@@ -7,7 +7,7 @@ export function useStepForm(
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
   function onNext() {
-    // const isStepValid = validationFunctions[currentStepIndex]?.();
+    const isStepValid = validationFunctions[currentStepIndex]?.();
 
     if (isStepValid) {
       setCurrentStepIndex((i) => (i < steps.length - 1 ? i + 1 : i));

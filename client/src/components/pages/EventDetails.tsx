@@ -189,7 +189,9 @@ const EventDetails: React.FC = () => {
               </div>
             </div>
           </header>
+          {/* START MAIN GRID */}
           <div className="max-grid content content-pt">
+            {/* START EVENT BOX */}
             <div className="event-box grid grid-cols-1 md:grid-cols-3">
               <div className="col-span-1 min-h-fit event-content-box-left">
                 <ul>
@@ -222,7 +224,7 @@ const EventDetails: React.FC = () => {
                       >
                         Austreten
                       </button>
-                      <button className="bewerten" onClick={async () => { }}>
+                      <button className="bewerten" onClick={openAuthenticationModal}>
                         Bewerten
                       </button>
                     </>
@@ -234,24 +236,25 @@ const EventDetails: React.FC = () => {
                 <p className="event-des">{event.description}</p>
               </div>
             </div>
+            {/* END EVENT BOX */}
+            {/* START HASHTAGS */}
             <div className="grid grid-cols-1">
               <div className="col-span-1">
                 <Hashtags hashtags={event.hashtags} />
-              <h2>Kommentare</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2">
-                {/* <Comments eventId={event.id!} /> */}
               </div>
             </div>
-              <div className="grid grid-cols-1">
-                <div className="col-span-1">
-                    <Button outline label='comment' onClick={openAuthenticationModal} />
-                        <div className="grid grid-cols-1 md:grid-cols-2">
-                            <Comments eventId={event.id} />
-                        </div>
-                </div>
+            {/* END HASHTAGS */}
+            {/* START COMMENT SECTION */}
+            <div className="grid grid-cols-1 commment-section">
+              <div className="col-span-1">
+                <h2>Kommentare</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2">
+                <Comments eventId={event.id!} />
               </div>
             </div>
           </div>
+          {/* END COMMENT SECTION */}
           {/* END GRID */}
           <Footer />
         </>
