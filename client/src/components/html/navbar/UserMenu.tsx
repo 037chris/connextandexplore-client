@@ -136,18 +136,13 @@ const UserMenu: FC = () => {
             >
               <AiOutlineMenu />
               <div className="hidden md:block">
-                {profilePicture ? (
-                  <img
-                    className="rounded-full"
-                    height="30"
-                    width="30"
-                    loading="lazy"
-                    src={`${HOST}/images/users/${profilePicture}`}
-                    alt="Avatar"
-                  />
-                ) : (
-                  <Avatar src="/images/placeholder.jpg" />
-                )}
+                <Avatar
+                  src={
+                    profilePicture
+                      ? `${HOST}/images/users/${profilePicture}`
+                      : "/images/placeholder.jpg"
+                  }
+                />
               </div>
             </div>
           </div>

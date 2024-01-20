@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { CommentResource, eventResource, userResource } from "../../Resources";
+import { CommentResource, eventResource, userResource } from "../../../../Resources";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
-import { getUserIDFromJWT, getUser, updateUser, createComment, getEvent } from "../../backend/boardapi";
+import { getUserIDFromJWT, getUser, updateUser, createComment, getEvent } from "../../../../backend/boardapi";
 import { useParams } from "react-router-dom";
-import Input from "../html/inputs/Input";
+import Input from "../../../html/inputs/Input";
 
 export const CreateComment = () => {
 
@@ -66,7 +66,7 @@ export const CreateComment = () => {
     return <>
     <h1>create a comment!</h1>
 
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className="comment-form">
         <Input
             id="title"
             label='Title *'

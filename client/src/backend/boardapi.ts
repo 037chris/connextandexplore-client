@@ -155,12 +155,22 @@ export function getUserIDFromJWT() {
     const cookie = Cookies.get("access_token");
     if (cookie) {
       const jwt: any = jwtDecode(cookie);
+      if (isTokenExpired(cookie)) {
+        console.log(jwt);
+        return undefined;
+      }
       return jwt?.sub || undefined;
     }
   } catch (error) {
     console.error("Error decoding JWT:", error);
   }
   return undefined;
+}
+
+function isTokenExpired(token: string): boolean {
+  const decodedToken = jwtDecode(token);
+  const currentTime = Math.floor(Date.now() / 1000);
+  return decodedToken.exp ? decodedToken.exp < currentTime : false;
 }
 
 export function logout() {
@@ -172,7 +182,14 @@ function headers() {
     "Content-Type": "application/json",
   };
   const jwt = Cookies.get("access_token");
+
   if (jwt) {
+    if (isTokenExpired(jwt)) {
+      logout();
+      sessionStorage.clear();
+      console.log("token expired");
+      throw new Error("Token expired!");
+    }
     headers.Authorization = `Bearer ${jwt}`;
   }
   return headers;
@@ -180,7 +197,13 @@ function headers() {
 function headersMulti() {
   const headers: any = {};
   const jwt = Cookies.get("access_token");
+
   if (jwt) {
+    if (isTokenExpired(jwt)) {
+      logout();
+      sessionStorage.clear();
+      throw new Error("Token expired!");
+    }
     headers.Authorization = `Bearer ${jwt}`;
   }
   return headers;
@@ -376,28 +399,7 @@ export async function postEvent(
     if (eventdata.description) {
       formData.append("description", eventdata.description);
     }
-
     formData.append("price", "0");
-    /** 
-    if (eventdata.address.id) {
-      formData.append("address.id", eventdata.address.id);
-    }
-    if (eventdata.address.street) {
-      formData.append("address.street", eventdata.address.street);
-    }
-    if (eventdata.address.houseNumber) {
-      formData.append("address.houseNumber", eventdata.address.houseNumber);
-    }
-    if (eventdata.address.postalCode) {
-      formData.append("address.postalCode", eventdata.address.postalCode);
-    }
-    if (eventdata.address.city) {
-      formData.append("address.city", eventdata.address.city);
-    }
-    if (eventdata.address.country) {
-      formData.append("address.country", eventdata.address.country);
-    }
-*/
     const addressString = JSON.stringify(eventdata.address);
     formData.append("address", addressString);
 
@@ -620,18 +622,32 @@ export async function getAllComments(
 }
 
 export async function getComment(
-  commentId: string
+  commentId: string,
+  eventId: string
 ): Promise<CommentWithRatingsResource> {
   if (!commentId) {
     throw new Error("invalid commentId, can not access comment.");
   }
-  const url = `${HOST}/api/comments/event/${commentId}`;
+  if (!eventId) {
+    throw new Error("invalid eventId, can not access comments of no event.");
+  }
+  const url = `${HOST}/api/comments/event/${eventId}`;
   try {
     const response = await fetchWithErrorHandling(url, {
       method: "GET",
       headers: headers(),
     });
-    return response as CommentWithRatingsResource;
+    const r = response as CommentsWithRatingsResource;
+
+    // Verwenden Sie find anstelle von filter, um den ersten übereinstimmenden Kommentar zu finden.
+    const result = r.comments.find((comment) => comment.id === commentId);
+
+    // Wenn kein Kommentar gefunden wurde, werfen Sie einen Fehler oder handhaben Sie den Fall entsprechend.
+    if (!result) {
+      throw new Error("Comment not found.");
+    }
+
+    return result;
   } catch (err) {
     throw err;
   }
@@ -683,7 +699,7 @@ export async function updateComment(
   const url = `${HOST}/api/comments/${comment.id}`;
   try {
     const response = await fetchWithErrorHandling(url, {
-      method: "GET",
+      method: "PUT",
       headers: headers(),
       body: JSON.stringify(comment),
     });
@@ -700,7 +716,7 @@ export async function deleteComment(commentId: string): Promise<boolean> {
   const url = `${HOST}/api/comments/${commentId}`;
   try {
     const response = await fetchWithErrorHandling(url, {
-      method: "GET",
+      method: "DELETE",
       headers: headers(),
     });
     return true;

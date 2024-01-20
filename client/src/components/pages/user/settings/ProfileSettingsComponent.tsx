@@ -12,6 +12,7 @@ import profilepicturedefault from "../../../../img/placeholder.jpg";
 import Avatar from "../../../Avatar";
 import toast from "react-hot-toast";
 import { HOST } from "../../../../backend/getHostApi";
+import { useNavigate } from "react-router-dom";
 
 const ProfilSettingsComponent = () => {
   const [error, setError] = useState(null);
@@ -19,6 +20,7 @@ const ProfilSettingsComponent = () => {
 
   const [user, setUser] = useState<userResource | null>(null);
   const [profilePicture, setProfilePicture] = useState("");
+  const navigate = useNavigate();
   const load = async () => {
     try {
       const id = await getUserIDFromJWT();
@@ -61,12 +63,6 @@ const ProfilSettingsComponent = () => {
       console.log("userData:", userData);
 
       const formData = new FormData();
-      /**  if (data.email) {
-        formData.append("email", data.email);
-      } else if (userData?.email) {
-        formData.append("email", userData.email);
-      }
-      */
       if (data.firstname) {
         formData.append("name[first]", data.firstname);
       } else if (userData?.name.first) {
@@ -107,13 +103,13 @@ const ProfilSettingsComponent = () => {
         formData.append("profilePicture", data.profilePicture[0]);
       }
       console.log("profilePicture", data.profilePicture[0]);
-      const res = await updateUser(formData!);
-      console.log("res:", res);
+      const updatedUserData = await updateUser(formData!);
+      console.log("res:", updatedUserData);
+      if (updatedUserData.profilePicture) {
+        setProfilePicture(updatedUserData.profilePicture);
+      }
       toast.success("Your profile has been successfully updated");
       reset();
-
-      const id = await getUserIDFromJWT();
-      const updatedUserData = await getUser(id);
 
       // Update the form inputs with the updated data
       setValue("firstname", updatedUserData?.name?.first ?? "");
@@ -126,8 +122,35 @@ const ProfilSettingsComponent = () => {
         "socialMediaUrls.instagram",
         updatedUserData?.socialMediaUrls?.instagram ?? ""
       );
+      //navigate(0);
     } catch (error) {
       toast.error("Please enter a valid data!");
+      console.error(error);
+      //todo: map backend validation error to inputfield
+      //toast.error('Something went wrong...');
+    } finally {
+      setLoading(false);
+    }
+  };
+  const onSubmitDeletePicture: SubmitHandler<FieldValues> = async () => {
+    setLoading(true);
+    try {
+      const userData = user;
+      const formData = new FormData();
+      formData.append("deletePicture", "true");
+      if (userData?.id) {
+        formData.append("id", userData?.id);
+      }
+      const updatedUserData = await updateUser(formData!);
+      console.log("res:", updatedUserData);
+      if (updatedUserData.profilePicture === "") {
+        setProfilePicture("");
+      }
+      toast.success("Your profile picture has been successfully deleted");
+      reset();
+      //navigate(0);
+    } catch (error) {
+      toast.error("Your profile picture can not be deleted");
       console.error(error);
       //todo: map backend validation error to inputfield
       //toast.error('Something went wrong...');
@@ -145,25 +168,21 @@ const ProfilSettingsComponent = () => {
       >
         <div className="profile-img flex flex-col items-center md:flex-row md:items-center md:gap-4">
           <div className="user-picture mb-2 md:mb-0">
-            {profilePicture ? (
-              <img
-                className="rounded-full"
-                height="30"
-                width="30"
-                loading="lazy"
-                src={`${HOST}/images/users/${profilePicture}`}
-                alt="Avatar"
-              />
-            ) : (
-              <Avatar src="/images/placeholder.jpg" />
-            )}
+            <Avatar
+              src={
+                profilePicture
+                  ? `${HOST}/images/users/${profilePicture}`
+                  : "/images/placeholder.jpg"
+              }
+            />
           </div>
 
           <div className="profile-actions md:flex md:items-center md:gap-4">
             <input
-              type="submit"
+              type="button"
               value="Foto löschen"
               className="delete-profile-img"
+              onClick={onSubmitDeletePicture}
             />
           </div>
 

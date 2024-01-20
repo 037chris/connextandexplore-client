@@ -4,16 +4,19 @@ import {
   getUserIDFromJWT,
   updateUser,
   deleteUser,
+  logout,
 } from "../../../../backend/boardapi";
 import toast from "react-hot-toast";
 import { userResource } from "../../../../Resources";
 import { useEffect, useState } from "react";
 import Input from "../../../html/inputs/Input";
 import Button from "../../../html/Button";
+import { useNavigate } from "react-router-dom";
+
 const AccountSettingsComponent = () => {
   const [user, setUser] = useState<userResource | null>(null);
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
   const load = async () => {
     try {
       const id = await getUserIDFromJWT();
@@ -82,14 +85,13 @@ const AccountSettingsComponent = () => {
         if (userData?.id) {
           formData.append("id", userData?.id);
         }
-        toast.success("Your Password has been successfully updated");
       } else {
         toast.error("Please enter your new password and old password");
       }
 
       const res = await updateUser(formData!);
       console.log("res:", res);
-
+      toast.success("Your Password has been successfully updated");
       reset();
     } catch (error) {
       console.error(error);
@@ -106,6 +108,8 @@ const AccountSettingsComponent = () => {
         const res = await deleteUser(userData.id);
         console.log("res:", res);
         toast.success("Your Account has been successfully deactivated");
+        logout();
+        navigate(0);
       }
       reset();
     } catch (error) {
@@ -154,7 +158,6 @@ const AccountSettingsComponent = () => {
             register={register}
             errors={errors}
             disabled={loading}
-            defaultValue=""
           />
           <label htmlFor="password">Neues Passwort</label>
           <Input
@@ -164,7 +167,6 @@ const AccountSettingsComponent = () => {
             register={register}
             errors={errors}
             disabled={loading}
-            defaultValue=""
           />
           <Button
             disabled={loading}

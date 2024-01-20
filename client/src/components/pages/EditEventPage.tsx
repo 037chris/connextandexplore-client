@@ -181,7 +181,7 @@ const EditEventPage: React.FC = () => {
                   type="button"
                   onClick={onBack}
                 >
-                  Zurück
+                  ZurÃ¼ck
                 </button>
               )}
             </div>

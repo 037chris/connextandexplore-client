@@ -3,6 +3,7 @@ import io from "socket.io-client";
 import { useUserIDContext } from "../../UserIDContext";
 import { getChat, getUser, sendChatMessage } from "../../backend/boardapi";
 import { MessageResource } from "../../Resources";
+import { Grid } from "@mui/material";
 
 const serverUrl = "https://localhost:443";
 const socket = io(serverUrl);
@@ -83,72 +84,33 @@ const Chat: React.FC<ChatProps> = ({ chatId }) => {
   }, [messages]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        height: "88vh",
-        overflowAnchor: "auto",
-      }}
-    >
-      <div style={{ flex: "1", overflowY: "auto", padding: "20px" }}>
+    <div className="chat-window">
+      <div className="inner-chat">
         {messages.map((msg, index) => (
           <div key={index}>
             {msg.user === userID && (
               <>
-                <div
-                  style={{
-                    width: "fit-content",
-                    minWidth: "3vw",
-                    maxWidth: "32vw",
-                    marginLeft: "auto",
-                    marginRight: "0",
-                    marginBottom: "10px",
-                    padding: "10px 10px 1px 10px",
-                    borderRadius: "20px 20px 0 20px",
-                    backgroundColor: "#3b82f6",
-                    color: "white",
-                    wordWrap: "break-word",
-                  }}
-                >
+                <div className="chat-bubble-user">
                   <small>
                     <p>{msg.username}</p>
                   </small>
                   <p>{msg.message}</p>
                 </div>
                 <small>
-                  <p style={{ fontFamily: "monospace", width: "fit-content", marginLeft: "auto", marginRight: "0" }}>
-                    {msg.time}
-                  </p>
+                  <p className="chat-info">{msg.time}</p>
                 </small>
               </>
             )}
             {msg.user !== userID && (
               <>
-                <div
-                  style={{
-                    width: "fit-content",
-                    minWidth: "3vw",
-                    maxWidth: "32vw",
-                    marginLeft: "0",
-                    marginRight: "auto",
-                    marginBottom: "10px",
-                    padding: "10px 10px 1px 10px",
-                    borderRadius: "20px 20px 20px 0",
-                    backgroundColor: "#eeeeee",
-                    color: "black",
-                    wordWrap: "break-word",
-                  }}
-                >
+                <div className="chat-bubble-respond">
                   <small>
                     <p>{msg.username}</p>
                   </small>
                   <p>{msg.message}</p>
                 </div>
                 <small>
-                  <p style={{ fontFamily: "monospace", width: "fit-content", marginLeft: "0", marginRight: "auto" }}>
-                    {msg.time}
-                  </p>
+                <p className="chat-info">{msg.time}</p>
                 </small>
               </>
             )}
@@ -156,23 +118,8 @@ const Chat: React.FC<ChatProps> = ({ chatId }) => {
         ))}
         <div ref={messageContainerRef}></div>
       </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          padding: "10px",
-          borderTop: "1px solid #cccccc",
-        }}
-      >
+      <div className="chat-bar">
         <input
-          style={{
-            flex: "1",
-            padding: "10px",
-            marginRight: "10px",
-            border: "none",
-            borderRadius: "5px",
-            outline: "none",
-          }}
           placeholder="Nachricht..."
           value={messageInput}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -182,17 +129,7 @@ const Chat: React.FC<ChatProps> = ({ chatId }) => {
             event.key === "Enter" && sendMessage();
           }}
         />
-        <button
-          style={{
-            padding: "10px 15px",
-            borderRadius: "5px",
-            backgroundColor: "#3b82f6",
-            color: "white",
-          }}
-          onClick={sendMessage}
-        >
-          Senden
-        </button>
+        <button className="sending" onClick={sendMessage} >Senden</button>
       </div>
     </div>
   );

@@ -17,7 +17,8 @@ import { useUserIDContext } from "../../UserIDContext";
 import toast from "react-hot-toast";
 import { format, isValid } from "date-fns";
 import Footer from "../html/Footer";
-import Comments from "./Comments";
+import Comments from "./event/comments/Comments";
+import { CreateComment } from "./event/comments/CreateComment";
 
 const EventDetails: React.FC = () => {
   const params = useParams();
@@ -30,6 +31,8 @@ const EventDetails: React.FC = () => {
   const [events, setEvents] = useState<eventsResource | null>(null);
   const { userID } = useUserIDContext();
   const navigate = useNavigate();
+
+  const [rating, setRating] = useState(0);
 
   // export type eventResource = {
   //   id?: string;
@@ -50,7 +53,6 @@ const EventDetails: React.FC = () => {
     const fetchEvent = async () => {
       if (eventId) {
         const result = await getEvent(eventId);
-        console.log("Event:", result);
         setEvent(result);
         if (result.participants?.includes(getUserIDFromJWT())) {
           setJoined(true);

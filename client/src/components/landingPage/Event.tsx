@@ -7,8 +7,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { IoLocationOutline } from "react-icons/io5";
 import { IoCalendarOutline } from "react-icons/io5";
 import { HiOutlineUserGroup } from "react-icons/hi2";
-import Comments from "../pages/Comments";
-
+import Comments from "../pages/event/comments/Comments";
+import { HOST } from "../../backend/getHostApi";
 interface EventProps {
   id?: string;
   address?: {
@@ -30,7 +30,7 @@ const LocalEvents: React.FC<EventProps> = ({
   date,
   name,
   description,
-  thumbnail: imageUrl,
+  thumbnail,
   hashtags,
   category,
   participants,
@@ -60,8 +60,12 @@ const LocalEvents: React.FC<EventProps> = ({
       <div className="bg-white flex flex-col w-full p-4">
         <div className="w-full relative overflow-hidden img-round">
           <img
-            //src={process.env.PUBLIC_URL + imageUrl!}
-            src="/images/CARD_IMG_Placeholder.jpg"
+            //src={process.env.PUBLIC_URL + imageUrl!}src={
+            src={
+              thumbnail
+                ? `${HOST}/images/events/${thumbnail}`
+                : "/images/CARD_IMG_Placeholder.jpg"
+            }
             width="318"
             height="179"
             alt="eventCard"
