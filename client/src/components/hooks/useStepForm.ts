@@ -1,21 +1,14 @@
-import React, { useEffect, useState, FormEvent } from "react";
+import React, { useState } from 'react';
 
-export function useStepForm(
-  steps: React.ReactNode[],
-  validationFunctions: (() => boolean)[] = []
-) {
+export function useStepForm(steps: React.ReactNode[], validationFunctions: (() => boolean)[] = []) {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
   function onNext() {
-    const isStepValid = validationFunctions[currentStepIndex]?.();
+    setCurrentStepIndex(i => {
+      if (i >= steps.length - 1) return i;
 
-    if (isStepValid) {
-      setCurrentStepIndex((i) => (i < steps.length - 1 ? i + 1 : i));
-    } else {
-      console.error(
-        `Step ${currentStepIndex} is not valid. Please review and correct the form.`
-      );
-    }
+      return i + 1;
+    })
   }
 
   function onBack() {
