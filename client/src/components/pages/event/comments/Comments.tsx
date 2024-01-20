@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
+import { EditComment } from "./EditComment";
+import { DeleteComment } from "./DeleteComment";
 import { CommentsWithRatingsResource, userResource } from "../../../../Resources";
 import { getCommentsOfEvent, getUser, getUserIDFromJWT } from "../../../../backend/boardapi";
-import { HiStar } from "react-icons/hi2";
 import { HiOutlineEmojiSad, HiOutlineStar } from "react-icons/hi";
-import { DeleteComment } from "./DeleteComment";
+import { HiStar } from "react-icons/hi2";
 
 export type CommentsProps = {
     eventId:string
@@ -17,6 +18,7 @@ const Comments:React.FC<CommentsProps> = ({eventId}:CommentsProps) => {
     const [authenticationModalIsOpen, setAuthenticationModalIsOpen] = useState(false);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const load = async () => {
+    const [user, setUser] = useState<userResource | null>(null);
         try {
             const comments = await getCommentsOfEvent(eventId!);
             console.log(comments);
@@ -27,7 +29,9 @@ const Comments:React.FC<CommentsProps> = ({eventId}:CommentsProps) => {
                 return;
             }
             const u = await getUser(id);
+            setUser(u);
         } catch (e) {
+            setUser(null);
             setComments(null)
         }
     }
