@@ -591,6 +591,121 @@ header {
             font-family: "Sue Ellen Francisco", cursive;
         }
     }
+
+    .creator {
+        margin-top: rem(19);
+
+        .creator-profil-img {
+            width: rem(60);
+            height: rem(60);
+            border: rem(3) solid $secondary;
+            border-radius: 100%;
+            position: relative;
+            overflow: hidden;
+            background-color: $border;
+
+            img {
+                width: auto;
+                height: auto;
+                min-width: rem(90);
+                max-height: rem(90);
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .creator-info {
+            > span {
+                font-weight: 300;
+                margin-top: rem(5);
+                font-size: rem(16);
+                display: block;
+                margin-left: rem(12);
+
+                > span {
+                    position: relative;
+                    top: rem(-2);
+                    display: block;
+                    font-weight: bold;
+                    font-size: rem(16);
+                }
+            }
+        }
+    }
+
+    .event-image {
+        display: block;
+        width: 100%;
+        height: rem(180);
+        border-radius: rem(8);
+        background-color: $border;
+        position: relative;
+        overflow: hidden;
+
+        @include breakpoint(md) {
+            height: rem(250);
+        }
+
+        @include breakpoint(xl) {
+            height: rem(350);
+        }
+
+        img {
+            width: auto;
+            height: auto;
+            min-width: rem(90);
+            min-height: rem(200);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+
+            @include breakpoint(md) {
+                min-height: rem(290);
+            }
+
+            @include breakpoint(xl) {
+                min-height: rem(350);
+            }
+        }
+    }
+
+    .btn {
+        margin: rem(20) 0;
+
+        div {
+            width: 100%;
+            
+            button {
+                border: rem(1) solid $text;
+                padding: rem(8) rem(15);
+                font-weight: 300;
+                border-radius: rem(6);
+                width: 100%;
+                max-width: 200px;
+                transition: 350ms all ease-in-out;
+                color: $text;
+
+                &:hover {
+                    background-color: $primary;
+                    color: $white;
+                    border: rem(1) solid $primary;
+                }
+
+                &.delete {
+                    color: $secondary;
+                    border: rem(1) solid $secondary;
+
+                    &:hover {
+                        background-color: $secondary;
+                        color: $white;
+                    }
+                }
+            }
+        }
+    }
 }
 
 //MAIN
