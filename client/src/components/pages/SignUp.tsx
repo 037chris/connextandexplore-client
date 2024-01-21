@@ -78,7 +78,7 @@ export default function SignUp() {
       <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4' encType="multipart/form-data">
         <Input
           id="email"
-          label="Email *"
+          label="E-Mail *"
           disabled={loading}
           register={register}
           errors={errors}
@@ -88,79 +88,75 @@ export default function SignUp() {
 
         <Input
           type='password'
-          label='Password *'
+          label='Passwort *'
           disabled={loading}
           id='password'
           register={register}
           errors={errors}
+          minLength={6}
+          maxLength={12}
           required
-          pattern={/^(?=.*[a-zA-Z])(?=.*\d).{8,20}$/}
-          minLength={3} // Example minimum length
-          maxLength={20} // Example maximum length
         />
-
-
         <div className="md:flex md:gap-4">
           <div className='mb-4 md:mb-0'>
-            {/* Additional fields for registration */}
             <Input
               type='text'
-              label='First Name *'
+              label='Vorname *'
               id='name.first'
               register={register}
               errors={errors}
+              minLength={3}
+              maxLength={20}
               required
               disabled={loading}
               pattern={/^[A-Za-z'-\s]+$/}
-              minLength={3} // Example minimum length
-              maxLength={20} // Example maximum length
             />
           </div>
           <Input
             type='text'
-            label='Last Name *'
+            label='Nachname *'
             id='name.last'
             register={register}
             errors={errors}
+            minLength={3}
+            maxLength={20}
             required
             disabled={loading}
             pattern={/^[A-Za-z'-\s]+$/}
-            minLength={3} // Example minimum length
-            maxLength={20} // Example maximum length
           />
         </div>
         {/* Address */}
         <div className="md:flex md:gap-4">
           <Input
             type='text'
-            label='City *'
+            label='Stadt *'
             id='address.city'
             register={register}
             errors={errors}
+            minLength={3}
+            maxLength={20}
             disabled={loading}
             pattern={/^[a-zA-Z0-9_\\-\\#@.+_ äöüÄÖÜ]*$/}
-            minLength={3} // Example minimum length
-            maxLength={20} // Example maximum length
+            required
           />
           <div className='mt-4 md:mt-0'>
             <Input
               type='text'
-              label='ZIP *'
+              label='PLZ *'
               id='address.postalCode'
               register={register}
               errors={errors}
+              minLength={3}
+              maxLength={20}
               disabled={loading}
               pattern={/^[A-Za-z0-9\s\-/]+$/}
-              minLength={5} // Example minimum length
-              maxLength={5} // Example maximum length
+              required
             />
           </div>
         </div>
-
-
         <Input
           type='file'
-          label='Profile Picture'
+          label='Profilbild'
           id='profilePicture'
           register={register}
           errors={errors}
@@ -169,7 +165,7 @@ export default function SignUp() {
         />
         <Input
           type='date'
-          label='Birthdate *'
+          label='Geburtsdatum *'
           id='birthDate'
           register={register}
           errors={errors}
@@ -178,8 +174,8 @@ export default function SignUp() {
           pattern={/\d{4}-\d{2}-\d{2}/}
         />
         <Select
-          options={["Female", "Male", "Other"]}
-          label='Gender *'
+          options={["Weiblich", "Männlich", "Andere"]}
+          label='Geschlecht *'
           id='gender'
           register={register}
           errors={errors}
@@ -201,13 +197,12 @@ export default function SignUp() {
           register={register}
           errors={errors}
           disabled={loading}
-
         />
-        <p className='text-neutral-800'>* indicates a required field.</p>
+        <p className='text-neutral-800'>* zeigt ein Pflichtfeld an.</p>
         <div className='mt-6'>
           <Button
             disabled={loading}
-            label={loading ? 'Loading...' : 'Continue'}
+            label={loading ? 'Loading...' : 'Weiter'}
             onClick={() => { }}
             primary
           />
@@ -216,13 +211,13 @@ export default function SignUp() {
       <div className='text-neutral-500 text-center mt-4 mb-20 font-light'>
         <div className='justify-center flex flex-row items-center gap-2'>
           <div>
-            Already have an account?
+            Sie haben bereits ein Konto?
           </div>
           <div
             onClick={openAuthenticationModal}
             className='text-neutral-800 cursor-pointer hover:underline'
           >
-            Log In
+            Einloggen
           </div>
         </div>
       </div>
