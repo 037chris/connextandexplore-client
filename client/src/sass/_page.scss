@@ -21,6 +21,8 @@
         }
     }
 
+    &.filter {}
+
     &.content-pt {
         padding: rem(50) rem(15);
 
@@ -755,6 +757,86 @@ header {
 
     p {
         margin-bottom: 0 !important;
+    }
+}
+
+.bg-search {
+    width: 100%;
+    background-color: $primary;
+    //background-image: url('../img/bg-pattern-white-dots.png');
+    //background-repeat: repeat;
+    padding: rem(20) 0;
+
+    @include breakpoint(lg) {
+        padding: rem(40) 0;
+    }
+
+    @include breakpoint(xl) {
+        padding: rem(50) 0;
+    }
+
+    .question {
+        div {
+            display: none;
+
+            @include breakpoint(md-2) {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            img {
+                max-width: rem(200);
+                height: auto;
+            }
+        }
+    }
+
+    p,
+    span,
+    h2 {
+        color: $white;
+    }
+
+    form {
+        width: 100%;
+        font-size: rem(16);
+        font-family: "Helvetica Neue", sans-serif;
+        font-weight: 300;
+        display: flex;
+        flex-direction: column;
+
+        @include breakpoint(md) {
+            flex-direction: row;
+        }
+
+        input {
+            border: rem(1) solid $border;
+            width: 100%;
+            margin: 0;
+            border-radius: 0;
+            min-height: rem(40);
+
+            &::placeholder {
+                text-align: center;
+            }
+
+            &#query {
+                border-radius: rem(6) rem(6) 0 0;
+
+                @include breakpoint(md) {
+                    border-radius: rem(6) 0 0 rem(6);
+                }
+            }
+
+            &#plz {
+                border-radius: 0 0 rem(6) rem(6);
+
+                @include breakpoint(md) {
+                    border-radius: 0 rem(6) rem(6) 0;
+                }
+            }
+        }
     }
 }
 
@@ -1882,4 +1964,87 @@ header {
         top: 50%;
         transform: translate(-50%, -50%);
     }
+}
+
+// FITLER
+
+.section-filter {
+    Button {
+        border: 1px solid $border;
+        color: $text;
+        background-color: $white;
+
+        &#Filter {
+            max-width: rem(161);
+
+            &.on {
+                border: 1px solid $primary;
+                color: $white;
+                background-color: $primary;
+            }
+        }
+    }
+
+    .filter-btn {
+        display: block;
+        margin-bottom: rem(15);
+
+        @include breakpoint(md) {
+            margin-top: rem(45);
+        }
+
+        #Filter {
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+
+            @include breakpoint(md) {
+                left: 0;
+                transform: translateX(0%);
+            }
+        }
+    }
+
+    .filter-box {
+        width: 100%;
+        flex-direction: column;
+
+        @include breakpoint(md) {
+            flex-direction: row;
+            flex-flow: row wrap;
+            justify-content: last baseline;
+            margin-bottom: rem(20);
+        }
+
+        div {
+
+            @include breakpoint(md) {
+                flex-wrap: wrap;
+                flex: 0 0 calc(100% / 6);
+            }
+
+            Button {
+                border: 1px solid $border;
+                color: $text;
+                background-color: $white;
+
+                &#Filter {
+                    max-width: rem(161);
+
+                    &.on {
+                        border: 1px solid $primary;
+                        color: $white;
+                        background-color: $primary;
+                    }
+                }
+
+                &.active {
+                    color: $primary;
+                    border: rem(1) solid $primary;
+                }
+            }
+        }
+    }
+
+
 }

@@ -25,8 +25,7 @@ const initEvent: eventResource = {
   description: "init",
   price: -1,
   date: new Date(),
-  address: initAddress,
-  thumbnail: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp4zpIuafwUwAALiZhyewnZPBfWlm8OvxZIEawUIuHKw&s"
+  address: initAddress
 }
 
 const Home = () => {

@@ -11,6 +11,7 @@ import { useForm, FieldValues } from "react-hook-form";
 import Input from "../html/inputs/Input";
 import Button from "../html/Button";
 import { Link } from "react-router-dom";
+import  question  from "../../img/question.png"
 
 interface AllEventsProps {
   //events: { date: any, name: string, description: string, imageUrl?: string, hashtags?:string[],category?: string }[]
@@ -29,12 +30,10 @@ const initEvent: eventResource = {
   description: "init",
   price: -1,
   date: new Date(),
-  address: initAddress,
-  thumbnail:
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp4zpIuafwUwAALiZhyewnZPBfWlm8OvxZIEawUIuHKw&s",
+  address: initAddress
 };
 
-const AllEvents: React.FC<AllEventsProps> = ({}) => {
+const AllEvents: React.FC<AllEventsProps> = ({ }) => {
   const [dbEvents, setDbEvents] = useState({ events: [initEvent] });
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
@@ -54,7 +53,7 @@ const AllEvents: React.FC<AllEventsProps> = ({}) => {
     // console.log(filteredEvents)
     // console.log(selectedCategory)
     load();
-    document.title = "Alle Events bei uns - Connect & Explore";
+    document.title = "Alle Events - Connect & Explore";
 
     // Setze den Zustand mit den gefilterten Events
     setDbEvents({ events: filteredEvents });
@@ -88,59 +87,59 @@ const AllEvents: React.FC<AllEventsProps> = ({}) => {
     }
   };
 
-  useEffect(() => {
-    window.addEventListener("resize", handleMobile);
-  }, []);
-
-  const handleMobile = () => {
-    if (window.innerWidth < 414) setMobile("");
-    else setMobile("flex gap-4");
-  };
-
   return (
     <>
-      <Header homeRoute={"page"} headline={"Alle Events"} />
-      <div className="max-grid content content-pt ">
-        
-            <form>
-              <div className={mobile}>
-                <Input
-                  type="text"
-                  label="Event suchen"
-                  id="query"
-                  register={register}
-                  errors={errors}
-                  disabled={loading}
-                  pattern={/^[A-Za-z0-9\s\-.]+$/}
-                  onChangeFn={handleOnChange}
-                  // customInputClassNames=" "
-                  // customLabelClassNames=" "
-                />
-                <label className="w-32">
-                <Input
-                  type="text"
-                  label="Postleitzahl"
-                  id="plz"
-                  register={register}
-                  errors={errors}
-                  disabled={loading}
-                  pattern={/^[A-Za-z0-9\s\-.]+$/}
-                  onChangeFn={handleOnChange}
-                  // customInputClassNames=" "
-                  // customLabelClassNames=" "
-                />
-                </label>
+      <Header homeRoute={"page"} headline={"Events"} />
+      <div className="bg-search">
+        <div className="max-grid">
+          {/* START SEARCH FORM */}
+          <div className="grid grid-cols-1 md:grid-cols-12">
+            <div className="col-span-1 md:col-span-12 xl:col-span-1 xxl:col-span-2"></div>
+            <div className="col-span-1 md:col-span-8 xxl:col-span-4">
+              <p>Entdecke mühelos Events mit unserer Suchfunktion! Finde Veranstaltungen nach Namen oder Hashtags, filtere optional nach PLZ. Echtzeit-Ergebnisse werden sofort angezeigt. Verfeinere die Auswahl mit benutzerfreundlichen Filtern, sogar ohne aktive Suche. Dein perfektes Event ist nur einen Klick entfernt!</p>
+              <div className="grid grid-cols-1 lg:grid-cols-12">
+                <div className="col-span-1 lg:col-span-1"></div>
+                <div className="col-span-1 lg:col-span-10">
+                  <form>
+                    <Input
+                      type="text"
+                      label="Event suchen"
+                      id="query"
+                      register={register}
+                      errors={errors}
+                      disabled={loading}
+                      pattern={/^[A-Za-z0-9\s\-.]+$/}
+                      onChangeFn={handleOnChange}
+                    />
+                    <Input
+                      type="text"
+                      label="Postleitzahl"
+                      id="plz"
+                      register={register}
+                      errors={errors}
+                      disabled={loading}
+                      pattern={/^[A-Za-z0-9\s\-.]+$/}
+                      onChangeFn={handleOnChange}
+                    />
+                  </form>
+                </div>
               </div>
-            </form>
-            <br />
-            
-              <EventFilter
-                query={query}
-                /*setQuery={setQuery} setPLZ={setPLZ} */ plz={plz}
-              ></EventFilter>
-            
-          
+            </div>
+            <div className="col-span-1 md:col-span-4 xl:col-span-2 question">
+              <div>
+                <img src={question} alt="Du hast eine Frage?" />
+              </div>
+            </div>
+          </div>
+
+          {/* END SEARCH FORM */}
+        </div>
       </div>
+      <div className="max-grid content filter">
+        {/*  FILTER */}
+        <EventFilter query={query} /*setQuery={setQuery} setPLZ={setPLZ} */ plz={plz} />
+      </div>
+      <Footer />
     </>
   );
 };

@@ -13,9 +13,11 @@ interface ButtonProps {
     icon?: IconType;
     del?: boolean;
     className?: string;
+    id?: string;
 }
 const Button: React.FC<ButtonProps> = ({
     className,
+    id,
     label,
     onClick,
     disabled,
@@ -28,7 +30,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <button 
-      
+      id={id}
       onClick={onClick}
       disabled={disabled}
       className={className + `

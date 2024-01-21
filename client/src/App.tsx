@@ -15,7 +15,6 @@ import './sass/App.scss'
 
 //
 import UserProfile from "./components/pages/user/UserProfile";
-import Events from "./components/pages/Events";
 import CreateEventPage from "./components/pages/CreateEventPage";
 import EventDetails from "./components/pages/EventDetails";
 import UserEvents from "./components/pages/UserEvents";
@@ -30,6 +29,7 @@ import ChatApp from "./components/chat/ChatApp";
 import YourEvents from "./components/pages/YourEvents";
 
 import { CreateComment } from "./components/pages/event/comments/CreateComment";
+import AllEvents from "./components/allEvents/AllEvents";
 
 export default function App() {
   const [userID, setUserID] = useState(getUserIDFromJWT());
@@ -57,7 +57,7 @@ export default function App() {
 
 
           <Route path="/event/:eventId" element={<EventDetails  />}/>
-          <Route path="/events" element={<Events />}/>
+          <Route path="/events" element={<AllEvents />}/>
           <Route path="/yourevents" element={<YourEvents />}/>
           <Route path='*' element={<NotFound />}/>
           <Route path='/events/undefined' element={<NotFound />}/>

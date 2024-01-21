@@ -13,13 +13,15 @@ const Newest4Events: React.FC<OwnNewest4EventsProps> = ({ events }) => {
           {events.map((event, index) => (
             <div key={index} className="mb-8 mx-2">
               <Event
+                key={event.id}
                 id={event.id}
-                key={index}
+                address={event.address}
                 date={event.date}
                 name={event.name}
                 description={event.description}
-                thumbnail={event.thumbnail}
                 hashtags={event.hashtags}
+                participants={event.participants}
+                thumbnail={event.thumbnail!}
               />
             </div>
           ))}

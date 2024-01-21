@@ -18,10 +18,8 @@ export default function EventFilter({ query, plz }: EventFilterProps) {
   //const [plz, setPLZ] = useState<string | null>(null);
 
   const load = async () => {
-    console.log("did change?");
     if (query == "" || !query) {
       try {
-        console.log("gets all events!");
         const events: eventsResource = await getAllEvents();
         events.events = events.events.filter((event) => {
           if (!plz) {
@@ -35,8 +33,8 @@ export default function EventFilter({ query, plz }: EventFilterProps) {
         setEvents(null);
       }
     } else {
-      console.log("query: ", query);
-      console.log("plz: ", plz);
+      // console.log("query: ", query);
+      // console.log("plz: ", plz);
       try {
         const events: eventsResource = await searchEvents(query);
         events.events = events.events.filter((event) => {
@@ -107,6 +105,42 @@ export default function EventFilter({ query, plz }: EventFilterProps) {
     setSwitchCategory(!switchCategory);
     setSelectedDate("");
     if (window.innerWidth < 414) setHidden("hidden");
+    setActive(category);
+
+    if (category == "") reset();
+  };
+
+  const setActive = (category: string) => {
+    const categoryElement = document.getElementById(category);
+
+    if (categoryElement) {
+      const hasActiveClass = categoryElement.classList.contains('active');
+      const hasOnClass = categoryElement.classList.contains('on');
+
+      if (category === 'Filter') {
+        if (hasOnClass) {
+          categoryElement.classList.remove('on');
+        } else {
+          categoryElement.classList.add('on');
+        }
+      } else {
+        if (hasActiveClass) {
+          categoryElement.classList.remove('active');
+        } else {
+          categoryElement.classList.add('active');
+        }
+      }
+    }
+  }
+
+  const reset = () => {
+    // Alle Elemente mit der Klasse "active" im div mit der Klasse "section-filter" auswählen
+    const activeElements = document.querySelectorAll('.section-filter .active');
+    // Konvertiere die NodeList zu einem Array
+    const activeArray = Array.from(activeElements);
+    activeArray.forEach((element) => {
+      element.classList.remove('active');
+    });
   };
 
   const handleFilterByDate = (date: string) => {
@@ -118,65 +152,75 @@ export default function EventFilter({ query, plz }: EventFilterProps) {
   const handleActive = () => {
     if (hidden == "hidden") setHidden("");
     else if (hidden == "") setHidden("hidden");
+    setActive("Filter");
   };
 
   return (
     <>
-      <Container>
-        <input
+      <div className="section-filter">
+        {/* <input
           className={`inline-block w-36 px-2 py-4`}
           type="date"
           value={selectedDate || ""}
           onChange={(e) => handleFilterByDate(e.target.value)}
-        />
-        <div className={`${mobile}`}>
-          <div className={`inline-block w-36 px-2 py-4`}>
-            <Button label={"Filter"} onClick={handleActive}></Button>
-          </div>
-          <div className={`inline-block w-36 px-2 py-4 ${hidden}`}>
+        /> */}
+        <div className={`filter-btn`}>
+          <Button label="Filter" id="Filter" className="w-36" onClick={handleActive}></Button>
+        </div>
+
+        <div className="filter-box flex gap-1 md:gap-5">
+          <div className={`inline-block ${hidden}`}>
             <Button
-              label="Alle Events"
+              id="Reset"
+              label="Reset"
               onClick={() => handleFilterByCategory("")}
             />
           </div>
-          <div className={`inline-block w-36 px-2 py-4 ${hidden}`}>
+          <div className={`inline-block ${hidden}`}>
             <Button
+              id="Kultur & Kunst"
               label="Kultur & Kunst"
               onClick={() => handleFilterByCategory("Kultur & Kunst")}
             />
           </div>
-          <div className={`inline-block w-36 px-2 py-4 ${hidden}`}>
+          <div className={`inline-block ${hidden}`}>
             <Button
+              id="Konzert"
               label="Konzert"
               onClick={() => handleFilterByCategory("Konzert")}
             />
           </div>
-          <div className={`inline-block w-36 px-2 py-4 ${hidden}`}>
+          <div className={`inline-block ${hidden}`}>
             <Button
+              id="Sport & Fitness"
               label="Sport & Fitness"
               onClick={() => handleFilterByCategory("Sport & Fitness")}
             />
           </div>
-          <div className={`inline-block w-36 px-2 py-4 ${hidden}`}>
+          <div className={`inline-block ${hidden}`}>
             <Button
+              id="Gaming"
               label="Gaming"
               onClick={() => handleFilterByCategory("Gaming")}
             />
           </div>
-          <div className={`inline-block w-36 px-2 py-4 ${hidden}`}>
+          <div className={`inline-block ${hidden}`}>
             <Button
+              id="Hobbys"
               label="Hobbys"
               onClick={() => handleFilterByCategory("Hobbys")}
             />
           </div>
-          <div className={`inline-block w-36 px-2 py-4 ${hidden}`}>
+          <div className={`inline-block ${hidden}`}>
             <Button
               label="Outdoor"
+              id="Outdoor"
               onClick={() => handleFilterByCategory("Outdoor")}
             />
           </div>
-          <div className={`inline-block w-36 px-2 py-4 ${hidden}`}>
+          <div className={`inline-block ${hidden}`}>
             <Button
+              id="Social"
               label="Social"
               onClick={() => handleFilterByCategory("Social")}
             />
@@ -187,25 +231,19 @@ export default function EventFilter({ query, plz }: EventFilterProps) {
         {events && events.events && events.events.length !== 0 ? (
           <>
             <div
-              className="
-                       grid
-                       grid-cols-1
-                       sm:grid-cols-2
-                       md:grid-cols-3
-                       lg:grid-cols-4
-                       gap-8
-                   "
-            >
+              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
               {events.events.map((event, index) => (
                 <Link to={`/event/${event.id}`} key={index}>
                   <Event
-                    key={index}
+                    key={event.id}
                     id={event.id}
                     address={event.address}
                     date={event.date}
                     name={event.name}
                     description={event.description}
                     hashtags={event.hashtags}
+                    participants={event.participants}
+                    thumbnail={event.thumbnail!}
                     category={event.category?.map((category) => category.name)}
                   />
                 </Link>
@@ -214,11 +252,10 @@ export default function EventFilter({ query, plz }: EventFilterProps) {
           </>
         ) : (
           <>
-            <br />
             <p>keine Events gefunden</p>
           </>
         )}
-      </Container>
+      </div>
     </>
   );
 }
