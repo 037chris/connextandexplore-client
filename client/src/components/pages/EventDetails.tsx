@@ -21,6 +21,7 @@ import Footer from "../html/Footer";
 import Comments from "./event/comments/Comments";
 import { CreateComment } from "./event/comments/CreateComment";
 import { HOST } from "../../backend/getHostApi";
+import { de } from "date-fns/locale"; // Import the German locale
 
 const EventDetails: React.FC = () => {
   const params = useParams();
@@ -102,11 +103,6 @@ const EventDetails: React.FC = () => {
     }
   };
 
-  const formattedDate = event?.date
-    ? isValid(new Date(event?.date))
-      ? format(new Date(event?.date), "PPP")
-      : "Invalid Date"
-    : "No Date";
 
   let participateButton;
   if ((userID) && (userID !== event?.creator)) {
@@ -232,7 +228,7 @@ const EventDetails: React.FC = () => {
                 <ul>
                   <li className="date">
                     {event.date
-                      ? format(new Date(event.date), "PPP, p")
+                      ? format(new Date(event?.date), "PPPPp", { locale: de }) 
                       : "No Date"}
                   </li>
                   <li className="adress">

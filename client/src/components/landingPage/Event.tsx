@@ -4,6 +4,8 @@ import { IoLocationOutline } from "react-icons/io5";
 import { IoCalendarOutline } from "react-icons/io5";
 import { HiOutlineUserGroup } from "react-icons/hi2";
 import { HOST } from "../../backend/getHostApi";
+import { de } from "date-fns/locale";
+
 
 interface EventProps {
   id?: string;
@@ -37,7 +39,9 @@ const LocalEvents: React.FC<EventProps> = ({
   const parsedDate = typeof date === 'string' ? parse(date, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx", new Date()) : date;
 
   // Format the date using date-fns format function
-  const formattedDate = parsedDate ? (isValid(parsedDate) ? format(parsedDate, 'PPP, p') : 'Invalid Date') : 'No Date';
+  // const formattedDate = parsedDate ? (isValid(parsedDate) ? format(parsedDate, "PPPp", { locale: de }) : 'Invalid Date') : 'No Date';
+  const formattedDate = parsedDate ? (isValid(parsedDate) ? format(parsedDate, "PPPp", { locale: de }) : 'Invalid Date') : 'No Date';
+
   // const params = useParams();
   // const eventId = params.eventId;
 
