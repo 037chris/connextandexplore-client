@@ -187,32 +187,33 @@ export default Input;
 function getCustomErrorText(id: string, error: any): string {
   switch (id) {
     case "email":
-      return error.message || "Please enter a valid email address";
+      return error.message || "Bitte geben Sie eine gültige E-Mail-Adresse ein";
     case "password":
-      return error.message || "Please enter a valid password";
+      return error.message || "Bitte geben Sie ein gültiges Passwort ein";
     case "name.first":
-      return error.message || "Please enter a valid first name";
+      return error.message || "Bitte geben Sie einen gültigen Vornamen ein";
     case "name.last":
-      return error.message || "Please enter a valid last name";
+      return error.message || "Bitte geben Sie einen gültigen Nachnamen ein";
     case "address.street":
-      return "Please enter a valid street name";
+      return "Bitte geben Sie einen gültigen Straßennamen ein";
     case "address.houseNumber":
-      return error.message || "Please enter a valid street number";
+      return error.message || "Bitte geben Sie eine gültige Hausnummer ein";
     case "address.city":
-      return error.message || "Please enter a valid city name.";
+      return error.message || "Bitte geben Sie einen gültigen Stadtnamen ein";
     case "address.country":
-      return error.message || "Please enter a valid country name.";
+      return error.message || "Bitte geben Sie einen gültigen Landesnamen ein";
     case "address.postalCode":
-      return error.message || "Please enter a valid ZIP.";
+      return error.message || "Bitte geben Sie eine gültige Postleitzahl ein";
     case "birthDate":
-      return error.message || "You must be 18 years or older to register.";
+      return error.message || "Sie müssen 18 Jahre oder älter sein, um sich zu registrieren";
     case "gender":
       return (
-        error.message || "Accepted values are 'Male', 'Female', or 'Other'."
+        error.message || "Akzeptierte Werte sind 'Männlich', 'Weiblich' oder 'Andere'"
       );
 
-    // more cases for other input fields are needed
+    // weitere Fälle für andere Eingabefelder sind erforderlich
     default:
-      return "This field is required";
+      return "Dieses Feld ist erforderlich";
   }
 }
+
