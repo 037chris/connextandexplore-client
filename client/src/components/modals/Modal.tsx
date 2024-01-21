@@ -97,6 +97,7 @@ if (!isOpen) {
                 h-full
                 lg:h-auto
                 md:h-auto
+                md:mt-32 
             ">
                 {/* CONTENT */}
                 <div className={`

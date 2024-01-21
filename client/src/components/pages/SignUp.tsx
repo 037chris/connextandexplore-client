@@ -96,7 +96,7 @@ const onSubmit: SubmitHandler<FieldValues> = async (data) => {
           required
         />
         
- {/* shevamowmo rato ar awitlebs danarchen inputebs radganac sxva div shi arian? */}
+
         <div className="md:flex md:gap-4">
           <div className='mb-4 md:mb-0'>
             {/* Additional fields for registration */}
@@ -131,8 +131,8 @@ const onSubmit: SubmitHandler<FieldValues> = async (data) => {
               register={register}
               errors={errors}
               disabled={loading}
-              pattern={/^[A-Za-z0-9ß\s\-.]+$/}
-            />
+              pattern={/^[a-zA-Z0-9_\\-\\#@.+_ äöüÄÖÜ]*$/}
+              />
        <div className='mt-4 md:mt-0'>
             <Input
               type='text'
