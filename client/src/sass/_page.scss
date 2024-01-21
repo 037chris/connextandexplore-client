@@ -21,8 +21,6 @@
         }
     }
 
-    &.filter {}
-
     &.content-pt {
         padding: rem(50) rem(15);
 
@@ -238,6 +236,7 @@ form {
     }
 }
 
+// FOOTER
 footer {
     background-color: $text;
     padding: rem(50) 0;
@@ -547,10 +546,6 @@ header {
                 border-radius: 0;
                 min-height: rem(40);
                 padding-left: rem(15);
-
-                &::placeholder {
-                //    padding-left: rem(15);
-                }
 
                 &[type=submit] {
                     background-color: $primary;
@@ -967,6 +962,8 @@ header {
         }
     }
 }
+
+// EVENT
 
 .root {
     position: relative;
@@ -1844,7 +1841,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #e7f2fd;
+    background: $primary-light;
 
     .event-list {
         position: absolute;
@@ -1953,7 +1950,6 @@ header {
 }
 
 // AVATAR
-
 .avatar-box {
     height: rem(30);
     width: rem(30);
@@ -2022,7 +2018,6 @@ header {
         }
 
         div {
-
             @include breakpoint(md) {
                 flex-wrap: wrap;
                 flex: 0 0 calc(100% / 6);
@@ -2043,13 +2038,11 @@ header {
                     }
                 }
 
-                &.active {
+                &.active, &:hover {
                     color: $primary;
                     border: rem(1) solid $primary;
                 }
             }
         }
     }
-
-
 }

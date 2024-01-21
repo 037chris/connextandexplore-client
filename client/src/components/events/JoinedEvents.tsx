@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import LoadingIndicator from "../LoadingIndicator";
 import { useUserIDContext } from "../../UserIDContext";
 
-interface JoinedEventsProps {}
+interface JoinedEventsProps { }
 
 const JoinedEvents: React.FC<JoinedEventsProps> = () => {
   const { userID } = useUserIDContext();
@@ -33,20 +33,21 @@ const JoinedEvents: React.FC<JoinedEventsProps> = () => {
 
   return (
     <div className="max-grid content content-pt">
+      <div className="grd grid-col-1 center">
+        <p>Willkommen auf unserer "Connect & Explore" Seite für Veranstaltungen!</p>
+      </div>
       {loading && <p>Loading...</p>}
+      {!dbEvents ?
+        <>
+          <div className="center">
+            <p>Aktuell findest du hier noch keine Events, da wir darauf warten, dass du Ihre Teilnahme zu sagst.</p>
+            <p>Schaue regelmäßig vorbei, um die neuesten Updates und Informationen zu deinen kommenden Events zu erhalten.</p>
+          </div>
+        </> : <></>
+      }
       {dbEvents && dbEvents.events && dbEvents.events.length !== 0 && (
         <>
-          <div
-              className="
-                       p-12
-                       grid
-                       grid-cols-1
-                       sm:grid-cols-2
-                       md:grid-cols-3
-                       lg:grid-cols-4
-                       gap-8
-                   "
-            >
+          <div className="pt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
             {dbEvents?.events.map((event) => (
               <Link to={`/event/${event.id}`} key={event.id}>
                 <Event
@@ -64,7 +65,7 @@ const JoinedEvents: React.FC<JoinedEventsProps> = () => {
             ))}
           </div>
         </>
-      )}
+      )} 
     </div>
   );
 };

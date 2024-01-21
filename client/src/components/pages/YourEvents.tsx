@@ -6,8 +6,8 @@ import { Header } from "../html/Header";
 const YourEvents = () => {
   return (
     <>
-      <Header homeRoute={"page"} headline={"Beigetretende Events"} />
-      <JoinedEvents />
+      <Header homeRoute={"page"} headline={"Deine Zusagen"} />
+        <JoinedEvents />
       <Footer />
     </>
   );

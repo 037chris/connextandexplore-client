@@ -51,18 +51,33 @@ const Home = () => {
       <Header homeRoute={'home'} headline={undefined} />
       {/* START SECTION OWN EVENTS */}
       {userID === undefined ? <></> : <>
-        <div className="section bg-border">
-          <div className="max-grid">
-            <OwnNewest4Events events={ownDisplayedEvents.events.slice(-4).reverse()} />
-          </div>
-        </div>
+        {ownDisplayedEvents ?
+          <>
+            <div className="section bg-border">
+              <div className="max-grid">
+                <OwnNewest4Events events={ownDisplayedEvents.events.slice(-4).reverse()} />
+              </div>
+            </div>
+          </>
+          : <></>}
       </>}
       {/* END SECTION OWN EVENTS */}
       {/* START ALL EVENTS EVENTS */}
       <div className="bg-blue section">
-        <div className="max-grid">
-          <Newest4Events events={displayedEvents.events.slice(-4).reverse()} />
-        </div>
+        {!ownDisplayedEvents ?
+          <>
+            <div className="max-grid">
+              <Newest4Events events={displayedEvents.events.slice(-4).reverse()} />
+            </div>
+          </>
+          :
+          <>
+            <div className="max-grid">
+              <h2 className="font-francisco">Du bist die erste Person!</h2>
+              <p>Es wurden noch keine Events eingetragen. <Link to="/create-event">Hol das nach!</Link></p>
+            </div>
+          </>}
+
       </div>
       {/* END ALL EVENTS EVENTS */}
       <div className="section">

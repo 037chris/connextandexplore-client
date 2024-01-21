@@ -18,6 +18,13 @@ const Footer = () => {
         navigate(0)
     };
 
+    const handleLinkClick = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    };
+
     const openAuthenticationModal = () => {
         setIsOpen(false);
         setAuthenticationModalIsOpen(true);
@@ -42,9 +49,9 @@ const Footer = () => {
                                     <ul className="grid md:grid-cols-5">
                                         <li></li>
                                         {/* <li><Link to="/profile">Profil</Link></li> */}
-                                        <li><Link to="/my-created-events">Meine Events</Link></li>
-                                        <li><Link to="/chat">Nachrichten</Link></li>
-                                        <li><Link to="/settings">Einstellungen</Link></li>
+                                        <li><Link to="/my-created-events" onClick={handleLinkClick}>Meine Events</Link></li>
+                                        <li><Link to="/chat" onClick={handleLinkClick}>Nachrichten</Link></li>
+                                        <li><Link to="/settings" onClick={handleLinkClick}>Einstellungen</Link></li>
                                         <li><Link to="/" onClick={onLogOut}>Abmelden</Link></li>
                                     </ul>
                                 </> :
@@ -53,7 +60,7 @@ const Footer = () => {
                                         <li></li>
                                         <li></li>
                                         <li><Link to="#" onClick={openAuthenticationModal}>Einloggen</Link></li>
-                                        <li><Link to='/signup'>Registrieren</Link></li>
+                                        <li><Link to='/signup' onClick={handleLinkClick}>Registrieren</Link></li>
                                     </ul>
                                 </>}
 
@@ -61,11 +68,11 @@ const Footer = () => {
                         <div className="footer-navi">
                             <p className="hl">Connect & <span>Explore</span></p>
                             <ul className="grid md:grid-cols-5">
-                                <li><Link to="/events">Alle Events</Link></li>
-                                <li><Link to="/agbs">AGBs</Link></li>
-                                <li><Link to="/dsgvo">DSGVO</Link></li>
-                                <li><Link to="/imprint">Team</Link></li>
-                                <li><Link to="/help">Hilfe/FAQ</Link></li>
+                                <li><Link to="/events" onClick={handleLinkClick}>Alle Events</Link></li>
+                                <li><Link to="/agbs" onClick={handleLinkClick}>AGBs</Link></li>
+                                <li><Link to="/dsgvo" onClick={handleLinkClick}>DSGVO</Link></li>
+                                <li><Link to="/imprint" onClick={handleLinkClick}>Team</Link></li>
+                                <li><Link to="/help" onClick={handleLinkClick}>Hilfe/FAQ</Link></li>
                             </ul>
                         </div>
                     </div>

@@ -92,16 +92,13 @@ const LoginModal: FC<LoginModalProps> = ({ isOpen, onClose }) => {
     </div>
   );
 
-
-
-
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={
-        <div className='flex flex-col gap-2'>
+        <div className='flex flex-col gap-2 bg-white'>
           <form className='flex flex-col gap-4'>
             <Heading
               title='Willkommen zurück'
