@@ -715,6 +715,7 @@ header {
     background-image: url('../img/bg-pattern-white-dots.png');
     background-repeat: repeat;
 }
+
 .bg-blue {
     width: 100%;
     background-color: $primary;
@@ -929,6 +930,7 @@ header {
         background-color: $primary;
         color: $white;
         transform: translateX(0);
+        max-width: rem(60);
 
         &:hover {
             color: $primary;
@@ -1028,7 +1030,7 @@ header {
         border: rem(1) solid $border;
         width: 100%;
         margin: 0;
-        border-radius: rem(6) 0 0 rem(6);
+        border-radius: rem(6);
         padding: rem(15) rem(20);
         position: relative;
         left: rem(8);
@@ -1144,6 +1146,10 @@ header {
         @include breakpoint(xl) {
             font-size: rem(18);
         }
+    }
+
+    .event-image-card {
+        min-height: rem(150);
     }
 
     .details {
@@ -1416,7 +1422,7 @@ header {
         border: rem(1) solid $border;
         width: 100%;
         margin: 0;
-        border-radius: rem(6) 0 0 rem(6);
+        border-radius: rem(6);
         padding: rem(15) rem(20);
         position: relative;
         left: rem(8);
@@ -1856,5 +1862,24 @@ header {
 
     &:hover {
         color: $secondary;
+    }
+}
+
+// AVATAR
+
+.avatar-box {
+    height: rem(30);
+    width: rem(30);
+    position: relative;
+    overflow: hidden;
+    border-radius: 100%;
+
+    img {
+        min-width: rem(40);
+        min-height: rem(40);
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
     }
 }

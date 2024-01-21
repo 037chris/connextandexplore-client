@@ -119,10 +119,10 @@ const UserMenu: FC = () => {
             <div
               onClick={toggleOpen}
               className="
-                p-4
-                md:py-1
-                md:px-2
-                border-[1px]
+                md:py-3
+                md:px-3
+                rounded-md
+                border-2
                 border-neutral-200
                 flex
                 flex-row
@@ -131,18 +131,20 @@ const UserMenu: FC = () => {
                 rounded-full
                 cursor-pointer
                 hover:shadow-md
-                transition
-      "
+                transition"
             >
               <AiOutlineMenu />
               <div className="hidden md:block">
-                <Avatar
-                  src={
-                    profilePicture
-                      ? `${HOST}/images/users/${profilePicture}`
-                      : "/images/placeholder.jpg"
-                  }
-                />
+                <div className="avatar-box">
+                  <Avatar
+                    src={
+                      profilePicture
+                        ? `${HOST}/images/users/${profilePicture}`
+                        : "/images/placeholder.jpg"
+                    }
+                  />
+                </div>
+
               </div>
             </div>
           </div>
@@ -182,8 +184,8 @@ const UserMenu: FC = () => {
           >
             <div className="flex flex-col cursor-pointer" onClick={onCloseMenu}>
               <>
-              <div className='md:hidden'>
-                  <MenuItem onClick={() => { navigate('/create-event')}} label="Event Erstellen" />
+                <div className='md:hidden'>
+                  <MenuItem onClick={() => { navigate('/create-event') }} label="Event Erstellen" />
                 </div>
                 <MenuItem
                   onClick={() => navigate("/")}
@@ -207,7 +209,7 @@ const UserMenu: FC = () => {
                   label="Meine Zusagen"
                 />
                 <div className='md:hidden'>
-                  <MenuItem onClick={() => { navigate('/chat')}} label="Chat" />
+                  <MenuItem onClick={() => { navigate('/chat') }} label="Chat" />
                 </div>
                 <MenuItem
                   onClick={() => navigate("/settings")}

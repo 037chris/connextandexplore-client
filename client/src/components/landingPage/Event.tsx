@@ -54,7 +54,7 @@ const LocalEvents: React.FC<EventProps> = ({
             width="318"
             height="179"
             alt="eventCard"
-            className="object-cover w-full group-hover:scale-110 transition"
+            className="object-cover w-full group-hover:scale-110 transition event-image-card"
           />
         </div>
         <div className="mt-2 font-titan hl">{name}</div>

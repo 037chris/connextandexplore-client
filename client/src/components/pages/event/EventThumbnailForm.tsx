@@ -252,7 +252,7 @@ export default function EventThumbnailForm({
               type="button"
               className="btn-event add transition duration-300"
             >
-              Add
+              +
             </button>
           </div>
         </div>
