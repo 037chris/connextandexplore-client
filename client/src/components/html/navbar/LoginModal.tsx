@@ -73,7 +73,7 @@ const LoginModal: FC<LoginModalProps> = ({ isOpen, onClose }) => {
   const footerContent = (
     <div className='flex flex-col gap-4 mt-3'>
       <hr />
-      <Button outline label='Continue with Google' icon={FcGoogle} onClick={() => { }} />
+      <Button outline label='Schließen' onClick={onClose} />
       {/* <Button outline label='Continue with GitHub' icon={AiFillGithub} onClick={() => {}} /> */}
       <div
         className='text-neutral-500 text-center mt-4 font-light'>
@@ -109,7 +109,7 @@ const LoginModal: FC<LoginModalProps> = ({ isOpen, onClose }) => {
             />
             <Input
               id='email'
-              label='Email'
+              label='E-Mail'
               disabled={loading}
               register={register}
               errors={errors}
@@ -117,10 +117,12 @@ const LoginModal: FC<LoginModalProps> = ({ isOpen, onClose }) => {
             />
             <Input
               type='password'
-              label='Password'
+              label='Passwort'
               id='password'
               register={register}
               errors={errors}
+              minLength={5}
+              maxLength={10}
               required
             />
           </form>

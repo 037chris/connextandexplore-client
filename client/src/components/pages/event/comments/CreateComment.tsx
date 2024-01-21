@@ -127,6 +127,8 @@ export const CreateComment = ({
                             disabled={loading}
                             register={register}
                             errors={errors}
+                            minLength={3} // Example minimum length
+                            maxLength={20} // Example maximum length
                             required
                         />
                         <Input
@@ -135,6 +137,8 @@ export const CreateComment = ({
                             disabled={loading}
                             register={register}
                             errors={errors}
+                            minLength={3} // Example minimum length
+                            maxLength={200} // Example maximum length
                             required
                         />
                         {/* <Input
@@ -167,6 +171,8 @@ export const CreateComment = ({
             footer={footerContent}
             actionLabel='Abgeben'
             disabled={loading}
+            seconaryAction={onClose}
+            secondaryActionLabel='Schließen'
 
 
         />
