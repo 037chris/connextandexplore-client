@@ -60,8 +60,9 @@ export default function EventFilter({ query, plz }: EventFilterProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [active, setActive] = useState(true);
+  const [hidden, setHidden] = useState("hidden");
   const [switchCategory, setSwitchCategory] = useState(false);
+  const [mobile, setMobile] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -92,92 +93,101 @@ export default function EventFilter({ query, plz }: EventFilterProps) {
     fetchData();
   }, [selectedCategory, selectedDate, switchCategory]);
 
+  useEffect(() => {
+    window.addEventListener("resize", handleMobile);
+  }, []);
+
+  const handleMobile = () => {
+    if (window.innerWidth < 414) setMobile("text-center");
+    else setMobile("");
+  };
+
   const handleFilterByCategory = (category: string) => {
     setSelectedCategory(category);
     setSwitchCategory(!switchCategory);
     setSelectedDate("");
+    if (window.innerWidth < 414) setHidden("hidden");
   };
 
   const handleFilterByDate = (date: string) => {
     setSelectedDate(date);
     setSelectedCategory("/");
+    if (window.innerWidth < 414) setHidden("hidden");
   };
 
   const handleActive = () => {
-    setActive(!active);
+    if (hidden == "hidden") setHidden("");
+    else if (hidden == "") setHidden("hidden");
   };
 
   return (
     <>
       <Container>
-        <div className="inline-block w-40 p-2">
-          <Button label={"Filter"} onClick={handleActive}></Button>
-        </div>
-        <br />
-        {active && (
-          <div className="active">
-            <div className="inline-block w-60 p-2 active">
-              <Button
-                label="Alle Events"
-                onClick={() => handleFilterByCategory("")}
-              />
-            </div>
-            <div className="inline-block w-60 p-2 active">
-              <Button
-                label="Kultur & Kunst"
-                onClick={() => handleFilterByCategory("Kultur & Kunst")}
-              />
-            </div>
-            <div className="inline-block w-60 p-2 active">
-              <Button
-                label="Konzert"
-                onClick={() => handleFilterByCategory("Konzert")}
-              />
-            </div>
-            <div className="inline-block w-60 p-2 active">
-              <Button
-                label="Sport & Fitness"
-                onClick={() => handleFilterByCategory("Sport & Fitness")}
-              />
-            </div>
-            <div className="inline-block w-60 p-2 active">
-              <Button
-                label="Gaming"
-                onClick={() => handleFilterByCategory("Gaming")}
-              />
-            </div>
-            <div className="inline-block w-60 p-2 active">
-              <Button
-                label="Hobbys"
-                onClick={() => handleFilterByCategory("Hobbys")}
-              />
-            </div>
-            <div className="inline-block w-60 p-2 active">
-              <Button
-                label="Outdoor"
-                onClick={() => handleFilterByCategory("Outdoor")}
-              />
-            </div>
-            <div className="inline-block w-60 p-2 active">
-              <Button
-                label="Social"
-                onClick={() => handleFilterByCategory("Social")}
-              />
-            </div>
-            <input
-              className="rounded-md bg-neutral-100 hover:bg-gray-50 transition text-center w-60 p-2"
-              type="date"
-              value={selectedDate || ""}
-              onChange={(e) => handleFilterByDate(e.target.value)}
+        <input
+          className={`inline-block w-36 px-2 py-4`}
+          type="date"
+          value={selectedDate || ""}
+          onChange={(e) => handleFilterByDate(e.target.value)}
+        />
+        <div className={`${mobile}`}>
+          <div className={`inline-block w-36 px-2 py-4`}>
+            <Button label={"Filter"} onClick={handleActive}></Button>
+          </div>
+          <div className={`inline-block w-36 px-2 py-4 ${hidden}`}>
+            <Button
+              label="Alle Events"
+              onClick={() => handleFilterByCategory("")}
             />
           </div>
-        )}
+          <div className={`inline-block w-36 px-2 py-4 ${hidden}`}>
+            <Button
+              label="Kultur & Kunst"
+              onClick={() => handleFilterByCategory("Kultur & Kunst")}
+            />
+          </div>
+          <div className={`inline-block w-36 px-2 py-4 ${hidden}`}>
+            <Button
+              label="Konzert"
+              onClick={() => handleFilterByCategory("Konzert")}
+            />
+          </div>
+          <div className={`inline-block w-36 px-2 py-4 ${hidden}`}>
+            <Button
+              label="Sport & Fitness"
+              onClick={() => handleFilterByCategory("Sport & Fitness")}
+            />
+          </div>
+          <div className={`inline-block w-36 px-2 py-4 ${hidden}`}>
+            <Button
+              label="Gaming"
+              onClick={() => handleFilterByCategory("Gaming")}
+            />
+          </div>
+          <div className={`inline-block w-36 px-2 py-4 ${hidden}`}>
+            <Button
+              label="Hobbys"
+              onClick={() => handleFilterByCategory("Hobbys")}
+            />
+          </div>
+          <div className={`inline-block w-36 px-2 py-4 ${hidden}`}>
+            <Button
+              label="Outdoor"
+              onClick={() => handleFilterByCategory("Outdoor")}
+            />
+          </div>
+          <div className={`inline-block w-36 px-2 py-4 ${hidden}`}>
+            <Button
+              label="Social"
+              onClick={() => handleFilterByCategory("Social")}
+            />
+          </div>
+        </div>
+
         {loading && <p>Loading...</p>}
         {events && events.events && events.events.length !== 0 ? (
           <>
             <div
               className="
-                       p-12
                        grid
                        grid-cols-1
                        sm:grid-cols-2
@@ -190,6 +200,7 @@ export default function EventFilter({ query, plz }: EventFilterProps) {
                 <Link to={`/event/${event.id}`} key={index}>
                   <Event
                     key={index}
+                    id={event.id}
                     address={event.address}
                     date={event.date}
                     name={event.name}
