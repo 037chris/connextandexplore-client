@@ -236,11 +236,12 @@ const EventDetails: React.FC = () => {
                       >
                         Austreten
                       </button>
-                      <button className="bewerten" onClick={openAuthenticationModal}>
-                        Bewerten
-                      </button>
+                      
                     </>
                   )}
+                  {!isOwner && joined && (<button className="bewerten" onClick={openAuthenticationModal}>
+                        Bewerten
+                      </button>)}
                 </div>
               </div>
               <div className="col-span-1 md:col-span-2 min-h-fit event-content-box-right">
@@ -260,15 +261,13 @@ const EventDetails: React.FC = () => {
             <div className="grid grid-cols-1 commment-section">
               <div className="col-span-1">
                 <h2>Kommentare</h2>
-                <button className="bewerten" onClick={openAuthenticationModal}>
-                  Bewerten
-                </button>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2">
                 <Comments eventId={event.id!} />
               </div>
             </div>
           </div>
+          <CreateComment isOpen={authenticationModalIsOpen} onClose={() => setAuthenticationModalIsOpen(false)} />
           {/* END COMMENT SECTION */}
           {/* END GRID */}
           <Footer />
