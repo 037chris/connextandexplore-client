@@ -8,7 +8,7 @@ type EventThumbnailFormProps = {
   updateFields: (
     fields: Partial<{ thumbnail?: File | string; hashtags?: string[] }>
   ) => void;
-  errors?: Record<string, string>; // Add this line
+  errors?: Record<string, string>;
 };
 
 export default function EventThumbnailForm({
@@ -92,97 +92,24 @@ export default function EventThumbnailForm({
       setCustomHashtag("");
     }
   };
+  const addNonExistingItemsToTarget = (
+    sourceArray: string[],
+    targetArray: string[]
+  ): string[] => {
+    const updatedTargetArray = [...targetArray];
+    const difference = sourceArray.filter(
+      (item) => !updatedTargetArray.includes(item)
+    );
+    updatedTargetArray.push(...difference);
+    return updatedTargetArray;
+  };
 
   useEffect(() => {
+    console.log("EventId in EventThumbnailForm:", hashtags);
     updateFields({ thumbnail, hashtags: selectedHashtags });
-  }, [thumbnail, selectedHashtags]);
-
-  // weird base64 converter, but works! (:)) combination of stackoverflow and chatgpt monolog
-  // const convertToBase64 = (url: string): Promise<string> => {
-  //   return new Promise((resolve, reject) => {
-  //     const img = new Image();
-  //     img.crossOrigin = 'Anonymous';
-  //     img.onload = () => {
-  //       const canvas = document.createElement('canvas');
-  //       const ctx = canvas.getContext('2d');
-  //       canvas.width = img.width;
-  //       canvas.height = img.height;
-  //       ctx?.drawImage(img, 0, 0);
-  //       const base64Data = canvas.toDataURL('image/png');
-  //       resolve(base64Data);
-  //     };
-  //     img.onerror = () => {
-  //       reject(new Error('Fehler beim Laden des Bildes.'));
-  //     };
-  //     img.src = url;
-  //   });
-  // };
-
-  const convertToBase64 = (url: string): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      img.crossOrigin = "Anonymous";
-      img.onload = () => {
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-
-        // Setze die canvas-Größe auf 400x300 Pixel
-        const targetWidth = 400;
-        const targetHeight = 300;
-        canvas.width = targetWidth;
-        canvas.height = targetHeight;
-
-        // Zeichne das Bild auf die canvas mit der neuen Größe
-        ctx?.drawImage(
-          img,
-          0,
-          0,
-          img.width,
-          img.height,
-          0,
-          0,
-          targetWidth,
-          targetHeight
-        );
-
-        // Konvertiere die canvas-Daten in Base64
-        const base64Data = canvas.toDataURL("image/png");
-        resolve(base64Data);
-      };
-      img.onerror = () => {
-        reject(new Error("Fehler beim Laden des Bildes."));
-      };
-      img.src = url;
-    });
-  };
-
-  const handleImageSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    if (fileUploaded) {
-      // convert imge in base 64, save this in event model
-      if (thumbPrewview) {
-        const fileInput = document.getElementById(
-          "bild"
-        ) as HTMLInputElement | null;
-        console.log("fileInput:", fileInput?.files);
-        if (fileInput?.files !== undefined && fileInput.files?.length === 1) {
-          thumbnail = fileInput.files[0];
-          console.log("thumbnail:", thumbnail);
-          updateFields({ thumbnail, hashtags });
-        }
-        // console.log("HIT THE BTN: find the thumb");
-        // convertToBase64(thumbPrewview)
-        //   .then(base64Image => {
-        //     // see code
-        //     console.log("base64Image: " + base64Image);
-        //     updateFields({ thumbnail: base64Image, hashtags: selectedHashtags });
-        //   })
-        //   .catch(error => {
-        //     console.error('Fehler bei der Konvertierung in Base64:', error);
-        //   });
-      }
-    }
-  };
+    const newHashtags = addNonExistingItemsToTarget(hashtags, allHashtags);
+    setNewHashtag(newHashtags);
+  }, [hashtags]);
 
   return (
     <FormWrapper title="Lege ein Thumbnail fest und wähle Hashtags für deine Veranstaltung">
