@@ -53,7 +53,7 @@ const Home = () => {
       {userID === undefined ? <></> : <>
         <div className="section bg-border">
           <div className="max-grid">
-            <OwnNewest4Events events={ownDisplayedEvents.events.slice(-4).reverse()} />
+            {ownDisplayedEvents ? (<OwnNewest4Events events={ownDisplayedEvents.events.slice(-4).reverse()} />) : (<><h2 className="font-francisco">Deine Events</h2><div>Du hast noch keine Events erstellt.</div></>)}
           </div>
         </div>
       </>}
