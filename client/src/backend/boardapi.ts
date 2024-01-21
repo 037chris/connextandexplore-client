@@ -480,7 +480,7 @@ export async function searchEvents(query: string): Promise<eventsResource> {
       headers: headers(),
       //body: JSON.stringify(query),
     });
-    console.log(response);
+    //console.log(response);
     return response as eventsResource;
   } catch (err) {
     throw err;

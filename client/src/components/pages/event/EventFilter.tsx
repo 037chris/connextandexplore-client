@@ -55,6 +55,10 @@ export default function EventFilter({ query, plz }: EventFilterProps) {
     load();
   }, [query, plz]);
 
+  useEffect(() => {
+    if(query || plz) load();
+  });
+
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
