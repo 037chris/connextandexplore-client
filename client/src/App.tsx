@@ -11,7 +11,7 @@ import { useState } from "react";
 import { UserIDContext } from "./UserIDContext";
 
 // STYLES
-import './sass/App.scss'
+import "./sass/App.scss";
 
 //
 import UserProfile from "./components/pages/user/UserProfile";
@@ -30,50 +30,53 @@ import ChatApp from "./components/chat/ChatApp";
 import YourEvents from "./components/pages/YourEvents";
 
 import { CreateComment } from "./components/pages/event/comments/CreateComment";
+import { AvatarProvider } from "./actions/AvatarContext";
+import { CommentProvider } from "./actions/commentContext";
 
 export default function App() {
   const [userID, setUserID] = useState(getUserIDFromJWT());
 
-  
-  
   return (
-   <>
-    
-    <UserIDContext.Provider value={{ userID, setUserID }} >
-      <Navbar />
-      <ToasterProvider />
-        <Routes>
-          <Route path="/" element={<Home />}/>
-          <Route path="/signup" element={<SignUp />}/>
+    <>
+      <AvatarProvider>
+        <CommentProvider>
+          <UserIDContext.Provider value={{ userID, setUserID }}>
+            <Navbar />
+            <ToasterProvider />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/signup" element={<SignUp />} />
 
-          <Route element={<PrivateRoute />}>
-          {/* <Route path="/about" element={<UserProfile/>}/> */}
-          <Route path="/settings" element={<UserSettings activeTab={"profile"} />}/>
-          <Route path="/create-event" element={<CreateEventPage />}/>
-          <Route path="/my-created-events" element={<UserEvents />}/>
-          <Route path="/edit-event/:eventId" element={<EditEventPage  />}/>
-          <Route path='/chat' element={<ChatApp />}/>
-          </Route>
+              <Route element={<PrivateRoute />}>
+                {/* <Route path="/about" element={<UserProfile/>}/> */}
+                <Route
+                  path="/settings"
+                  element={<UserSettings activeTab={"profile"} />}
+                />
+                <Route path="/create-event" element={<CreateEventPage />} />
+                <Route path="/my-created-events" element={<UserEvents />} />
+                <Route
+                  path="/edit-event/:eventId"
+                  element={<EditEventPage />}
+                />
+                <Route path="/chat" element={<ChatApp />} />
+              </Route>
 
+              <Route path="/event/:eventId" element={<EventDetails />} />
+              <Route path="/events" element={<Events />} />
+              <Route path="/yourevents" element={<YourEvents />} />
+              <Route path="*" element={<NotFound />} />
+              <Route path="/events/undefined" element={<NotFound />} />
+              {/* <Route path="/event/:eventId/comment" element={<CreateComment/>}/> */}
 
-          <Route path="/event/:eventId" element={<EventDetails  />}/>
-          <Route path="/events" element={<Events />}/>
-          <Route path="/yourevents" element={<YourEvents />}/>
-          <Route path='*' element={<NotFound />}/>
-          <Route path='/events/undefined' element={<NotFound />}/>
-          {/* <Route path="/event/:eventId/comment" element={<CreateComment/>}/> */}
-
-          <Route path="/dsgvo" element={<Dsgvo />}/>
-          <Route path="/agbs" element={<Agbs />}/>
-          <Route path="/imprint" element={<Impressum />}/>
-          <Route path="/help" element={<Help />}/>
-        </Routes>
-    </UserIDContext.Provider>
-
-   </>
-   
-   
-  )
+              <Route path="/dsgvo" element={<Dsgvo />} />
+              <Route path="/agbs" element={<Agbs />} />
+              <Route path="/imprint" element={<Impressum />} />
+              <Route path="/help" element={<Help />} />
+            </Routes>
+          </UserIDContext.Provider>
+        </CommentProvider>
+      </AvatarProvider>
+    </>
+  );
 }
-
-

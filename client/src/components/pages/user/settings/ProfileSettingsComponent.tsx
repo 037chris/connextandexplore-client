@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import { userResource, uAddressResource } from "../../../../Resources";
 import {
@@ -13,10 +13,12 @@ import Avatar from "../../../Avatar";
 import toast from "react-hot-toast";
 import { HOST } from "../../../../backend/getHostApi";
 import { useNavigate } from "react-router-dom";
+import { AvatarContext } from "../../../../actions/AvatarContext";
 
 const ProfilSettingsComponent = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const { dispatch } = useContext(AvatarContext) as any;
 
   const [user, setUser] = useState<userResource | null>(null);
   const [profilePicture, setProfilePicture] = useState("");
@@ -106,6 +108,10 @@ const ProfilSettingsComponent = () => {
       const updatedUserData = await updateUser(formData!);
       console.log("res:", updatedUserData);
       if (updatedUserData.profilePicture) {
+        dispatch({
+          type: "SET_AVATAR",
+          payload: updatedUserData.profilePicture,
+        });
         setProfilePicture(updatedUserData.profilePicture);
       }
       toast.success("Your profile has been successfully updated");
@@ -131,7 +137,7 @@ const ProfilSettingsComponent = () => {
     } finally {
       setLoading(false);
     }
-    window.location.reload();
+    //window.location.reload();
   };
   const onSubmitDeletePicture: SubmitHandler<FieldValues> = async () => {
     setLoading(true);
@@ -146,6 +152,10 @@ const ProfilSettingsComponent = () => {
       console.log("res:", updatedUserData);
       if (updatedUserData.profilePicture === "") {
         setProfilePicture("");
+        dispatch({
+          type: "SET_AVATAR",
+          payload: null,
+        });
       }
       toast.success("Your profile picture has been successfully deleted");
       reset();
@@ -158,7 +168,7 @@ const ProfilSettingsComponent = () => {
     } finally {
       setLoading(false);
     }
-    window.location.reload();
+    //window.location.reload();
   };
 
   return (
@@ -249,7 +259,7 @@ const ProfilSettingsComponent = () => {
         <Button
           disabled={loading}
           label={loading ? "Loading..." : "Speichern"}
-          onClick={() => { }}
+          onClick={() => {}}
           primary
           className="save"
         />
