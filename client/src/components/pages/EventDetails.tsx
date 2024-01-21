@@ -264,6 +264,9 @@ const EventDetails: React.FC = () => {
                       
                     </>
                   ))}
+                  {joined && (<button className="bewerten mb-2" onClick={() => navigate('/chat', { state: { chatId: event.chat } })}>
+                        Chat
+                      </button>)}
                   {!isOwner && joined && (<button className="bewerten" onClick={openAuthenticationModal}>
                         Bewerten
                       </button>)}
