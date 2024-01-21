@@ -7,8 +7,9 @@ import {
   getEvent,
   getUserIDFromJWT,
   joinEvent,
+  getUserInfos,
 } from "../../backend/boardapi";
-import { eventResource, eventsResource } from "../../Resources";
+import { eventResource, eventsResource, userResourceNA } from "../../Resources";
 import LoadingIndicator from "../LoadingIndicator";
 import Hashtags from "../landingPage/Hashtags";
 import Button from "../html/Button";
@@ -25,6 +26,7 @@ const EventDetails: React.FC = () => {
   const params = useParams();
   const eventId = params.eventId;
   const [event, setEvent] = useState<eventResource>();
+  const [eventOwner, setEventOwner] = useState<userResourceNA>();
   const [joined, setJoined] = useState(false);
   const [reload, setReload] = useState(false);
 
@@ -32,10 +34,10 @@ const EventDetails: React.FC = () => {
   const [events, setEvents] = useState<eventsResource | null>(null);
   const { userID } = useUserIDContext();
   const navigate = useNavigate();
-
   const [rating, setRating] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
-  const [authenticationModalIsOpen, setAuthenticationModalIsOpen] = useState(false);
+  const [authenticationModalIsOpen, setAuthenticationModalIsOpen] =
+    useState(false);
 
   // export type eventResource = {
   //   id?: string;
@@ -56,6 +58,9 @@ const EventDetails: React.FC = () => {
     const fetchEvent = async () => {
       if (eventId) {
         const result = await getEvent(eventId);
+        const creatorID = result.creator ? result.creator : "";
+        const eventCreator = await getUserInfos(creatorID);
+        setEventOwner(eventCreator);
         setEvent(result);
         if (result.participants?.includes(getUserIDFromJWT())) {
           setJoined(true);
@@ -130,12 +135,10 @@ const EventDetails: React.FC = () => {
     );
   }
 
-
   const openAuthenticationModal = () => {
     setIsOpen(false);
     setAuthenticationModalIsOpen(true);
   };
-
 
   return (
     <>
@@ -152,12 +155,22 @@ const EventDetails: React.FC = () => {
                     {/* CREATOR */}
                     <div className="creator flex">
                       <div className="creator-profil-img">
-                        <img src="" alt="Creator" />
+                        <img
+                          src={
+                            eventOwner?.profilePicture && eventOwner?.isActive
+                              ? `${HOST}/images/users/${eventOwner?.profilePicture}`
+                              : "/images/placeholder.jpg"
+                          }
+                          alt="Creator"
+                        />
                       </div>
                       <div className="creator-info">
                         <span>
                           Hosted by
-                          <span>{event.creatorName?.first} {event.creatorName?.last}</span>
+                          <span>
+                            {eventOwner?.name.first} {eventOwner?.name.last}
+                            {eventOwner?.isActive ? "" : " (inaktiv)"}
+                          </span>
                         </span>
                       </div>
                     </div>
@@ -191,11 +204,14 @@ const EventDetails: React.FC = () => {
                 <div className="col-span-1 md:col-span-6 lg:col-span-5 xl:col-span-5">
                   {/* EVENT IMG CONTAINER */}
                   <div className="event-image">
-                    <img src={
-                      event.thumbnail
-                        ? `${HOST}/images/events/${event.thumbnail}`
-                        : "/images/CARD_IMG_Placeholder.jpg"
-                    } alt={event!.name} />
+                    <img
+                      src={
+                        event.thumbnail
+                          ? `${HOST}/images/events/${event.thumbnail}`
+                          : "/images/CARD_IMG_Placeholder.jpg"
+                      }
+                      alt={event!.name}
+                    />
                   </div>
                 </div>
               </div>
@@ -207,7 +223,11 @@ const EventDetails: React.FC = () => {
             <div className="event-box grid grid-cols-1 md:grid-cols-3">
               <div className="col-span-1 min-h-fit event-content-box-left">
                 <ul>
-                  <li className="date">{event.date ? format(new Date(event.date), 'PPP, p') : 'No Date'}</li>
+                  <li className="date">
+                    {event.date
+                      ? format(new Date(event.date), "PPP, p")
+                      : "No Date"}
+                  </li>
                   <li className="adress">
                     {event.address.street} {event.address.houseNumber}{" "}
                     <span>{event.address.city}</span>

@@ -9,12 +9,12 @@ import EventSelectCategoryForm, {
   SelectOption,
 } from "./event/EventCategoryForm";
 
-import { categoryResource, eventResource } from '../../Resources';
-import { createEvent, getEvent, updateEvent } from '../../backend/boardapi';
-import toast from 'react-hot-toast';
-import { useUserIDContext } from '../../UserIDContext';
-import { useNavigate, useParams } from 'react-router-dom';
-import { format } from 'date-fns';
+import { categoryResource, eventResource } from "../../Resources";
+import { createEvent, getEvent, updateEvent } from "../../backend/boardapi";
+import toast from "react-hot-toast";
+import { useUserIDContext } from "../../UserIDContext";
+import { useNavigate, useParams } from "react-router-dom";
+import { format } from "date-fns";
 
 const options = [
   { name: "Kultur & Kunst", value: 1 },
@@ -89,8 +89,9 @@ const EditEventPage: React.FC = () => {
     const fetchEvent = async () => {
       try {
         const event = await getEvent(eventId!);
-        setData(event);
 
+        setData(event);
+        console.log("Data before upload:", data);
         const mappedCategories: SelectOption[] = event.category
           ? event.category.map((cat) => ({
               name: cat.name,
@@ -112,7 +113,12 @@ const EditEventPage: React.FC = () => {
   }, [eventId]);
 
   function updateFields(fields: Partial<eventResource>) {
+    console.log("prev data:", fields);
     setData((prev) => ({ ...prev, ...fields }));
+    console.log("afetr update:", data);
+    if (data.thumbnail instanceof String) {
+      data.thumbnail = undefined;
+    }
   }
 
   const handleNext = () => {
@@ -125,8 +131,10 @@ const EditEventPage: React.FC = () => {
 
   const onSubmit = async () => {
     try {
-      const convertedDate = typeof data.date === 'string' ? new Date(data.date) : data.date;
-
+      const convertedDate =
+        typeof data.date === "string" ? new Date(data.date) : data.date;
+      console.log("data to send Event:", data);
+      console.log("data.thumbnail:", data.thumbnail);
       const success = await updateEvent(eventId!, {
         name: data.name,
         date: convertedDate,
@@ -184,7 +192,7 @@ const EditEventPage: React.FC = () => {
                   type="button"
                   onClick={onBack}
                 >
-                  ZurÃ¼ck
+                  Zurück
                 </button>
               )}
             </div>
