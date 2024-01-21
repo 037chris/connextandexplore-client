@@ -57,6 +57,7 @@ const EventDetails: React.FC = () => {
   // };
 
   useEffect(() => {
+
     const fetchEvent = async () => {
       if (eventId) {
         const result = await getEvent(eventId);
@@ -64,6 +65,7 @@ const EventDetails: React.FC = () => {
         const eventCreator = await getUserInfos(creatorID);
         setEventOwner(eventCreator);
         setEvent(result);
+        document.title = `${result.name} - Connect & Explore`;
         if (result.participants?.includes(getUserIDFromJWT())) {
           setJoined(true);
         } else {

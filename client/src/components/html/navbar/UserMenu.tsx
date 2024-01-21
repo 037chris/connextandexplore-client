@@ -121,6 +121,8 @@ const UserMenu: FC = () => {
               className="
                 md:py-3
                 md:px-3
+                py-4
+                px-4
                 rounded-md
                 border-2
                 border-neutral-200

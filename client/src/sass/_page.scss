@@ -546,6 +546,7 @@ header {
                 margin: 0;
                 border-radius: 0;
                 min-height: rem(40);
+                padding-left: rem(15);
 
                 &::placeholder {
                     text-align: center;
@@ -645,9 +646,14 @@ header {
         background-color: $border;
         position: relative;
         overflow: hidden;
+        margin-top: rem(35);
 
         @include breakpoint(md) {
             height: rem(250);
+        }
+
+        @include breakpoint(lg) {
+            margin-top: rem(0);
         }
 
         @include breakpoint(xl) {
@@ -655,9 +661,8 @@ header {
         }
 
         img {
-            width: auto;
+            width: 100%;
             height: auto;
-            min-width: rem(90);
             min-height: rem(200);
             position: absolute;
             left: 50%;

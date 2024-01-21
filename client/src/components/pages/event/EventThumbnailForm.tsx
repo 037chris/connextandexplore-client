@@ -112,7 +112,7 @@ export default function EventThumbnailForm({
   }, [hashtags]);
 
   return (
-    <FormWrapper title="Lege ein Thumbnail fest und wähle Hashtags für deine Veranstaltung">
+    <FormWrapper title="Lade ein Titlebild hoch und wähle Hashtags für deine Veranstaltung">
       <div className="flex flex-col items-center">
         <div className="flex gap-2">
           <label htmlFor="bild" className="cursor-pointer">

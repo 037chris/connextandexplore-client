@@ -15,6 +15,8 @@ import toast from "react-hot-toast";
 import { useUserIDContext } from "../../UserIDContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { format } from "date-fns";
+import { Header } from "../html/Header";
+import Footer from "../html/Footer";
 
 const options = [
   { name: "Kultur & Kunst", value: 1 },
@@ -84,6 +86,17 @@ const EditEventPage: React.FC = () => {
 
   const navigate = useNavigate();
 
+  const [headlineString, setHeadlineString] = useState(
+    `Event bearbeiten: Schritt ${currentStepIndex + 1} von ${steps.length}`
+  );
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   useEffect(() => {
     // Fetch existing event data by ID when the component mounts
     const fetchEvent = async () => {
@@ -91,16 +104,16 @@ const EditEventPage: React.FC = () => {
         const event = await getEvent(eventId!);
 
         setData(event);
-        console.log("Data before upload:", data);
+        //console.log("Data before upload:", data);
         const mappedCategories: SelectOption[] = event.category
           ? event.category.map((cat) => ({
-              name: cat.name,
-              value: cat.id || "",
-            }))
+            name: cat.name,
+            value: cat.id || "",
+          }))
           : [];
 
         setSelectedCategories(mappedCategories);
-
+        document.title = `${data.name} bearbeiten - Connect & Explore`;
         if (!event.category) {
           updateFields({ category: [] });
         }
@@ -171,44 +184,54 @@ const EditEventPage: React.FC = () => {
   };
 
   return (
-    <div className="relative bg-white pt-24 px-4 md:px-0">
-      <div className="max-w-2xl mx-auto border-2 border-sky-500 rounded-md p-8">
-        <form onSubmit={(e) => e.preventDefault()}>
-          <div className="text-center mb-6">
-            <p className="text-gray-800 font-titan">
-              {`EVENT AKTUALISIEREN SCHRITT ${currentStepIndex + 1} VON ${
-                steps.length
-              }`}
-            </p>
-          </div>
-
-          <div className="mb-8">{steps[currentStepIndex]}</div>
-
-          <div className="flex justify-between">
-            <div className="w-full md:w-1/4">
-              {!isFirstStep && (
-                <button
-                  className="bg-red-400 w-full h-12 rounded-md text-white font-sans font-medium"
-                  type="button"
-                  onClick={onBack}
-                >
-                  Zurück
-                </button>
-              )}
-            </div>
-            <div className="w-full md:w-1/4">
-              <button
-                className="bg-red-400 w-full h-12 rounded-md text-white font-medium"
-                type="button"
-                onClick={handleNext}
-              >
-                {isLastStep ? "Fertigstellen" : "Weiter"}
-              </button>
-            </div>
-          </div>
-        </form>
+    <>
+      <Header homeRoute={"page"} headline={headlineString} />
+      <div className="progressbar">
+        <span style={{ width: `${(currentStepIndex + 1 - 0.5) * 20}%` }}></span>
       </div>
-    </div>
+      <div className="max-grid content">
+        <div className="relative bg-white px-4 md:px-0">
+          <div className="max-w-2xl mx-auto md:p-8">
+            <form onSubmit={(e) => e.preventDefault()} className="event-form">
+              <div className="mb-8">{steps[currentStepIndex]}</div>
+
+              <div className="md:flex justify-between">
+                <div className="w-full md:w-1/4">
+                  {!isFirstStep && (
+                    // zurück
+                    <button
+                      className="btn-event event-back font-sans"
+                      type="button"
+                      onClick={() => {
+                        onBack();
+                        scrollToTop(); // Hier wird die Scroll-to-Top-Funktion aufgerufen
+                      }}
+                    >
+                      Zurück
+                    </button>
+                  )}
+                </div>
+                <div className="w-full md:w-1/4">
+                  {/* // weiter */}
+                  <button
+                    className="btn-event event-next font-sans"
+                    type="submit"
+                    onClick={() => {
+                      handleNext();
+                      scrollToTop();
+                    }}
+                  >
+                    {isLastStep ? "Fertigstellen" : "Weiter"}
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <Footer />
+    </>
+
   );
 };
 
