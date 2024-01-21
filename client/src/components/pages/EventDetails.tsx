@@ -102,7 +102,7 @@ const EventDetails: React.FC = () => {
     : "No Date";
 
   let participateButton;
-  if (userID !== event?.creator) {
+  if ((userID) && (userID !== event?.creator)) {
     if (!joined) {
       participateButton = (
         <Button

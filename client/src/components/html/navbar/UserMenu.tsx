@@ -186,12 +186,20 @@ const UserMenu: FC = () => {
                   <MenuItem onClick={() => { navigate('/create-event')}} label="Event Erstellen" />
                 </div>
                 <MenuItem
-                  onClick={() => navigate("/about")}
-                  label="Mein Profil"
+                  onClick={() => navigate("/")}
+                  label="Home"
                 />
                 <MenuItem
+                  onClick={() => navigate("/events")}
+                  label="Event suchen"
+                />
+                {/* <MenuItem
+                  onClick={() => navigate("/about")}
+                  label="Mein Profil"
+                /> */}
+                <MenuItem
                   onClick={() => navigate("/my-created-events")}
-                  label="Erstellte Events"
+                  label="Meine Events"
                 />
                 {/* <MenuItem onClick={() => { }} label="Nachrichten" /> */}
                 <MenuItem

@@ -47,7 +47,7 @@ export default function App() {
           <Route path="/signup" element={<SignUp />}/>
 
           <Route element={<PrivateRoute />}>
-          <Route path="/about" element={<UserProfile/>}/>
+          {/* <Route path="/about" element={<UserProfile/>}/> */}
           <Route path="/settings" element={<UserSettings activeTab={"profile"} />}/>
           <Route path="/create-event" element={<CreateEventPage />}/>
           <Route path="/my-created-events" element={<UserEvents />}/>
@@ -60,6 +60,7 @@ export default function App() {
           <Route path="/events" element={<Events />}/>
           <Route path="/yourevents" element={<YourEvents />}/>
           <Route path='*' element={<NotFound />}/>
+          <Route path='/events/undefined' element={<NotFound />}/>
           {/* <Route path="/event/:eventId/comment" element={<CreateComment/>}/> */}
 
           <Route path="/dsgvo" element={<Dsgvo />}/>

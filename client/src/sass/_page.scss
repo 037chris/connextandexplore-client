@@ -617,14 +617,14 @@ header {
         }
 
         .creator-info {
-            > span {
+            >span {
                 font-weight: 300;
                 margin-top: rem(5);
                 font-size: rem(16);
                 display: block;
                 margin-left: rem(12);
 
-                > span {
+                >span {
                     position: relative;
                     top: rem(-2);
                     display: block;
@@ -677,7 +677,7 @@ header {
 
         div {
             width: 100%;
-            
+
             button {
                 border: rem(1) solid $text;
                 padding: rem(8) rem(15);
@@ -1356,39 +1356,39 @@ header {
 
         .user-picture {
             width: 100%;
-            display:block;
+            display: block;
 
-            > div {
+            >div {
                 width: rem(150);
-            height: rem(150);
-            border: rem(2) solid $primary;
-            border-radius: 100%;
-            overflow: hidden;
-            position: relative;
-            margin: 0 auto 0 auto;
-            display: inline-block;
-
-            @include breakpoint(md) {
-                margin: 0 rem(35) 0 0;
-                width: rem(88);
-                height: rem(88);
-            }
-
-            img {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                min-width: rem(150);
-                min-height: rem(150);
+                height: rem(150);
+                border: rem(2) solid $primary;
+                border-radius: 100%;
+                overflow: hidden;
+                position: relative;
+                margin: 0 auto 0 auto;
+                display: inline-block;
 
                 @include breakpoint(md) {
-                    min-width: rem(90);
-                    min-height: rem(90);
+                    //margin: 0 rem(35) 0 0;
+                    width: rem(88);
+                    height: rem(88);
+                }
+
+                img {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    min-width: rem(150);
+                    min-height: rem(150);
+
+                    @include breakpoint(md) {
+                        min-width: rem(90);
+                        min-height: rem(90);
+                    }
                 }
             }
-            }
-            
+
         }
     }
 
