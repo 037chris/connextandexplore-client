@@ -78,7 +78,7 @@ export default function SignUp() {
       <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4' encType="multipart/form-data">
         <Input
           id="email"
-          label="E-Mail *"
+          label="Email *"
           disabled={loading}
           register={register}
           errors={errors}
@@ -88,20 +88,15 @@ export default function SignUp() {
 
         <Input
           type='password'
-          label='Passwort *'
+          label='Password *'
           disabled={loading}
           id='password'
           register={register}
           errors={errors}
           required
           pattern={/^(?=.*[a-zA-Z])(?=.*\d).{8,20}$/}
-          minLength={6}
-          maxLength={20}
-          onChangeFn={(e) => {
-            // If you need to perform any specific actions when the password changes, add them here
-            // For example, you might want to compare passwords for confirmation
-            // You can also use this to trigger any custom validation logic
-          }}
+          minLength={3} // Example minimum length
+          maxLength={20} // Example maximum length
         />
 
 
@@ -110,7 +105,7 @@ export default function SignUp() {
             {/* Additional fields for registration */}
             <Input
               type='text'
-              label='Vorname *'
+              label='First Name *'
               id='name.first'
               register={register}
               errors={errors}
@@ -123,7 +118,7 @@ export default function SignUp() {
           </div>
           <Input
             type='text'
-            label='Nachname *'
+            label='Last Name *'
             id='name.last'
             register={register}
             errors={errors}
@@ -138,7 +133,7 @@ export default function SignUp() {
         <div className="md:flex md:gap-4">
           <Input
             type='text'
-            label='Stadt *'
+            label='City *'
             id='address.city'
             register={register}
             errors={errors}
@@ -150,7 +145,7 @@ export default function SignUp() {
           <div className='mt-4 md:mt-0'>
             <Input
               type='text'
-              label='PLZ *'
+              label='ZIP *'
               id='address.postalCode'
               register={register}
               errors={errors}
@@ -165,7 +160,7 @@ export default function SignUp() {
 
         <Input
           type='file'
-          label='Profilbild'
+          label='Profile Picture'
           id='profilePicture'
           register={register}
           errors={errors}
@@ -174,7 +169,7 @@ export default function SignUp() {
         />
         <Input
           type='date'
-          label='Geburtsdatum *'
+          label='Birthdate *'
           id='birthDate'
           register={register}
           errors={errors}
@@ -183,8 +178,8 @@ export default function SignUp() {
           pattern={/\d{4}-\d{2}-\d{2}/}
         />
         <Select
-          options={["Weiblich", "Männlich", "Andere"]}
-          label='Geschlecht *'
+          options={["Female", "Male", "Other"]}
+          label='Gender *'
           id='gender'
           register={register}
           errors={errors}
@@ -198,8 +193,6 @@ export default function SignUp() {
           register={register}
           errors={errors}
           disabled={loading}
-
-          maxLength={20} // Example maximum length
         />
         <Input
           type='text'
@@ -209,9 +202,8 @@ export default function SignUp() {
           errors={errors}
           disabled={loading}
 
-          maxLength={50} // Example maximum length
         />
-        <p className='text-neutral-800'>* zeigt ein Pflichtfeld an.</p>
+        <p className='text-neutral-800'>* indicates a required field.</p>
         <div className='mt-6'>
           <Button
             disabled={loading}
@@ -224,13 +216,13 @@ export default function SignUp() {
       <div className='text-neutral-500 text-center mt-4 mb-20 font-light'>
         <div className='justify-center flex flex-row items-center gap-2'>
           <div>
-            Bereits ein Konto?
+            Already have an account?
           </div>
           <div
             onClick={openAuthenticationModal}
             className='text-neutral-800 cursor-pointer hover:underline'
           >
-            Einloggen
+            Log In
           </div>
         </div>
       </div>
