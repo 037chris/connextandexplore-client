@@ -6,9 +6,41 @@ import Footer from '../html/Footer';
 import { Header } from '../html/Header';
 import PlaceholderImg from '../../img/PLACEHOLDER_PEOPLE.svg'
 import { useUserIDContext } from '../../UserIDContext';
+import Newest4Events from '../landingPage/Newest4Events';
+import OwnNewest4Events from '../landingPage/OwnNewest4Events';
+import { useEffect, useState } from 'react';
+import { getAllEvents, getCreatedEvent } from '../../backend/boardapi';
+import { eAddressResource, eventResource } from '../../Resources';
 
+
+const initAddress:eAddressResource={
+  street: "init",
+  houseNumber: "init",
+  postalCode: "init",
+  city: "init",
+  country: "init"
+}
+ 
+const initEvent:eventResource={
+  name: "hahahaha",
+  description: "init",
+  price: -1,
+  date: new Date(),
+  address: initAddress,
+  thumbnail: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp4zpIuafwUwAALiZhyewnZPBfWlm8OvxZIEawUIuHKw&s"
+
+}
 
 const Home = () => {
+  const [displayedEvents,setDisplayedEvents] = useState({events:[initEvent]});
+  const [ownDisplayedEvents,setOwnDisplayedEvents] = useState({events:[initEvent]});
+
+  const load=async ()=>{
+    setDisplayedEvents(await getAllEvents())
+    if(userID)setOwnDisplayedEvents(await getCreatedEvent(userID))
+    console.log(1);
+  }
+
   const eventsData = [
     {
       date: "2023-01-01", name: "Event 1", description: "Beschreibung für Event 1", location: "Ort 1",
@@ -22,9 +54,10 @@ const Home = () => {
   const navigate = useNavigate();
   const { userID } = useUserIDContext();
 
-  React.useEffect(() => {
+  useEffect(() => {
+    load()
     document.title = 'Willkommen auf der Seite Connect & Explore"';
-  }, []); 
+  }, [userID]); 
 
   return (
     <div className='relative'>
@@ -34,6 +67,22 @@ const Home = () => {
         <div className="max-grid">
           <LocalEvents events={eventsData} />
         </div>
+        <br/>
+        <br/>
+        <br/>
+        <div className="max-grid">
+          <Newest4Events events={displayedEvents.events.slice(-4).reverse()} />
+        </div>
+        
+        {userID === undefined ? <></>: <>
+        <br/>
+        <br/>
+        <br/>
+        <div className="max-grid">
+          <OwnNewest4Events events={ownDisplayedEvents.events.slice(-4).reverse()} />
+        </div>
+        </>}
+        
       </div>
       <div className="section">
         <div className="max-grid">
