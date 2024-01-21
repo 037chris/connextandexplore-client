@@ -10,7 +10,7 @@ import React from "react";
 import { useForm, FieldValues } from "react-hook-form";
 import Input from "../html/inputs/Input";
 import Button from "../html/Button";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import  question  from "../../img/question.png"
 
 interface AllEventsProps {
@@ -36,6 +36,10 @@ const initEvent: eventResource = {
 const AllEvents: React.FC<AllEventsProps> = ({ }) => {
   const [dbEvents, setDbEvents] = useState({ events: [initEvent] });
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  const location = useLocation();
+  const query = location.state && location.state.query;
+  const plz = location.state && location.state.plz;
 
   const load = async () => {
     //let allDbEvents=await getAllEvents();
@@ -63,8 +67,8 @@ const AllEvents: React.FC<AllEventsProps> = ({ }) => {
     setSelectedCategory(category);
   };
 
-  const [query, setQuery] = React.useState<string>("");
-  const [plz, setPLZ] = React.useState<string>("");
+  const [query1, setQuery] = React.useState<string>("");
+  const [plz1, setPLZ] = React.useState<string>("");
   const [loading, setLoading] = React.useState(false);
   const [mobile, setMobile] = useState("");
 
@@ -87,6 +91,11 @@ const AllEvents: React.FC<AllEventsProps> = ({ }) => {
     }
   };
 
+  useEffect(() => {
+    setQuery(query)
+    setPLZ(plz)
+  }, []);
+
   return (
     <>
       <Header homeRoute={"page"} headline={"Events"} />
@@ -105,6 +114,7 @@ const AllEvents: React.FC<AllEventsProps> = ({ }) => {
                       type="text"
                       label="Event suchen"
                       id="query"
+                      defaultValue={query}
                       register={register}
                       errors={errors}
                       disabled={loading}
@@ -115,6 +125,7 @@ const AllEvents: React.FC<AllEventsProps> = ({ }) => {
                       type="text"
                       label="Postleitzahl"
                       id="plz"
+                      defaultValue={plz}
                       register={register}
                       errors={errors}
                       disabled={loading}
@@ -137,7 +148,7 @@ const AllEvents: React.FC<AllEventsProps> = ({ }) => {
       </div>
       <div className="max-grid content filter">
         {/*  FILTER */}
-        <EventFilter query={query} /*setQuery={setQuery} setPLZ={setPLZ} */ plz={plz} />
+        <EventFilter query={query1} /*setQuery={setQuery} setPLZ={setPLZ} */ plz={plz1} />
       </div>
       <Footer />
     </>

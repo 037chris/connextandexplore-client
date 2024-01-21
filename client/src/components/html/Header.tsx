@@ -4,6 +4,7 @@ import headerImg from '../../img/HEADER_IMG.svg';
 import headerImgLogged from '../../img/HEADER-community.svg';
 import { useUserIDContext } from '../../UserIDContext';
 import { getUser } from '../../backend/boardapi';
+import { useNavigate } from 'react-router-dom';
 
 interface HomeRouteName {
   homeRoute: 'home' | 'page' | 'event' | undefined;
@@ -15,6 +16,10 @@ export const Header: React.FC<HomeRouteName> = ({ homeRoute, headline }) => {
   const [hR, setHomeRoute] = useState<'home' | 'page' | 'event' | undefined>(homeRoute);
   const [hl, setHeadline] = useState<string | undefined>(headline);
   const [firstname, setFirstname] = useState<string>('');
+
+  const [eventQuery, setEventQuery] = useState<string>('');
+  const [placeQuery, setPlaceQuery] = useState<string>('');
+  const navigate = useNavigate();
 
   const fetchUserProfile = async () => {
     try {
@@ -42,6 +47,20 @@ export const Header: React.FC<HomeRouteName> = ({ homeRoute, headline }) => {
     }
   }, [userID, headline]); // useEffect will trigger when userID changes
 
+  const handleEventQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEventQuery(e.target.value);
+  };
+
+  const handlePlaceQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPlaceQuery(e.target.value);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // Navigate to the "allevents" page with queries as default values
+    navigate('/events', { state: { query: eventQuery, plz: placeQuery } });
+  };
+
   return (
     <header>
       <div className="max-grid">
@@ -59,12 +78,24 @@ export const Header: React.FC<HomeRouteName> = ({ homeRoute, headline }) => {
                         <span className="font-sans">
                           Willkommen bei Click & Connect! Tauche ein in unsere Eventplattform und entdecke spannende Abenteuer in deiner Stadt. Erlebe die Vielfalt deiner Stadt auf völlig neue Weisen und knüpfe wertvolle Verbindungen. Sei Teil unserer Community und gestalte deine Freizeit auf einzigartige Art und Weise.
                         </span>
-                        <form onSubmit={() => { }}>
+                        <form onSubmit={handleSubmit}>
                           <label>
-                            <input id="event" type="text" placeholder="Event suchen" />
+                            <input
+                              id="event"
+                              type="text"
+                              placeholder="Event suchen"
+                              value={eventQuery}
+                              onChange={handleEventQueryChange}
+                            />
                           </label>
                           <label>
-                            <input id="place" type="text" placeholder="Ort oder PLZ" />
+                            <input
+                              id="place"
+                              type="text"
+                              placeholder="PLZ"
+                              value={placeQuery}
+                              onChange={handlePlaceQueryChange}
+                            />
                           </label>
                           <label>
                             <input type="submit" />
