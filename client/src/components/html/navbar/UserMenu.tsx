@@ -1,4 +1,11 @@
-import React, { FC, useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  FC,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../../Avatar";
 import MenuItem from "./MenuItem";
@@ -10,9 +17,14 @@ import { HOST } from "../../../backend/getHostApi";
 import { FaRegEnvelope } from "react-icons/fa";
 import { MdOutlineGroups2 } from "react-icons/md";
 import LoginModal from "./LoginModal";
+import { AvatarContext } from "../../../actions/AvatarContext";
 const port = 443;
 
 const UserMenu: FC = () => {
+  const reactContext = useContext(AvatarContext);
+  const { state } = reactContext as any;
+  const { dispatch } = useContext(AvatarContext) as any;
+
   const { userID } = useUserIDContext();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -28,6 +40,7 @@ const UserMenu: FC = () => {
       try {
         const currentUser = await getUser(userID || "");
         setProfilePicture(currentUser.profilePicture || "");
+        dispatch({ type: "SET_AVATAR", payload: currentUser.profilePicture });
       } catch (error) {
         console.error("Error fetching user profile:", error);
       }
@@ -140,13 +153,12 @@ const UserMenu: FC = () => {
                 <div className="avatar-box">
                   <Avatar
                     src={
-                      profilePicture
-                        ? `${HOST}/images/users/${profilePicture}`
+                      state.avatarUrl
+                        ? `${HOST}/images/users/${state.avatarUrl}`
                         : "/images/placeholder.jpg"
                     }
                   />
                 </div>
-
               </div>
             </div>
           </div>
@@ -186,13 +198,15 @@ const UserMenu: FC = () => {
           >
             <div className="flex flex-col cursor-pointer" onClick={onCloseMenu}>
               <>
-                <div className='md:hidden'>
-                  <MenuItem onClick={() => { navigate('/create-event') }} label="Event Erstellen" />
+                <div className="md:hidden">
+                  <MenuItem
+                    onClick={() => {
+                      navigate("/create-event");
+                    }}
+                    label="Event Erstellen"
+                  />
                 </div>
-                <MenuItem
-                  onClick={() => navigate("/")}
-                  label="Home"
-                />
+                <MenuItem onClick={() => navigate("/")} label="Home" />
                 <MenuItem
                   onClick={() => navigate("/events")}
                   label="Event suchen"
@@ -210,8 +224,13 @@ const UserMenu: FC = () => {
                   onClick={() => navigate("/yourevents")}
                   label="Meine Zusagen"
                 />
-                <div className='md:hidden'>
-                  <MenuItem onClick={() => { navigate('/chat') }} label="Chat" />
+                <div className="md:hidden">
+                  <MenuItem
+                    onClick={() => {
+                      navigate("/chat");
+                    }}
+                    label="Chat"
+                  />
                 </div>
                 <MenuItem
                   onClick={() => navigate("/settings")}
