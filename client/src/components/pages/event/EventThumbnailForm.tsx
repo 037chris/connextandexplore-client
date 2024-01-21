@@ -39,10 +39,14 @@ export default function EventThumbnailForm({
       setFileUploaded(true);
       // Hier den lokalen Dateipfad setzen
       setFilePath(file.name);
-      // Füge die Klasse "active" zum Button hinzu, wenn eine Datei ausgewählt wurde
-      const uploadButton = document.getElementById("uploadButton");
-      if (uploadButton) {
-        uploadButton.classList.add("active");
+      const fileInput = document.getElementById(
+        "bild"
+      ) as HTMLInputElement | null;
+      console.log("fileInput:", fileInput?.files);
+      if (fileInput?.files !== undefined && fileInput.files?.length === 1) {
+        thumbnail = fileInput.files[0];
+        console.log("thumbnail:", thumbnail);
+        updateFields({ thumbnail, hashtags });
       }
     }
   };
@@ -163,6 +167,8 @@ export default function EventThumbnailForm({
         console.log("fileInput:", fileInput?.files);
         if (fileInput?.files !== undefined && fileInput.files?.length === 1) {
           thumbnail = fileInput.files[0];
+          console.log("thumbnail:", thumbnail);
+          updateFields({ thumbnail, hashtags });
         }
         // console.log("HIT THE BTN: find the thumb");
         // convertToBase64(thumbPrewview)
@@ -195,14 +201,6 @@ export default function EventThumbnailForm({
               {filePath}
             </div>
           </label>
-          <button
-            id="uploadButton"
-            className={`btn-event upload ${fileUploaded ? "active" : ""}`}
-            type="button"
-            onClick={handleImageSubmit}
-          >
-            upload!
-          </button>
         </div>
 
         {thumbPrewview && (

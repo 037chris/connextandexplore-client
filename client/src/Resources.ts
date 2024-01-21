@@ -45,7 +45,18 @@ export type userResource = {
   oldPassword?: string;
   photoUrl?: string; // Add this line
 };
-
+export type userResourceNA = {
+  id?: string;
+  name: {
+    first: string;
+    last: string;
+  };
+  profilePicture?: string;
+  isActive: boolean;
+};
+export type usersResourceNA = {
+  users: userResourceNA[];
+};
 export type usersResource = {
   users: userResource[];
 };
@@ -84,7 +95,7 @@ export type eventResource = {
   id?: string;
   name: string;
   creator?: string;
-  creatorName?: {first:string, last:string};
+  creatorName?: { first: string; last: string };
   description: string;
   price: number;
   date?: Date;

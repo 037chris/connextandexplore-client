@@ -11,6 +11,8 @@ import {
   eventsResource,
   userResource,
   usersResource,
+  usersResourceNA,
+  userResourceNA,
 } from "../Resources";
 import Cookies from "js-cookie";
 import { fetchWithErrorHandling } from "./validation";
@@ -227,7 +229,25 @@ export async function getAllUsers(): Promise<usersResource> {
     throw err;
   }
 }
-
+/**
+ *
+ * @returns users as usersResourceNA
+ */
+export async function getAllUsersNA(): Promise<usersResourceNA> {
+  const url = `${HOST}/api/users`;
+  try {
+    const response = await fetchWithErrorHandling(url, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    return response as usersResourceNA;
+  } catch (err) {
+    throw err;
+  }
+}
 export async function getUser(userid: string): Promise<userResource> {
   if (!userid) {
     throw new Error("Userid is invalid.");
@@ -243,7 +263,20 @@ export async function getUser(userid: string): Promise<userResource> {
     throw err;
   }
 }
-
+export async function getUserInfos(userid: string): Promise<userResourceNA> {
+  if (!userid) {
+    throw new Error("Userid is invalid.");
+  }
+  const url = `${HOST}/api/users/user/${userid}`;
+  try {
+    const response = await fetchWithErrorHandling(url, {
+      method: "GET",
+    });
+    return response as userResource;
+  } catch (err) {
+    throw err;
+  }
+}
 export async function updateUser(formData: FormData): Promise<userResource> {
   if (!formData.get("id")) {
     throw new Error("Userid is invalid.");
@@ -563,10 +596,48 @@ export async function updateEvent(
   }
   const url = `${HOST}/api/events/${eventId}`;
   try {
+    console.log("Event data :", eventData);
+    const formData = new FormData();
+    if (eventId) {
+      formData.append("eventId", eventId);
+    }
+    if (eventData.name) {
+      formData.append("name", eventData.name);
+    }
+
+    if (eventData.date) {
+      const dateString = eventData.date.toISOString();
+      formData.append("date", dateString);
+    }
+
+    if (eventData.description) {
+      formData.append("description", eventData.description);
+    }
+    formData.append("price", "0");
+    if (eventData.address) {
+      const addressString = JSON.stringify(eventData.address);
+      formData.append("address", addressString);
+    }
+
+    if (eventData.category) {
+      const categoryString = JSON.stringify(eventData.category);
+      formData.append("category", categoryString);
+    }
+
+    if (eventData.thumbnail) {
+      formData.append("thumbnail", eventData.thumbnail);
+    }
+
+    if (eventData.hashtags) {
+      const hashtagsString = JSON.stringify(eventData.hashtags);
+      formData.append("hashtags", hashtagsString);
+    }
+    console.log("Formdata:", formData);
+
     const response = await fetchWithErrorHandling(url, {
       method: "PUT",
-      headers: headers(),
-      body: JSON.stringify(eventData),
+      headers: headersMulti(),
+      body: formData,
     });
     return response as eventResource;
   } catch (e) {
