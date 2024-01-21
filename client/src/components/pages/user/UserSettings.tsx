@@ -38,7 +38,7 @@ const UserSettings: React.FC<SettingsNavProps> = ({ }) => {
                                         </li>
                                         <li>
                                             <a href="#" className={activeTab === 'info' ? 'active' : ''} onClick={() => handleTabClick('info')}>
-                                                Personal Info
+                                                Persönliches
                                             </a>
                                         </li>
                                         <li>

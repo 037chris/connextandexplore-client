@@ -549,7 +549,7 @@ header {
                 padding-left: rem(15);
 
                 &::placeholder {
-                    text-align: center;
+                //    padding-left: rem(15);
                 }
 
                 &[type=submit] {

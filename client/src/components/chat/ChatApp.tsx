@@ -77,60 +77,60 @@ const ChatApp = () => {
     }
     else if (closed == "close") {
       setClosed("");
-      setEventLister("Chats ausblenden")
+      setEventLister("X")
       if (window.innerWidth < 600) setMobile(true);
     }
   };
 
   return (
     <>
-    <div style={{overflow: "hidden"}}>
-      <div className={`sidebar ${closed}`}>
-        <div className="menu-content">
-          <ul className="menu-items">
-            {dbEvents?.events.map((event) => (
-              <li key={event.chat}>
-                {selectedRoom === event.chat && (
-                  <button
-                    onClick={() => {
-                      handleRoomSelect(event.chat!);
-                      setSelectedEvent(event);
-                    }}
-                  >
-                    {event.name}
-                    <span>({event.participants?.length} Teilnehmer)</span>
-                  </button>
-                )}
-                {selectedRoom !== event.chat && (
-                  <button
-                    onClick={() => {
-                      handleRoomSelect(event.chat!);
-                      setSelectedEvent(event);
-                    }}
-                    className="unchoosen"
-                  >
-                    {event.name}
-                    <span>({event.participants?.length} Teilnehmer)</span>
-                  </button>
-                )}
-              </li>
-            ))}
-          </ul>
-          <div className="go-back">
-            <Button label={"Zurück"} onClick={() => navigate(-1)}></Button>
+      <div style={{ overflow: "hidden" }}>
+        <div className={`sidebar ${closed}`}>
+          <div className="menu-content">
+            <ul className="menu-items">
+              {dbEvents?.events.map((event) => (
+                <li key={event.chat}>
+                  {selectedRoom === event.chat && (
+                    <button
+                      onClick={() => {
+                        handleRoomSelect(event.chat!);
+                        setSelectedEvent(event);
+                      }}
+                    >
+                      {event.name}
+                      <span>({event.participants?.length} Teilnehmer)</span>
+                    </button>
+                  )}
+                  {selectedRoom !== event.chat && (
+                    <button
+                      onClick={() => {
+                        handleRoomSelect(event.chat!);
+                        setSelectedEvent(event);
+                      }}
+                      className="unchoosen"
+                    >
+                      {event.name}
+                      <span>({event.participants?.length} Teilnehmer)</span>
+                    </button>
+                  )}
+                </li>
+              ))}
+            </ul>
+            <div className="go-back">
+              <Button label={"Zurück"} onClick={() => navigate(-1)}></Button>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="main">
-        <div className="event-list" onClick={handleSidebar}>
-          <Button label={eventLister} onClick={() => { }}></Button>
+        <div className="main">
+          <div className="event-list" onClick={handleSidebar}>
+            <Button label={eventLister} onClick={() => { }}></Button>
+          </div>
+          {selectedRoom ? (
+            <>{backgroundChat}</>
+          ) : (
+            <span className={eventLister === "X" ? "hidden" : ''} style={{ textAlign: "center" }}>kein Chat ausgewählt</span>
+          )}
         </div>
-        {selectedRoom ? (
-          <>{backgroundChat}</>
-        ) : (
-          <span style={{ textAlign: "center" }}>kein Chat ausgewählt</span>
-        )}
-      </div>
       </div>
     </>
   );
