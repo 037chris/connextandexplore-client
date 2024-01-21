@@ -131,6 +131,7 @@ const ProfilSettingsComponent = () => {
     } finally {
       setLoading(false);
     }
+    window.location.reload();
   };
   const onSubmitDeletePicture: SubmitHandler<FieldValues> = async () => {
     setLoading(true);
@@ -157,6 +158,7 @@ const ProfilSettingsComponent = () => {
     } finally {
       setLoading(false);
     }
+    window.location.reload();
   };
 
   return (
