@@ -39,6 +39,7 @@ const EventDetails: React.FC = () => {
   const [authenticationModalIsOpen, setAuthenticationModalIsOpen] =
     useState(false);
 
+  const [userLoggedIn, setUserLoggedIn] = useState<boolean>(false);
   // export type eventResource = {
   //   id?: string;
   //   name: string;
@@ -66,6 +67,12 @@ const EventDetails: React.FC = () => {
           setJoined(true);
         } else {
           setJoined(false);
+        }
+        const currentUser = await getUserIDFromJWT();
+        if (currentUser) {
+          setUserLoggedIn(true);
+        } else {
+          setUserLoggedIn(false);
         }
       }
     };
@@ -237,7 +244,7 @@ const EventDetails: React.FC = () => {
                   </li>
                 </ul>
                 <div className="btns">
-                  {!joined ? (
+                  {userLoggedIn && !isOwner && (!joined? (
                     <button
                       className="teilnehmen"
                       onClick={async () => {
@@ -258,7 +265,7 @@ const EventDetails: React.FC = () => {
                       </button>
                       
                     </>
-                  )}
+                  ))}
                   {!isOwner && joined && (<button className="bewerten" onClick={openAuthenticationModal}>
                         Bewerten
                       </button>)}
