@@ -4,7 +4,7 @@ import Container from "../Container";
 import Event from "./Event";
 
 interface LocalEventsProps {
-  events: { date: any, name: string, description: string, imageUrl?: string, hashtags?: string[], category?: string }[]
+  events: { id?: string, date: any, name: string, description: string, imageUrl?: string, hashtags?: string[], category?: string }[]
 }
 
 const LocalEvents: React.FC<LocalEventsProps> = ({ events }) => {
@@ -15,6 +15,7 @@ const LocalEvents: React.FC<LocalEventsProps> = ({ events }) => {
           {events.map((event, index) => (
             <div key={index} className="mb-8 mx-2">
               <Event
+                id={event.id}
                 key={index}
                 date={event.date}
                 name={event.name}

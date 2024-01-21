@@ -1,14 +1,10 @@
-"use client";
-
 import { format, isValid, parse } from "date-fns";
-import Container from "../Container";
-import Hashtags from "./Hashtags";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { IoLocationOutline } from "react-icons/io5";
 import { IoCalendarOutline } from "react-icons/io5";
 import { HiOutlineUserGroup } from "react-icons/hi2";
-import Comments from "../pages/event/comments/Comments";
 import { HOST } from "../../backend/getHostApi";
+
 interface EventProps {
   id?: string;
   address?: {
@@ -35,27 +31,21 @@ const LocalEvents: React.FC<EventProps> = ({
   category,
   participants,
 }) => {
-    const navigate = useNavigate();
-    
-    
-// Parse the date string if it's a string
-const parsedDate = typeof date === 'string' ? parse(date, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx", new Date()) : date;
+  const navigate = useNavigate();
 
-// Format the date using date-fns format function
-const formattedDate = parsedDate ? (isValid(parsedDate) ? format(parsedDate, 'PPP, p') : 'Invalid Date') : 'No Date';
+  // Parse the date string if it's a string
+  const parsedDate = typeof date === 'string' ? parse(date, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx", new Date()) : date;
 
-
-
-
-  const params = useParams();
-  const eventId = params.eventId;
+  // Format the date using date-fns format function
+  const formattedDate = parsedDate ? (isValid(parsedDate) ? format(parsedDate, 'PPP, p') : 'Invalid Date') : 'No Date';
+  // const params = useParams();
+  // const eventId = params.eventId;
 
   return (
     <div className="col-span cursor-pointer group top-2 event-card">
       <div className="bg-white flex flex-col w-full p-4">
         <div className="w-full relative overflow-hidden img-round">
           <img
-            //src={process.env.PUBLIC_URL + imageUrl!}src={
             src={
               thumbnail
                 ? `${HOST}/images/events/${thumbnail}`

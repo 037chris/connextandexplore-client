@@ -48,10 +48,10 @@ const Comments: React.FC<CommentsProps> = ({ eventId }: CommentsProps) => {
     }
     return (
         <>
-            <div className="col-span-1">
-                {(comments?.comments && comments.comments.length > 0) ? (
-                    comments.comments.map((comment) => (
-                        <div className="comment-box" key={comment.id}>
+            {(comments?.comments && comments.comments.length > 0) ? (
+                comments.comments.map((comment) => (
+                    <div className="col-span-1 flex" key={comment.id}>
+                        <div className="comment-box">
                             <div>
                                 <p className="title">
                                     {comment.creatorName?.first}: {comment.title}
@@ -116,26 +116,27 @@ const Comments: React.FC<CommentsProps> = ({ eventId }: CommentsProps) => {
                                     <span className="sec-line">{comment.createdAt}</span>
                                 </p>
                                 <p className="comment-content">{comment.content}</p>
-                                { <p>{comment.edited ? "comment edited" : "comment not edited"}</p> }
-                                
+                    
+                                {<span className="edited">{comment.edited ? "comment edited" : "comment not edited"}</span>}
                                 {user && comment.creator === user.id && <button className="delete" onClick={openAuthenticationModal}>löschen</button>}
                                 {user && comment.creator === user.id && <button className="edit" onClick={openEditModal}>edit</button>}
-                                
+
                             </div>
-                            
-                                {user && comment.creator === user.id && <DeleteComment isOpen={authenticationModalIsOpen} onClose={() => setAuthenticationModalIsOpen(false)} commentId={comment.id!} />}
-                                {user && comment.creator === user.id && <EditComment isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)} commentId={comment.id!} eventId={eventId}></EditComment>}
-                            
+
+                            {user && comment.creator === user.id && <DeleteComment isOpen={authenticationModalIsOpen} onClose={() => setAuthenticationModalIsOpen(false)} commentId={comment.id!} />}
+                            {user && comment.creator === user.id && <EditComment isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)} commentId={comment.id!} eventId={eventId}></EditComment>}
+
                         </div>
+                    </div>
+                ))
 
-                    ))
+            ) : (
+                <div className="col-span-1"> <p className="no-comment">Noch kleine Kommentare vorhanden <HiOutlineEmojiSad /></p></div>
 
-                ) : (
-                    <p className="no-comment">Noch kleine Kommentare vorhanden <HiOutlineEmojiSad /></p>
-                )}
+            )}
 
-            </div>
-           
+
+
         </>
     );
 }

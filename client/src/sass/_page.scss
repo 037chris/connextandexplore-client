@@ -1586,6 +1586,7 @@ header {
         border: rem(1) solid $border;
         border-radius: rem(6);
         padding: rem(25);
+        width: 100%;
 
         .title {
             font-family: 'Titan One', sans-serif;
@@ -1631,10 +1632,30 @@ header {
             color: $alert;
             font-size: rem(14);
             font-weight: 300;
+            padding: 0 rem(8);
 
             &:hover {
                 text-decoration: underline;
             }
+        }
+
+        .edit {
+            float: right;
+            color: $text;
+            font-size: rem(14);
+            font-weight: 300;
+            padding: 0 rem(8);
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .edited {
+            float: left;
+            color: $border;
+            font-size: rem(14);
+            font-weight: 300;
         }
     }
 }

@@ -262,7 +262,7 @@ const EventDetails: React.FC = () => {
               <div className="col-span-1">
                 <h2>Kommentare</h2>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <Comments eventId={event.id!} />
               </div>
             </div>
