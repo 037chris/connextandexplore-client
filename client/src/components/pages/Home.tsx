@@ -1,5 +1,4 @@
 import * as React from 'react';
-import LocalEvents from '../landingPage/LocalEvents';
 import Button from '../html/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import Footer from '../html/Footer';
@@ -13,77 +12,60 @@ import { getAllEvents, getCreatedEvent } from '../../backend/boardapi';
 import { eAddressResource, eventResource } from '../../Resources';
 
 
-const initAddress:eAddressResource={
+const initAddress: eAddressResource = {
   street: "init",
   houseNumber: "init",
   postalCode: "init",
   city: "init",
   country: "init"
 }
- 
-const initEvent:eventResource={
+
+const initEvent: eventResource = {
   name: "hahahaha",
   description: "init",
   price: -1,
   date: new Date(),
   address: initAddress,
   thumbnail: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp4zpIuafwUwAALiZhyewnZPBfWlm8OvxZIEawUIuHKw&s"
-
 }
 
 const Home = () => {
-  const [displayedEvents,setDisplayedEvents] = useState({events:[initEvent]});
-  const [ownDisplayedEvents,setOwnDisplayedEvents] = useState({events:[initEvent]});
+  const [displayedEvents, setDisplayedEvents] = useState({ events: [initEvent] });
+  const [ownDisplayedEvents, setOwnDisplayedEvents] = useState({ events: [initEvent] });
 
-  const load=async ()=>{
+  const load = async () => {
     setDisplayedEvents(await getAllEvents())
-    if(userID)setOwnDisplayedEvents(await getCreatedEvent(userID))
-    console.log(1);
+    if (userID) setOwnDisplayedEvents(await getCreatedEvent(userID))
   }
 
-  const eventsData = [
-    {
-      date: "2023-01-01", name: "Event 1", description: "Beschreibung für Event 1", location: "Ort 1",
-      hashtags: ["Party", "Musik", "Essen"], category: "Kultur & kunst"
-    },
-    { date: "2023-02-01", name: "Event 2", description: "Beschreibung für Event 2", location: "Ort 2" },
-    { date: "2023-02-01", name: "Event 3", description: "Beschreibung für Event 3", location: "Ort 3", hashtags: ["AAA", "BB", "S"] },
-    { date: "2023-02-01", name: "Event 4", description: "Beschreibung für Event 4", location: "Ort 4" },
-
-  ];
   const navigate = useNavigate();
   const { userID } = useUserIDContext();
 
   useEffect(() => {
     load()
     document.title = 'Willkommen auf der Seite Connect & Explore"';
-  }, [userID]); 
+  }, [userID]);
 
   return (
-    <div className='relative'>
+    <>
+      {/* HEADER STARTSEITE */}
       <Header homeRoute={'home'} headline={undefined} />
-
-      <div className="bg-blue section">
-        <div className="max-grid">
-          <LocalEvents events={eventsData} />
+      {/* START SECTION OWN EVENTS */}
+      {userID === undefined ? <></> : <>
+        <div className="section bg-border">
+          <div className="max-grid">
+            <OwnNewest4Events events={ownDisplayedEvents.events.slice(-4).reverse()} />
+          </div>
         </div>
-        <br/>
-        <br/>
-        <br/>
+      </>}
+      {/* END SECTION OWN EVENTS */}
+      {/* START ALL EVENTS EVENTS */}
+      <div className="bg-blue section">
         <div className="max-grid">
           <Newest4Events events={displayedEvents.events.slice(-4).reverse()} />
         </div>
-        
-        {userID === undefined ? <></>: <>
-        <br/>
-        <br/>
-        <br/>
-        <div className="max-grid">
-          <OwnNewest4Events events={ownDisplayedEvents.events.slice(-4).reverse()} />
-        </div>
-        </>}
-        
       </div>
+      {/* END ALL EVENTS EVENTS */}
       <div className="section">
         <div className="max-grid">
           <div className='grid grid-cols-1 gap-5 md:grid-cols-2'>
@@ -93,14 +75,14 @@ const Home = () => {
             <div className='align-v'>
               <div>
                 <h2 className="font-francisco">Willkommen bei Connect&Explore</h2>
-                <p>wo spontane Verbindungen und ungeahnte Entdeckungen aufeinandertreffen! In unserer digitalen Oase findest du kein klassisches 0815-Meeting, sondern eine bunte Mischung aus Neugierigen, Entdeckern und Gleichgesinnten, die darauf warten, dass du ihre Welt betrittst. 
+                <p>wo spontane Verbindungen und ungeahnte Entdeckungen aufeinandertreffen! In unserer digitalen Oase findest du kein klassisches 0815-Meeting, sondern eine bunte Mischung aus Neugierigen, Entdeckern und Gleichgesinnten, die darauf warten, dass du ihre Welt betrittst.
                 </p>
-                  <p>Vergiss steife Anzüge und formelle Smalltalks – hier geht es um authentische Gespräche, unerwartete Synergien und vielleicht sogar die nächste große Idee. Also, schnapp dir deinen Lieblings-Drink, lehn dich zurück und lass uns gemeinsam das nächste Abenteuer planen. Bei Connect&Explore bleibt kein Wunsch unerfüllt – außer vielleicht der nach einem langweiligen Abend!"</p></div>
+                <p>Vergiss steife Anzüge und formelle Smalltalks – hier geht es um authentische Gespräche, unerwartete Synergien und vielleicht sogar die nächste große Idee. Also, schnapp dir deinen Lieblings-Drink, lehn dich zurück und lass uns gemeinsam das nächste Abenteuer planen. Bei Connect&Explore bleibt kein Wunsch unerfüllt – außer vielleicht der nach einem langweiligen Abend!"</p></div>
             </div>
           </div>
         </div>
       </div>
-
+      {/* REG SECTION */}
       {userID !== undefined ? <></> : <>
         <div className="bg-gray">
           <div className="max-grid">
@@ -118,7 +100,7 @@ const Home = () => {
         </div>
       </>}
       <Footer />
-    </div>
+    </>
   );
 };
 export default Home

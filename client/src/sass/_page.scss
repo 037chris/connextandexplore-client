@@ -709,18 +709,23 @@ header {
 }
 
 //MAIN
-
+.bg-border {
+    width: 100%;
+    background-color: $border;
+    background-image: url('../img/bg-pattern-white-dots.png');
+    background-repeat: repeat;
+}
 .bg-blue {
     width: 100%;
     background-color: $primary;
-    background-image: url('../img/bg-pattern-white-dots.png');
+    background-image: url('../img/pattern-dark.png');
     background-repeat: repeat;
 
     h2 {
         color: $white;
         font-size: rem(25);
         padding-left: 15px;
-        margin-bottom: 0 !important;
+        margin-bottom: rem(30);
 
         @include breakpoint(md) {
             font-size: rem(28);
@@ -862,7 +867,7 @@ header {
     }
 
     h2 {
-        margin-bottom: rem(25);
+        margin-bottom: rem(30);
         font-size: rem(30);
 
         @include breakpoint(md) {
