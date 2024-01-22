@@ -73,7 +73,7 @@ export default function SignUp() {
   return (
     <div className='p-3 max-w-lg mx-auto pt-24 '>
       {/* <h1 className='text-3xl text-center font-titan mt-20 '>Register</h1> */}
-      <Heading title='Welcome to Connect & Explore' subtitle="Create an account!" />
+      <Heading title='Willkommen zu Connect & Explore' subtitle="Erstelle einen Account!" />
 
       <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4' encType="multipart/form-data">
         <Input

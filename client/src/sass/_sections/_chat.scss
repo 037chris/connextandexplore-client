@@ -131,8 +131,8 @@
                 width: fit-content;
                 min-width: 3vw;
                 max-width: 32vw;
-                margin-left: auto;
-                margin-right: 0;
+                margin-left: 0;
+                margin-right: auto;
                 margin-bottom: rem(10);
                 padding: rem(10) rem(10) rem(1) rem(10);
                 border-radius: rem(20) rem(20) rem(20) 0;
@@ -141,11 +141,18 @@
                 word-wrap: break-word;
             }
 
-            .chat-info {
+            .chat-info-user {
                 font-family: monospace;
                 width: fit-content;
                 margin-left: auto;
                 margin-right: 0;
+            }
+
+            .chat-info-respond {
+                font-family: monospace;
+                width: fit-content;
+                margin-left: 0;
+                margin-right: auto;
             }
         }
     }

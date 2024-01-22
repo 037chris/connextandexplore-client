@@ -37,9 +37,9 @@ const Comments: React.FC<CommentsProps> = ({ eventId }: CommentsProps) => {
   const load = async () => {
     try {
       const comments = await getCommentsOfEvent(eventId!);
-      console.log(comments);
+      //console.log(comments);
       commentDispatch({ type: "SET_COMMENTS", payload: comments });
-      console.log("get comments", commentState);
+      //console.log("get comments", commentState);
 
       const id = await getUserIDFromJWT();
       if (!id) {

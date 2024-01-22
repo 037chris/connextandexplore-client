@@ -64,7 +64,7 @@ const Home = () => {
       {/* END SECTION OWN EVENTS */}
       {/* START ALL EVENTS EVENTS */}
       <div className="bg-blue section">
-        {!ownDisplayedEvents ?
+        {ownDisplayedEvents ?
           <>
             <div className="max-grid">
               <Newest4Events events={displayedEvents.events.slice(-4).reverse()} />
