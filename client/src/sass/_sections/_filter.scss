@@ -1,0 +1,78 @@
+// FITLER
+.section-filter {
+    Button {
+        border: 1px solid $border;
+        color: $text;
+        background-color: $white;
+
+        &#Filter {
+            max-width: rem(161);
+
+            &.on {
+                border: 1px solid $primary;
+                color: $white;
+                background-color: $primary;
+            }
+        }
+    }
+
+    .filter-btn {
+        display: block;
+        margin-bottom: rem(15);
+
+        @include breakpoint(md) {
+            margin-top: rem(45);
+        }
+
+        #Filter {
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+
+            @include breakpoint(md) {
+                left: 0;
+                transform: translateX(0%);
+            }
+        }
+    }
+
+    .filter-box {
+        width: 100%;
+        flex-direction: column;
+
+        @include breakpoint(md) {
+            flex-direction: row;
+            flex-flow: row wrap;
+            justify-content: last baseline;
+            margin-bottom: rem(20);
+        }
+
+        div {
+            @include breakpoint(md) {
+                flex-wrap: wrap;
+                flex: 0 0 calc(100% / 6);
+            }
+
+            Button {
+                border: 1px solid $border;
+                color: $text;
+                background-color: $white;
+
+                &#Filter {
+                    max-width: rem(161);
+
+                    &.on {
+                        border: 1px solid $primary;
+                        color: $white;
+                        background-color: $primary;
+                    }
+                }
+
+                &.active, &:hover {
+                    color: $primary;
+                    border: rem(1) solid $primary;
+                }
+            }
+        }
+    }
+}

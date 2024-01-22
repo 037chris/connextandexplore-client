@@ -1,0 +1,105 @@
+// FOOTER
+footer {
+    background-color: $text;
+    padding: rem(50) 0;
+
+    @include breakpoint(md) {
+        padding: rem(65) 0;
+    }
+
+    @include breakpoint(lg) {
+        padding: rem(80) 0;
+    }
+
+    .line {
+        margin-bottom: rem(50);
+        display: block;
+        position: relative;
+
+        &::before {
+            width: 1px;
+            height: 120px;
+            background-color: $white;
+            position: absolute;
+            left: 70%;
+            top: 0px;
+
+            @include breakpoint(lg) {
+                content: '';
+            }
+
+            @include breakpoint(xl) {
+                left: 50%;
+            }
+        }
+    }
+
+    .max-grid {
+        color: $white;
+        padding: 0 rem(15);
+
+        @include breakpoint(lg) {
+            max-width: rem(1230) !important;
+            padding: 0 rem(15);
+        }
+    }
+
+    .footer-logo {
+        max-width: rem(250);
+        width: 100%;
+        margin: 0 auto;
+
+        @include breakpoint(md) {
+            margin: auto 0;
+        }
+
+        @include breakpoint(lg) {
+            max-width: rem(290);
+            float: right
+        }
+    }
+
+    .konto {
+        display: block;
+        margin-bottom: rem(25);
+        text-align: center;
+    }
+
+    .footer-navi {
+        display: block;
+        text-align: center;
+    }
+
+    p.hl {
+        font-family: 'Titan One';
+        font-size: rem(14);
+        margin-bottom: rem(9) !important;
+
+        @include breakpoint(md) {
+            width: 100%;
+            text-align: right;
+            margin-bottom: rem(0) !important;
+        }
+
+        span {
+
+            @include breakpoint(xl) {
+                //display: block;
+            }
+        }
+    }
+
+    ul {
+        li {
+            @include breakpoint(md) {
+                text-align: right;
+            }
+
+            a {
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,430 @@
+// EVENT
+
+.root {
+    position: relative;
+}
+
+.progressbar {
+    display: block;
+    width: 100%;
+    height: rem(6);
+    background-color: $border;
+    position: fixed;
+    top: rem(83);
+    left: 0;
+    right: 0;
+    z-index: 1;
+
+    @include breakpoint(lg) {
+        top: rem(88);
+    }
+
+    span {
+        display: inline-block;
+        position: absolute;
+        // width: 20%;
+        height: rem(6);
+        background-color: $secondary;
+    }
+}
+
+.btn-event {
+    transition: 350ms ease-in-out all;
+    font-size: rem(16);
+    text-align: center;
+    width: rem(200);
+    height: rem(45);
+    left: 50%;
+    transform: translateX(-50%);
+
+    @include breakpoint(md) {
+        transform: translateX(0);
+        left: auto;
+    }
+
+    &.add {
+        border: 1px solid $primary;
+        border-radius: rem(6);
+        max-height: rem(40);
+        background-color: $primary;
+        color: $white;
+        transform: translateX(0);
+        max-width: rem(60);
+
+        &:hover {
+            color: $primary;
+            background-color: $white;
+        }
+    }
+
+    &.upload {
+        max-width: rem(110) !important;
+        border-radius: 0 6px 6px 0 !important;
+        background-color: $border !important;
+        border: rem(1) solid $border !important;
+        color: $white;
+        transform: translateX(0);
+        height: 100%;
+
+        &.active {
+            background-color: $secondary !important;
+            border: rem(1) solid $secondary !important;
+
+            &:hover {
+                background-color: $secondary !important;
+                border: rem(1) solid $secondary !important;
+            }
+        }
+    }
+
+    &.event-back {
+        background-color: $white;
+        color: $border;
+        border-radius: rem(6);
+        border: 1px solid $border;
+        position: relative;
+        overflow: hidden;
+
+        &:hover {
+            color: $white;
+            background-color: $primary;
+            border: 1px solid $primary;
+
+            &:before {
+                left: rem(-50);
+                color: $white;
+            }
+        }
+    }
+
+    &.event-next {
+        background-color: $secondary;
+        color: $white;
+        border-radius: rem(6);
+        border: 1px solid $secondary;
+        position: relative;
+        overflow: hidden;
+        margin-top: rem(12);
+
+        @include breakpoint(md) {
+            margin-top: 0;
+        }
+
+        &:hover {
+            color: $secondary;
+            background-color: $white;
+            border: 1px solid $secondary;
+
+            &:before {
+                right: rem(-50);
+                color: $secondary;
+            }
+        }
+    }
+}
+
+.event-form {
+    font-family: "Helvetica Neue", sans-serif;
+    font-weight: 300;
+
+    .input-field {
+        border: rem(1) solid $border;
+        width: 100%;
+        margin: 0;
+        border-radius: rem(6);
+        padding: rem(15) rem(20);
+        position: relative;
+        left: rem(8);
+
+        @include breakpoint(md) {
+            padding: rem(10) rem(70);
+        }
+    }
+
+    input {
+        border: rem(1) solid $border;
+        width: 100%;
+        margin: 0;
+        border-radius: rem(6);
+        min-height: rem(40);
+        margin-bottom: rem(8);
+        padding-left: rem(20);
+
+        &::placeholder {
+            text-align: left;
+        }
+
+        &::-webkit-calendar-picker-indicator {
+            padding-right: rem(15);
+        }
+
+        &::-webkit-datetime-edit {
+            color: #a1a6b2;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.create-event-form {
+    .step-name {
+        h2 {
+            font-size: rem(20);
+        }
+    }
+
+    .tabber {
+        min-width: rem(200);
+    }
+
+    .selectedTabber {
+        color: $white;
+        background-color: $primary;
+    }
+
+    .highlightTabber {
+        color: $white;
+        background-color: rgba(32, 121, 255, 0.75);
+    }
+
+    .sub-headline {
+        font-size: rem(14);
+        margin: 35px 0 25px 0;
+    }
+
+    .hashtag-btn {
+        padding: rem(3) rem(10);
+        background-color: $border !important;
+        border: rem(1) solid $border;
+        color: $white;
+        border-radius: rem(8);
+        transition: 350ms all ease-in-out;
+        font-size: rem(14);
+        font-weight: bold;
+
+        &:hover {
+            border: rem(1) solid $primary;
+        }
+
+        &.active {
+            border: rem(1) solid $primary;
+            background-color: $primary !important;
+        }
+    }
+
+}
+
+// EVENT DETAILS
+
+.event-card {
+    font-weight: 300;
+    border: rem(1) solid $border;
+    border-radius: rem(8);
+
+    &:hover {
+        @extend .box-shadow;
+    }
+
+    .img-round {
+        border-radius: rem(6)
+    }
+
+    .hl {
+        margin: rem(10) 0 rem(15) 0;
+        padding: 0 rem(5);
+
+        @include breakpoint(xl) {
+            font-size: rem(18);
+        }
+    }
+
+    .event-image-card {
+        min-height: rem(150);
+    }
+
+    .details {
+        text-align: center;
+        border: rem(1) solid $primary;
+        border-radius: rem(6);
+        background-color: $white;
+        color: $primary;
+        margin-top: rem(15);
+        padding: rem(7) 0;
+        transition: 350ms all ease-in-out;
+
+        &:hover {
+            background-color: $primary;
+            color: $white
+        }
+    }
+}
+
+.event-box {
+    border-radius: rem(8);
+    border: rem(1) solid $border;
+    font-weight: 300;
+
+    .event-content-box-left {
+        position: relative;
+        padding: rem(25);
+
+        @include breakpoint(md) {
+            padding: rem(50) rem(25);
+        }
+
+        &:before {
+            content: '';
+            width: rem(1);
+            height: 100%;
+            display: inline-block;
+            position: absolute;
+            right: 0;
+            top: 0;
+            background-color: $border;
+        }
+
+        ul {
+            li {
+                margin-bottom: rem(20);
+                padding-left: rem(35);
+                position: relative;
+
+                &.date {
+                    span {
+                        display: block;
+                    }
+
+                    &:before {
+                        content: url('../../img/helper/heroicons-outline/clock.svg');
+                        position: absolute;
+                        left: 0;
+                        top: rem(2);
+                    }
+                }
+
+                &.adress {
+                    span {
+                        display: block;
+                        color: $border;
+                    }
+
+                    &:before {
+                        content: url('../../img/helper/heroicons-outline/MAP\ VECTOR.svg');
+                        position: absolute;
+                        left: rem(3);
+                        top: rem(3);
+                    }
+                }
+
+                &.participants {
+
+                    &:before {
+                        content: url('../../img/helper/heroicons-outline/community.svg');
+                        position: absolute;
+                        left: rem(2);
+                        top: rem(3);
+                    }
+                }
+
+            }
+        }
+
+        .btns {
+            margin-top: rem(15);
+
+            @include breakpoint(md) {
+                margin-top: rem(35);
+            }
+
+            button {
+                width: 100%;
+                text-align: center;
+                text-transform: uppercase;
+                border-radius: rem(6);
+                transition: 350ms all ease-in-out;
+                padding: rem(8) 0;
+
+
+                &.teilnehmen {
+                    background-color: $primary;
+                    color: $white;
+                    border: rem(1) solid $primary;
+                    margin-bottom: rem(6);
+
+                    &:hover {
+                        border: rem(1) solid $secondary;
+                        background-color: $secondary;
+                    }
+                }
+
+                &.bewerten {
+                    background-color: $white;
+                    color: $primary;
+                    border: rem(1) solid $primary;
+
+                    &:hover {
+                        border: rem(1) solid $secondary;
+                        color: $secondary;
+                    }
+                }
+            }
+        }
+
+
+    }
+
+    .event-content-box-right {
+        padding: rem(25);
+
+        @include breakpoint(md) {
+            padding: rem(50) rem(25);
+        }
+
+        h2 {
+            text-transform: none;
+            font-size: rem(22);
+            font-family: "Sue Ellen Francisco";
+            font-weight: 400;
+            margin-bottom: rem(20);
+
+            @include breakpoint(md) {
+                font-size: rem(27);
+            }
+        }
+
+        .event-des {
+            word-wrap: break-word;
+        }
+    }
+
+}
+
+.hashtags {
+    font-weight: 300;
+    margin-top: rem(20);
+    display: block;
+
+    @include breakpoint(md) {
+        float: right;
+    }
+
+    span {
+        color: $white;
+        background-color: $border;
+        border: rem(1) solid $border;
+        border-radius: rem(6);
+        font-size: rem(14);
+        padding: rem(2) rem(6);
+        display: inline-block;
+        margin-left: rem(7);
+        transition: 350ms all ease-in-out;
+
+        &:hover {
+            cursor: pointer;
+            border: rem(1) solid $primary;
+            background-color: $primary;
+        }
+    }
+}

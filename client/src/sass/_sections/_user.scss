@@ -1,0 +1,176 @@
+//PROFIL
+.profil-card {
+    @extend .border-slim;
+    border-radius: rem(8);
+}
+
+// USER SETTINGS
+.setting-form {
+    font-family: "Helvetica Neue", sans-serif;
+    font-weight: 300;
+    margin-top: rem(10);
+    padding: 0;
+
+    .profile-img {
+        margin-bottom: rem(25);
+        text-align: center;
+
+        @include breakpoint(md) {
+            margin-bottom: rem(35);
+        }
+
+        .user-picture {
+            width: 100%;
+            display: block;
+
+            >div {
+                width: rem(150);
+                height: rem(150);
+                border: rem(2) solid $primary;
+                border-radius: 100%;
+                overflow: hidden;
+                position: relative;
+                margin: 0 auto 0 auto;
+                display: inline-block;
+
+                @include breakpoint(md) {
+                    //margin: 0 rem(35) 0 0;
+                    width: rem(88);
+                    height: rem(88);
+                }
+
+                img {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    min-width: rem(150);
+                    min-height: rem(150);
+
+                    @include breakpoint(md) {
+                        min-width: rem(90);
+                        min-height: rem(90);
+                    }
+                }
+            }
+
+        }
+    }
+
+    .sm-headline {
+        font-weight: bold;
+        margin: rem(25) 0 rem(15) 0;
+        display: block;
+        padding-left: rem(15);
+
+        @include breakpoint(md) {
+            margin-top: rem(35) 0 rem(15) 0;
+        }
+    }
+
+    p {
+        padding-left: rem(15);
+    }
+
+    .input-field {
+        border: rem(1) solid $border;
+        width: 100%;
+        margin: 0;
+        border-radius: rem(6);
+        padding: rem(15) rem(20);
+        position: relative;
+        left: rem(8);
+
+
+        @include breakpoint(md) {
+            padding: rem(10) rem(70);
+        }
+    }
+
+    input,
+    select {
+        border: rem(1) solid $border;
+        width: 100%;
+        margin: 0;
+        border-radius: rem(6);
+        min-height: rem(40);
+        margin-bottom: rem(8);
+        padding: 0 1.25rem 0 1.25rem;
+
+        &.delete-profile-img {
+            border: rem(1) solid $alert;
+            color: $alert;
+            background-color: $white;
+            width: 100%;
+            transition: 350ms ease-in-out all;
+            max-height: rem(45);
+            margin-top: rem(15);
+            margin-bottom: 0;
+
+            @include breakpoint(md) {
+                max-width: rem(200);
+                margin-top: rem(15);
+            }
+
+            &:hover {
+                border: rem(1) solid $secondary;
+                color: $white;
+                background-color: $secondary;
+                cursor: pointer;
+            }
+        }
+
+        &.new-upload {
+            border: rem(1) solid $primary;
+            color: $white;
+            background-color: $primary;
+            width: 100%;
+            transition: 350ms ease-in-out all;
+            max-height: rem(45);
+
+            @include breakpoint(md) {
+                margin-right: rem(15);
+                max-width: rem(200);
+            }
+
+            &:hover {
+                border: rem(1) solid $secondary;
+                color: $white;
+                background-color: $secondary;
+            }
+        }
+
+        &::placeholder {
+            text-align: left;
+        }
+    }
+
+    & .save {
+        border: rem(1) solid $secondary;
+        color: $white;
+        background-color: $secondary;
+        width: 100%;
+        max-width: rem(270);
+        transition: 350ms ease-in-out all;
+        border-radius: rem(6);
+        padding: rem(6) rem(25);
+        float: right;
+        display: inline-block;
+        margin-top: rem(25);
+
+        &:hover {
+            color: $secondary;
+            background-color: $white;
+        }
+
+        &.password {
+            border: rem(1) solid $primary;
+            background-color: $primary;
+
+            &:hover {
+                color: $primary;
+                background-color: $white;
+            }
+        }
+    }
+}

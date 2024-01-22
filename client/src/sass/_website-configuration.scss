@@ -1,0 +1,68 @@
+// COLORS
+$border: #E0E6EF;
+$primary: #2079ff;
+$primary-light: #e7f2fd;
+$secondary: #FF725E;
+$text: #263238;
+$text-lighter: #414d54;
+$gray: #dddddd;
+$white: #fff;
+$alert: red;
+
+// MEDIA QUERYS
+// TAILWIND
+// sm	640px	@media (min-width: 640px) { ... }
+// md	768px	@media (min-width: 768px) { ... }
+// lg	1024px	@media (min-width: 1024px) { ... }
+// xl	1280px	@media (min-width: 1280px) { ... }
+// 2xl	1536px	@media (min-width: 1536px) { ... }
+$breakpoints: (
+  sm: 1px,
+  md: 641px,
+  md-2: 773px,
+  lg: 769px,
+  xl: 1025px,
+  2xl: 1281px,
+);
+
+//FONTS
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('./fonts/helveticaneue-black-webfont.woff2') format('woff2'),
+       url('./fonts/helveticaneue-black-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('./fonts/helveticaneue-light-webfont.woff2') format('woff2'),
+       url('./fonts/helveticaneue-light-webfont.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('./fonts/helveticaneue-medium-webfont.woff2') format('woff2'),
+       url('./fonts/helveticaneue-medium-webfont.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Sue Ellen Francisco';
+  src: url('./fonts/sueellenfrancisco-regular-webfont.woff2') format('woff2'),
+       url('./fonts/sueellenfrancisco-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'Titan One';
+  src: url('./fonts/titanone-regular-webfont.woff2') format('woff2'),
+       url('./fonts/titanone-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
