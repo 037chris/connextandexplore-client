@@ -667,10 +667,6 @@ header {
             @include breakpoint(md) {
                 min-height: rem(290);
             }
-
-            @include breakpoint(xl) {
-                min-height: rem(350);
-            }
         }
     }
 
@@ -723,6 +719,11 @@ header {
     background-color: $primary;
     background-image: url('../img/pattern-dark.png');
     background-repeat: repeat;
+
+    p {
+        color:$white;
+        padding-left: rem(15);
+    }
 
     h2 {
         color: $white;

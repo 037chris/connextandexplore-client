@@ -31,6 +31,7 @@ import YourEvents from "./components/pages/YourEvents";
 import { CreateComment } from "./components/pages/event/comments/CreateComment";
 import { AvatarProvider } from "./actions/AvatarContext";
 import { CommentProvider } from "./actions/commentContext";
+import AllEvents from "./components/allEvents/AllEvents";
 
 export default function App() {
   const [userID, setUserID] = useState(getUserIDFromJWT());
@@ -62,7 +63,7 @@ export default function App() {
               </Route>
 
               <Route path="/event/:eventId" element={<EventDetails />} />
-              <Route path="/events" element={<Events />} />
+              <Route path="/events" element={<AllEvents />} />
               <Route path="/yourevents" element={<YourEvents />} />
               <Route path="*" element={<NotFound />} />
               <Route path="/events/undefined" element={<NotFound />} />
