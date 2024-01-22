@@ -118,8 +118,8 @@ const LoginModal: FC<LoginModalProps> = ({ isOpen, onClose }) => {
               id='password'
               register={register}
               errors={errors}
-              minLength={5}
-              maxLength={10}
+              minLength={8}
+              maxLength={20}
               required
             />
           </form>

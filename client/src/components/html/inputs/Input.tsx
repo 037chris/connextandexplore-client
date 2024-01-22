@@ -61,8 +61,34 @@ const Input: React.FC<InputProps> = ({
       return acceptedValues.includes(value.toLowerCase());
     };
 
+    const validateEmail = (email: string) => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    };
+
+    const validatePassword = (password: string) => {
+      // mindestens 8 Zeichen, mindestens 1 Großbuchstabe, mindestens 1 Zahl, mindestens 1 Sonderzeichen
+      const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&§/()=#+-.,:;])[A-Za-z\d@$!%*?&§/()=#+-.,:;]{8,}$/;
+      return passwordRegex.test(password);
+    };
+
+    const validateInput = (value: any) => {
+      if (id === 'birthDate') {
+        return validateAge(value);
+      } else if (id === 'gender') {
+        return validateGender(value);
+      } else if (id === 'email') {
+        return validateEmail(value);
+      } else if (id === 'password') {
+        return validatePassword(value);
+      }
+
+      return true;
+    };
+
     register(id, {
-      validate: id === "birthDate" ? validateAge : validateGender,
+      //validate: id === "birthDate" ? validateAge : validateGender,
+      validate: validateInput,
     });
   }, [register, id]);
 
@@ -173,7 +199,7 @@ export default Input;
 function getCustomErrorText(id: string, error: any): string {
   const minLength = 3; // Minimum length requirement for name fields
   const maxLength = 20; // Maximum length requirement for name fields
-  const minLengthPass = 6; // Minimum length requirement for the password field
+  const minLengthPass = 8; // Minimum length requirement for the password field
   
 
   switch (id) {
@@ -182,16 +208,7 @@ function getCustomErrorText(id: string, error: any): string {
       case "password":
         if (error.type === "minLength" || error.type === "maxLength") {
           return `Das Passwort muss zwischen ${minLengthPass} und ${maxLength} Zeichen lang sein`;
-        }
-  
-        // Additional check for a strong password (e.g., containing both letters and numbers)
-        const hasLetter = /[a-zA-Z]/.test(error?.message || '');
-        const hasNumber = /\d/.test(error?.message || '');
-  
-        if (!hasLetter || !hasNumber) {
-          return "Das Passwort muss Buchstaben und Zahlen enthalten";
-        }
-  
+        } else if (error.type === "validate") return "Das Passwort muss mindestens 1 Großbuchstaben, Zahl und Sonderzeichen enthalten";
         return error.message || "Bitte geben Sie ein gültiges Passwort ein";
     case "name.first":
       return error.message || (error.type === "minLength" ? `Der Vorname muss mindestens ${minLength} Zeichen lang sein` : (error.type === "maxLength" ? `Der Vorname darf maximal ${maxLength} Zeichen lang sein` : "Bitte geben Sie einen gültigen Vornamen ein"));

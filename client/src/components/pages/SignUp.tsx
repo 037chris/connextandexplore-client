@@ -93,8 +93,8 @@ export default function SignUp() {
           id='password'
           register={register}
           errors={errors}
-          minLength={6}
-          maxLength={12}
+          minLength={8}
+          maxLength={20}
           required
         />
         <div className="md:flex md:gap-4">

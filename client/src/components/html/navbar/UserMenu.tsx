@@ -241,7 +241,7 @@ const UserMenu: FC = () => {
                   label="Hilfe / FAQ"
                 />
                 <hr />
-                <MenuItem onClick={onLogOut} label="Logout" />
+                <MenuItem onClick={onLogOut} label="Ausloggen" />
               </>
             </div>
           </div>
