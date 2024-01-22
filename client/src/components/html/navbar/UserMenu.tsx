@@ -234,7 +234,7 @@ const UserMenu: FC = () => {
                 </div>
                 <MenuItem
                   onClick={() => navigate("/settings")}
-                  label="Einstellung"
+                  label="Einstellungen"
                 />
                 <MenuItem
                   onClick={() => navigate("/help")}

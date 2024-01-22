@@ -3,9 +3,9 @@ import io from "socket.io-client";
 import { useUserIDContext } from "../../UserIDContext";
 import { getChat, getUser, sendChatMessage } from "../../backend/boardapi";
 import { MessageResource } from "../../Resources";
-import { Grid } from "@mui/material";
+import { HOST } from "../../backend/getHostApi";
 
-const serverUrl = "https://localhost:443";
+const serverUrl = HOST;
 const socket = io(serverUrl);
 
 interface ChatProps {
@@ -97,7 +97,7 @@ const Chat: React.FC<ChatProps> = ({ chatId }) => {
                   <p>{msg.message}</p>
                 </div>
                 <small>
-                  <p className="chat-info">{msg.time}</p>
+                  <p className="chat-info-user">{msg.time}</p>
                 </small>
               </>
             )}
@@ -110,7 +110,7 @@ const Chat: React.FC<ChatProps> = ({ chatId }) => {
                   <p>{msg.message}</p>
                 </div>
                 <small>
-                <p className="chat-info">{msg.time}</p>
+                <p className="chat-info-respond">{msg.time}</p>
                 </small>
               </>
             )}

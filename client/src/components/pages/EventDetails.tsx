@@ -171,7 +171,7 @@ const EventDetails: React.FC = () => {
                       </div>
                       <div className="creator-info">
                         <span>
-                          Hosted by
+                          veranstaltet von
                           <span>
                             {eventOwner?.name.first} {eventOwner?.name.last}
                             {eventOwner?.isActive ? "" : " (inaktiv)"}
