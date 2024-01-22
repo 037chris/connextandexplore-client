@@ -1,7 +1,4 @@
 import { useState } from "react";
-import Heading from "../../Heading";
-import Autocomplete from "react-google-autocomplete";
-import Container from "../../Container";
 import ProfileSettingsComponent from "./settings/ProfileSettingsComponent";
 import AccountSettingsComponent from "./settings/AccountSettingsComponent";
 import PersonalInfoSettingsComponent from "./settings/PersonalInfoSettingsComponent";
