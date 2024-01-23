@@ -24,6 +24,7 @@ import { CreateComment } from "./comments/CreateComment";
 import { HOST } from "../../../backend/getHostApi";
 import { de } from "date-fns/locale"; // Import the German locale
 import { HiOutlineStar, HiStar } from "react-icons/hi2";
+import RatingStarts from "./RatingStarts";
 
 const EventDetails: React.FC = () => {
   const params = useParams();
@@ -68,7 +69,7 @@ const EventDetails: React.FC = () => {
     };
     fetchEvent();
     setReload(false);
-  }, [eventId, reload]);
+  }, [eventId, reload, rating]);
 
   //Khatia
   const handleDeleteEvent = async (eventId: string): Promise<void> => {
@@ -143,14 +144,7 @@ const EventDetails: React.FC = () => {
                 {/* 2/3 GRID FOR HEADLINE + CREATOR + BUTTONS */}
                 <div className="col-span-1 md:col-span-5 lg:col-span-6 xl:col-span-5">
                   <h1>{event!.name}</h1>
-                  {rating > 0 && (
-                    <div className="flex stars">
-                    {rating > 1 ? <HiStar /> : <HiOutlineStar />}
-                    {rating >= 2 ? <HiStar /> : <HiOutlineStar />}
-                    {rating >= 3 ? <HiStar /> : <HiOutlineStar />}
-                    {rating >= 4 ? <HiStar /> : <HiOutlineStar />}
-                    {rating >= 5 ? <HiStar /> : <HiOutlineStar />}
-                  </div>)}
+                  <RatingStarts numb={rating} />
                   {/* UNDER GRID 3/3 CREATOR + BTNS */}
                   <div className="col-span-1 md:col-span-3">
                     {/* CREATOR */}
