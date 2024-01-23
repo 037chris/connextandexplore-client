@@ -8,6 +8,7 @@ import {
   getUserIDFromJWT,
   joinEvent,
   getUserInfos,
+  getAVGRatingOfEvent,
 } from "../../../backend/boardapi";
 import { eventResource, eventsResource, userResourceNA } from "../../../Resources";
 import LoadingIndicator from "../../LoadingIndicator";
@@ -22,6 +23,7 @@ import Comments from "./comments/Comments";
 import { CreateComment } from "./comments/CreateComment";
 import { HOST } from "../../../backend/getHostApi";
 import { de } from "date-fns/locale"; // Import the German locale
+import { HiOutlineStar, HiStar } from "react-icons/hi2";
 
 const EventDetails: React.FC = () => {
   const params = useParams();
@@ -77,6 +79,7 @@ const EventDetails: React.FC = () => {
         } else {
           setUserLoggedIn(false);
         }
+        setRating(await getAVGRatingOfEvent(eventId));
       }
     };
     fetchEvent();
@@ -229,6 +232,13 @@ const EventDetails: React.FC = () => {
             <div className="event-box grid grid-cols-1 md:grid-cols-3">
               <div className="col-span-1 min-h-fit event-content-box-left">
                 <ul>
+                <li className="flex stars">
+                  {rating > 0 ? <HiStar /> : <HiOutlineStar />}
+                  {rating >= 2 ? <HiStar /> : <HiOutlineStar />}
+                  {rating >= 3 ? <HiStar /> : <HiOutlineStar />}
+                  {rating >= 4 ? <HiStar /> : <HiOutlineStar />}
+                  {rating >= 5 ? <HiStar /> : <HiOutlineStar />}
+                </li>
                   <li className="date">
                     {event.date
                       ? format(new Date(event?.date), "PPPPp", { locale: de }) 
