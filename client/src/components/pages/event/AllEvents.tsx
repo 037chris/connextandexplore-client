@@ -1,21 +1,19 @@
-"use client";
-
 import {
   eAddressResource,
   eventResource,
   eventsResource,
-} from "../../Resources";
-import { getAllEvents, searchEvents } from "../../backend/boardapi";
+} from "../../../Resources";
+import { getAllEvents, searchEvents } from "../../../backend/boardapi";
 import { useEffect, useState } from "react";
-import { Header } from "../html/Header";
-import Footer from "../html/Footer";
+import { Header } from "../../html/Header";
+import Footer from "../../html/Footer";
 import React from "react";
 import { useForm, FieldValues } from "react-hook-form";
-import Input from "../html/inputs/Input";
-import Button from "../html/Button";
+import Input from "../../html/inputs/Input";
+import Button from "../../html/Button";
 import { Link, useLocation } from "react-router-dom";
-import question from "../../img/question.png";
-import Event from "../landingPage/Event";
+import question from "../../../img/question.png";
+import Event from "../../landingPage/Event";
 
 interface AllEventsProps {
   //events: { date: any, name: string, description: string, imageUrl?: string, hashtags?:string[],category?: string }[]

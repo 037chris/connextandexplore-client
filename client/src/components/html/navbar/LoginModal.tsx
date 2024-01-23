@@ -9,7 +9,7 @@ import Button from '../Button';
 import toast from 'react-hot-toast';
 import { getUserIDFromJWT, login } from '../../../backend/boardapi';
 import Modal from '../../modals/Modal';
-import Heading from '../../Heading';
+import Heading from '../Heading';
 import { useUserIDContext } from '../../../UserIDContext';
 
 // add functionality for "enter" for loggin

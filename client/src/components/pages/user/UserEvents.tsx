@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from "react";
 
-import { useUserIDContext } from "../../UserIDContext";
+import { useUserIDContext } from "../../../UserIDContext";
 import {
-  getCreatedEvent,
-  getEvent,
-  getEventOwner,
-  getUser,
-} from "../../backend/boardapi";
-import Footer from "../html/Footer";
+  getCreatedEvent
+} from "../../../backend/boardapi";
+import Footer from "../../html/Footer";
 
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { eventResource, eventsResource, userResource } from "../../Resources";
-import EmptyState from "../EmptyState";
-import Container from "../Container";
-import Event from "../landingPage/Event";
-import { format, parseISO } from "date-fns";
-import Heading from "../Heading";
-import { Header } from "../html/Header";
+import { eventResource, eventsResource, userResource } from "../../../Resources";
+import EmptyState from "../../EmptyState";
+import Event from "../../landingPage/Event";
+import { Header } from "../../html/Header";
 
 const UserEvents: React.FC = () => {
   const { userID } = useUserIDContext();

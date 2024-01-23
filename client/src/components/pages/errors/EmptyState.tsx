@@ -1,6 +1,6 @@
 // EmptyState.tsx
 import React from 'react';
-import Heading from '../../Heading';
+import Heading from '../../html/Heading';
 
 interface EmptyStateProps {
   title: string;

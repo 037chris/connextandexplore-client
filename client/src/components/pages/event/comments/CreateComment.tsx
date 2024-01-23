@@ -16,7 +16,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Input from "../../../html/inputs/Input";
 import toast from "react-hot-toast";
 import Modal from "../../../modals/Modal";
-import Heading from "../../../Heading";
+import Heading from "../../../html/Heading";
 import { ErrorFromValidation } from "../../../../backend/validation";
 import { CommentContext } from "../../../../actions/commentContext";
 

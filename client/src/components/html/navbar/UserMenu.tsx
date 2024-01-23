@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
-import Avatar from "../../Avatar";
+import Avatar from "../../pages/user/Avatar";
 import MenuItem from "./MenuItem";
 import { useNavigate } from "react-router-dom";
 import { useUserIDContext } from "../../../UserIDContext";

@@ -4,7 +4,7 @@ import Home from "./components/pages/Home";
 import UserSettings from "./components/pages/user/UserSettings";
 import Modal from "./components/modals/Modal";
 import ToasterProvider from "./providers/ToasterProvider";
-import SignUp from "./components/pages/SignUp";
+import SignUp from "./components/SignUp";
 import NotFound from "./components/pages/errors/NotFound";
 import { getUserIDFromJWT } from "./backend/boardapi";
 import { useState } from "react";
@@ -15,7 +15,7 @@ import "./sass/App.scss";
 
 import CreateEventPage from "./components/pages/event/CreateEventPage";
 import EventDetails from "./components/pages/event/EventDetails";
-import UserEvents from "./components/pages/UserEvents";
+import UserEvents from "./components/pages/user/UserEvents";
 import PrivateRoute from "./components/PrivateRoute";
 import EditEventPage from "./components/pages/event/EditEventPage";
 import Dsgvo from "./components/pages/general/Dsgvo";
@@ -25,8 +25,8 @@ import Help from "./components/pages/general/Help";
 import ChatApp from "./components/chat/ChatApp";
 import { AvatarProvider } from "./actions/AvatarContext";
 import { CommentProvider } from "./actions/commentContext";
-import AllEvents from "./components/allEvents/AllEvents";
-import JoinedEvents from "./components/events/JoinedEvents";
+import AllEvents from "./components/pages/event/AllEvents";
+import JoinedEvents from "./components/pages/user/JoinedEvents";
 
 export default function App() {
   const [userID, setUserID] = useState(getUserIDFromJWT());

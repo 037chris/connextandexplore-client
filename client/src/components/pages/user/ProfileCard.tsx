@@ -1,5 +1,5 @@
 import React from 'react';
-import Heading from '../../Heading';
+import Heading from '../../html/Heading';
 import { FaInstagram } from "react-icons/fa";
 import { FaFacebookSquare } from "react-icons/fa";
 

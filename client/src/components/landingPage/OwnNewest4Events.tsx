@@ -2,7 +2,7 @@
 
 import { Link, useNavigate } from "react-router-dom";
 import { eventResource } from "../../Resources";
-import Container from "../Container";
+import Container from "../html/Container";
 import Event from "./Event";
 
 interface OwnNewest4EventsProps {

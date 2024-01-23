@@ -1,5 +1,5 @@
 import { MouseEvent, useContext, useState } from "react";
-import Heading from "../../../Heading";
+import Heading from "../../../html/Heading";
 import Modal from "../../../modals/Modal";
 import { deleteComment } from "../../../../backend/boardapi";
 import { useNavigate } from "react-router-dom";

@@ -1,13 +1,13 @@
-import Container from "../Container";
-import Event from "../landingPage/Event";
-import { eventsResource } from "../../Resources";
-import { getJoinedEvents } from "../../backend/boardapi";
+import Container from "../../html/Container";
+import Event from "../../landingPage/Event";
+import { eventsResource } from "../../../Resources";
+import { getJoinedEvents } from "../../../backend/boardapi";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import LoadingIndicator from "../LoadingIndicator";
-import { useUserIDContext } from "../../UserIDContext";
-import Footer from "../html/Footer";
-import { Header } from "../html/Header";
+import LoadingIndicator from "../../LoadingIndicator";
+import { useUserIDContext } from "../../../UserIDContext";
+import Footer from "../../html/Footer";
+import { Header } from "../../html/Header";
 
 interface JoinedEventsProps { }
 

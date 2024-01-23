@@ -9,7 +9,7 @@ import {
 import Input from "../../../html/inputs/Input";
 import Button from "../../../html/Button";
 import profilepicturedefault from "../../../../img/placeholder.jpg";
-import Avatar from "../../../Avatar";
+import Avatar from "../Avatar";
 import toast from "react-hot-toast";
 import { HOST } from "../../../../backend/getHostApi";
 import { useNavigate } from "react-router-dom";

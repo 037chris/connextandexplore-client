@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import Input from '../html/inputs/Input';
-import Button from '../html/Button';
-import Heading from '../Heading';
-import { UserRegistration } from '../../Resources';
+import Input from './html/inputs/Input';
+import Button from './html/Button';
+import Heading from './html/Heading';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { signup } from '../../backend/boardapi';
-import Select from '../html/inputs/Select';
-import LoginModal from '../html/navbar/LoginModal';
+import { signup } from '../backend/boardapi';
+import Select from './html/inputs/Select';
+import LoginModal from './html/navbar/LoginModal';
 
 export default function SignUp() {
   const [loading, setLoading] = useState(false);
@@ -20,8 +18,6 @@ export default function SignUp() {
     setAuthenticationModalIsOpen(true)
   };
 
-
-
   const {
     register,
     handleSubmit,
@@ -31,8 +27,6 @@ export default function SignUp() {
     reset
   } = useForm<FieldValues>({
   });
-
-
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setLoading(true);

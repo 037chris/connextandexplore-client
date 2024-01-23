@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Heading from "../../Heading";
+import Heading from "../../html/Heading";
 import Button from "../../html/Button";
 import HorizontalCard from "./ProfileCard";
 import { useUserIDContext } from "../../../UserIDContext";

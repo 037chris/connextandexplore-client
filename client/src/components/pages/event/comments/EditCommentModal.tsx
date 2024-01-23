@@ -14,7 +14,7 @@ import {
   getComment,
 } from "../../../../backend/boardapi";
 import Modal from "../../../modals/Modal";
-import Heading from "../../../Heading";
+import Heading from "../../../html/Heading";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
