@@ -206,7 +206,7 @@ const UserMenu: FC = () => {
                     label="Event Erstellen"
                   />
                 </div>
-                <MenuItem onClick={() => navigate("/")} label="Home" />
+                <MenuItem onClick={() => navigate("/")} label="Startseite" />
                 <MenuItem
                   onClick={() => navigate("/events")}
                   label="Event suchen"

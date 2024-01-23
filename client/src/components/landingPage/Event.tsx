@@ -12,6 +12,7 @@ interface EventProps {
   address?: {
     city: string;
     country: string;
+    postalCode: string;
   };
   date?: Date;
   name: string;
@@ -67,7 +68,7 @@ const LocalEvents: React.FC<EventProps> = ({
             <IoLocationOutline className="text-red-500" />
           </div>
           <div>
-            {address?.city}, {address?.country}
+            {address?.postalCode} {address?.city}, {address?.country}
           </div>
         </div>
         <div className="flex flex-row items-center gap-2 font-light mt-2">

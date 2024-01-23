@@ -2,13 +2,13 @@ import React, { useEffect, useState, FormEvent } from "react";
 import { useStepForm } from "../hooks/useStepForm";
 
 import { postEvent } from "../../backend/boardapi";
-import EventDateForm from "./event/EventDateForm";
-import EventNameForm from "./event/EventNameForm";
-import EventDescriptionForm from "./event/EventDescriptionForm";
-import EventThumbnailForm from "./event/EventThumbnailForm";
+import EventDateForm from "./event/eventForm/EventDateForm";
+import EventNameForm from "./event/eventForm/EventNameForm";
+import EventDescriptionForm from "./event/eventForm/EventDescriptionForm";
+import EventThumbnailForm from "./event/eventForm/EventThumbnailForm";
 import EventSelectCategoryForm, {
   SelectOption,
-} from "./event/EventCategoryForm";
+} from "./event/eventForm/EventCategoryForm";
 
 import { categoryResource, eventResource } from "../../Resources";
 import { createEvent } from "../../backend/boardapi";
@@ -81,7 +81,7 @@ const CreateEventPage = () => {
         multiple
         options={options}
         value={value1}
-        onChange={(o) => setValue1(o)}
+        onChange={(o: any) => setValue1(o)}
         errors={errors}
       />,
       <EventNameForm {...data} updateFields={updateFields} errors={errors} />,

@@ -68,6 +68,7 @@ const ChatApp = () => {
   const handleRoomSelect = (roomId: string) => {
     setSelectedRoom(roomId);
     setClosed("close");
+    setEventLister("Chats anzeigen");
   };
 
   const handleSidebar = () => {

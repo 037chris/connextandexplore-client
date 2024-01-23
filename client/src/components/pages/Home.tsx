@@ -13,16 +13,16 @@ import { eAddressResource, eventResource } from '../../Resources';
 
 
 const initAddress: eAddressResource = {
-  street: "init",
-  houseNumber: "init",
-  postalCode: "init",
-  city: "init",
-  country: "init"
+  street: "",
+  houseNumber: "",
+  postalCode: "",
+  city: "",
+  country: ""
 }
 
 const initEvent: eventResource = {
-  name: "hahahaha",
-  description: "init",
+  name: "Wird geladen...",
+  description: "",
   price: -1,
   date: new Date(),
   address: initAddress

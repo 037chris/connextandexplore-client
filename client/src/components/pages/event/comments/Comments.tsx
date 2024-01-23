@@ -139,17 +139,17 @@ const Comments: React.FC<CommentsProps> = ({ eventId }: CommentsProps) => {
 
                 {
                   <span className="edited">
-                    {comment.edited ? "comment edited" : "comment not edited"}
+                    {comment.edited && "(bearbeitet)"}
                   </span>
                 }
                 {user && comment.creator === user.id && (
                   <button className="delete" onClick={openAuthenticationModal}>
-                    löschen
+                    Löschen
                   </button>
                 )}
                 {user && comment.creator === user.id && (
                   <button className="edit" onClick={openEditModal}>
-                    edit
+                    Bearbeiten
                   </button>
                 )}
               </div>

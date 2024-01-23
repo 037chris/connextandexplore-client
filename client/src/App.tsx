@@ -15,12 +15,12 @@ import "./sass/App.scss";
 
 //
 import UserProfile from "./components/pages/user/UserProfile";
-import CreateEventPage from "./components/pages/CreateEventPage";
-import EventDetails from "./components/pages/EventDetails";
+import CreateEventPage from "./components/pages/event/CreateEventPage";
+import EventDetails from "./components/pages/event/EventDetails";
 import UserEvents from "./components/pages/UserEvents";
 import PrivateRoute from "./components/PrivateRoute";
 import EditEvent from "./components/pages/EditEventPage";
-import EditEventPage from "./components/pages/EditEventPage";
+import EditEventPage from "./components/pages/event/EditEventPage";
 import Dsgvo from "./components/pages/general/Dsgvo";
 import Agbs from "./components/pages/general/Agbs";
 import Impressum from "./components/pages/general/Impressum";

@@ -1,6 +1,6 @@
 'use client'
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { eventResource } from "../../Resources";
 import Container from "../Container";
 import Event from "./Event";
@@ -10,9 +10,12 @@ interface OwnNewest4EventsProps {
 }
 
 const OwnNewest4Events: React.FC<OwnNewest4EventsProps> = ({ events }) => {
+  const navigate = useNavigate();
   return (
     <>
-      <h2 className="font-francisco">Deine Events</h2>
+      <h2 className="font-francisco">
+        <span className="cursor-pointer" onClick={() => navigate("/my-created-events")}>Deine Events</span>
+      </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 overflow-x-auto gap-5">
         {events.map((event, index) => (
           <div key={index} className="mb-8 mx-2">

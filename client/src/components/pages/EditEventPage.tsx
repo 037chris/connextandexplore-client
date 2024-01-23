@@ -1,13 +1,13 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import { useStepForm } from "../hooks/useStepForm";
 
-import EventDateForm from "./event/EventDateForm";
+import EventDateForm from "./event/eventForm/EventDateForm";
 import EventNameForm from "./event/EventNameForm";
-import EventDescriptionForm from "./event/EventDescriptionForm";
-import EventThumbnailForm from "./event/EventThumbnailForm";
+import EventDescriptionForm from "./event/eventForm/EventDescriptionForm";
+import EventThumbnailForm from "./event/eventForm/EventThumbnailForm";
 import EventSelectCategoryForm, {
   SelectOption,
-} from "./event/EventCategoryForm";
+} from "./event/eventForm/EventCategoryForm";
 
 import { categoryResource, eventResource } from "../../Resources";
 import { createEvent, getEvent, updateEvent } from "../../backend/boardapi";

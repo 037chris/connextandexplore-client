@@ -100,6 +100,7 @@ const EventDetails: React.FC = () => {
 
       toast.success("Successfully Deleted!");
       navigate("/my-created-events", { replace: true });
+      window.location.reload();
     } catch (error) {
       console.log("Can't delete event:", error);
     }
@@ -235,7 +236,7 @@ const EventDetails: React.FC = () => {
                   </li>
                   <li className="adress">
                     {event.address.street} {event.address.houseNumber}{" "}
-                    <span>{event.address.city}</span>
+                    <p>{event.address.postalCode} {event.address.city}, {event.address.country}</p>
                   </li>
                   <li className="participants">
                     {event.participants?.length} Teilnehmer

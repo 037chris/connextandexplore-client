@@ -129,7 +129,7 @@ export const EditComment = ({
     <div className="flex flex-col gap-4 mt-3">
       <div className="text-neutral-500 text-center mt-4 font-light">
         <div className="justify-center flex flex-row items-center gap-2">
-          <div>Placeholder</div>
+          <div>Dein Kommentar wird als "bearbeitet" makiert.</div>
         </div>
       </div>
     </div>
