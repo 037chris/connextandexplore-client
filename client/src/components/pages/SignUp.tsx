@@ -60,11 +60,13 @@ export default function SignUp() {
       await signup(formData);
 
       setAuthenticationModalIsOpen(true);
-      toast.success('Successfully Created!');
+      //toast.success('Successfully Created!');
+      toast.success('Registrierung abgeschlossen!');
       reset();
     } catch (error) {
       console.error(error);
-      toast.error('Something went wrong...');
+      //toast.error('Something went wrong...');
+      toast.error("Etwas ist fehlgeschlagen...");
     } finally {
       setLoading(false);
     }

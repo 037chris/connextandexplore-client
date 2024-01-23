@@ -307,14 +307,17 @@ const EditEventPage: React.FC = () => {
       });
 
       if (success) {
-        toast.success("Event updated successfully!");
+        //toast.success("Event updated successfully!");
+        toast.success("Event aktualisiert!");
         navigate(`/my-created-events`);
       } else {
-        toast.error("Failed to update the event.");
+        //toast.error("Failed to update the event.");
+        toast.error("Eventbearbeitung fehlgeschlagen.");
       }
     } catch (error) {
       console.error(error);
-      toast.error("Something went wrong...");
+      //toast.error("Something went wrong...");
+      toast.error("Etwas ist fehlgeschlagen...");
     }
   }
   };

@@ -109,7 +109,7 @@ export const EditComment = ({
       //navigate(0);
     } catch (error) {
       console.error(error);
-      toast.error("etwas ist fehlgeschlagen!");
+      toast.error("Etwas ist fehlgeschlagen...");
       //todo: map backend validation error to inputfield
       //toast.error('Something went wrong...');
     } finally {

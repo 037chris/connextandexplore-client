@@ -76,7 +76,7 @@ export const Header: React.FC<HomeRouteName> = ({ homeRoute, headline }) => {
                       <img src={logo} className="header-logo" alt="Logo" />
                       <h1 className="font-francisco">Mach die Stadt zu deinem Abenteuer
                         <span className="font-sans">
-                          Willkommen bei Click & Connect! Tauche ein in unsere Eventplattform und entdecke spannende Abenteuer in deiner Stadt. Erlebe die Vielfalt deiner Stadt auf völlig neue Weisen und knüpfe wertvolle Verbindungen. Sei Teil unserer Community und gestalte deine Freizeit auf einzigartige Art und Weise.
+                          Willkommen bei Connect&Explore! Tauche ein in unsere Eventplattform und entdecke spannende Abenteuer in deiner Stadt. Erlebe die Vielfalt deiner Stadt auf völlig neue Weisen und knüpfe wertvolle Verbindungen. Sei Teil unserer Community und gestalte deine Freizeit auf einzigartige Art und Weise.
                         </span>
                         <form onSubmit={handleSubmit}>
                           <label>

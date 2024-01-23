@@ -281,14 +281,17 @@ const CreateEventPage = () => {
         });
   
         if (success) {
-          toast.success("Event created successfully!");
+          //toast.success("Event created successfully!");
+          toast.success("Event erstellt!");
           navigate(`/my-created-events`);
         } else {
-          toast.error("Failed to create the event.");
+          //toast.error("Failed to create the event.");
+          toast.error("Eventerstellung fehlgeschlagen");
         }
       } catch (error) {
         console.error(error);
-        toast.error("Something went wrong...");
+        //toast.error("Something went wrong...");
+        toast.error("Etwas ist fehlgeschlagen...");
       }
     }
   };

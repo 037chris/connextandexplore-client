@@ -48,16 +48,19 @@ const LoginModal: FC<LoginModalProps> = ({ isOpen, onClose }) => {
         sessionStorage.setItem('token', JSON.stringify(loginResult))
         setUserID(user);
 
-        toast.success('Successfully logged in!');
+        //toast.success('Successfully logged in!');
+        toast.success('Erfolgreich eingeloggt!');
         onClose();
         navigate('/');
         reset();
       } else {
-        toast.error('Login failed. Please check your credentials.');
+        //toast.error('Login failed. Please check your credentials.');
+        toast.error('Login fehlgeschlagen. Überprüfe deine Anmeldeinformationen');
       }
     } catch (error) {
       console.error(error);
-      toast.error('Something went wrong...');
+      //toast.error('Something went wrong...');
+      toast.error("Etwas ist fehlgeschlagen...");
     } finally {
       setLoading(false);
     }

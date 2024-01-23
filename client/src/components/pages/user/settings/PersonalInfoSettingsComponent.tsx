@@ -95,7 +95,8 @@ const PersonalInfoSettingsComponent = () => {
 
       const res = await updateUser(formData!);
       console.log("res:", res);
-      toast.success("Your profile has been successfully updated");
+      //toast.success("Your profile has been successfully updated");
+      toast.success("Dein Profil wurde aktualisiert.");
       reset();
       const id = await getUserIDFromJWT();
       const updatedUserData = await getUser(id);
@@ -107,7 +108,8 @@ const PersonalInfoSettingsComponent = () => {
       );
       setValue("gender", updatedUserData?.gender ?? "");
     } catch (error) {
-      toast.error("Please enter a valid data");
+      //toast.error("Please enter a valid data");
+      toast.error("Bitte gebe gültige Daten ein!");
       console.error(error);
       //todo: map backend validation error to inputfield
       //toast.error('Something went wrong...');

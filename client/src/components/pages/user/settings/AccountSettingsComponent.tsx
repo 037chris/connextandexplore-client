@@ -59,15 +59,18 @@ const AccountSettingsComponent = () => {
         }
         const res = await updateUser(formData!);
         console.log("res:", res);
-        toast.success("Your E-Mail has been successfully updated");
+        //toast.success("Your E-Mail has been successfully updated");
+        toast.success("Deine E-Mail wurde aktualisiert.");
       } else {
-        toast.error("Please enter your new email");
+        //toast.error("Please enter your new email");
+        toast.error("Bitte gebe deine neue E-Mail ein.");
       }
 
       reset();
     } catch (error) {
       console.error(error);
-      toast.error("Please enter a valid data!");
+      //toast.error("Please enter a valid data!");
+      toast.error("Bitte gebe gültige Daten ein!");
     } finally {
       setLoading(false);
     }
@@ -86,16 +89,19 @@ const AccountSettingsComponent = () => {
           formData.append("id", userData?.id);
         }
       } else {
-        toast.error("Please enter your new password and old password");
+        //toast.error("Please enter your new password and old password");
+        toast.error("Bitte gebe dein altes und neues Passwort ein.");
       }
 
       const res = await updateUser(formData!);
       console.log("res:", res);
-      toast.success("Your Password has been successfully updated");
+      //toast.success("Your Password has been successfully updated");
+      toast.success("Dein Passwort wurde aktualisiert.");
       reset();
     } catch (error) {
       console.error(error);
-      toast.error("Please enter a valid Password");
+      //toast.error("Please enter a valid Password");
+      toast.error("Bitte gebe ein gültiges Passwort ein.");
     } finally {
       setLoading(false);
     }
@@ -107,14 +113,16 @@ const AccountSettingsComponent = () => {
       if (userData?.id) {
         const res = await deleteUser(userData.id);
         console.log("res:", res);
-        toast.success("Your Account has been successfully deactivated");
+        //toast.success("Your Account has been successfully deactivated");
+        toast.success("Dein Account wurde deaktiviert.");
         logout();
         navigate(0);
       }
       reset();
     } catch (error) {
       console.error(error);
-      toast.error("Error while deactivation of your account");
+      //toast.error("Error while deactivation of your account");
+      toast.error("Fehler bei der Deaktivierung deines Accounts");
     } finally {
       setLoading(false);
     }
@@ -139,7 +147,7 @@ const AccountSettingsComponent = () => {
         />
         <Button
           disabled={loading}
-          label={loading ? "Loading..." : "speichern"}
+          label={loading ? "Loading..." : "Speichern"}
           onClick={() => { }}
           primary
           className="save"
@@ -171,7 +179,7 @@ const AccountSettingsComponent = () => {
           />
           <Button
             disabled={loading}
-            label={loading ? "Loading..." : "speichern"}
+            label={loading ? "Loading..." : "Speichern"}
             onClick={() => { }}
             primary
             className="save"
@@ -188,7 +196,7 @@ const AccountSettingsComponent = () => {
         <form onSubmit={handleSubmit(onSubmitAccOff)} className="setting-form">
           <Button
             disabled={loading}
-            label={loading ? "Loading..." : "löschen"}
+            label={loading ? "Loading..." : "Löschen"}
             onClick={() => { }}
             secondary
             className="save password"

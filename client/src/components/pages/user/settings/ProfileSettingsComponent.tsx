@@ -114,7 +114,8 @@ const ProfilSettingsComponent = () => {
         });
         setProfilePicture(updatedUserData.profilePicture);
       }
-      toast.success("Your profile has been successfully updated");
+      //toast.success("Your profile has been successfully updated");
+      toast.success("Dein Profil wurde aktualisiert.");
       reset();
 
       // Update the form inputs with the updated data
@@ -130,7 +131,8 @@ const ProfilSettingsComponent = () => {
       );
       //navigate(0);
     } catch (error) {
-      toast.error("Please enter a valid data!");
+      //toast.error("Please enter a valid data!");
+      toast.error("Bitte gebe gültige Daten ein!");
       console.error(error);
       //todo: map backend validation error to inputfield
       //toast.error('Something went wrong...');
@@ -157,11 +159,13 @@ const ProfilSettingsComponent = () => {
           payload: null,
         });
       }
-      toast.success("Your profile picture has been successfully deleted");
+      //toast.success("Your profile picture has been successfully deleted");
+      toast.success("Dein Profilbild wurde gelöscht.");
       reset();
       //navigate(0);
     } catch (error) {
-      toast.error("Your profile picture can not be deleted");
+      //toast.error("Your profile picture can not be deleted");
+      toast.error("Dein Profilbild konnte nicht gelöscht werden.");
       console.error(error);
       //todo: map backend validation error to inputfield
       //toast.error('Something went wrong...');

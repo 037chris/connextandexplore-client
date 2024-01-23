@@ -101,7 +101,8 @@ const EventDetails: React.FC = () => {
         return prev;
       });
 
-      toast.success("Successfully Deleted!");
+      //toast.success("Successfully Deleted!");
+      toast.success("Event gelöscht!");
       navigate("/my-created-events", { replace: true });
       window.location.reload();
     } catch (error) {
@@ -232,13 +233,13 @@ const EventDetails: React.FC = () => {
             <div className="event-box grid grid-cols-1 md:grid-cols-3">
               <div className="col-span-1 min-h-fit event-content-box-left">
                 <ul>
-                <li className="flex stars">
+                {rating != 0 && (<li className="flex stars">
                   {rating > 0 ? <HiStar /> : <HiOutlineStar />}
                   {rating >= 2 ? <HiStar /> : <HiOutlineStar />}
                   {rating >= 3 ? <HiStar /> : <HiOutlineStar />}
                   {rating >= 4 ? <HiStar /> : <HiOutlineStar />}
                   {rating >= 5 ? <HiStar /> : <HiOutlineStar />}
-                </li>
+                </li>)}
                   <li className="date">
                     {event.date
                       ? format(new Date(event?.date), "PPPPp", { locale: de }) 
