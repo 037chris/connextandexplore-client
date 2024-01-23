@@ -358,3 +358,13 @@ header {
 .over-the-clouds {
     z-index: 999;
 }
+
+.stars {
+    margin-top: rem(10);
+
+    svg {
+        width: rem(25);
+        height: rem(25);
+        margin-right: rem(3);
+    }
+}

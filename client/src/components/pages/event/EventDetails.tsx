@@ -39,24 +39,8 @@ const EventDetails: React.FC = () => {
   const navigate = useNavigate();
   const [rating, setRating] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
-  const [authenticationModalIsOpen, setAuthenticationModalIsOpen] =
-    useState(false);
-
+  const [authenticationModalIsOpen, setAuthenticationModalIsOpen] = useState(false);
   const [userLoggedIn, setUserLoggedIn] = useState<boolean>(false);
-  // export type eventResource = {
-  //   id?: string;
-  //   name: string;
-  //   creator?: string;
-  //   description: string;
-  //   price: number;
-  //   date?: Date;
-  //   address: eAddressResource;
-  //   thumbnail?: string;
-  //   hashtags?: string[];
-  //   category?: categoryResource[];
-  //   chat?: string;
-  //   participants?: string[];
-  // };
 
   useEffect(() => {
 
@@ -110,7 +94,6 @@ const EventDetails: React.FC = () => {
     }
   };
 
-
   let participateButton;
   if ((userID) && (userID !== event?.creator)) {
     if (!joined) {
@@ -160,6 +143,14 @@ const EventDetails: React.FC = () => {
                 {/* 2/3 GRID FOR HEADLINE + CREATOR + BUTTONS */}
                 <div className="col-span-1 md:col-span-5 lg:col-span-6 xl:col-span-5">
                   <h1>{event!.name}</h1>
+                  {rating > 0 && (
+                    <div className="flex stars">
+                    {rating > 1 ? <HiStar /> : <HiOutlineStar />}
+                    {rating >= 2 ? <HiStar /> : <HiOutlineStar />}
+                    {rating >= 3 ? <HiStar /> : <HiOutlineStar />}
+                    {rating >= 4 ? <HiStar /> : <HiOutlineStar />}
+                    {rating >= 5 ? <HiStar /> : <HiOutlineStar />}
+                  </div>)}
                   {/* UNDER GRID 3/3 CREATOR + BTNS */}
                   <div className="col-span-1 md:col-span-3">
                     {/* CREATOR */}
@@ -233,16 +224,9 @@ const EventDetails: React.FC = () => {
             <div className="event-box grid grid-cols-1 md:grid-cols-3">
               <div className="col-span-1 min-h-fit event-content-box-left">
                 <ul>
-                {rating != 0 && (<li className="flex stars">
-                  {rating > 0 ? <HiStar /> : <HiOutlineStar />}
-                  {rating >= 2 ? <HiStar /> : <HiOutlineStar />}
-                  {rating >= 3 ? <HiStar /> : <HiOutlineStar />}
-                  {rating >= 4 ? <HiStar /> : <HiOutlineStar />}
-                  {rating >= 5 ? <HiStar /> : <HiOutlineStar />}
-                </li>)}
                   <li className="date">
                     {event.date
-                      ? format(new Date(event?.date), "PPPPp", { locale: de }) 
+                      ? format(new Date(event?.date), "PPPPp", { locale: de })
                       : "No Date"}
                   </li>
                   <li className="adress">
@@ -254,7 +238,7 @@ const EventDetails: React.FC = () => {
                   </li>
                 </ul>
                 <div className="btns">
-                  {userLoggedIn && !isOwner && (!joined? (
+                  {userLoggedIn && !isOwner && (!joined ? (
                     <button
                       className="teilnehmen"
                       onClick={async () => {
@@ -273,15 +257,15 @@ const EventDetails: React.FC = () => {
                       >
                         Austreten
                       </button>
-                      
+
                     </>
                   ))}
                   {joined && (<button className="bewerten mb-2" onClick={() => navigate('/chat', { state: { chatId: event.chat } })}>
-                        Chat
-                      </button>)}
+                    Chat
+                  </button>)}
                   {!isOwner && joined && (<button className="bewerten" onClick={openAuthenticationModal}>
-                        Bewerten
-                      </button>)}
+                    Bewerten
+                  </button>)}
                 </div>
               </div>
               <div className="col-span-1 md:col-span-2 min-h-fit event-content-box-right">
