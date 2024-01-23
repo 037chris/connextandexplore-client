@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/html/navbar/Navbar";
 import Home from "./components/pages/Home";
 import UserSettings from "./components/pages/user/UserSettings";
@@ -13,25 +13,20 @@ import { UserIDContext } from "./UserIDContext";
 // STYLES
 import "./sass/App.scss";
 
-//
-import UserProfile from "./components/pages/user/UserProfile";
 import CreateEventPage from "./components/pages/event/CreateEventPage";
 import EventDetails from "./components/pages/event/EventDetails";
 import UserEvents from "./components/pages/UserEvents";
 import PrivateRoute from "./components/PrivateRoute";
-import EditEvent from "./components/pages/EditEventPage";
 import EditEventPage from "./components/pages/event/EditEventPage";
 import Dsgvo from "./components/pages/general/Dsgvo";
 import Agbs from "./components/pages/general/Agbs";
 import Impressum from "./components/pages/general/Impressum";
 import Help from "./components/pages/general/Help";
 import ChatApp from "./components/chat/ChatApp";
-import YourEvents from "./components/pages/YourEvents";
-
-import { CreateComment } from "./components/pages/event/comments/CreateComment";
 import { AvatarProvider } from "./actions/AvatarContext";
 import { CommentProvider } from "./actions/commentContext";
 import AllEvents from "./components/allEvents/AllEvents";
+import JoinedEvents from "./components/events/JoinedEvents";
 
 export default function App() {
   const [userID, setUserID] = useState(getUserIDFromJWT());
@@ -64,10 +59,9 @@ export default function App() {
 
               <Route path="/event/:eventId" element={<EventDetails />} />
               <Route path="/events" element={<AllEvents />} />
-              <Route path="/yourevents" element={<YourEvents />} />
+              <Route path="/yourevents" element={<JoinedEvents />} />
               <Route path="*" element={<NotFound />} />
               <Route path="/events/undefined" element={<NotFound />} />
-              {/* <Route path="/event/:eventId/comment" element={<CreateComment/>}/> */}
 
               <Route path="/dsgvo" element={<Dsgvo />} />
               <Route path="/agbs" element={<Agbs />} />

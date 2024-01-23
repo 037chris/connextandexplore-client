@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import LoadingIndicator from "../LoadingIndicator";
 import { useUserIDContext } from "../../UserIDContext";
+import Footer from "../html/Footer";
+import { Header } from "../html/Header";
 
 interface JoinedEventsProps { }
 
@@ -15,6 +17,7 @@ const JoinedEvents: React.FC<JoinedEventsProps> = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    document.title = 'Deine Zusagen - Connect & Explore';
     const load = async () => {
       try {
         const joinedEvents = await getJoinedEvents();
@@ -32,6 +35,8 @@ const JoinedEvents: React.FC<JoinedEventsProps> = () => {
   }, []);
 
   return (
+    <>
+    <Header homeRoute={"page"} headline={"Deine Zusagen"} />
     <div className="max-grid content content-pt">
       <div className="grd grid-col-1 center">
         <p>Willkommen auf unserer "Connect & Explore" Seite für Veranstaltungen!</p>
@@ -67,6 +72,8 @@ const JoinedEvents: React.FC<JoinedEventsProps> = () => {
         </>
       )} 
     </div>
+    <Footer />
+    </>
   );
 };
 

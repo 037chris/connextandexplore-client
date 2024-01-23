@@ -4,9 +4,9 @@ import { Header } from "../../html/Header";
 export default function NotFound() {
     return (
         <>
-            <Header homeRoute={'page'} headline={'Oops! You seem to be lost.'} />
+            <Header homeRoute={'page'} headline={'Oops! Du bist verloren gegangen.'} />
             <div className="max-grid content-pt">
-                <h1 className="center">Oops! You seem to be lost.</h1>
+                <h1 className="center">Oops! Du bist verloren gegangen.</h1>
             </div>
             <Footer />
         </>

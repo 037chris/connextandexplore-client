@@ -87,3 +87,23 @@ p>a {
 .box-shadow {
     box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.05);
 }
+
+.font-francisco {
+    font-family: "Sue Ellen Francisco", cursive;
+}
+
+.font-sans {
+    font-family: "Helvetica Neue", sans-serif;
+    font-weight: 300;
+}
+
+.font-titan {
+    font-family: 'Titan One', sans-serif;
+}
+
+a,
+p,
+label,
+input {
+    font-weight: 200;
+}
