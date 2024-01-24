@@ -223,6 +223,10 @@
     border: rem(1) solid $border;
     border-radius: rem(8);
 
+    >div {
+        border-radius: rem(6);
+    }
+
     &:hover {
         @extend .box-shadow;
     }
