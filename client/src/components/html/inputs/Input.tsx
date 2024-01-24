@@ -223,7 +223,7 @@ function getCustomErrorText(id: string, error: any): string {
     case "gender":
       return error.message || "Bitte wählen Sie ein Geschlecht aus";
     case "title":
-      return error.message || (error.type === "minLength" ? `Der Titel muss mindestens ${minLength} Zeichen lang sein` : (error.type === "maxLength" ? `Der Titel darf maximal ${maxLength} Zeichen lang sein` : "Bitte geben Sie einen gültigen Titel ein"));
+      return error.message || (error.type === "minLength" ? `Der Titel muss mindestens ${minLength} Zeichen lang sein` : (error.type === "maxLength" ? `Der Titel darf maximal 50 Zeichen lang sein` : "Bitte geben Sie einen gültigen Titel ein"));
     case "content":
       return error.message || (error.type === "minLength" ? `Der Inhalt muss mindestens ${minLength} Zeichen lang sein` : (error.type === "maxLength" ? `Der Inhalt darf maximal ${maxLength} Zeichen lang sein` : "Bitte geben Sie einen gültigen Inhalt ein"));
     default:

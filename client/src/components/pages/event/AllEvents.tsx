@@ -35,7 +35,7 @@ const initEvent: eventResource = {
   address: initAddress,
 };
 
-const AllEvents: React.FC<AllEventsProps> = ({}) => {
+const AllEvents: React.FC<AllEventsProps> = ({ }) => {
   const [query, setQuery] = useState("");
   const [plz, setPLZ] = useState("");
   const location = useLocation();
@@ -168,24 +168,24 @@ const AllEvents: React.FC<AllEventsProps> = ({}) => {
   };
 
   const setActive = (category: string) => {
+    const activeElements = document.querySelectorAll('.active');
+    activeElements.forEach(element => {
+      element.classList.remove('active');
+    });
+
     const categoryElement = document.getElementById(category);
 
     if (categoryElement) {
-      const hasActiveClass = categoryElement.classList.contains("active");
-      const hasOnClass = categoryElement.classList.contains("on");
+      if (category === 'Filter') {
+        const hasOnClass = categoryElement.classList.contains('on');
 
-      if (category === "Filter") {
         if (hasOnClass) {
-          categoryElement.classList.remove("on");
+          categoryElement.classList.remove('on');
         } else {
-          categoryElement.classList.add("on");
+          categoryElement.classList.add('on');
         }
       } else {
-        if (hasActiveClass) {
-          categoryElement.classList.remove("active");
-        } else {
-          categoryElement.classList.add("active");
-        }
+        categoryElement.classList.add('active');
       }
     }
   };

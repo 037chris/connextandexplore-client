@@ -138,7 +138,7 @@ export const CreateComment = ({ isOpen, onClose }: CreateCommentModalProps) => {
                 register={register}
                 errors={errors}
                 minLength={3} // Example minimum length
-                maxLength={20} // Example maximum length
+                maxLength={50} // Example maximum length
                 required
               />
               <Input
