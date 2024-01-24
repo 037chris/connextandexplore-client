@@ -9,6 +9,7 @@ const RatingStarts: React.FC<RatingProps> = ({ numb }) => {
     const [stars, setStars] = useState<number>(0);
     
     useEffect(() => {
+        console.log("NUMB " +numb)
         setStars(numb);
     }, [numb]);
 
@@ -16,11 +17,11 @@ const RatingStarts: React.FC<RatingProps> = ({ numb }) => {
         <>
             {stars != 0 && (
                 <div className="flex stars">
-                    {stars > 1 ? <HiOutlineStar /> : <HiStar />}
-                    {stars >= 2 ? <HiOutlineStar /> : <HiStar />}
-                    {stars >= 3 ? <HiOutlineStar /> : <HiStar />}
-                    {stars >= 4 ? <HiOutlineStar /> : <HiStar />}
-                    {stars >= 5 ? <HiOutlineStar /> : <HiStar />}
+                    {stars > 1 ?  <HiStar /> : <HiOutlineStar />}
+                    {stars >= 2 ? <HiStar /> : <HiOutlineStar />}
+                    {stars >= 3 ? <HiStar /> : <HiOutlineStar />}
+                    {stars >= 4 ? <HiStar /> : <HiOutlineStar />}
+                    {stars >= 5 ? <HiStar /> : <HiOutlineStar />}
                 </div>)}
         </>
     );
